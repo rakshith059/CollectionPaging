@@ -23,8 +23,10 @@ android {
 }
 
 dependencies {
+    def support_version = "27.1.1"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
@@ -44,4 +46,10 @@ dependencies {
 
     //Paging
     implementation "android.arch.paging:runtime:1.0.1"
+
+    //for cardview
+    implementation 'com.android.support:cardview-v7:' + support_version
+
+    //for loading images
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
 }

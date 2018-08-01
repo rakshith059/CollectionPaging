@@ -29,7 +29,7 @@ class CollectionService {
         var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
         var mCompositeDisposable: CompositeDisposable? = null
 
-        var collectionData: MutableLiveData<List<BulkTableModel>> = MutableLiveData()
+        var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
 
         //        var collectionList = ArrayList<HashMap<String, BulkTableModel>>()
         var collectionModelList = ArrayList<BulkTableModel>()
@@ -46,13 +46,13 @@ class CollectionService {
         }
     }
 
-    fun getCollectionResponse(): LiveData<List<BulkTableModel>> {
+    fun getCollectionResponse(pageNumber: Int): LiveData<BulkTableModel> {
 //        var collectionOrderHashMap = LinkedHashMap<String, BulkTableModel>()
 
 //        var collectionItemList = ArrayList<String>()
         Log.d("Rakshith", "api call started for first iteration.. ")
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(Constants.COLLECTION_HOME, Constants.PAGE_LIMIT, 0 * Constants.PAGE_LIMIT)
+        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(Constants.COLLECTION_HOME, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
                 .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                 .retry(3)
                 .subscribeOn(Schedulers.io())
@@ -75,6 +75,8 @@ class CollectionService {
 
                             collectionModelList.add(bulkTableModel)
 
+                            collectionData.value = bulkTableModel
+
 //                            collectionItemList.add(mCollectionItem?.slug.toString())
                         } else if (mCollectionItem?.type == Constants.TYPE_STORY) {
                             var bulkTableModel = BulkTableModel(mCollectionItem?.story?.slug,
@@ -88,6 +90,7 @@ class CollectionService {
 //                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
 
                             collectionModelList.add(bulkTableModel)
+                            collectionData.value = bulkTableModel
 
 //                            collectionItemList.add(mCollectionItem?.story?.slug.toString())
                         }
@@ -110,7 +113,7 @@ class CollectionService {
                     override fun onComplete() {
                         Log.d("Rakshith", "api call completed for first iteration.. ")
 
-                        collectionData.value = collectionModelList
+//                        collectionData.value = collectionModelList
                     }
 
                     override fun onNext(mCollectionsModel: CollectionResponse) {
@@ -166,6 +169,8 @@ class CollectionService {
                                     var bulkModel: BulkTableModel = collectionModelList.get(index)
                                     bulkModel.innerCollectionResponse = mCollectionsModel
 
+                                    collectionData.value = bulkModel
+
 //                                if (collectionList.get(0).containsKey(mCollectionSlug) == true) {
 //                                    var mCollectionInnerItem = collectionList.get(0).get(mCollectionSlug)
 //
@@ -212,6 +217,8 @@ class CollectionService {
                             if (collectionModelList.get(index)?.outerCollectionInnerSlug?.equals(mCollectionSlug) == true && collectionModelList.get(index)?.outerCollectionInnerSlug?.isEmpty() == false) {
                                 var bulkModel: BulkTableModel = collectionModelList.get(index)
                                 bulkModel.innerCollectionResponse = mCollectionsModel
+
+                                collectionData.value = bulkModel
                             }
                         }
 
