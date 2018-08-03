@@ -10,7 +10,7 @@ import android.os.Parcelable
 class BulkTableModel(mSlug: String?,
                      mStory: Story?,
                      mOuterCollectionName: String?,
-//                     mOuterCollectionSummary: String?,
+                     mOuterCollectionAssociatedMetadata: AssociatedMetadata?,
                      mOuterCollectionTemplate: String?,
                      mOuterCollectionInnerSlug: String?,
                      mOuterCollectionInnerItem: CollectionItem?,
@@ -18,7 +18,7 @@ class BulkTableModel(mSlug: String?,
     var slug: String? = mSlug
     var story: Story? = mStory
     var outerCollectionName: String? = mOuterCollectionName
-    //    var outerCollectionSummary: String? = mOuterCollectionSummary
+    var mOuterCollectionAssociatedMetadata: AssociatedMetadata? = mOuterCollectionAssociatedMetadata
     var outerCollectionTemplate: String? = mOuterCollectionTemplate
     var outerCollectionInnerSlug: String? = mOuterCollectionInnerSlug
     var outerCollectionInnerItem: CollectionItem? = mOuterCollectionInnerItem

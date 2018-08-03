@@ -24,6 +24,5 @@ class MainViewModel : ViewModel() {
 
     fun getCollectionLoadMoreResponse(currentPage: Int) {
         collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(currentPage)
-//        CollectionService.getInstance(compositeDisposable).getChildRxResponse("home", Constants.PAGE_LIMIT, 0)
     }
 }

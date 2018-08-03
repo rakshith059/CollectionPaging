@@ -24,7 +24,6 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    val compositeDisposable = CompositeDisposable()
     private lateinit var viewModel: MainViewModel
 
     var linkedHashMap = LinkedHashMap<String, BulkTableModel>()
@@ -40,8 +39,22 @@ class MainFragment : Fragment() {
         viewModel.getCollectionResponse()
         observeViewModel(viewModel)
 
-        var layoutManager = LinearLayoutManager(getActivity());
+        var layoutManager = LinearLayoutManager(getActivity())
         main_fragment_rv_collection_list.layoutManager = layoutManager
+
+//        var recyclerViewPool = object : RecyclerView.RecycledViewPool() {
+//            override fun getRecycledView(viewType: Int): RecyclerView.ViewHolder? {
+//                return super.getRecycledView(viewType)
+//            }
+//
+//            override fun putRecycledView(scrap: RecyclerView.ViewHolder?) {
+//                super.putRecycledView(scrap)
+//            }
+//
+//            override fun toString(): String {
+//                return super.toString()
+//            }
+//        }
 
         main_fragment_rv_collection_list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
@@ -67,25 +80,10 @@ class MainFragment : Fragment() {
                 }
             }
         })
-
-//        getCollectionResponse()
     }
 
     private fun observeViewModel(viewModel: MainViewModel) {
-//        if (viewModel.getCollectionListObservable() != null && viewModel.getCollectionListObservable()?.size as Int > 0) {
-//            var viewmodelobservable = viewModel.getCollectionListObservable()?.last()
-//            var hashmapKeys = viewmodelobservable?.keys
-//
-//            for (index in 0 until hashmapKeys?.size as Int) {
-//                Log.d("Rakshith", " hashmap keys is ${hashmapKeys.indices}")
-//            }
-//        }
-
-
         viewModel.getCollectionListObservable()?.observe(this, Observer<BulkTableModel>() {
-            //            for (index in 0 until it?.size as Int) {
-//                var slug = it?.get(index)?.slug
-
             it?.let { it1 -> linkedHashMap.put(it?.slug.toString(), it1) }
             var linkedCollectionList = linkedHashMap.values.toList()
 
@@ -93,13 +91,8 @@ class MainFragment : Fragment() {
 
             var collectionAdapter = HomeCollectionAdapter(linkedCollectionList)
             main_fragment_rv_collection_list?.adapter = collectionAdapter
-//            }
         })
     }
-
-//    fun getCollectionResponse() {
-//        var collectionResponse = CollectionService.getInstance(compositeDisposable).getCollectionResponse()
-//    }
 
     override fun onDestroy() {
         super.onDestroy()

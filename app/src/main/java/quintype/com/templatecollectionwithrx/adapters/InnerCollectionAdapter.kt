@@ -2,57 +2,56 @@ package quintype.com.templatecollectionwithrx.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.CollectionItem
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.DefaultCollectionViewHolder
+import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
+import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.CollectionViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.DefaultStoryViewHolder
-import quintype.com.templatecollectionwithrx.utils.Constants
 
-/**
- * Created TemplateCollectionWithRx by rakshith on 7/31/18.
- */
-
-
-class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var collectionList = linkedCollectionList
+class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var mCollectionItem = collectionItem
     val TYPE_COLLECTION = 1000
     val TYPE_STORY = 1001
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            TYPE_COLLECTION -> {
-                return DefaultCollectionViewHolder.create(parent)
-            }
-            TYPE_STORY -> {
-                return DefaultStoryViewHolder.create(parent)
-            }
+            TYPE_COLLECTION -> return CollectionViewHolder.create(parent)
+            TYPE_STORY -> return DefaultStoryViewHolder.create(parent)
         }
         return DefaultStoryViewHolder.create(parent)
+//        if (viewType == 0)
+//            return CollectionViewHolder.create(parent)
+//        else
+//            return DefaultStoryViewHolder.create(parent)
     }
 
     override fun getItemCount(): Int {
-        return collectionList?.size
+        if (mCollectionItem?.size != null)
+            return mCollectionItem?.size as Int
+        else return 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is DefaultCollectionViewHolder) {
-            holder.bind(collectionList.get(position))
+        var collectionItemStory = mCollectionItem?.get(position)?.story as Story
+
+        if (holder is CollectionViewHolder) {
+            holder.bind(collectionItemStory)
         } else if (holder is DefaultStoryViewHolder) {
-//            holder.bind(collectionList.get(position))
+            holder.bind(collectionItemStory)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        var itemType = collectionList.get(position).story
-        if (itemType == null)
-            return TYPE_COLLECTION
-        else return TYPE_STORY
+        var collectionItemPosition = mCollectionItem?.get(position)?.position
 
-//        var associatedMetadataLayout = collectionList.get(position).mOuterCollectionAssociatedMetadata?.associatedMetadataLayout
+        if (collectionItemPosition == 0)
+            return TYPE_COLLECTION
+        else
+            return TYPE_STORY
+//        var associatedMetadataLayout = mCollectionItem.mOuterCollectionAssociatedMetadata?.associatedMetadataLayout
 //        if (associatedMetadataLayout != null)
 //            when (associatedMetadataLayout) {
 //                Constants.HALF_IMAGE_SLIDER -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -62,7 +61,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.TWO_COLUMN_GRID -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -72,7 +71,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.FULL_SCREEN_SIMPLE_SLIDER -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -82,7 +81,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.THREE_COLUMN -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -92,16 +91,17 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.FULL_SCREEN_LINEAR_GALLERY_SLIDER -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items as List<CollectionItem>
-//                    for (index in 0 until collectionInnerList?.size) {
-//                        if (index == 0)
-//                            return TYPE_COLLECTION
-//                        else
-//                            return TYPE_STORY
-//                    }
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
+//                    if (collectionInnerList != null)
+//                        for (index in 0 until collectionInnerList?.size) {
+//                            if (index == 0)
+//                                return TYPE_COLLECTION
+//                            else
+//                                return TYPE_STORY
+//                        }
 //                }
 //                Constants.TWO_COLUMN -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -111,7 +111,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.L_SHAPED_ONE_WIDGET -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -121,7 +121,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.FULL_IMAGE_SLIDER -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -131,7 +131,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.TWO_COLUMN_CAROUSEL -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -141,7 +141,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.TWO_COLUMN_HIGHLIGHT -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -151,7 +151,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //                Constants.FOUR_COLUMN_GRID -> {
-//                    var collectionInnerList = collectionList.get(position).innerCollectionResponse?.items
+//                    var collectionInnerList = mCollectionItem.innerCollectionResponse?.items
 //                    if (collectionInnerList != null)
 //                        for (index in 0 until collectionInnerList?.size) {
 //                            if (index == 0)
@@ -161,6 +161,6 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 //                        }
 //                }
 //            }
-//        return TYPE_STORY
+        return TYPE_STORY
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_8dp"
+        android:elevation="@dimen/size_8dp"
+        app:cardCornerRadius="@dimen/size_8dp"
+        app:layout_constraintTop_toBottomOf="@+id/default_collection_row_tv_collection_name">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/collection_row_iv_hero_icon"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_150dp"
+                android:background="@color/colorPrimary"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/collection_row_tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_8dp"
+                android:ellipsize="end"
+                android:fontFamily="serif-monospace"
+                android:maxLines="3"
+                android:text="@string/app_name"
+                android:textSize="@dimen/size_16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/collection_row_iv_hero_icon" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

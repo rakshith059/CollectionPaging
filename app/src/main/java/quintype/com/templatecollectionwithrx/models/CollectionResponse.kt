@@ -238,7 +238,37 @@ class CollectionItem {
     var story: Story? = null
 }
 
-public class AssociatedMetadata {
+class AssociatedMetadata {
+    @SerializedName("layout")
+    @Expose
+    var associatedMetadataLayout: String? = null
+    @SerializedName("show_arrows")
+    @Expose
+    var associatedMetadataShowArrow: Boolean = false
+    @SerializedName("show_author_name")
+    @Expose
+    var associatedMetadataShowAuthorName: Boolean = false
+    @SerializedName("slider_type_dots")
+    @Expose
+    var associatedMetadataSliderTypeDots: Boolean = false
+    @SerializedName("show_section_tag")
+    @Expose
+    var associatedMetadataSHowSectionTag: Boolean = false
+    @SerializedName("show_time_of_publish")
+    @Expose
+    var associatedMetadataSHowTimeToPublish: Boolean = false
+    @SerializedName("show_collection_name")
+    @Expose
+    var associatedMetadataSHowCollectionName: Boolean = false
+    @SerializedName("slider_type_dashes")
+    @Expose
+    var associatedMetadataSliderTypeDashes: Boolean = false
+    @SerializedName("scroll_speed_ms")
+    @Expose
+    var associatedMetadataScrollSpeedMs: Int = 0
+    @SerializedName("number_of_stories_to_show")
+    @Expose
+    var associatedMetadataNumberOfStoriesToShow: Int = 0
 }
 
 class Item_ {
