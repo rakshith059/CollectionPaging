@@ -1,6 +1,6 @@
 package quintype.com.templatecollectionwithrx.models
 
-class CollectionInnerListModel(mStory: Story, index: Int) {
+class CollectionInnerListModel(mStory: Story, viewHolderType: Int) {
     var story: Story? = mStory
-    var position: Int = index
+    var viewHolderType = viewHolderType
 }

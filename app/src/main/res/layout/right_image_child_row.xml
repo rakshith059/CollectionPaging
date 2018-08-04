@@ -12,23 +12,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/default_story_row_iv_hero_icon"
-            android:layout_width="@dimen/size_150dp"
-            android:layout_height="@dimen/size_100dp"
-            android:background="@color/colorAccent" />
-
         <TextView
-            android:id="@+id/default_story_row_tv_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/right_image_child_row_tv_title"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/size_8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
             android:fontFamily="serif-monospace"
             android:maxLines="4"
-            android:ellipsize="end"
             android:text="zknxvjxhvjkzxvjkzxhvjzhxvjkhzxjvkbzxhjkvbzxkvb xzkvnzxmv bnxzmbvkjxzvbkxjzbvjkxzbvjkxzbvjkbzxkjvbjzkxbvjkxzbvjkzxbjvkbxzjkvbjxkzbvjxzbvjzbxjvbxzjbvjzxbvjkzxbjvkbzxkjvbjzkxbvjkxzbvjkzxbjkvbzxjkvbjzkxbvjkzxbvkjxzbkvjbk"
             android:textSize="@dimen/size_16sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/right_image_child_row_iv_hero_icon"
+            android:layout_width="@dimen/size_150dp"
+            android:layout_height="@dimen/size_100dp"
+            android:background="@color/colorAccent" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

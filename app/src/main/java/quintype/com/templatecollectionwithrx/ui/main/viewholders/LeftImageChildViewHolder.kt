@@ -8,17 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.Story
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
  */
 
-class DefaultStoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class LeftImageChildViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(collectionItem: Story) {
-        var tvStoryTitle = itemView.findViewById<TextView>(R.id.default_story_row_tv_title)
-        var ivStoryHeroImage = itemView.findViewById<ImageView>(R.id.default_story_row_iv_hero_icon)
+        var tvStoryTitle = itemView.findViewById<TextView>(R.id.left_image_child_row_tv_title)
+        var ivStoryHeroImage = itemView.findViewById<ImageView>(R.id.left_image_child_row_iv_hero_icon)
 
         tvStoryTitle?.text = collectionItem?.headline
 
@@ -42,9 +41,9 @@ class DefaultStoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 //    }
 
     companion object {
-        fun create(parent: ViewGroup): DefaultStoryViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.default_story_row, parent, false)
-            return DefaultStoryViewHolder(view)
+        fun create(parent: ViewGroup): LeftImageChildViewHolder {
+            var view = LayoutInflater.from(parent.context).inflate(R.layout.left_image_child_row, parent, false)
+            return LeftImageChildViewHolder(view)
         }
     }
 }

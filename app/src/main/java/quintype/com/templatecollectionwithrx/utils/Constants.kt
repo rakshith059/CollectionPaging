@@ -8,7 +8,7 @@ class Constants {
     companion object {
         //        val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        val BASE_URL = "https://www.thequint.com"
-//        val BASE_URL = "https://madrid.quintype.io"
+//                val BASE_URL = "https://madrid.quintype.io"
         val BASE_URL = "https://www.samachara.com"
         val COLLECTION_HOME: String = "home"
         val PAGE_LIMIT: Int = 20
@@ -32,5 +32,15 @@ class Constants {
         val FULL_IMAGE_SLIDER = "FullImageSlider"
         val TWO_COLUMN_CAROUSEL = "TwoColCarousel"
         val TWO_COLUMN_HIGHLIGHT = "TwoColHighlight"
+
+
+        val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER = 1000
+        val VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD = 1001
+        val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER = 1002
+        val VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD = 1003
+        val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_SLIDER = 1004
+        val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_SLIDER = 1005
+        val VIEWHOLDER_TYPE_HALF_SCREEN_CHILD = 1006
+        val VIEWHOLDER_TYPE_STORY = 1007
     }
 }

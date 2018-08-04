@@ -25,6 +25,7 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    var collectionAdapter: HomeCollectionAdapter? = null
 
     var linkedHashMap = LinkedHashMap<String, BulkTableModel>()
 
@@ -88,8 +89,7 @@ class MainFragment : Fragment() {
             var linkedCollectionList = linkedHashMap.values.toList()
 
             Log.d("Rakshith", "summary is ${it?.slug}")
-
-            var collectionAdapter = HomeCollectionAdapter(linkedCollectionList)
+            collectionAdapter = HomeCollectionAdapter(linkedCollectionList)
             main_fragment_rv_collection_list?.adapter = collectionAdapter
         })
     }

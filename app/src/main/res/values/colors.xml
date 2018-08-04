@@ -4,4 +4,14 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="grey">#EEEEEE</color>
+    <color name="white_transparency_75">#BFFFFFFF</color>
+    <color name="white_transparency_50">#88FFFFFF</color>
+    <color name="white_transparency_25">#44FFFFFF</color>
+    <color name="white_opacity_95">#F2FFFFFF</color>
+    <color name="story_element_summary_bg">#fffaf1</color>
+    <color name="translucent">#1A000000</color>
+    <color name="black_opacity_50">#80000000</color>
+    <color name="black_opacity_75">#BF000000</color>
+    <color name="black_opacity_25">#3F000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>
