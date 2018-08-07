@@ -9,10 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
+import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.Story
 
 class TitleInsideImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-    fun bind(collectionItem: Story) {
+    fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_inside_image_header_row_iv_hero_icon)
         var tvTitle = itemView?.findViewById<TextView>(R.id.title_inside_image_header_row_tv_title)
 

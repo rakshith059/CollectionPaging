@@ -12,8 +12,6 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 
 class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var mCollectionItem = collectionItem
-//    val TYPE_COLLECTION = 1000
-//    val TYPE_STORY = 1001
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -27,21 +25,22 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
 
     override fun getItemCount(): Int {
         if (mCollectionItem?.size != null)
-            return mCollectionItem?.size as Int
+            return mCollectionItem?.size
         else return 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var collectionItemStory = mCollectionItem?.get(position)?.story as Story
+        var collectionAssociatedMetadata = mCollectionItem?.get(position)?.associatedMetadata
 
         if (holder is TitleBelowImageViewHolder) {
-            holder.bind(collectionItemStory)
+            holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is LeftImageChildViewHolder) {
-            holder.bind(collectionItemStory)
+            holder.bind(collectionItemStory,collectionAssociatedMetadata)
         } else if (holder is TitleInsideImageViewHolder) {
-            holder.bind(collectionItemStory)
+            holder.bind(collectionItemStory,collectionAssociatedMetadata)
         } else if (holder is RightImageChildViewHolder) {
-            holder.bind(collectionItemStory)
+            holder.bind(collectionItemStory,collectionAssociatedMetadata)
         }
     }
 

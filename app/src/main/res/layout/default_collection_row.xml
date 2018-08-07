@@ -21,9 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_8dp"
-        android:background="@color/grey"
-        android:orientation="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:background="@color/grey"
         app:layout_constraintTop_toBottomOf="@+id/default_collection_row_tv_collection_name" />
 
 </android.support.constraint.ConstraintLayout>

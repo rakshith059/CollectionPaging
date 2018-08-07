@@ -253,13 +253,13 @@ class AssociatedMetadata {
     var associatedMetadataSliderTypeDots: Boolean = false
     @SerializedName("show_section_tag")
     @Expose
-    var associatedMetadataSHowSectionTag: Boolean = false
+    var associatedMetadataShowSectionTag: Boolean = false
     @SerializedName("show_time_of_publish")
     @Expose
-    var associatedMetadataSHowTimeToPublish: Boolean = false
+    var associatedMetadataShowTimeToPublish: Boolean = false
     @SerializedName("show_collection_name")
     @Expose
-    var associatedMetadataSHowCollectionName: Boolean = false
+    var associatedMetadataShowCollectionName: Boolean = false
     @SerializedName("slider_type_dashes")
     @Expose
     var associatedMetadataSliderTypeDashes: Boolean = false
