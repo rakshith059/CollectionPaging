@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.Story
+
 
 class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
@@ -24,7 +26,7 @@ class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
         var tvTitle = itemView?.findViewById<TextView>(R.id.title_below_image_header_row_tv_title)
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.author_image_row_main_container)
-        var ivAuthorIcon = itemView?.findViewById<ImageView>(R.id.author_image_row_iv_author_icon)
+        var ivAuthorIcon = itemView?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
         var tvAuthorName = itemView?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
         var tvPublishedDate = itemView?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
 
@@ -45,15 +47,16 @@ class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
                 val authorName = collectionItem.authorName
                 if (authorName != null) {
                     tvAuthorName?.text = authorName
-
-                    ivAuthorIcon?.visibility = View.VISIBLE
                     tvAuthorName?.visibility = View.VISIBLE
                     clMainContainer?.visibility = View.VISIBLE
 
                     val heroImageURL = collectionItem.authors?.get(0)?.avatarUrl
-                    Glide.with(ivAuthorIcon?.context as Context)
-                            .load(heroImageURL)
-                            .into(ivAuthorIcon)
+                    if (heroImageURL != null) {
+                        ivAuthorIcon?.visibility = View.VISIBLE
+                        Glide.with(ivAuthorIcon?.context as Context)
+                                .load(heroImageURL)
+                                .into(ivAuthorIcon)
+                    }
                 }
             }
             if (isShowTimeToPublish) {

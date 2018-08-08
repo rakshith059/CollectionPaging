@@ -10,7 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.reactivex.disposables.CompositeDisposable
+import android.view.WindowManager
 import kotlinx.android.synthetic.main.main_fragment.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomeCollectionAdapter
@@ -36,6 +36,9 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getCollectionResponse()
         observeViewModel(viewModel)
