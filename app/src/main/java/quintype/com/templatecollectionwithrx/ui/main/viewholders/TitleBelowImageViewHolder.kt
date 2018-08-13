@@ -7,30 +7,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.utils.Constants
 
 
 class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-    var isShowAuthorName = true
-    var isShowCollectionName = true
-    var isShowTimeToPublish = true
+    private var isShowAuthorName = true
+    private var isShowTimeToPublish = false
+    private var isShowSectionName = false
 
     fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_header_row_iv_hero_icon)
-        var tvTitle = itemView?.findViewById<TextView>(R.id.title_below_image_header_row_tv_title)
+        var tvTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
 
-        var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.author_image_row_main_container)
+        var tvSection = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_section_name)
+
+        var clSectionBlockMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.section_block_title_author_row_main_container)
+        var clMainContainer = itemView?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
         var ivAuthorIcon = itemView?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
         var tvAuthorName = itemView?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
         var tvPublishedDate = itemView?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
 
-        tvTitle?.text = collectionItem?.headline
+        tvTitle?.text = collectionItem.headline
 
         val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
 
@@ -40,8 +45,10 @@ class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
 
         if (collectionAssociatedMetadata != null) {
             isShowAuthorName = collectionAssociatedMetadata.associatedMetadataShowAuthorName
-            isShowCollectionName = collectionAssociatedMetadata.associatedMetadataShowCollectionName
             isShowTimeToPublish = collectionAssociatedMetadata.associatedMetadataShowTimeToPublish
+            isShowSectionName = collectionAssociatedMetadata.associatedMetadataShowSectionTag
+
+            val assosiatedMetadataTheme = collectionAssociatedMetadata.associatedMetadataTheme
 
             if (isShowAuthorName) {
                 val authorName = collectionItem.authorName
@@ -50,7 +57,7 @@ class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
                     tvAuthorName?.visibility = View.VISIBLE
                     clMainContainer?.visibility = View.VISIBLE
 
-                    val heroImageURL = collectionItem.authors?.get(0)?.avatarUrl
+                    val heroImageURL = collectionItem.authors?.first()?.avatarUrl
                     if (heroImageURL != null) {
                         ivAuthorIcon?.visibility = View.VISIBLE
                         Glide.with(ivAuthorIcon?.context as Context)
@@ -67,6 +74,39 @@ class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
                     clMainContainer?.visibility = View.VISIBLE
                     tvPublishedDate?.visibility = View.VISIBLE
                 }
+            }
+            if (isShowSectionName) {
+                val sectionName = collectionItem.sections?.first()?.displayName
+                if (sectionName != null) {
+                    tvSection?.visibility = View.VISIBLE
+                    tvSection?.text = sectionName
+                } else
+                    tvSection?.visibility = View.GONE
+            }
+            if (assosiatedMetadataTheme != null) {
+                var mContext = itemView.context
+                var mWhiteColor = mContext.resources.getColor(R.color.white)
+                var mBlackColor = mContext.resources.getColor(R.color.black)
+
+                when (assosiatedMetadataTheme) {
+                    Constants.ASSOISATED_THEME_DARK -> {
+                        tvTitle?.setTextColor(mWhiteColor)
+                        tvAuthorName?.setTextColor(mWhiteColor)
+                        tvPublishedDate?.setTextColor(mWhiteColor)
+                        clSectionBlockMainContainer?.setBackgroundColor(mBlackColor)
+                    }
+                    Constants.ASSOISATED_THEME_LIGHT -> {
+                        tvTitle?.setTextColor(mBlackColor)
+                        tvAuthorName?.setTextColor(mBlackColor)
+                        tvPublishedDate?.setTextColor(mBlackColor)
+                        clSectionBlockMainContainer?.setBackgroundColor(mWhiteColor)
+                    }
+                }
+            } else {
+                tvTitle?.setTextColor(itemView.context.resources.getColor(R.color.white))
+                tvAuthorName?.setTextColor(itemView.context.resources.getColor(R.color.white))
+                tvPublishedDate?.setTextColor(itemView.context.resources.getColor(R.color.white))
+                clSectionBlockMainContainer?.setBackgroundColor(itemView.context.resources.getColor(R.color.black))
             }
         }
     }

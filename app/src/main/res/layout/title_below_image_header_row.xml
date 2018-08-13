@@ -22,24 +22,11 @@
                 android:background="@color/colorPrimary"
                 android:scaleType="fitXY" />
 
-            <TextView
-                android:id="@+id/title_below_image_header_row_tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/size_8dp"
-                android:ellipsize="end"
-                android:fontFamily="serif-monospace"
-                android:maxLines="3"
-                android:text="@string/app_name"
-                android:textSize="@dimen/size_16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/title_below_image_header_row_iv_hero_icon" />
-
             <include
-                layout="@layout/author_image_row"
+                layout="@layout/section_block_title_author_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/title_below_image_header_row_tv_title" />
+                app:layout_constraintTop_toBottomOf="@+id/title_below_image_header_row_iv_hero_icon" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

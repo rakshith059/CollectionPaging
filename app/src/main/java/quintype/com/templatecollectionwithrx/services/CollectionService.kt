@@ -85,7 +85,13 @@ class CollectionService {
                 })
                 .filter({ mCollectionItem -> mCollectionItem.type.equals(Constants.TYPE_COLLECTION) })
                 .concatMapEager({ mCollectionItem ->
-                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, Constants.PAGE_LIMIT_CHILD, 0)
+                    var PAGE_LIMIT_CHILD = Constants.PAGE_LIMIT_CHILD
+                    var noOfStoriesToShow = mCollectionItem.associatedMetadata?.associatedMetadataNumberOfStoriesToShow
+                    if (noOfStoriesToShow != null && noOfStoriesToShow > 0) {
+                        PAGE_LIMIT_CHILD = noOfStoriesToShow
+                    }
+
+                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0)
                             .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())

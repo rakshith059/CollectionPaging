@@ -22,7 +22,18 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(collectionItem: BulkTableModel) {
         val tvCollectionName = itemView?.findViewById<TextView>(R.id.default_collection_row_tv_collection_name)
-        tvCollectionName?.text = collectionItem.outerCollectionName
+
+        var showCollectionName = true
+        var associatedMetadataShowCollectionName = collectionItem?.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
+        if (associatedMetadataShowCollectionName != null) {
+            showCollectionName = associatedMetadataShowCollectionName
+        } else showCollectionName = true
+
+        if (showCollectionName) {
+            tvCollectionName?.visibility = View.VISIBLE
+            tvCollectionName?.text = collectionItem.outerCollectionName
+        } else
+            tvCollectionName?.visibility = View.GONE
 
         rvInnerCollection = itemView?.findViewById<RecyclerView>(R.id.default_collection_row_rv_inner_collection)
 

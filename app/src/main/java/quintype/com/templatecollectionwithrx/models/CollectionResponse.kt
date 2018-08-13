@@ -259,7 +259,7 @@ class AssociatedMetadata {
     var associatedMetadataShowTimeToPublish: Boolean = false
     @SerializedName("show_collection_name")
     @Expose
-    var associatedMetadataShowCollectionName: Boolean = false
+    var associatedMetadataShowCollectionName: Boolean = true
     @SerializedName("slider_type_dashes")
     @Expose
     var associatedMetadataSliderTypeDashes: Boolean = false
@@ -269,6 +269,9 @@ class AssociatedMetadata {
     @SerializedName("number_of_stories_to_show")
     @Expose
     var associatedMetadataNumberOfStoriesToShow: Int = 0
+    @SerializedName("theme")
+    @Expose
+    var associatedMetadataTheme: String? = null
 }
 
 class Item_ {

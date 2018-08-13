@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.main_activity.*
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
-import quintype.com.templatecollectionwithrx.ui.main.MainFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
 

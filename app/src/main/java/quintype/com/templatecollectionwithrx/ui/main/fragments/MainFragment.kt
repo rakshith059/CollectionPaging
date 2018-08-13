@@ -1,4 +1,4 @@
-package quintype.com.templatecollectionwithrx.ui.main
+package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders

@@ -42,5 +42,7 @@ class Constants {
         val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_SLIDER = 1005
         val VIEWHOLDER_TYPE_HALF_SCREEN_CHILD = 1006
         val VIEWHOLDER_TYPE_STORY = 1007
+        val ASSOISATED_THEME_DARK: String = "dark"
+        val ASSOISATED_THEME_LIGHT: String = "light"
     }
 }
