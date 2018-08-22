@@ -87,62 +87,62 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         }
                         rvInnerCollection?.layoutManager = gridLayoutManager
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
 
                     }
                     Constants.FULL_SCREEN_LINEAR_GALLERY_SLIDER -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.TWO_COLUMN -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.L_SHAPED_ONE_WIDGET -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.FULL_IMAGE_SLIDER -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.TWO_COLUMN_CAROUSEL -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.TWO_COLUMN_HIGHLIGHT -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.FOUR_COLUMN_GRID -> {
                         val layoutManager = LinearLayoutManager(rvInnerCollection?.context)
                         layoutManager.orientation = LinearLayout.HORIZONTAL
                         rvInnerCollection?.layoutManager = layoutManager
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
                     }
                 }
             else {
                 if (index == 0)
-                    collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, null))
+                    collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER, null))
                 else
-                    collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, null))
+                    collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, null))
             }
         }
     }

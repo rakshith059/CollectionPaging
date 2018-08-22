@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFragmentList(): List<Fragment> {
         var fragmentList = ArrayList<Fragment>()
-        for (index in 0 until 5)
+        for (index in 0 until 1)
             fragmentList.add(MainFragment.newInstance())
 
         return fragmentList

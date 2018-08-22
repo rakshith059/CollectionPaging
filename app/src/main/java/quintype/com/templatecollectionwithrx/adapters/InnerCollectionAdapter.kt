@@ -36,15 +36,18 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
         if (holder is TitleBelowImageViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is LeftImageChildViewHolder) {
-            holder.bind(collectionItemStory,collectionAssociatedMetadata)
+            holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is TitleInsideImageViewHolder) {
-            holder.bind(collectionItemStory,collectionAssociatedMetadata)
+            holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is RightImageChildViewHolder) {
-            holder.bind(collectionItemStory,collectionAssociatedMetadata)
+            holder.bind(collectionItemStory, collectionAssociatedMetadata)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return mCollectionItem?.get(position)?.viewHolderType
+        var viewHolderType = mCollectionItem?.get(position)?.viewHolderType
+        if (viewHolderType != null)
+            return viewHolderType
+        else return Constants.VIEWHOLDER_TYPE_STORY
     }
 }

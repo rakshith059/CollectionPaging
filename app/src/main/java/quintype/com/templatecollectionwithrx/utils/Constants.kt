@@ -8,8 +8,8 @@ class Constants {
     companion object {
         //        val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        val BASE_URL = "https://www.thequint.com"
-//                val BASE_URL = "https://madrid.quintype.io"
-        val BASE_URL = "https://www.samachara.com"
+                val BASE_URL = "https://madrid.quintype.io"
+//        val BASE_URL = "https://www.samachara.com"
         val COLLECTION_HOME: String = "home"
         val PAGE_LIMIT: Int = 20
         val TYPE_COLLECTION: String = "collection"
