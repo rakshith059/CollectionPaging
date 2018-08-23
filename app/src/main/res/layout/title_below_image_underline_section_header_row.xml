@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/title_below_image_header_row_iv_hero_icon"
+                android:id="@+id/title_below_image_underline_section_header_row_iv_hero_icon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_150dp"
                 android:background="@color/colorPrimary"
@@ -29,10 +29,10 @@
             <!--app:layout_constraintTop_toBottomOf="@+id/title_below_image_header_row_iv_hero_icon" />-->
 
             <include
-                layout="@layout/section_block_title_author_row"
+                layout="@layout/section_underline_title_author_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/title_below_image_header_row_iv_hero_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/title_below_image_underline_section_header_row_iv_hero_icon" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

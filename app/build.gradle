@@ -56,4 +56,7 @@ dependencies {
 
     //for circle image view
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //for circle indicator pager
+    implementation 'me.relex:circleindicator:1.1.9@aar'
 }

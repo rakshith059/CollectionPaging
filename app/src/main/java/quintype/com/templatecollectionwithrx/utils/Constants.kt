@@ -8,12 +8,14 @@ class Constants {
     companion object {
         //        val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        val BASE_URL = "https://www.thequint.com"
-                val BASE_URL = "https://madrid.quintype.io"
-//        val BASE_URL = "https://www.samachara.com"
+        val BASE_URL = "https://madrid.quintype.io"
+        //        val BASE_URL = "https://ace-web.staging.quintype.io"
+        //        val BASE_URL = "https://www.samachara.com"
         val COLLECTION_HOME: String = "home"
         val PAGE_LIMIT: Int = 20
         val TYPE_COLLECTION: String = "collection"
         val PAGE_LIMIT_CHILD: Int = 5
+        val DELAY_SEC: Long = 3
         val TYPE_STORY: String = "story"
         val WIDGET_TEMPLATE: String = "widget"
         val STORY_FILEDS: String? = "id,hero-image-s3-key, sections,headline,author-name, created-at,hero-image-caption,story-content-id,tags,hero-image-metadata,story-template,slug,metadata"
@@ -34,14 +36,15 @@ class Constants {
         val TWO_COLUMN_HIGHLIGHT = "TwoColHighlight"
 
 
-        val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER = 1000
+        val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION = 1000
         val VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD = 1001
         val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER = 1002
         val VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD = 1003
         val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_SLIDER = 1004
         val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_SLIDER = 1005
         val VIEWHOLDER_TYPE_HALF_SCREEN_CHILD = 1006
-        val VIEWHOLDER_TYPE_STORY = 1007
+        val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_UNDERLINE_SECTION = 1007
+        val VIEWHOLDER_TYPE_STORY = 1008
         val ASSOISATED_THEME_DARK: String = "dark"
         val ASSOISATED_THEME_LIGHT: String = "light"
     }

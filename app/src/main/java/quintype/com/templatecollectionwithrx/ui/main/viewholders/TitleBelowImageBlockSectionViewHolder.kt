@@ -19,14 +19,14 @@ import quintype.com.templatecollectionwithrx.models.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 
-class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class TitleBelowImageBlockSectionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     private var isShowAuthorName = true
     private var isShowTimeToPublish = false
     private var isShowSectionName = false
 
     fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_header_row_iv_hero_icon)
+        var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_block_section_header_row_iv_hero_icon)
         var tvTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
 
         var tvSection = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_section_name)
@@ -127,12 +127,12 @@ class TitleBelowImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
     }
 
     companion object {
-//        var mSectionBlockTitleAuthorFragment: SectionBlockTitleAuthorFragment? = null
-        fun create(parent: ViewGroup): TitleBelowImageViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_header_row, parent, false)
+        //        var mSectionBlockTitleAuthorFragment: SectionBlockTitleAuthorFragment? = null
+        fun create(parent: ViewGroup): TitleBelowImageBlockSectionViewHolder {
+            var view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_block_section_header_row, parent, false)
 
 //            mSectionBlockTitleAuthorFragment = SectionBlockTitleAuthorFragment(view?.context as Context)
-            return TitleBelowImageViewHolder(view)
+            return TitleBelowImageBlockSectionViewHolder(view)
         }
     }
 
