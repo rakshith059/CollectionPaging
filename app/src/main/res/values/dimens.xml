@@ -18,4 +18,6 @@
     <dimen name="size_25dp">25dp</dimen>
     <dimen name="size_300dp">300dp</dimen>
     <dimen name="size_250dp">250dp</dimen>
+    <dimen name="size_450dp">450dp</dimen>
+    <dimen name="size_20dp">20dp</dimen>
 </resources>

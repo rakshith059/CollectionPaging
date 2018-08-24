@@ -27,19 +27,32 @@
         android:layout_marginTop="@dimen/size_8dp"
         android:ellipsize="end"
         android:fontFamily="monospace"
-        android:maxLines="2"
-        android:minLines="2"
+        android:maxLines="3"
         android:text="@string/title"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/size_16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_tv_section_name" />
 
+    <quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
+        android:id="@+id/section_block_title_author_row_item_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_4dp"
+        android:isIndicator="true"
+        android:visibility="visible"
+        app:halfStars="true"
+        app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_tv_title"
+        app:maxStars="5"
+        app:onlyForDisplay="true"
+        app:starPadding="@dimen/size_2dp" />
+
+
     <include
         layout="@layout/author_image_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_tv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_item_rating_bar" />
 
 </android.support.constraint.ConstraintLayout>
