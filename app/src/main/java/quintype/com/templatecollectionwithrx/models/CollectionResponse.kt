@@ -260,9 +260,6 @@ class AssociatedMetadata {
     @SerializedName("show_collection_name")
     @Expose
     var associatedMetadataShowCollectionName: Boolean = true
-    @SerializedName("slider_type_dashes")
-    @Expose
-    var associatedMetadataSliderTypeDashes: Boolean = false
     @SerializedName("scroll_speed_ms")
     @Expose
     var associatedMetadataScrollSpeedMs: Int = 0
@@ -272,6 +269,12 @@ class AssociatedMetadata {
     @SerializedName("theme")
     @Expose
     var associatedMetadataTheme: String? = null
+    @SerializedName("slider_type_dashes")
+    @Expose
+    var associatedMetadataSliderTypeDashes: Boolean = false
+    @SerializedName("enable_auto_play")
+    @Expose
+    var associatedMetadataEnableAutoPlay: Boolean = false
 }
 
 class Item_ {

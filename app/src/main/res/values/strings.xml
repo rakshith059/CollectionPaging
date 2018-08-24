@@ -6,4 +6,5 @@
     <string name="section">Section</string>
     <string name="title">Title</string>
     <string name="clicked_position">clicked_position</string>
+    <string name="collection_list_size">collection_list_size</string>
 </resources>

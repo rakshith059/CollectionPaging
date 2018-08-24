@@ -56,7 +56,6 @@ class PagerCarouselViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
         tvPublishedDate?.setTextColor(itemView.context.resources.getColor(R.color.white))
 
 
-
         if (collectionAssociatedMetadata != null) {
             isShowAuthorName = collectionAssociatedMetadata.associatedMetadataShowAuthorName
             isShowTimeToPublish = collectionAssociatedMetadata.associatedMetadataShowTimeToPublish

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import me.relex.circleindicator.CircleIndicator
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.PagerCarouselAdapter
@@ -15,18 +16,51 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.widgets.PagerScheduleProxy
 
 
-class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-
+class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
     fun bind(collectionList: List<CollectionItem>?, collectionAssociatedMetadata: AssociatedMetadata?) {
+        /**
+         * Checking for indicator type
+         */
+        if (collectionAssociatedMetadata?.associatedMetadataSliderTypeDashes as Boolean)
+            circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dash_primary, R.drawable.ic_dash_secondary)
+        else if (collectionAssociatedMetadata?.associatedMetadataSliderTypeDots)
+            circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dot_primary, R.drawable.ic_dot_black)
+        else
+            circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dot_primary, R.drawable.ic_dot_black)
+
         mSlideShowPager?.setAdapter(PagerCarouselAdapter(collectionAssociatedMetadata, collectionList))
-        pagerScheduleProxy = PagerScheduleProxy(mSlideShowPager as ViewPager, Constants.DELAY_SEC)
-        pagerScheduleProxy?.onStart()
+
+        /**
+         * Checking the response for auto-play the carousel
+         */
+        if (collectionAssociatedMetadata?.associatedMetadataEnableAutoPlay) {
+            pagerScheduleProxy = PagerScheduleProxy(mSlideShowPager as ViewPager, Constants.DELAY_SEC)
+            pagerScheduleProxy?.onStart()
+        }
+
+        /**
+         * Condition to show arrow
+         */
+        if (collectionAssociatedMetadata?.associatedMetadataShowArrow) {
+            ivLeftArrow?.visibility = View.VISIBLE
+            ivRightArrow?.visibility = View.VISIBLE
+        } else {
+            ivLeftArrow?.visibility = View.GONE
+            ivRightArrow?.visibility = View.GONE
+        }
 
         circleIndicator?.setViewPager(mSlideShowPager)
         circleIndicator?.setOnPageChangeListener(pagerScheduleProxy?.onPageChangeListener)
 
-        var position = mSlideShowPager?.currentItem as Int
-        slideshowContainer?.setTag(R.string.clicked_position, position)
+        currentPosition = mSlideShowPager?.currentItem as Int
+        slideshowContainer?.setTag(R.string.clicked_position, currentPosition)
+
+        var collectionListSize = collectionList?.size as Int - 1
+
+        ivLeftArrow?.setOnClickListener(this)
+        ivLeftArrow?.setTag(R.string.collection_list_size, collectionListSize)
+        ivRightArrow?.setOnClickListener(this)
+        ivRightArrow?.setTag(R.string.collection_list_size, collectionListSize)
     }
 
     companion object {
@@ -41,6 +75,10 @@ class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolde
         var pagerScheduleProxy: PagerScheduleProxy? = null
         var attachStateChangeListener: View.OnAttachStateChangeListener? = null
 
+        var ivLeftArrow: ImageView? = null
+        var ivRightArrow: ImageView? = null
+
+        var currentPosition = 0
         fun create(parent: ViewGroup): TitleInsideImageSliderViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
 
@@ -49,7 +87,9 @@ class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolde
             mImageWidth = view.getWidth()
             circleIndicator = view.findViewById<CircleIndicator>(R.id.title_inside_image_slider_circle_indicator)
 
-            circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dot_yellow, R.drawable.ic_dot_black)
+            ivLeftArrow = view?.findViewById<ImageView>(R.id.pager_carousel_title_row_iv_left_arrow)
+            ivRightArrow = view?.findViewById<ImageView>(R.id.pager_carousel_title_row_iv_right_arrow)
+
             attachStateChangeListener = object : View.OnAttachStateChangeListener {
                 override fun onViewAttachedToWindow(v: View) {
                 }
@@ -61,12 +101,27 @@ class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolde
                     }
                 }
             }
-
             slideshowContainer?.addOnAttachStateChangeListener(attachStateChangeListener)
 
             return TitleInsideImageSliderViewHolder(view)
         }
-
     }
 
+    override fun onClick(v: View?) {
+        var collectionListSize = v?.getTag(R.string.collection_list_size) as Int
+        when (v?.id) {
+            R.id.pager_carousel_title_row_iv_left_arrow -> {
+                if (currentPosition > 0) {
+                    currentPosition -= 1
+                    mSlideShowPager?.setCurrentItem(currentPosition, true)
+                }
+            }
+            R.id.pager_carousel_title_row_iv_right_arrow -> {
+                if (currentPosition < collectionListSize) {
+                    currentPosition += 1
+                    mSlideShowPager?.setCurrentItem(currentPosition, true)
+                }
+            }
+        }
+    }
 }

@@ -32,9 +32,9 @@ class PagerScheduleProxy(internal var viewPager: ViewPager, interval: Long) {
         }
 
         override fun onPageSelected(position: Int) {
-            if (mScheduledExecutorService != null) mScheduledExecutorService!!.shutdownNow()
+            if (mScheduledExecutorService != null) mScheduledExecutorService?.shutdownNow()
             mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
-            mScheduledExecutorService!!.scheduleWithFixedDelay(ScrollTask(), mInterval, Constants.DELAY_SEC, TimeUnit.SECONDS)
+            mScheduledExecutorService?.scheduleWithFixedDelay(ScrollTask(), mInterval, Constants.DELAY_SEC, TimeUnit.SECONDS)
             mCurrentItem = position
         }
 
@@ -54,7 +54,7 @@ class PagerScheduleProxy(internal var viewPager: ViewPager, interval: Long) {
     private inner class ScrollTask : Runnable {
 
         override fun run() {
-            mCurrentItem = (mCurrentItem + 1) % viewPager.adapter!!.count
+            mCurrentItem = (mCurrentItem + 1) % viewPager.adapter?.count as Int
             mHandler.obtainMessage().sendToTarget()
         }
     }
@@ -63,12 +63,12 @@ class PagerScheduleProxy(internal var viewPager: ViewPager, interval: Long) {
     fun onStart() {
         mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
         //        mScheduledExecutorService.schedule(new ScrollTask(), mInterval, TimeUnit.SECONDS);
-        mScheduledExecutorService!!.scheduleWithFixedDelay(ScrollTask(), mInterval, Constants.DELAY_SEC, TimeUnit.SECONDS)
+        mScheduledExecutorService?.scheduleWithFixedDelay(ScrollTask(), mInterval, Constants.DELAY_SEC, TimeUnit.SECONDS)
     }
 
 
     fun onStop() {
-        if (mScheduledExecutorService != null) mScheduledExecutorService!!.shutdownNow()
+        if (mScheduledExecutorService != null) mScheduledExecutorService?.shutdownNow()
     }
 
 
