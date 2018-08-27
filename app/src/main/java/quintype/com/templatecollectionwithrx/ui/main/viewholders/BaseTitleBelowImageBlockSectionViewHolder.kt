@@ -1,12 +1,9 @@
-package quintype.com.templatecollectionwithrx.ui.main.fragments
+package quintype.com.templatecollectionwithrx.ui.main.viewholders
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
-import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -15,60 +12,40 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
-import kotlinx.android.synthetic.main.section_block_title_author_row.*
-import quintype.com.templatecollectionwithrx.models.Image
-import java.util.jar.Attributes
-
+import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 /**
- * Created TemplateCollectionWithRx by rakshith on 8/13/18.
+ * Created TemplateCollectionWithRx by rakshith on 8/27/18.
  */
-class SectionBlockTitleAuthorFragment : ConstraintLayout {
+
+open class BaseTitleBelowImageBlockSectionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     private var isShowAuthorName = true
     private var isShowTimeToPublish = false
     private var isShowSectionName = false
 
-    val mContext: Context? = null
+    open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
+        var view = this.itemView.rootView
 
-    constructor(context: Context?) : super(context) {
-        if (mContext != null) {
-            setUpView(mContext)
+        var tvTitle = view?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
+        var tvSection = view?.findViewById<TextView>(R.id.section_block_title_author_row_tv_section_name)
+        var clSectionBlockMainContainer = view?.findViewById<ConstraintLayout>(R.id.section_block_title_author_row_main_container)
+        var clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
+        var ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
+        var tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
+        var tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
+        var rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
+
+        tvTitle?.text = collectionItem?.headline
+
+        var reviewRatingValue: Float? = collectionItem?.metadata?.reviewRating?.metadataReviewRatingValue?.toFloat()
+
+        if (reviewRatingValue != null && reviewRatingValue > 0f) {
+            rbCustomRatingBar?.visibility = View.VISIBLE
+            rbCustomRatingBar?.score = reviewRatingValue
+        } else {
+            rbCustomRatingBar?.visibility = View.GONE
         }
-    }
-
-    constructor(context: Context?, attrs: AttributeSet) : super(context) {
-        if (mContext != null) {
-            setUpView(mContext)
-        }
-    }
-
-    var tvTitle: TextView? = null
-    var tvSection: TextView? = null
-    var tvPublishedDate: TextView? = null
-    var tvAuthorName: TextView? = null
-    var clSectionBlockMainContainer: ConstraintLayout? = null
-    var clMainContainer: LinearLayout? = null
-    var ivAuthorIcon: ImageView? = null
-
-    fun setUpView(mContext: Context) {
-        val view = LayoutInflater.from(mContext)?.inflate(R.layout.section_block_title_author_row, this)
-
-        tvTitle = view?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
-
-        tvSection = view?.findViewById<TextView>(R.id.section_block_title_author_row_tv_section_name)
-
-        clSectionBlockMainContainer = view?.findViewById<ConstraintLayout>(R.id.section_block_title_author_row_main_container)
-        clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
-        ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
-        tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
-        tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
-    }
-
-    fun setAssosiatedMetaData(mContext: Context, collectionAssociatedMetadata: AssociatedMetadata?, collectionItem: Story) {
-        setUpView(mContext)
-
-        tvTitle?.text = collectionItem.headline
 
         if (collectionAssociatedMetadata != null) {
             isShowAuthorName = collectionAssociatedMetadata.associatedMetadataShowAuthorName
@@ -87,9 +64,9 @@ class SectionBlockTitleAuthorFragment : ConstraintLayout {
                     val heroImageURL = collectionItem.authors?.first()?.avatarUrl
                     if (heroImageURL != null) {
                         ivAuthorIcon?.visibility = View.VISIBLE
-                        Glide.with(mContext)
+                        Glide.with(ivAuthorIcon?.context as Context)
                                 .load(heroImageURL)
-                                .into(ivAuthorIcon as ImageView)
+                                .into(ivAuthorIcon)
                     }
                 }
             }
@@ -111,6 +88,7 @@ class SectionBlockTitleAuthorFragment : ConstraintLayout {
                     tvSection?.visibility = View.GONE
             }
             if (assosiatedMetadataTheme != null) {
+                var mContext = itemView.context
                 var themePrimaryColor = mContext.resources.getColor(R.color.theme_primary_color)
                 var themeSecondaryColor = mContext.resources.getColor(R.color.theme_secondary_color)
 
@@ -128,14 +106,15 @@ class SectionBlockTitleAuthorFragment : ConstraintLayout {
                         clSectionBlockMainContainer?.setBackgroundColor(themePrimaryColor)
                     }
                 }
-            } else {
-                var themePrimaryColor = mContext.resources.getColor(R.color.theme_primary_color)
-                var themeSecondaryColor = mContext.resources.getColor(R.color.theme_secondary_color)
-                tvTitle?.setTextColor(themePrimaryColor)
-                tvAuthorName?.setTextColor(themePrimaryColor)
-                tvPublishedDate?.setTextColor(themePrimaryColor)
-                clSectionBlockMainContainer?.setBackgroundColor(themeSecondaryColor)
             }
+//            else {
+//                var themePrimaryColor = itemView.context.resources.getColor(R.color.theme_primary_color)
+//                var themeSecondaryColor = itemView.context.resources.getColor(R.color.theme_secondary_color)
+//                tvTitle?.setTextColor(themePrimaryColor)
+//                tvAuthorName?.setTextColor(themePrimaryColor)
+//                tvPublishedDate?.setTextColor(themePrimaryColor)
+//                clSectionBlockMainContainer?.setBackgroundColor(themeSecondaryColor)
+//            }
         }
     }
 }

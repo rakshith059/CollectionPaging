@@ -10,7 +10,7 @@
         android:id="@+id/section_block_title_author_row_tv_section_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/theme_secondary_color"
         android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:padding="@dimen/size_8dp"
@@ -26,10 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_8dp"
         android:ellipsize="end"
-        android:fontFamily="monospace"
+        android:fontFamily="serif-monospace"
         android:maxLines="3"
         android:text="@string/title"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/theme_secondary_color"
         android:textSize="@dimen/size_16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_tv_section_name" />
@@ -40,13 +40,12 @@
         android:layout_height="@dimen/size_20dp"
         android:layout_marginTop="@dimen/size_4dp"
         android:isIndicator="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:halfStars="true"
         app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_tv_title"
         app:maxStars="5"
         app:onlyForDisplay="true"
         app:starPadding="@dimen/size_2dp" />
-
 
     <include
         layout="@layout/author_image_row"

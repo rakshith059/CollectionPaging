@@ -1,5 +1,7 @@
 package quintype.com.templatecollectionwithrx.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -238,7 +240,15 @@ class CollectionItem {
     var story: Story? = null
 }
 
-class AssociatedMetadata {
+class AssociatedMetadata() : Parcelable {
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun describeContents(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @SerializedName("layout")
     @Expose
     var associatedMetadataLayout: String? = null
@@ -275,6 +285,31 @@ class AssociatedMetadata {
     @SerializedName("enable_auto_play")
     @Expose
     var associatedMetadataEnableAutoPlay: Boolean = false
+
+    constructor(parcel: Parcel) : this() {
+        associatedMetadataLayout = parcel.readString()
+        associatedMetadataShowArrow = parcel.readByte() != 0.toByte()
+        associatedMetadataShowAuthorName = parcel.readByte() != 0.toByte()
+        associatedMetadataSliderTypeDots = parcel.readByte() != 0.toByte()
+        associatedMetadataShowSectionTag = parcel.readByte() != 0.toByte()
+        associatedMetadataShowTimeToPublish = parcel.readByte() != 0.toByte()
+        associatedMetadataShowCollectionName = parcel.readByte() != 0.toByte()
+        associatedMetadataScrollSpeedMs = parcel.readInt()
+        associatedMetadataNumberOfStoriesToShow = parcel.readInt()
+        associatedMetadataTheme = parcel.readString()
+        associatedMetadataSliderTypeDashes = parcel.readByte() != 0.toByte()
+        associatedMetadataEnableAutoPlay = parcel.readByte() != 0.toByte()
+    }
+
+    companion object CREATOR : Parcelable.Creator<AssociatedMetadata> {
+        override fun createFromParcel(parcel: Parcel): AssociatedMetadata {
+            return AssociatedMetadata(parcel)
+        }
+
+        override fun newArray(size: Int): Array<AssociatedMetadata?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
 
 class Item_ {
@@ -325,6 +360,24 @@ class Metadata___ {
     @SerializedName("card-share")
     @Expose
     var cardShare: CardShare? = null
+    @SerializedName("review-title")
+    @Expose
+    var reviewTitle: String? = null
+    @SerializedName("review-rating")
+    @Expose
+    var reviewRating: MetadataReviewRating? = null
+    @SerializedName("sponsored-by")
+    @Expose
+    var sponsoredBy: String? = null
+}
+
+class MetadataReviewRating {
+    @SerializedName("label")
+    @Expose
+    var metadataReviewRatingLabel: String? = null
+    @SerializedName("value")
+    @Expose
+    var metadataReviewRatingValue: String? = null
 }
 
 class Metadata____ {
@@ -393,7 +446,7 @@ class SocialShare {
 
 }
 
-class Story {
+class Story() : Parcelable {
 
     @SerializedName("updated-at")
     @Expose
@@ -557,6 +610,84 @@ class Story {
     @SerializedName("assignee-name")
     @Expose
     var assigneeName: String? = null
+
+    constructor(parcel: Parcel) : this() {
+        updatedAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        assigneeId = parcel.readValue(Int::class.java.classLoader) as? Int
+        authorName = parcel.readString()
+        headline = parcel.readString()
+        storyContentId = parcel.readString()
+        slug = parcel.readString()
+        lastPublishedAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        contentCreatedAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        ownerName = parcel.readString()
+        publisherId = parcel.readValue(Int::class.java.classLoader) as? Int
+        publishedAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        summary = parcel.readString()
+        status = parcel.readString()
+        heroImageAttribution = parcel.readString()
+        bulletType = parcel.readString()
+        id = parcel.readString()
+        heroImageS3Key = parcel.readString()
+        storyVersionId = parcel.readString()
+        contentType = parcel.readString()
+        contentUpdatedAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        authorId = parcel.readValue(Int::class.java.classLoader) as? Int
+        ownerId = parcel.readValue(Int::class.java.classLoader) as? Int
+        promotionalMessage = parcel.readString()
+        firstPublishedAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        heroImageCaption = parcel.readString()
+        version = parcel.readValue(Int::class.java.classLoader) as? Int
+        storyTemplate = parcel.readString()
+        createdAt = parcel.readValue(Long::class.java.classLoader) as? Long
+        assigneeName = parcel.readString()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(updatedAt)
+        parcel.writeValue(assigneeId)
+        parcel.writeString(authorName)
+        parcel.writeString(headline)
+        parcel.writeString(storyContentId)
+        parcel.writeString(slug)
+        parcel.writeValue(lastPublishedAt)
+        parcel.writeValue(contentCreatedAt)
+        parcel.writeString(ownerName)
+        parcel.writeValue(publisherId)
+        parcel.writeValue(publishedAt)
+        parcel.writeString(summary)
+        parcel.writeString(status)
+        parcel.writeString(heroImageAttribution)
+        parcel.writeString(bulletType)
+        parcel.writeString(id)
+        parcel.writeString(heroImageS3Key)
+        parcel.writeString(storyVersionId)
+        parcel.writeString(contentType)
+        parcel.writeValue(contentUpdatedAt)
+        parcel.writeValue(authorId)
+        parcel.writeValue(ownerId)
+        parcel.writeString(promotionalMessage)
+        parcel.writeValue(firstPublishedAt)
+        parcel.writeString(heroImageCaption)
+        parcel.writeValue(version)
+        parcel.writeString(storyTemplate)
+        parcel.writeValue(createdAt)
+        parcel.writeString(assigneeName)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Story> {
+        override fun createFromParcel(parcel: Parcel): Story {
+            return Story(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Story?> {
+            return arrayOfNulls(size)
+        }
+    }
 
 }
 
