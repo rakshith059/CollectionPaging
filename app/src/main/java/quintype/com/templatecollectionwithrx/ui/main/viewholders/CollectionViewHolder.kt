@@ -23,12 +23,12 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(collectionItem: BulkTableModel) {
         val tvCollectionName = itemView?.findViewById<TextView>(R.id.default_collection_row_tv_collection_name)
 
-        var showCollectionName = true
+        var showCollectionName: Boolean
         var associatedMetadataShowCollectionName = collectionItem?.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
         if (associatedMetadataShowCollectionName != null) {
             showCollectionName = associatedMetadataShowCollectionName
         } else showCollectionName = true
-
+        
         if (showCollectionName) {
             tvCollectionName?.visibility = View.VISIBLE
             tvCollectionName?.text = collectionItem.outerCollectionName
@@ -54,9 +54,9 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 when (associatedMetadataLayout) {
                     Constants.HALF_IMAGE_SLIDER -> {
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata))
-                        else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList, collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_SLIDER, mOuterCollectionAssociatedMetadata))
+//                        else
+//                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story as Story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.TWO_COLUMN_GRID -> {
                         if (index == 0)

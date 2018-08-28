@@ -25,8 +25,12 @@ class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolde
             circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dash_primary, R.drawable.ic_dash_secondary)
         else if (collectionAssociatedMetadata?.associatedMetadataSliderTypeDots)
             circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dot_primary, R.drawable.ic_dot_black)
-        else
-            circleIndicator?.configureIndicator(INDICATOR_WIDTH, INDICATOR_HEIGHT, INDICATOR_MARGIN, R.animator.scale_with_alpha, 0, R.drawable.ic_dot_primary, R.drawable.ic_dot_black)
+        else {
+            /**
+             * if both dots and dash indicators are false then hide the indicator
+             */
+            circleIndicator?.visibility = View.GONE
+        }
 
         mSlideShowPager?.setAdapter(PagerCarouselAdapter(collectionAssociatedMetadata, collectionList))
 
@@ -36,19 +40,19 @@ class TitleInsideImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolde
         if (collectionAssociatedMetadata?.associatedMetadataEnableAutoPlay) {
             pagerScheduleProxy = PagerScheduleProxy(mSlideShowPager as ViewPager, Constants.DELAY_SEC)
             pagerScheduleProxy?.onStart()
-        }
-
-        /**
-         * Condition to show arrow
-         */
-        if (collectionAssociatedMetadata?.associatedMetadataShowArrow) {
-            ivLeftArrow?.visibility = View.VISIBLE
-            ivRightArrow?.visibility = View.VISIBLE
         } else {
-            ivLeftArrow?.visibility = View.GONE
-            ivRightArrow?.visibility = View.GONE
+            /**
+             * Condition to show arrow
+             */
+            if (collectionAssociatedMetadata?.associatedMetadataShowArrow) {
+                ivLeftArrow?.visibility = View.VISIBLE
+                ivRightArrow?.visibility = View.VISIBLE
+            } else {
+                ivLeftArrow?.visibility = View.GONE
+                ivRightArrow?.visibility = View.GONE
+            }
         }
-
+        
         circleIndicator?.setViewPager(mSlideShowPager)
         circleIndicator?.setOnPageChangeListener(pagerScheduleProxy?.onPageChangeListener)
 
