@@ -128,6 +128,9 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         else
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
                     }
+                    Constants.ONE_COLUMN_STORY_LIST -> {
+                        collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, mOuterCollectionAssociatedMetadata))
+                    }
                     Constants.FOUR_COLUMN_GRID -> {
                         val layoutManager = LinearLayoutManager(rvInnerCollection?.context)
                         layoutManager.orientation = LinearLayout.HORIZONTAL
@@ -136,6 +139,12 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata))
                         else
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata))
+                    }
+                    else -> {
+                        if (index == 0)
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, null))
+                        else
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, null))
                     }
                 }
             else {

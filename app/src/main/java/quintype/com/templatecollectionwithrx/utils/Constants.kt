@@ -34,6 +34,7 @@ class Constants {
         val FULL_IMAGE_SLIDER = "FullImageSlider"
         val TWO_COLUMN_CAROUSEL = "TwoColCarousel"
         val TWO_COLUMN_HIGHLIGHT = "TwoColHighlight"
+        val ONE_COLUMN_STORY_LIST = "OneColStoryList"
 
 
         val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION = 1000
