@@ -4,15 +4,14 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.CollectionItem
 import quintype.com.templatecollectionwithrx.models.Story
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.PagerCarouselViewHolder
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.PagerCarouselFullScreenViewHolder
 
 
-class PagerCarouselAdapter(collectionAssociatedMetadata: AssociatedMetadata?, collectionList: List<CollectionItem>?) : PagerAdapter() {
+class PagerFullCarouselAdapter(collectionAssociatedMetadata: AssociatedMetadata?, collectionList: List<CollectionItem>?) : PagerAdapter() {
     var storyList = collectionList
     var mCollectionAssociatedMetadata = collectionAssociatedMetadata
 
@@ -25,8 +24,8 @@ class PagerCarouselAdapter(collectionAssociatedMetadata: AssociatedMetadata?, co
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        var view = LayoutInflater.from(container.context).inflate(R.layout.pager_carousel_title_inside_image_row, container, false)
-        var slideShowViewHolder = PagerCarouselViewHolder(view)
+        var view = LayoutInflater.from(container.context).inflate(R.layout.pager_carousel_full_slider_row, container, false)
+        var slideShowViewHolder = PagerCarouselFullScreenViewHolder(view)
         val story = storyList?.get(position)?.story as Story
 
         slideShowViewHolder.bind(story, mCollectionAssociatedMetadata)

@@ -48,21 +48,22 @@ open class BaseTitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseAuth
             }
             if (assosiatedMetadataTheme != null) {
                 var mContext = itemView.context
-                var themePrimaryColor = mContext.resources.getColor(R.color.theme_primary_color)
-                var themeSecondaryColor = mContext.resources.getColor(R.color.theme_secondary_color)
+                var themePrimaryTextColor = mContext.resources.getColor(R.color.theme_primary_color)
+                var themeSecondaryTextColor = mContext.resources.getColor(R.color.theme_secondary_color)
+                var theme_secondary_background_color = mContext.resources.getColor(R.color.theme_secondary_background_color)
 
                 when (assosiatedMetadataTheme) {
                     Constants.ASSOISATED_THEME_DARK -> {
-                        tvTitle?.setTextColor(themePrimaryColor)
-                        tvAuthorName?.setTextColor(themePrimaryColor)
-                        tvPublishedDate?.setTextColor(themePrimaryColor)
-                        clSectionBlockMainContainer?.setBackgroundColor(themeSecondaryColor)
+                        tvTitle?.setTextColor(themePrimaryTextColor)
+                        tvAuthorName?.setTextColor(themePrimaryTextColor)
+                        tvPublishedDate?.setTextColor(themePrimaryTextColor)
+                        clSectionBlockMainContainer?.setBackgroundColor(theme_secondary_background_color)
                     }
                     Constants.ASSOISATED_THEME_LIGHT -> {
-                        tvTitle?.setTextColor(themeSecondaryColor)
-                        tvAuthorName?.setTextColor(themeSecondaryColor)
-                        tvPublishedDate?.setTextColor(themeSecondaryColor)
-                        clSectionBlockMainContainer?.setBackgroundColor(themePrimaryColor)
+                        tvTitle?.setTextColor(themeSecondaryTextColor)
+                        tvAuthorName?.setTextColor(themeSecondaryTextColor)
+                        tvPublishedDate?.setTextColor(themeSecondaryTextColor)
+                        clSectionBlockMainContainer?.setBackgroundColor(themePrimaryTextColor)
                     }
                 }
             }

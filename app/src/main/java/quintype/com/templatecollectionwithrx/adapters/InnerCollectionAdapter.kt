@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.Story
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.TitleInsideImageSliderViewHolder
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.TitleImageSliderViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.*
 import quintype.com.templatecollectionwithrx.utils.Constants
 
@@ -16,7 +16,8 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION -> return TitleBelowImageBlockSectionViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_UNDERLINE_SECTION -> return TitleBelowImageUnderlineSectionViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD -> return LeftImageChildViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_SLIDER -> return TitleInsideImageSliderViewHolder.create(parent)
+            Constants.VIEWHOLDER_TYPE_FULL_IMAGE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
+            Constants.VIEWHOLDER_TYPE_HALF_IMAGE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER -> return TitleInsideImageViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> return RightImageChildViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID -> return TitleInsideImageGridViewHolder.create(parent)
@@ -45,9 +46,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is RightImageChildViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
-        } else if (holder is TitleInsideImageSliderViewHolder) {
-            holder.bind(mCollectionItem.get(position).collectionItemList, collectionAssociatedMetadata)
-        } else if (holder is TitleInsideImageSliderViewHolder) {
+        } else if (holder is TitleImageSliderViewHolder) {
             holder.bind(mCollectionItem.get(position).collectionItemList, collectionAssociatedMetadata)
         } else if (holder is TitleInsideImageGridViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata)

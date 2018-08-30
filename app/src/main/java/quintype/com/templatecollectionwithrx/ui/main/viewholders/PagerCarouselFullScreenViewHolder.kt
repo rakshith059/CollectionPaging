@@ -10,7 +10,7 @@ import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.Image
 import quintype.com.templatecollectionwithrx.models.Story
 
-class PagerCarouselViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
+class PagerCarouselFullScreenViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
     var ivHeroImage: ImageView? = null
 
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
