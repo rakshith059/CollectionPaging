@@ -19,6 +19,8 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_SLIDER -> return TitleInsideImageSliderViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER -> return TitleInsideImageViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> return RightImageChildViewHolder.create(parent)
+            Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID -> return TitleInsideImageGridViewHolder.create(parent)
+            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL -> return TitleInsideImageHorizontalViewHolder.create(parent)
         }
         return LeftImageChildViewHolder.create(parent)
     }
@@ -45,6 +47,12 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is TitleInsideImageSliderViewHolder) {
             holder.bind(mCollectionItem.get(position).collectionItemList, collectionAssociatedMetadata)
+        } else if (holder is TitleInsideImageSliderViewHolder) {
+            holder.bind(mCollectionItem.get(position).collectionItemList, collectionAssociatedMetadata)
+        } else if (holder is TitleInsideImageGridViewHolder) {
+            holder.bind(collectionItemStory, collectionAssociatedMetadata)
+        } else if (holder is TitleInsideImageHorizontalViewHolder) {
+            holder.bind(collectionItemStory, collectionAssociatedMetadata)
         }
     }
 

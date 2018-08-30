@@ -16,7 +16,9 @@
             android:id="@+id/left_image_child_row_iv_hero_icon"
             android:layout_width="@dimen/size_150dp"
             android:layout_height="@dimen/size_100dp"
-            android:background="@color/colorAccent" />
+            android:layout_gravity="center"
+            android:background="@color/colorAccent"
+            android:scaleType="fitCenter" />
 
         <include
             layout="@layout/section_underline_title_author_row"

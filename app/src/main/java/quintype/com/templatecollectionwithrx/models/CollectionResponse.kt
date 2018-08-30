@@ -257,7 +257,7 @@ class AssociatedMetadata() : Parcelable {
     var associatedMetadataShowArrow: Boolean = false
     @SerializedName("show_author_name")
     @Expose
-    var associatedMetadataShowAuthorName: Boolean = false
+    var associatedMetadataShowAuthorName: Boolean = true
     @SerializedName("slider_type_dots")
     @Expose
     var associatedMetadataSliderTypeDots: Boolean = false

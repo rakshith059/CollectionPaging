@@ -1,11 +1,39 @@
 package quintype.com.templatecollectionwithrx.utils
 
+import android.content.Context
+import android.view.Display
+import android.view.WindowManager
+import android.R.attr.y
+import android.R.attr.x
+import android.R.attr.y
+import android.R.attr.x
+import android.graphics.Point
+
+
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
  */
 
 class Constants {
     companion object {
+        fun getScreenWidth(context: Context?): Int {
+            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val width = size.x
+            return width
+        }
+
+        fun getScreenHeight(context: Context?): Int {
+            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val height = size.y
+            return height
+        }
+
         //        val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        val BASE_URL = "https://www.thequint.com"
         val BASE_URL = "https://madrid.quintype.io"
@@ -46,6 +74,8 @@ class Constants {
         val VIEWHOLDER_TYPE_HALF_SCREEN_CHILD = 1006
         val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_UNDERLINE_SECTION = 1007
         val VIEWHOLDER_TYPE_STORY = 1008
+        val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID = 1009
+        val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL = 1010
         val ASSOISATED_THEME_DARK: String = "dark"
         val ASSOISATED_THEME_LIGHT: String = "light"
     }

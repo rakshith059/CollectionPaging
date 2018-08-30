@@ -28,7 +28,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (associatedMetadataShowCollectionName != null) {
             showCollectionName = associatedMetadataShowCollectionName
         } else showCollectionName = true
-        
+
         if (showCollectionName) {
             tvCollectionName?.visibility = View.VISIBLE
             tvCollectionName?.text = collectionItem.outerCollectionName
@@ -89,8 +89,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         if (index == 0)
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER, mOuterCollectionAssociatedMetadata))
-
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID, mOuterCollectionAssociatedMetadata))
                     }
                     Constants.FULL_SCREEN_LINEAR_GALLERY_SLIDER -> {
                         if (index == 0)
@@ -136,9 +135,9 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         layoutManager.orientation = LinearLayout.HORIZONTAL
                         rvInnerCollection?.layoutManager = layoutManager
                         if (index == 0)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL, mOuterCollectionAssociatedMetadata))
                         else
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata))
+                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL, mOuterCollectionAssociatedMetadata))
                     }
                     else -> {
                         if (index == 0)
