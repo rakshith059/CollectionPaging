@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 
 open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {

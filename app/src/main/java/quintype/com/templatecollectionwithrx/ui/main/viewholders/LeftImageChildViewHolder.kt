@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.

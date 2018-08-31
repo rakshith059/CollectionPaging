@@ -6,9 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Image
-import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 
 class PagerCarouselFullScreenViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
     var ivHeroImage: ImageView? = null

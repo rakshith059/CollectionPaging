@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 open class BaseTitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseAuthorAndPublishedDateViewHolder(itemView) {

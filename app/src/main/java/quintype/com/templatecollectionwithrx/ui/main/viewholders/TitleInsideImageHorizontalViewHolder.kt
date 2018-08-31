@@ -12,8 +12,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.WebActivity
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
@@ -38,7 +38,7 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
             }
         })
 
-        var reviewRatingValue: Float? = collectionItem?.metadata?.reviewRating?.metadataReviewRatingValue?.toFloat()
+        var reviewRatingValue: Float? = collectionItem?.storyMetaData?.reviewRating?.value()?.toFloat()
 
         if (reviewRatingValue != null && reviewRatingValue > 0f) {
             rbCustomRatingBar?.visibility = View.VISIBLE

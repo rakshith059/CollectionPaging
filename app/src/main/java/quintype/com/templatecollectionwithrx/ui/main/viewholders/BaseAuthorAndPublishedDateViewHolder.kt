@@ -8,8 +8,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Story
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -25,7 +25,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
         var tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
         var rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
 
-        var reviewRatingValue: Float? = collectionItem?.metadata?.reviewRating?.metadataReviewRatingValue?.toFloat()
+        var reviewRatingValue: Float? = collectionItem?.storyMetaData?.reviewRating?.value()?.toFloat()
 
         if (reviewRatingValue != null && reviewRatingValue > 0f) {
             rbCustomRatingBar?.visibility = View.VISIBLE

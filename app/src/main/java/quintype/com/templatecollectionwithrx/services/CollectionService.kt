@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.CollectionResponse
+import quintype.com.templatecollectionwithrx.models.collection.CollectionResponse
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 /**

@@ -12,11 +12,9 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
-import kotlinx.android.synthetic.main.section_block_title_author_row.*
-import quintype.com.templatecollectionwithrx.models.Image
+import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 import java.util.jar.Attributes
 
 

@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.Story
 
 class StoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     fun bind(collectionItem: BulkTableModel) {

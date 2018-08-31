@@ -3,9 +3,7 @@ package quintype.com.templatecollectionwithrx.adapters
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.Story
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.CollectionViewHolder
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.LeftImageChildViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.StoryViewHolder
 
 /**

@@ -2,8 +2,7 @@ package quintype.com.templatecollectionwithrx.services
 
 import io.reactivex.Flowable
 import quintype.com.templatecollectionwithrx.models.BulkCollectionRequest
-import quintype.com.templatecollectionwithrx.models.CollectionResponse
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.models.collection.CollectionResponse
 import quintype.com.templatecollectionwithrx.utils.Constants.Companion.CONTENT_TYPE_APPLICATION_JSON_CHARSET_UTF_8
 import retrofit2.http.*
 
