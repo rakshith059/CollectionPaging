@@ -9,22 +9,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import quintype.com.templatecollectionwithrx.models.author.Author;
-import quintype.com.templatecollectionwithrx.models.entities.EntityModel;
 import quintype.com.templatecollectionwithrx.models.sections.Section;
 
-/**
- * An object instance representing Story
- *
- * @author Imran imran@quintype.com
- * @author Madhu madhu@quintype.com
- */
 public class Story implements Parcelable {
 
     public static final String[] DEFAULT_FIELDS = {
@@ -225,7 +217,6 @@ public class Story implements Parcelable {
 //        }
 //        return expandedEntitiesMap;
 //    }
-
     public boolean hasLinkedEntities() {
         return linkedEntities != null;
     }
@@ -934,8 +925,6 @@ public class Story implements Parcelable {
 //        }
 //        return imageElements;
 //    }
-
-
     public Story() {
     }
 

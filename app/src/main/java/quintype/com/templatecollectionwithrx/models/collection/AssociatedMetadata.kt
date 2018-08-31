@@ -9,9 +9,20 @@ import com.google.gson.annotations.SerializedName
  * Created TemplateCollectionWithRx by rakshith on 8/31/18.
  */
 
-class AssociatedMetadata() : Parcelable {
+class AssociatedMetadata : Parcelable {
     override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        dest?.writeString(associatedMetadataLayout)
+        dest?.writeByte(if (associatedMetadataShowArrow) 1 else 0)
+        dest?.writeByte(if (associatedMetadataShowAuthorName) 1 else 0)
+        dest?.writeByte(if (associatedMetadataSliderTypeDots) 1 else 0)
+        dest?.writeByte(if (associatedMetadataShowSectionTag) 1 else 0)
+        dest?.writeByte(if (associatedMetadataShowTimeToPublish) 1 else 0)
+        dest?.writeByte(if (associatedMetadataShowCollectionName) 1 else 0)
+        dest?.writeInt(associatedMetadataScrollSpeedMs)
+        dest?.writeInt(associatedMetadataNumberOfStoriesToShow)
+        dest?.writeString(associatedMetadataTheme)
+        dest?.writeByte(if (associatedMetadataSliderTypeDashes) 1 else 0)
+        dest?.writeByte(if (associatedMetadataEnableAutoPlay) 1 else 0)
     }
 
     override fun describeContents(): Int {
@@ -55,7 +66,7 @@ class AssociatedMetadata() : Parcelable {
     @Expose
     var associatedMetadataEnableAutoPlay: Boolean = false
 
-    constructor(parcel: Parcel) : this() {
+    constructor(parcel: Parcel) {
         associatedMetadataLayout = parcel.readString()
         associatedMetadataShowArrow = parcel.readByte() != 0.toByte()
         associatedMetadataShowAuthorName = parcel.readByte() != 0.toByte()
