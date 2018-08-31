@@ -18,6 +18,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD -> return LeftImageChildViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_FULL_IMAGE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_HALF_IMAGE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
+            Constants.VIEWHOLDER_TYPE_FULL_SCREEN_SIMPLE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER -> return TitleInsideImageViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> return RightImageChildViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID -> return TitleInsideImageGridViewHolder.create(parent)
@@ -35,6 +36,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var collectionItemStory = mCollectionItem?.get(position)?.story as Story
         var collectionAssociatedMetadata = mCollectionItem?.get(position)?.associatedMetadata
+        var collectionName = mCollectionItem?.get(position)?.outerCollectionName
 
         if (holder is TitleBelowImageBlockSectionViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
@@ -47,7 +49,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
         } else if (holder is RightImageChildViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is TitleImageSliderViewHolder) {
-            holder.bind(mCollectionItem.get(position).collectionItemList, collectionAssociatedMetadata)
+            holder.bind(mCollectionItem.get(position).collectionItemList, collectionAssociatedMetadata,collectionName)
         } else if (holder is TitleInsideImageGridViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata)
         } else if (holder is TitleInsideImageHorizontalViewHolder) {

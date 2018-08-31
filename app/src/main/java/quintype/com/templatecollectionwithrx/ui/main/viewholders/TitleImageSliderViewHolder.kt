@@ -10,6 +10,7 @@ import android.widget.ImageView
 import me.relex.circleindicator.CircleIndicator
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.PagerFullCarouselAdapter
+import quintype.com.templatecollectionwithrx.adapters.PagerFullScreenSimpleSliderCarouselAdapter
 import quintype.com.templatecollectionwithrx.adapters.PagerHalfCarouselAdapter
 import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.CollectionItem
@@ -18,7 +19,7 @@ import quintype.com.templatecollectionwithrx.utils.widgets.PagerScheduleProxy
 
 
 class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-    fun bind(collectionList: List<CollectionItem>?, collectionAssociatedMetadata: AssociatedMetadata?) {
+    fun bind(collectionList: List<CollectionItem>?, collectionAssociatedMetadata: AssociatedMetadata?, collectionName: String?) {
         /**
          * Checking for indicator type
          */
@@ -40,15 +41,14 @@ class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(item
                 mSlideShowPager?.adapter = PagerFullCarouselAdapter(collectionAssociatedMetadata, collectionList)
             Constants.HALF_IMAGE_SLIDER ->
                 mSlideShowPager?.adapter = PagerHalfCarouselAdapter(collectionAssociatedMetadata, collectionList)
+            Constants.FULL_SCREEN_SIMPLE_SLIDER ->
+                mSlideShowPager?.adapter = PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata, collectionList, collectionName)
         }
 
         /**
          * Checking the response for auto-play the carousel
          */
-        if (collectionAssociatedMetadata.associatedMetadataEnableAutoPlay) {
-            pagerScheduleProxy = PagerScheduleProxy(mSlideShowPager as ViewPager, Constants.DELAY_SEC)
-            pagerScheduleProxy?.onStart()
-        } else {
+        if (!collectionAssociatedMetadata.associatedMetadataEnableAutoPlay) {
             /**
              * Condition to show arrow
              */
@@ -59,6 +59,9 @@ class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(item
                 ivLeftArrow?.visibility = View.GONE
                 ivRightArrow?.visibility = View.GONE
             }
+        } else {
+            pagerScheduleProxy = PagerScheduleProxy(mSlideShowPager as ViewPager, Constants.DELAY_SEC)
+            pagerScheduleProxy?.onStart()
         }
 
         circleIndicator?.setViewPager(mSlideShowPager)
