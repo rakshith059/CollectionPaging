@@ -12,19 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!--<TextView-->
-        <!--android:id="@+id/right_image_child_row_tv_title"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_margin="@dimen/size_8dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:ellipsize="end"-->
-        <!--android:fontFamily="serif-monospace"-->
-        <!--android:maxLines="4"-->
-        <!--android:text="zknxvjxhvjkzxvjkzxhvjzhxvjkhzxjvkbzxhjkvbzxkvb xzkvnzxmv bnxzmbvkjxzvbkxjzbvjkxzbvjkxzbvjkbzxkjvbjzkxbvjkxzbvjkzxbjvkbxzjkvbjxkzbvjxzbvjzbxjvbxzjbvjzxbvjkzxbjvkbzxkjvbjzkxbvjkxzbvjkzxbjkvbzxjkvbjzkxbvjkzxbvkjxzbkvjbk"-->
-        <!--android:textSize="@dimen/size_16sp"-->
-        <!--android:textStyle="bold" />-->
-
         <include
             layout="@layout/section_underline_title_author_row"
             android:layout_width="match_parent"

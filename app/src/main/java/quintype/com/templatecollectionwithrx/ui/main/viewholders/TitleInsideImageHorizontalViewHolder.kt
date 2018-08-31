@@ -3,6 +3,7 @@ package quintype.com.templatecollectionwithrx.ui.main.viewholders
 import android.content.Context
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
         super.bind(collectionItem, collectionAssociatedMetadata)
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_block_section_horizontal_scroll_row_iv_hero_icon)
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_below_image_block_section_horizontal_scroll_row_cl_main_container)
-        var cbRatingBar = itemView?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
+        var rbCustomRatingBar = itemView?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
         var tvStoryTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
 
         val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
@@ -37,8 +38,18 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
             }
         })
 
-        cbRatingBar?.visibility = View.GONE
+        var reviewRatingValue: Float? = collectionItem?.metadata?.reviewRating?.metadataReviewRatingValue?.toFloat()
+
+        if (reviewRatingValue != null && reviewRatingValue > 0f) {
+            rbCustomRatingBar?.visibility = View.VISIBLE
+            rbCustomRatingBar?.score = reviewRatingValue
+        } else {
+            rbCustomRatingBar?.visibility = View.INVISIBLE
+        }
+
         tvStoryTitle?.maxLines = 2
+        tvStoryTitle?.minLines = 2
+        tvStoryTitle?.ellipsize = TextUtils.TruncateAt.END
         var screenWidth = Constants.getScreenWidth(itemView.context)
         var viewWidth = screenWidth - 100
 

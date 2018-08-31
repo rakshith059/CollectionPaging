@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +20,7 @@ class PagerCarouselHalfScreenViewHolder(itemView: View?) : BaseTitleBelowImageBl
         var tvTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
         tvTitle?.maxLines = 2
         tvTitle?.minLines = 2
+        tvTitle?.ellipsize = TextUtils.TruncateAt.END
 
         val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
 
