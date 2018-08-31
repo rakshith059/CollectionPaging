@@ -20,19 +20,6 @@ class CoverImageMetadata : Parcelable {
     @Expose
     private val mimeType: String
 
-    fun width(): Int {
-        return width
-    }
-
-    fun height(): Int {
-        return height
-    }
-
-    fun mimeType(): String {
-        return mimeType
-    }
-
-
     override fun describeContents(): Int {
         return 0
     }
