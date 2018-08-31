@@ -11,12 +11,13 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.Story
 
-class RightImageChildViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-    fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        var tvStoryTitle = itemView.findViewById<TextView>(R.id.right_image_child_row_tv_title)
+class RightImageChildViewHolder(itemView: View?) : BaseTitleBelowImageUnderlineSectionViewHolder(itemView) {
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
+        super.bind(collectionItem, collectionAssociatedMetadata)
+//        var tvStoryTitle = itemView.findViewById<TextView>(R.id.right_image_child_row_tv_title)
         var ivStoryHeroImage = itemView.findViewById<ImageView>(R.id.right_image_child_row_iv_hero_icon)
 
-        tvStoryTitle?.text = collectionItem?.headline
+//        tvStoryTitle?.text = collectionItem?.headline
 
         val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
 
