@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import quintype.com.templatecollectionwithrx.models.author.Author;
+import quintype.com.templatecollectionwithrx.models.entities.EntityModel;
 import quintype.com.templatecollectionwithrx.models.sections.Section;
 
 public class Story implements Parcelable {
