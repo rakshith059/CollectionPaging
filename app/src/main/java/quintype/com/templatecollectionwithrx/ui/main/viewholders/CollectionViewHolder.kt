@@ -13,6 +13,7 @@ import quintype.com.templatecollectionwithrx.adapters.InnerCollectionAdapter
 import quintype.com.templatecollectionwithrx.models.*
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
+import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 /**

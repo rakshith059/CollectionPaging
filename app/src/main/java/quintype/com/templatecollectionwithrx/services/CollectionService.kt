@@ -42,7 +42,7 @@ class CollectionService {
     fun getCollectionResponse(pageNumber: Int): LiveData<BulkTableModel> {
         Log.d("Rakshith", "api call started for first iteration.. ")
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(Constants.COLLECTION_HOME, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT, "")
+        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(Constants.COLLECTION_HOME, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
                 .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                 .retry(3)
                 .subscribeOn(Schedulers.io())
@@ -92,7 +92,7 @@ class CollectionService {
                         PAGE_LIMIT_CHILD = noOfStoriesToShow
                     }
 
-                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0, "")
+                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0)
                             .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())
@@ -161,7 +161,7 @@ class CollectionService {
     fun getChildRxResponse(collectionSlug: String, limit: Int, offset: Int) {
         var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, limit, offset, Constants.TYPE_STORY)
+        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .flatMap({ mCollectionResponse -> Flowable.fromIterable(mCollectionResponse.items) })
@@ -203,6 +203,4 @@ class CollectionService {
                     }
                 }))
     }
-
-
 }

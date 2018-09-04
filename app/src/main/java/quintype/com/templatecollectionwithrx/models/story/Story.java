@@ -779,7 +779,7 @@ public class Story implements Parcelable {
      * are considering both as a same. And looking only for the 1st item inside the 'theme' array.
      */
     public boolean isLongFormStory() {
-        JsonObject storyAttributes = storyMetaData.storyAttributes();
+        JsonObject storyAttributes = storyMetaData.getStoryAttributes();
         if (storyAttributes.has(STORY_THEME)) {
             JsonArray themeArray = storyAttributes.getAsJsonArray(STORY_THEME);
             if (themeArray.size() > 0)
