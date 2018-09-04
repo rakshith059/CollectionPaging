@@ -92,8 +92,14 @@ class MainFragment : Fragment() {
             var linkedCollectionList = linkedHashMap.values.toList()
 
             Log.d("Rakshith", "summary is ${it?.slug}")
-            collectionAdapter = HomeCollectionAdapter(linkedCollectionList)
-            main_fragment_rv_collection_list?.adapter = collectionAdapter
+            if (linkedHashMap.size < Constants.PAGE_LIMIT) {
+                collectionAdapter = HomeCollectionAdapter(linkedCollectionList)
+                main_fragment_rv_collection_list?.adapter = collectionAdapter
+            } else {
+                collectionAdapter?.notifyAdapter(linkedCollectionList)
+            }
+
+
         })
     }
 

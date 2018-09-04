@@ -63,4 +63,9 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
 ////            return TYPE_OUTER_STORY
 //        }
     }
+
+    fun notifyAdapter(linkedCollectionList: List<BulkTableModel>) {
+        collectionList = linkedCollectionList
+        notifyDataSetChanged()
+    }
 }
