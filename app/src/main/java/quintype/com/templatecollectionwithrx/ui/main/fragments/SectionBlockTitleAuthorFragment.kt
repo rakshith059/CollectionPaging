@@ -5,7 +5,6 @@ import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,8 +13,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.story.Story
-import java.util.jar.Attributes
 
 
 /**

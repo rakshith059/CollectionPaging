@@ -9,25 +9,7 @@ import com.google.gson.annotations.SerializedName
  * Created TemplateCollectionWithRx by rakshith on 8/31/18.
  */
 
-class AssociatedMetadata : Parcelable {
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeString(associatedMetadataLayout)
-        dest?.writeByte(if (associatedMetadataShowArrow) 1 else 0)
-        dest?.writeByte(if (associatedMetadataShowAuthorName) 1 else 0)
-        dest?.writeByte(if (associatedMetadataSliderTypeDots) 1 else 0)
-        dest?.writeByte(if (associatedMetadataShowSectionTag) 1 else 0)
-        dest?.writeByte(if (associatedMetadataShowTimeToPublish) 1 else 0)
-        dest?.writeByte(if (associatedMetadataShowCollectionName) 1 else 0)
-        dest?.writeInt(associatedMetadataScrollSpeedMs)
-        dest?.writeInt(associatedMetadataNumberOfStoriesToShow)
-        dest?.writeString(associatedMetadataTheme)
-        dest?.writeByte(if (associatedMetadataSliderTypeDashes) 1 else 0)
-        dest?.writeByte(if (associatedMetadataEnableAutoPlay) 1 else 0)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
+class AssociatedMetadata() : Parcelable {
 
     @SerializedName("layout")
     @Expose
@@ -66,7 +48,7 @@ class AssociatedMetadata : Parcelable {
     @Expose
     var associatedMetadataEnableAutoPlay: Boolean = false
 
-    constructor(parcel: Parcel) {
+    constructor(parcel: Parcel) : this() {
         associatedMetadataLayout = parcel.readString()
         associatedMetadataShowArrow = parcel.readByte() != 0.toByte()
         associatedMetadataShowAuthorName = parcel.readByte() != 0.toByte()
@@ -79,6 +61,25 @@ class AssociatedMetadata : Parcelable {
         associatedMetadataTheme = parcel.readString()
         associatedMetadataSliderTypeDashes = parcel.readByte() != 0.toByte()
         associatedMetadataEnableAutoPlay = parcel.readByte() != 0.toByte()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(associatedMetadataLayout)
+        parcel.writeByte(if (associatedMetadataShowArrow) 1 else 0)
+        parcel.writeByte(if (associatedMetadataShowAuthorName) 1 else 0)
+        parcel.writeByte(if (associatedMetadataSliderTypeDots) 1 else 0)
+        parcel.writeByte(if (associatedMetadataShowSectionTag) 1 else 0)
+        parcel.writeByte(if (associatedMetadataShowTimeToPublish) 1 else 0)
+        parcel.writeByte(if (associatedMetadataShowCollectionName) 1 else 0)
+        parcel.writeInt(associatedMetadataScrollSpeedMs)
+        parcel.writeInt(associatedMetadataNumberOfStoriesToShow)
+        parcel.writeString(associatedMetadataTheme)
+        parcel.writeByte(if (associatedMetadataSliderTypeDashes) 1 else 0)
+        parcel.writeByte(if (associatedMetadataEnableAutoPlay) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<AssociatedMetadata> {

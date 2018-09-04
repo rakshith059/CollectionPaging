@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getCollectionResponse()
+        viewModel.getCollectionLoadMoreResponse(0)
         observeViewModel(viewModel)
 
         var layoutManager = LinearLayoutManager(getActivity())

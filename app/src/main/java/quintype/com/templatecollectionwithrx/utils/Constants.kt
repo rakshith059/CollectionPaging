@@ -77,7 +77,17 @@ class Constants {
         val VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID = 1009
         val VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL = 1010
         val VIEWHOLDER_TYPE_FULL_SCREEN_SIMPLE_SLIDER = 1011
+        val TYPE_OUTER_COLLECTION = 1012
+        val TYPE_OUTER_STORY = 1013
+
         val ASSOISATED_THEME_DARK: String = "dark"
         val ASSOISATED_THEME_LIGHT: String = "light"
+
+        /**
+         * for storyElementSubTypeMetadata
+         */
+        const val TYPE_SLIDESHOW = "slideshow"
+        const val TYPE_GALLERY = "gallery"
+        const val TYPE_INVALID = "invalid"
     }
 }

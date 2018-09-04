@@ -20,7 +20,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-
 /**
  * Encapsulates story element present inside a {@linkplain Card}
  *
@@ -734,7 +733,7 @@ public class StoryElement implements Parcelable {
      */
     public boolean isImageLandscape() {
         if (imageMeta != null) {
-            return imageMeta.width() > imageMeta.height();
+            return imageMeta.getWidth() > imageMeta.getHeight();
         }
         return true;
     }

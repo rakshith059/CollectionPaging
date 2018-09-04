@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.author_image_row.*
 import kotlinx.android.synthetic.main.section_block_title_author_row.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 /**

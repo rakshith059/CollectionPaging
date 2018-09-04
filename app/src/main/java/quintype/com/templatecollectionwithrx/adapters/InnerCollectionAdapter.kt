@@ -3,7 +3,6 @@ package quintype.com.templatecollectionwithrx.adapters
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
-import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.TitleImageSliderViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.*
 import quintype.com.templatecollectionwithrx.utils.Constants

@@ -13,7 +13,7 @@ import retrofit2.http.*
 interface CollectionApiService {
     @Headers(CONTENT_TYPE_APPLICATION_JSON_CHARSET_UTF_8)
     @GET("/api/v1/collections/{mCollectionName}")
-    fun getCollectionApiService(@Path("mCollectionName") mCollectionName: String, @Query("limit") limit: Int, @Query("offset") offset: Int): Flowable<CollectionResponse>
+    fun getCollectionApiService(@Path("mCollectionName") mCollectionName: String, @Query("limit") limit: Int, @Query("offset") offset: Int, @Query("item-type") itemType: String): Flowable<CollectionResponse>
 
     @Headers(CONTENT_TYPE_APPLICATION_JSON_CHARSET_UTF_8)
     @POST("/api/v1/bulk")
