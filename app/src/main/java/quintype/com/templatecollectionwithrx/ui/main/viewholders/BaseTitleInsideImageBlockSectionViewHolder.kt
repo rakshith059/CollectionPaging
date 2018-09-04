@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 
 open class BaseTitleInsideImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
 

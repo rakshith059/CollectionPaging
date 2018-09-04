@@ -7,6 +7,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
+import quintype.com.templatecollectionwithrx.models.story.Story
 
 class StoryViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
     fun bind(collectionItem: BulkTableModel) {

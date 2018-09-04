@@ -4,7 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.support.annotation.StringDef
 import com.google.gson.annotations.SerializedName
-import com.quintype.core.story.StoryElementSubTypeMetaData.*
 import quintype.com.templatecollectionwithrx.utils.Constants
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy

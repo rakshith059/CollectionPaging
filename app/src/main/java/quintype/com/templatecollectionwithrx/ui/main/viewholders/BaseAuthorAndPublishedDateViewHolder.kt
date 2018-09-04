@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
+import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
