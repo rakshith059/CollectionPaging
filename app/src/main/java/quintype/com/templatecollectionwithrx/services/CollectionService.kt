@@ -92,7 +92,11 @@ class CollectionService {
                         PAGE_LIMIT_CHILD = noOfStoriesToShow
                     }
 
-                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0)
+//                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0)
+                    /**
+                     * Using getCollectionOnlyStoriesApiService for getting only stories
+                     */
+                    return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY)
                             .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())
