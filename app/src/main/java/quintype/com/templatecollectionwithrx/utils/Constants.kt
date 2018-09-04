@@ -82,5 +82,12 @@ class Constants {
 
         val ASSOISATED_THEME_DARK: String = "dark"
         val ASSOISATED_THEME_LIGHT: String = "light"
+
+        /**
+         * for storyElementSubTypeMetadata
+         */
+        const val TYPE_SLIDESHOW = "slideshow"
+        const val TYPE_GALLERY = "gallery"
+        const val TYPE_INVALID = "invalid"
     }
 }

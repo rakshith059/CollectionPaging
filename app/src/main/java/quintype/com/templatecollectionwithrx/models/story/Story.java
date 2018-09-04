@@ -709,7 +709,7 @@ public class Story implements Parcelable {
      */
     public boolean isHeroImageLandscape() {
         if (heroImageMeta != null) {
-            return heroImageMeta.width() > heroImageMeta.height();
+            return heroImageMeta.getWidth() > heroImageMeta.getHeight();
         }
         return true;
     }

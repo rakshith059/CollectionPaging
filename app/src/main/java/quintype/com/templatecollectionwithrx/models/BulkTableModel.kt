@@ -3,7 +3,6 @@ package quintype.com.templatecollectionwithrx.models
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.collection.CollectionResponse
-import quintype.com.templatecollectionwithrx.models.story.Story
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
