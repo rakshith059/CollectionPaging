@@ -46,7 +46,7 @@ class CollectionService {
                 .retry(3)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap({ mCollectionResponse ->
+                .flatMap { mCollectionResponse ->
                     for (index in 0 until mCollectionResponse.items?.size as Int) {
                         var mCollectionItem = mCollectionResponse.items?.get(index)
 
@@ -75,16 +75,16 @@ class CollectionService {
                                     null,
                                     null)
 
-//                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
+        //                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
 
                             collectionModelList.add(bulkTableModel)
                             collectionData.value = bulkTableModel
                         }
                     }
                     Flowable.fromIterable(mCollectionResponse.items)
-                })
-                .filter({ mCollectionItem -> mCollectionItem.type.equals(Constants.TYPE_COLLECTION) })
-                .concatMapEager({ mCollectionItem ->
+                }
+                .filter { mCollectionItem -> mCollectionItem.type.equals(Constants.TYPE_COLLECTION) }
+                .concatMapEager { mCollectionItem ->
                     var PAGE_LIMIT_CHILD = Constants.PAGE_LIMIT_CHILD
                     var noOfStoriesToShow = mCollectionItem.associatedMetadata?.associatedMetadataNumberOfStoriesToShow
                     if (noOfStoriesToShow != null && noOfStoriesToShow > 0) {
@@ -96,7 +96,7 @@ class CollectionService {
                             .retry(3)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                })
+                }
                 .subscribeWith(object : ResourceSubscriber<CollectionResponse>() {
                     override fun onComplete() {
                         Log.d("Rakshith", "api call completed for first iteration.. ")
@@ -131,6 +131,7 @@ class CollectionService {
 
                             if (index == 0 && mCollectionItem.type?.equals(Constants.TYPE_COLLECTION) as Boolean) {
                                 if (mCollectionItem.template?.equals(Constants.WIDGET_TEMPLATE) == false) {
+
                                     getChildRxResponse(mCollectionItem.slug as String, Constants.PAGE_LIMIT_CHILD, 0)
                                 }
                             } else if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
