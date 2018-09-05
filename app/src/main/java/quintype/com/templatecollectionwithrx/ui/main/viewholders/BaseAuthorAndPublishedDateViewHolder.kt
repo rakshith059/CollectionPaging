@@ -39,7 +39,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
             isShowTimeToPublish = collectionAssociatedMetadata.associatedMetadataShowTimeToPublish
 
             if (isShowAuthorName) {
-                val authorName = collectionItem.authorName
+                val authorName = collectionItem?.authors?.first()?.name
                 if (authorName != null) {
                     tvAuthorName?.text = authorName
                     tvAuthorName?.visibility = View.VISIBLE

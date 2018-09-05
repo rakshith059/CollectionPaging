@@ -20,5 +20,5 @@ class BulkCollectionRequest(slug: String) {
     private var limit: Int? = Constants.PAGE_LIMIT_CHILD
     @SerializedName("story-fields")
     @Expose
-    private var storyField: String? = Constants.STORY_FILEDS
+    private var storyField: String? = Constants.STORY_FIELDS
 }

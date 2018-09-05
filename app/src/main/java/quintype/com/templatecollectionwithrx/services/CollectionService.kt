@@ -9,7 +9,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.collection.CollectionResponse
 import quintype.com.templatecollectionwithrx.utils.Constants
 
@@ -76,7 +75,7 @@ class CollectionService {
                                     null,
                                     null)
 
-        //                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
+                            //                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
 
                             collectionModelList.add(bulkTableModel)
                             collectionData.value = bulkTableModel
@@ -96,7 +95,7 @@ class CollectionService {
                     /**
                      * Using getCollectionOnlyStoriesApiService for getting only stories
                      */
-                    return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY)
+                    return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                             .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())
@@ -165,7 +164,7 @@ class CollectionService {
     fun getChildRxResponse(collectionSlug: String, limit: Int, offset: Int) {
         var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY)
+        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .flatMap({ mCollectionResponse -> Flowable.fromIterable(mCollectionResponse.items) })
