@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <FrameLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:theme="@style/AppTheme.ActionBarTheme">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/size_4dp">
+
+                    <ImageView
+                        android:id="@+id/ab_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="@dimen/size_4dp"
+                        android:visibility="gone"
+                        app:srcCompat="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:id="@+id/page_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/size_14dp"
+                        android:layout_toLeftOf="@+id/search_icon"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif"
+                        android:lineSpacingMultiplier="1.2"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_20sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/search_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:paddingTop="@dimen/size_10dp"
+                        android:paddingBottom="@dimen/size_10dp"
+                        app:srcCompat="@drawable/ic_search_layer_list" />
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/ic_hamburger"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_marginEnd="@dimen/size_10dp"-->
+                    <!--app:srcCompat="@drawable/ic_hamburger" />-->
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+            <!--<com.quintype.thequintdroid.widgets.CustomMaterialSearchView-->
+            <!--android:id="@+id/search_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="visible" />-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white" />
+
+        </FrameLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <!--<it.sephiroth.android.library.bottomnavigation.BottomNavigation-->
+    <!--android:id="@+id/bottom_navigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--app:bbn_entries="@menu/bottombar_menu"-->
+    <!--app:layout_behavior="@string/bbn_default_view_behavior" />-->
+
+</android.support.design.widget.CoordinatorLayout>

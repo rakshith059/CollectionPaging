@@ -2,9 +2,9 @@ package quintype.com.templatecollectionwithrx.adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.app.FragmentPagerAdapter
 
-class HomePagerAdapter(fm: FragmentManager?, fragmentList: List<Fragment>, title: String) : FragmentStatePagerAdapter(fm) {
+class HomePagerAdapter(fm: FragmentManager?, fragmentList: List<Fragment>, title: String) : FragmentPagerAdapter(fm) {
     var fragmentList = fragmentList
     var mTitle = title
 
