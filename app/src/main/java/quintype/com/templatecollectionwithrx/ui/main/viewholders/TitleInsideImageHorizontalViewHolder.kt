@@ -52,8 +52,10 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
         tvStoryTitle?.ellipsize = TextUtils.TruncateAt.END
         var screenWidth = Constants.getScreenWidth(itemView.context)
         var viewWidth = screenWidth - 100
+        var viewHeight = 700
 
         clMainContainer?.getLayoutParams()?.width = viewWidth
+        clMainContainer?.getLayoutParams()?.height = viewHeight
         clMainContainer?.requestLayout()
     }
 
