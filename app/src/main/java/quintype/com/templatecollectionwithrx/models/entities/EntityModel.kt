@@ -45,7 +45,7 @@ abstract class EntityModel : Parcelable {
     @SerializedName("created-by")
     protected var createdBy: String
     @SerializedName("id")
-    protected var id: String
+    public var id: String
     @SerializedName("last-updated-by")
     protected var lastUpdatedBy: String
     @SerializedName("created-at")

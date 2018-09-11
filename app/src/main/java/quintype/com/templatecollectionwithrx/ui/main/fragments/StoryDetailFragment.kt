@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.retry_layout.*
 
 import quintype.com.templatecollectionwithrx.R
+import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
@@ -59,7 +60,9 @@ class StoryDetailFragment : BaseFragment() {
 
     private fun loadStoryDetailBySlug(storySlug: String) {
         storyViewModel = ViewModelProviders.of(this).get(StoryViewModel::class.java)
+        var mSlugStory = storyViewModel?.getStoryDetailBySlug(storySlug)
+        var mStory = mSlugStory?.value?.story
 
-        storyViewModel?.getStoryDetailBySlug(storySlug)
+        var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
     }
 }

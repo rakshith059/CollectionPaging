@@ -62,4 +62,7 @@ dependencies {
 
     //for circle indicator pager
     implementation 'me.relex:circleindicator:1.1.9@aar'
+
+    //for parsing html
+    implementation 'org.jsoup:jsoup:1.8.2'
 }
