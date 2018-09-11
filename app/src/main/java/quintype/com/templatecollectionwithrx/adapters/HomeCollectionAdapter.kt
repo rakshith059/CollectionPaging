@@ -6,14 +6,16 @@ import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.*
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
  */
 
 
-class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragmentCallbacks: FragmentCallbacks?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var collectionList = linkedCollectionList
+    var mFragmentCallbacks = fragmentCallbacks
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -26,7 +28,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>) : Recycl
             Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD ->
                 return RightImageChildViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION ->
-                return TitleBelowImageBlockSectionViewHolder.create(parent)
+                return TitleBelowImageBlockSectionViewHolder.create(parent, mFragmentCallbacks)
         }
         return StoryViewHolder.create(parent)
     }

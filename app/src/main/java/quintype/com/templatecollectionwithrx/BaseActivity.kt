@@ -21,14 +21,14 @@ open class BaseActivity : AppCompatActivity(), FragmentCallbacks {
         mContext = this
     }
 
-    override fun addFragment(fragment: Fragment, containerViewId: Int, mBackStack: String?) {
+    override fun addFragment(fragment: Fragment, mBackStack: String?) {
         if (mContext == null) {
             return
         }
         mFragmentList.add(fragment)
 
         val fragmentTransaction = supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.add(containerViewId, fragment)
+        fragmentTransaction?.add(R.id.home_container, fragment)
 
         if (mBackStack != null) {
             fragmentTransaction?.addToBackStack(mBackStack)
@@ -37,14 +37,14 @@ open class BaseActivity : AppCompatActivity(), FragmentCallbacks {
         fragmentTransaction?.commit()
     }
 
-    override fun replaceFragment(fragment: Fragment, containerViewId: Int, mBackStack: String?) {
+    override fun replaceFragment(fragment: Fragment, mBackStack: String?) {
         if (mContext == null) {
             return
         }
         mFragmentList.add(fragment)
 
         val fragmentTransaction = supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(containerViewId, fragment)
+        fragmentTransaction?.replace(R.id.home_container, fragment)
 
         if (mBackStack != null) {
             fragmentTransaction?.addToBackStack(mBackStack)

@@ -3,7 +3,6 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -21,7 +20,12 @@ import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 class MainFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(): MainFragment {
+            val fragment = MainFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     private lateinit var viewModel: MainViewModel
@@ -93,7 +97,7 @@ class MainFragment : BaseFragment() {
 
             Log.d("Rakshith", "summary is ${it?.slug}")
             if (linkedHashMap.size < Constants.PAGE_LIMIT) {
-                collectionAdapter = HomeCollectionAdapter(linkedCollectionList)
+                collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
                 main_fragment_rv_collection_list?.adapter = collectionAdapter
             } else {
                 collectionAdapter?.notifyAdapter(linkedCollectionList)

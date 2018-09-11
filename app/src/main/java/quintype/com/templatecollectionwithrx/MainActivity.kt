@@ -40,7 +40,7 @@ class MainActivity : BaseActivity() {
 //            val fragmentTransaction = fragmentManager.beginTransaction()
 //            fragmentTransaction.add(R.id.home_container, HomePagerFragment.newInstance())
 //            fragmentTransaction.commit()
-            addFragment(HomePagerFragment.newInstance(), R.id.home_container, null)
+            addFragment(HomePagerFragment.newInstance(), null)
         }
 //        displayDetailScreen()
     }

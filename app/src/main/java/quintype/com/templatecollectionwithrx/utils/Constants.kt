@@ -58,6 +58,7 @@ class Constants {
         const val QUERY_PARAM_KEY_OFFSET = "offset"
         const val QUERY_PARAM_KEY_FIELDS = "story-fields"
         const val QUERY_PARAM_KEY_ITEM_TYPE = "item-type"
+        const val QUERY_PARAM_KEY_STORY_SLUG = "slug"
 
         var ACCEPT_APPLICATION_JSON_CHARSET_UTF_8 = "Accept: application/json; charset=utf-8"
         const val HALF_IMAGE_SLIDER = "HalfImageSlider"

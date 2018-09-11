@@ -14,7 +14,7 @@ class SlugStory : Parcelable {
     }
 
     @SerializedName("story")
-    private val story: Story
+    public val story: Story
 
     override fun toString(): String {
         return "SlugStory{" +

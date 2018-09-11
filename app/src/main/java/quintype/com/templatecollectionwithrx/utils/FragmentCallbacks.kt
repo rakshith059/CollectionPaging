@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment
  */
 
 interface FragmentCallbacks {
-    fun addFragment(fragment: Fragment, containerViewId: Int, mBackStack: String?)
+    fun addFragment(fragment: Fragment, mBackStack: String?)
 
-    fun replaceFragment(fragment: Fragment, containerViewId: Int, mBackStack: String?)
+    fun replaceFragment(fragment: Fragment, mBackStack: String?)
 
     fun clickAnalyticsEvent(categoryId: String, actionId: String, labelId: String, value: Long)
 

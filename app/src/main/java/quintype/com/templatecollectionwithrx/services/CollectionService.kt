@@ -19,7 +19,7 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 class CollectionService {
     companion object {
         var collectionService: CollectionService? = null
-        var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
+        var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
         var mCompositeDisposable: CompositeDisposable? = null
 
         var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
@@ -162,7 +162,7 @@ class CollectionService {
     }
 
     fun getChildRxResponse(collectionSlug: String, limit: Int, offset: Int) {
-        var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
+        var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
 
         mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                 .subscribeOn(Schedulers.io())
