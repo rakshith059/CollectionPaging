@@ -1,18 +1,20 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.retry_layout.*
-
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
+import quintype.com.templatecollectionwithrx.models.story.SlugStory
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
@@ -46,13 +48,14 @@ class StoryDetailFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadStoryDetailIfInternetPresent(mStoryList.get(0).slug())
+        fragment_story_detail_pb_progress.visibility = View.VISIBLE
     }
 
     private fun loadStoryDetailIfInternetPresent(storySlug: String) {
         if (NetworkUtils.isConnected(activity?.applicationContext as Context)) {
             loadStoryDetailBySlug(storySlug)
         } else {
-            swipeContainer.isRefreshing = false
+            fragment_story_detail_swipe_refresh_layout.isRefreshing = false
             fragment_story_detail_fl_main_container.visibility = View.GONE
             retry_button.visibility = View.VISIBLE
         }
@@ -60,9 +63,24 @@ class StoryDetailFragment : BaseFragment() {
 
     private fun loadStoryDetailBySlug(storySlug: String) {
         storyViewModel = ViewModelProviders.of(this).get(StoryViewModel::class.java)
-        var mSlugStory = storyViewModel?.getStoryDetailBySlug(storySlug)
-        var mStory = mSlugStory?.value?.story
+        storyViewModel?.getStoryDetailBySlug(storySlug)
 
-        var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
+        var layoutManager = LinearLayoutManager(getActivity())
+        fragment_story_detail_rv_recycler_view.layoutManager = layoutManager
+
+        observableStoryViewHolder(storyViewModel)
+    }
+
+    private fun observableStoryViewHolder(storyViewModel: StoryViewModel?) {
+        storyViewModel?.getStoryObservable()?.observe(this, Observer<SlugStory> {
+
+            fragment_story_detail_pb_progress.visibility = View.GONE
+//            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
+
+            var mStory = it?.story
+
+            var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
+            fragment_story_detail_rv_recycler_view?.adapter = storyDetailAdapter
+        })
     }
 }

@@ -1,4 +1,4 @@
-package quintype.com.templatecollectionwithrx.ui.main.viewholders
+package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.support.constraint.ConstraintLayout
 import android.support.v4.view.ViewPager

@@ -17,7 +17,7 @@ class ImageMetaData : Parcelable {
     @SerializedName("height")
     var height: Int
     @SerializedName("focus-point")
-    private var focusPoints: IntArray? = null
+    var focusPoints: IntArray? = null
 
     override fun toString(): String {
         return "ImageMetaData{" +

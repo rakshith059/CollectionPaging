@@ -1,4 +1,4 @@
-package quintype.com.templatecollectionwithrx.ui.main.viewholders
+package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.content.Context
 import android.view.View
