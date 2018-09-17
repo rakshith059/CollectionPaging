@@ -722,12 +722,12 @@ public class Story implements Parcelable {
     /**
      * @return whether this story element is image type and gif
      */
-//    public boolean isTypeImageGif() {
-//        if (!StringUtils.isEmpty(heroImageS3Key()))
-//            return heroImageS3Key().endsWith(".gif");
-//        else
-//            return false;
-//    }
+    public boolean isTypeImageGif() {
+        if (!TextUtils.isEmpty(heroImageS3Key()))
+            return heroImageS3Key().endsWith(".gif");
+        else
+            return false;
+    }
 
     /**
      * checks if the story passed as a parameter is an invalid story but contains a slug from
@@ -737,9 +737,9 @@ public class Story implements Parcelable {
      * @param story - a reference to the story
      * @return true if the story is a slug story, false otherwise
      */
-//    public static boolean isSlugStory(Story story) {
-//        return (StringUtils.isNotEmpty(story.slug()));
-//    }
+    public static boolean isSlugStory(Story story) {
+        return (!TextUtils.isEmpty(story.slug()));
+    }
 
     /**
      * check if the story has tags.
@@ -755,18 +755,18 @@ public class Story implements Parcelable {
      *
      * @return true if the story's template is a video template, false otherwise
      */
-//    public boolean isVideoTemplate() {
-//        return StringUtils.equalsIgnoreCase(TYPE_TEMPLATE_VIDEO, template);
-//    }
+    public boolean isVideoTemplate() {
+        return template.equalsIgnoreCase(TYPE_TEMPLATE_VIDEO);
+    }
 
     /**
      * check whether the story's template is a review template
      *
      * @return true if the story's template is a review template, false otherwise
      */
-//    public boolean isReviewTemplate() {
-//        return StringUtils.equalsIgnoreCase(TYPE_TEMPLATE_REVIEW, template);
-//    }
+    public boolean isReviewTemplate() {
+        return template.equalsIgnoreCase(TYPE_TEMPLATE_REVIEW);
+    }
 
     /**
      * check whether the story's template is a live blog

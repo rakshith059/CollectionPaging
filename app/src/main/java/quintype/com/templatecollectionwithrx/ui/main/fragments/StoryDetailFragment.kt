@@ -48,13 +48,14 @@ class StoryDetailFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadStoryDetailIfInternetPresent(mStoryList.get(0).slug())
+        fragment_story_detail_pb_progress.visibility = View.VISIBLE
     }
 
     private fun loadStoryDetailIfInternetPresent(storySlug: String) {
         if (NetworkUtils.isConnected(activity?.applicationContext as Context)) {
             loadStoryDetailBySlug(storySlug)
         } else {
-            swipeContainer.isRefreshing = false
+            fragment_story_detail_swipe_refresh_layout.isRefreshing = false
             fragment_story_detail_fl_main_container.visibility = View.GONE
             retry_button.visibility = View.VISIBLE
         }
@@ -72,6 +73,10 @@ class StoryDetailFragment : BaseFragment() {
 
     private fun observableStoryViewHolder(storyViewModel: StoryViewModel?) {
         storyViewModel?.getStoryObservable()?.observe(this, Observer<SlugStory> {
+
+            fragment_story_detail_pb_progress.visibility = View.GONE
+//            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
+
             var mStory = it?.story
 
             var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)

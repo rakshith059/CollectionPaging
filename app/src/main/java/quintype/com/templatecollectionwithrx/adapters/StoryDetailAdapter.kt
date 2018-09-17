@@ -6,6 +6,7 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.models.storypresenter.ElementViewType
 import quintype.com.templatecollectionwithrx.models.storypresenter.StoryPresenter
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.ElementImageViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.ElementStoryViewHolder
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
@@ -22,6 +23,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             ElementViewType.TEXT -> return ElementStoryViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.IMAGE -> return ElementImageViewHolder.create(parent, mFragmentCallbacks)
         }
         return ElementStoryViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -36,8 +38,9 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var storyElement = storyPresenter?.getElement(position) as StoryElement
-        if (holder is ElementStoryViewHolder) {
+        if (holder is ElementStoryViewHolder)
             holder.bind(storyElement)
-        }
+        else if (holder is ElementImageViewHolder)
+            holder.bind(storyElement)
     }
 }

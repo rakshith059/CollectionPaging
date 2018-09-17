@@ -12,13 +12,13 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/pb_detail_fragment"
+            android:id="@+id/fragment_story_detail_pb_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
 
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swipeContainer"
+            android:id="@+id/fragment_story_detail_swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

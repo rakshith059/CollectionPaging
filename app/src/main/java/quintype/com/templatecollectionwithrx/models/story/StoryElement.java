@@ -161,7 +161,7 @@ public class StoryElement implements Parcelable {
     @SerializedName("embed-js")
     private String embedJs;
     @SerializedName("image-metadata")
-    private ImageMetaData imageMeta;
+    public ImageMetaData imageMeta;
     @SerializedName("subtype")
     private String subType;
     @SerializedName("metadata")
@@ -482,7 +482,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeTable() {
         if (subType != null)
             return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_DATA) &&
-                subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TABLE);
+                    subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TABLE);
         return false;
     }
 
