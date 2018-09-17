@@ -421,8 +421,10 @@ public class StoryElement implements Parcelable {
      * @return whether this story element is BitGravity Video
      */
     public boolean isTypeBitGravity() {
-        return isTypeExternal() && subType.equalsIgnoreCase(
-                TYPE_STORY_ELEMENT_SUB_BIT_GRAVITY);
+        if (subType != null)
+            return isTypeExternal() && subType.equalsIgnoreCase(
+                    TYPE_STORY_ELEMENT_SUB_BIT_GRAVITY);
+        else return false;
     }
 
     /**
@@ -478,8 +480,10 @@ public class StoryElement implements Parcelable {
      * @return whether this story element is title type
      */
     public boolean isTypeTable() {
-        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_DATA) &&
+        if (subType != null)
+            return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_DATA) &&
                 subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TABLE);
+        return false;
     }
 
     /**
@@ -567,7 +571,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeSummary() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_SUMMARY);
-        else return isTypeText();
+        else return false;
     }
 
     /**
@@ -576,7 +580,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeQuote() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_QUOTE);
-        else return isTypeText();
+        else return false;
     }
 
     /**
@@ -585,25 +589,25 @@ public class StoryElement implements Parcelable {
     public boolean isTypeBlockQuote() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_BLOCKQUOTE);
-        else return isTypeText();
+        else return false;
     }
 
     public boolean isTypeQuestionAnswer() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_QUESTION_ANSWER);
-        else return isTypeText();
+        else return false;
     }
 
     public boolean isTypeQuestion() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_QUESTION);
-        else return isTypeText();
+        else return false;
     }
 
     public boolean isTypeAnswer() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_ANSWER);
-        else return isTypeText();
+        else return false;
     }
 
 
@@ -613,7 +617,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeBlurb() {
         if (subType != null)
             return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_BLURB);
-        else return isTypeText();
+        else return false;
     }
 
     /**
@@ -629,7 +633,7 @@ public class StoryElement implements Parcelable {
     public boolean isImageGallery() {
         if (subType != null)
             return isTypeComposite() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_IMAGE_GALLERY) && subTypeMeta.isTypeGallery();
-        else return isTypeComposite();
+        else return false;
     }
 
     /**
@@ -640,7 +644,7 @@ public class StoryElement implements Parcelable {
     public boolean isImageSlideshow() {
         if (subType != null)
             return isTypeComposite() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_IMAGE_GALLERY) && subTypeMeta.isTypeSlideShow();
-        else return isTypeComposite();
+        else return false;
     }
 
     /**
@@ -653,7 +657,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeTwitter() {
         if (subType != null)
             return isTypeJsembed() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TWEET);
-        else return isTypeJsembed();
+        else return false;
     }
 
     /**
@@ -662,7 +666,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeBigFact() {
         if (subType != null)
             return isTypeText() && subType.endsWith(SUB_TYPE_STORY_ELEMENT_BIG_FACT);
-        else return isTypeText();
+        else return false;
     }
 
     /**
@@ -671,7 +675,7 @@ public class StoryElement implements Parcelable {
     public boolean isTypeBrightCoveVideo() {
         if (subType != null)
             return isTypeExternal() && subType.endsWith(SUB_TYPE_STORY_ELEMENT_BRIGHTCOVE);
-        else return isTypeExternal();
+        else return false;
     }
 
     /**
@@ -680,7 +684,7 @@ public class StoryElement implements Parcelable {
     public boolean isAlsoRead() {
         if (subType != null)
             return isTypeText() && subType.endsWith(SUB_TYPE_STORY_ELEMENT_ALSO_READ);
-        else return isTypeText();
+        else return false;
     }
 
     public Long tweetId() {

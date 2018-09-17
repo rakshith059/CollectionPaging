@@ -35,7 +35,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var storyElement = StoryElement()
+        var storyElement = storyPresenter?.getElement(position) as StoryElement
         if (holder is ElementStoryViewHolder) {
             holder.bind(storyElement)
         }

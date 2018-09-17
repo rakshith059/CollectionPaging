@@ -44,7 +44,9 @@ class Card : Parcelable {
     fun buildUIStoryElements() {
         if (uiStoryElements != null)
             uiStoryElements.clear()
-        
+        else
+            uiStoryElements = ArrayList()
+
         for (storyElement in storyElements) {
             if (storyElement.isTypeText() && !storyElement.isTypeQuote()
                     && !storyElement.isTypeBlockQuote() && !storyElement.isTypeBlurb()) {

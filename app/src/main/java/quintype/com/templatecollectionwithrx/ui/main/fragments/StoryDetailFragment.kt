@@ -11,9 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_story_detail.*
-import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.retry_layout.*
-
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
 import quintype.com.templatecollectionwithrx.models.story.SlugStory

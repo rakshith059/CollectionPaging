@@ -24,6 +24,7 @@ class ElementStoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
 
     fun bind(storyElement: StoryElement) {
         var tvText = itemView?.findViewById<TextView>(R.id.story_text_element_holder_tv_text)
-        tvText?.text = Html.fromHtml(storyElement.text())
+        if (storyElement.text() != null)
+            tvText?.text = Html.fromHtml(storyElement?.text())
     }
 }
