@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">TemplateCollectionWithRx</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="section">Section</string>
+    <string name="title">Title</string>
+    <string name="clicked_position">clicked_position</string>
+    <string name="collection_list_size">collection_list_size</string>
+    <string name="read_story">Read Story</string>
+    <string name="oops">Oops...\\nSomething went wrong!</string>
+    <string name="no_internet">Please check your Internet connection and try again.</string>
+    <string name="retry">Retry</string>
 </resources>

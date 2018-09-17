@@ -1,24 +1,22 @@
 package quintype.com.templatecollectionwithrx
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.main_activity.*
-import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
-import quintype.com.templatecollectionwithrx.ui.main.MainFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
+        setupHomeScreen()
+
         //set pager adapter
-        val pagerAdapter = HomePagerAdapter(supportFragmentManager, getFragmentList(), resources.getString(R.string.app_name))
-        pager.adapter = pagerAdapter
-        //link the tab layout and viewpager
-        main_activity_tab_layout.setupWithViewPager(pager)
+//        val pagerAdapter = HomePagerAdapter(supportFragmentManager, getFragmentList(), resources.getString(R.string.app_name))
+//        pager.adapter = pagerAdapter
+//        //link the tab layout and viewpager
+//        main_activity_tab_layout.setupWithViewPager(pager)
 
 //        if (savedInstanceState == null) {
 //            supportFragmentManager.beginTransaction()
@@ -27,12 +25,24 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    private fun getFragmentList(): List<Fragment> {
-        var fragmentList = ArrayList<Fragment>()
-        for (index in 0 until 5)
-            fragmentList.add(MainFragment.newInstance())
+//    private fun getFragmentList(): List<Fragment> {
+//        var fragmentList = ArrayList<Fragment>()
+//        for (index in 0 until 1)
+//            fragmentList.add(MainFragment.newInstance())
+//
+//        return fragmentList
+//    }
 
-        return fragmentList
+    private fun setupHomeScreen() {
+        //if the backstack is empty/the app has just been launched
+        if (getmFragment() == null) {
+//            val fragmentManager = supportFragmentManager
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//            fragmentTransaction.add(R.id.home_container, HomePagerFragment.newInstance())
+//            fragmentTransaction.commit()
+            addFragment(HomePagerFragment.newInstance(), null)
+        }
+//        displayDetailScreen()
     }
 
 }

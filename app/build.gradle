@@ -13,6 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -37,6 +39,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     //Networking
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
@@ -56,4 +59,10 @@ dependencies {
 
     //for circle image view
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //for circle indicator pager
+    implementation 'me.relex:circleindicator:1.1.9@aar'
+
+    //for parsing html
+    implementation 'org.jsoup:jsoup:1.8.2'
 }

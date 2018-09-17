@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--for custom rating bar -->
+    <declare-styleable name="CustomRatingBar">
+        <attr name="maxStars" format="integer" />
+        <attr name="stars" format="float" />
+        <attr name="starOff" format="reference|integer" />
+        <attr name="starOn" format="reference|integer" />
+        <attr name="starHalf" format="reference|integer" />
+        <attr name="starPadding" format="dimension" />
+        <attr name="onlyForDisplay" format="boolean" />
+        <attr name="halfStars" format="boolean" />
+    </declare-styleable>
+
+    <!--for custom rating bar -->
+    <declare-styleable name="StoryListTitleLiveBlogWidget">
+        <attr name="backGroundColor" format="integer" />
+        <attr name="titleColor" format="reference|integer" />
+        <attr name="titleSize" format="integer" />
+        <attr name="maxLines" format="integer" />
+    </declare-styleable>
+
+</resources>

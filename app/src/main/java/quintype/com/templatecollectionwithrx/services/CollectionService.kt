@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.CollectionResponse
+import quintype.com.templatecollectionwithrx.models.collection.CollectionResponse
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 /**
@@ -19,7 +19,7 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 class CollectionService {
     companion object {
         var collectionService: CollectionService? = null
-        var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
+        var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
         var mCompositeDisposable: CompositeDisposable? = null
 
         var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
@@ -46,7 +46,7 @@ class CollectionService {
                 .retry(3)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap({ mCollectionResponse ->
+                .flatMap { mCollectionResponse ->
                     for (index in 0 until mCollectionResponse.items?.size as Int) {
                         var mCollectionItem = mCollectionResponse.items?.get(index)
 
@@ -75,22 +75,32 @@ class CollectionService {
                                     null,
                                     null)
 
-//                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
+                            //                            var collectionHashMap = collectionOrderHashMap.put(mCollectionItem?.story?.slug as String, bulkTableModel)
 
                             collectionModelList.add(bulkTableModel)
                             collectionData.value = bulkTableModel
                         }
                     }
                     Flowable.fromIterable(mCollectionResponse.items)
-                })
-                .filter({ mCollectionItem -> mCollectionItem.type.equals(Constants.TYPE_COLLECTION) })
-                .concatMapEager({ mCollectionItem ->
-                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, Constants.PAGE_LIMIT_CHILD, 0)
+                }
+                .filter { mCollectionItem -> mCollectionItem.type.equals(Constants.TYPE_COLLECTION) }
+                .concatMapEager { mCollectionItem ->
+                    var PAGE_LIMIT_CHILD = Constants.PAGE_LIMIT_CHILD
+                    var noOfStoriesToShow = mCollectionItem.associatedMetadata?.associatedMetadataNumberOfStoriesToShow
+                    if (noOfStoriesToShow != null && noOfStoriesToShow > 0) {
+                        PAGE_LIMIT_CHILD = noOfStoriesToShow
+                    }
+
+//                    return@concatMapEager collectionApiService.getCollectionApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0)
+                    /**
+                     * Using getCollectionOnlyStoriesApiService for getting only stories
+                     */
+                    return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                             .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                })
+                }
                 .subscribeWith(object : ResourceSubscriber<CollectionResponse>() {
                     override fun onComplete() {
                         Log.d("Rakshith", "api call completed for first iteration.. ")
@@ -125,7 +135,9 @@ class CollectionService {
 
                             if (index == 0 && mCollectionItem.type?.equals(Constants.TYPE_COLLECTION) as Boolean) {
                                 if (mCollectionItem.template?.equals(Constants.WIDGET_TEMPLATE) == false) {
+
                                     getChildRxResponse(mCollectionItem.slug as String, Constants.PAGE_LIMIT_CHILD, 0)
+                                    //todo call child collection for 1st position if 0th position is widget
                                 }
                             } else if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
                                 for (collectionListIndex in 0 until collectionModelList.size) {
@@ -150,9 +162,9 @@ class CollectionService {
     }
 
     fun getChildRxResponse(collectionSlug: String, limit: Int, offset: Int) {
-        var collectionApiService: CollectionApiService = CollectionApiClient.getCollectonApiClient().create(CollectionApiService::class.java)
+        var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, limit, offset)
+        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .flatMap({ mCollectionResponse -> Flowable.fromIterable(mCollectionResponse.items) })
@@ -194,6 +206,4 @@ class CollectionService {
                     }
                 }))
     }
-
-
 }

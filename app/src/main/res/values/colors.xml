@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="grey">#EEEEEE</color>
+    <color name="transparent">#00000000</color>
     <color name="white_transparency_75">#BFFFFFFF</color>
     <color name="white_transparency_50">#88FFFFFF</color>
     <color name="white_transparency_25">#44FFFFFF</color>
@@ -14,4 +15,8 @@
     <color name="black_opacity_75">#BF000000</color>
     <color name="black_opacity_25">#3F000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="theme_primary_color">#FFFFFF</color>
+    <color name="theme_secondary_color">#80000000</color>
+    <color name="theme_secondary_background_color">#000000</color>
 </resources>
