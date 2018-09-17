@@ -23,10 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_30dp"
-            android:fontFamily="monospace"
+            android:fontFamily="cursive"
             android:lineSpacingExtra="@dimen/size_8dp"
             android:textColor="@color/black_opacity_75"
-            android:textSize="@dimen/size_16sp"
+            android:textSize="@dimen/size_20sp"
             app:layout_constraintTop_toBottomOf="@+id/story_block_quote_element_holder_iv_block_quote" />
     </android.support.constraint.ConstraintLayout>
 
