@@ -10,20 +10,16 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
-/**
- * Created TemplateCollectionWithRx by rakshith on 9/12/18.
- */
-
-class ElementStoryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class ElementBlurbViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     companion object {
-        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): ElementStoryViewHolder {
-            var view: View = LayoutInflater.from(parent.context).inflate(R.layout.story_text_element_holder, parent, false)
-            return ElementStoryViewHolder(view)
+        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): ElementTextViewHolder {
+            var view: View = LayoutInflater.from(parent.context).inflate(R.layout.story_blurb_element_holder, parent, false)
+            return ElementTextViewHolder(view)
         }
     }
 
     fun bind(storyElement: StoryElement) {
-        var tvText = itemView?.findViewById<TextView>(R.id.story_text_element_holder_tv_text)
+        var tvText = itemView?.findViewById<TextView>(R.id.story_blurb_element_holder_tv_text)
         if (storyElement.text() != null)
             tvText?.text = Html.fromHtml(storyElement?.text())
     }

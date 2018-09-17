@@ -6,8 +6,7 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.models.storypresenter.ElementViewType
 import quintype.com.templatecollectionwithrx.models.storypresenter.StoryPresenter
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.ElementImageViewHolder
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.ElementStoryViewHolder
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.*
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,10 +21,13 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            ElementViewType.TEXT -> return ElementStoryViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.TEXT -> return ElementTextViewHolder.create(parent, mFragmentCallbacks)
             ElementViewType.IMAGE -> return ElementImageViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.BLURB -> return ElementBlurbViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.QUOTE -> return ElementQuoteViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.BLOCK_QUOTE -> return ElementBlockQuoteViewHolder.create(parent, mFragmentCallbacks)
         }
-        return ElementStoryViewHolder.create(parent, mFragmentCallbacks)
+        return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
 
     override fun getItemCount(): Int {
@@ -38,9 +40,15 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var storyElement = storyPresenter?.getElement(position) as StoryElement
-        if (holder is ElementStoryViewHolder)
+        if (holder is ElementTextViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementImageViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementBlurbViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementBlockQuoteViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementQuoteViewHolder)
             holder.bind(storyElement)
     }
 }

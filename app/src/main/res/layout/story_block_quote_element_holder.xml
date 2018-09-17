@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/block_quote_holder_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/story_block_quote_element_holder_iv_block_quote"
+            android:layout_width="@dimen/size_30dp"
+            android:layout_height="@dimen/size_30dp"
+            app:srcCompat="@drawable/ic_block_quote" />
+
+        <TextView
+            android:id="@+id/block_quote_holder_text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="@dimen/size_8dp"
+            android:textColor="@color/black_opacity_75"
+            android:textSize="@dimen/size_16sp"
+            app:layout_constraintTop_toBottomOf="@+id/story_block_quote_element_holder_iv_block_quote" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/block_quote_holder_attribute_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:breakStrategy="high_quality"
+        android:elegantTextHeight="true"
+        android:fontFamily="monospace"
+        android:gravity="right"
+        android:lineSpacingExtra="@dimen/size_8dp"
+        android:paddingRight="@dimen/size_6dp"
+        android:textColor="@color/black_opacity_75"
+        android:textSize="@dimen/size_16sp"
+        tools:targetApi="m" />
+
+</LinearLayout>
