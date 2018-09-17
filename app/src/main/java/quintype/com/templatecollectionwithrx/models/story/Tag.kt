@@ -13,7 +13,7 @@ class Tag : Parcelable {
     @SerializedName("name")
     private var name: String? = null
     @SerializedName("id")
-    private val id: String
+    private var id: String = ""
 
     override fun describeContents(): Int {
         return 0
@@ -27,6 +27,10 @@ class Tag : Parcelable {
     protected constructor(parcel: Parcel) {
         this.name = parcel.readString()
         this.id = parcel.readString()
+    }
+
+    constructor(tagName: String) {
+        this.name = tagName
     }
 
     companion object CREATOR : Parcelable.Creator<Tag> {
