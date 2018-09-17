@@ -88,47 +88,48 @@ public class StoryPresenter implements Parcelable {
 
     StoryPresenter(Story story) {
         this.story = story;
-        Map<String, EntityModel> parsedEntityMap = story.parsedEntityList();
-        int[] positionArray = new int[story.cards().size()];
-        int counter = 0;
-        //Add story elements to elements list.
-        for (Card card : story.cards()) {
-            card.buildUIStoryElements();
-            //keep a track of where each card starts
-            positionArray[counter] = flattenedStoryElements.size();
-            //flatten the elements in this card
-            for (StoryElement elem : card.getUiStoryElements()) {
-                flattenedStoryElements.add(elem);
-                storyElementToCardMap.put(elem.id(), card);
-            }
-
-            //parse the card attributes and put the list of card entities with its corresponding
-            //card position into a map
-            if (parsedEntityMap != null && !parsedEntityMap.isEmpty()
-                    && card.getMetadata() != null && card.getMetadata().attributes() != null) {
-                //parsing the attributes json into a map
-                Gson gson = new Gson();
-                JsonObject attributes = card.getMetadata().attributes();
-                Type type = new TypeToken<Map<String, List<EntityMapperItem>>>() {
-                }.getType();
-                Map<String, List<EntityMapperItem>> attributeMap = gson.fromJson(attributes, type);
-
-                //parsing the map to create a list of entities this card has
-                List<EntityModel> cardEntityList = new ArrayList<>();
-                for (List<EntityMapperItem> itemList : attributeMap.values()) {
-                    for (EntityMapperItem entityMapperItem : itemList) {
-                        cardEntityList.add(parsedEntityMap.get(entityMapperItem.getId()));
-                    }
+        if (story != null) {
+            Map<String, EntityModel> parsedEntityMap = story.parsedEntityList();
+            int[] positionArray = new int[story.cards().size()];
+            int counter = 0;
+            //Add story elements to elements list.
+            for (Card card : story.cards()) {
+                card.buildUIStoryElements();
+                //keep a track of where each card starts
+                positionArray[counter] = flattenedStoryElements.size();
+                //flatten the elements in this card
+                for (StoryElement elem : card.getUiStoryElements()) {
+                    flattenedStoryElements.add(elem);
+                    storyElementToCardMap.put(elem.id(), card);
                 }
 
-                // finally, adding the list of entities in this card to a map corresponding where
-                // the first story element in this card is in the flattenedStoryElements
-                cardEntityMap.put(counter, cardEntityList);
+                //parse the card attributes and put the list of card entities with its corresponding
+                //card position into a map
+//            if (parsedEntityMap != null && !parsedEntityMap.isEmpty()
+//                    && card.getMetadata() != null && card.getMetadata().attributes() != null) {
+//                //parsing the attributes json into a map
+//                Gson gson = new Gson();
+//                JsonObject attributes = card.getMetadata().attributes();
+//                Type type = new TypeToken<Map<String, List<EntityMapperItem>>>() {
+//                }.getType();
+//                Map<String, List<EntityMapperItem>> attributeMap = gson.fromJson(attributes, type);
+//
+//                //parsing the map to create a list of entities this card has
+//                List<EntityModel> cardEntityList = new ArrayList<>();
+//                for (List<EntityMapperItem> itemList : attributeMap.values()) {
+//                    for (EntityMapperItem entityMapperItem : itemList) {
+//                        cardEntityList.add(parsedEntityMap.get(entityMapperItem.getId()));
+//                    }
+//                }
+//
+//                // finally, adding the list of entities in this card to a map corresponding where
+//                // the first story element in this card is in the flattenedStoryElements
+//                cardEntityMap.put(counter, cardEntityList);
+//            }
+                counter++;
             }
-            counter++;
+            cardPositions = positionArray;
         }
-        cardPositions = positionArray;
-
     }
 
     /**

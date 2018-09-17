@@ -1,18 +1,22 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_story_detail.*
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.retry_layout.*
 
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
+import quintype.com.templatecollectionwithrx.models.story.SlugStory
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
@@ -60,9 +64,20 @@ class StoryDetailFragment : BaseFragment() {
 
     private fun loadStoryDetailBySlug(storySlug: String) {
         storyViewModel = ViewModelProviders.of(this).get(StoryViewModel::class.java)
-        var mSlugStory = storyViewModel?.getStoryDetailBySlug(storySlug)
-        var mStory = mSlugStory?.value?.story
+        storyViewModel?.getStoryDetailBySlug(storySlug)
 
-        var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
+        var layoutManager = LinearLayoutManager(getActivity())
+        fragment_story_detail_rv_recycler_view.layoutManager = layoutManager
+
+        observableStoryViewHolder(storyViewModel)
+    }
+
+    private fun observableStoryViewHolder(storyViewModel: StoryViewModel?) {
+        storyViewModel?.getStoryObservable()?.observe(this, Observer<SlugStory> {
+            var mStory = it?.story
+
+            var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
+            fragment_story_detail_rv_recycler_view?.adapter = storyDetailAdapter
+        })
     }
 }

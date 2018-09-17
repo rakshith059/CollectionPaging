@@ -203,18 +203,20 @@ public class Story implements Parcelable {
     public Map<String, EntityModel> parsedEntityList() {
         if (linkedEntities != null &&
                 (expandedEntitiesMap == null || expandedEntitiesMap.isEmpty())) {
+            Map<String, Class> entityTypeModelMap = new HashMap<>();
+
             //get the model classes for the current app
-//            Map<String, Class> typeClassMap = Quintype.config().entityTypeModelMap();
-//            if (typeClassMap == null)
-//                return new HashMap<>();
+            Map<String, Class> typeClassMap = entityTypeModelMap;
+            if (typeClassMap == null)
+                return new HashMap<>();
             expandedEntitiesMap = new HashMap<>(linkedEntities.size());
             for (JsonElement element : linkedEntities) {
                 if (!element.isJsonPrimitive()) { //to eliminate residual deleted linked entities
                     //get the .class from the map using the type name from the jsonObject
                     //and use that to parse the entity
-//                    EntityModel entity = EntityModel.createFromJson(element.getAsJsonObject(),
-//                            typeClassMap.get(element.getAsJsonObject().get("type").getAsString()));
-//                    expandedEntitiesMap.put(entity.getId(), entity);
+                    EntityModel entity = EntityModel.createFromJson(element.getAsJsonObject(),
+                            typeClassMap.get(element.getAsJsonObject().get("type").getAsString()));
+                    expandedEntitiesMap.put(entity.id(), entity);
                 }
             }
         }

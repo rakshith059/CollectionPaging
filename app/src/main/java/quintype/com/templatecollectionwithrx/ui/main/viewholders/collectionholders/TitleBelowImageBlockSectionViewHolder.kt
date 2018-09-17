@@ -1,4 +1,4 @@
-package quintype.com.templatecollectionwithrx.ui.main.viewholders
+package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -41,7 +41,7 @@ class TitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowIma
         var mFragmentCallbacks: FragmentCallbacks? = null
         fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): TitleBelowImageBlockSectionViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_block_section_header_row, parent, false)
-            this.mFragmentCallbacks = mFragmentCallbacks
+            Companion.mFragmentCallbacks = mFragmentCallbacks
             return TitleBelowImageBlockSectionViewHolder(view)
         }
     }

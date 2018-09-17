@@ -1,4 +1,4 @@
-package quintype.com.templatecollectionwithrx.ui.main.viewholders
+package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
