@@ -7,6 +7,7 @@ import android.R.attr.y
 import android.R.attr.x
 import android.R.attr.y
 import android.R.attr.x
+import android.content.SharedPreferences
 import android.graphics.Point
 
 
@@ -45,6 +46,7 @@ class Constants {
         const val PAGE_LIMIT_CHILD: Int = 5
         const val PRE_FETCH_ITEM: Int = 5
         const val DELAY_SEC: Long = 3
+        const val SPLASH_SCREEN_DELAY_MILLI_SEC: Long = 1000
         const val TYPE_STORY: String = "story"
         const val WIDGET_TEMPLATE: String = "widget"
         const val STORY_FIELDS: String = "id,hero-image-s3-key,sections,headline,authors,created-at,hero-image-caption,story-content-id,alternative,hero-image-metadata,slug,last-published-at,published-at,first-published-at"
@@ -98,5 +100,29 @@ class Constants {
         const val TYPE_SLIDESHOW = "slideshow"
         const val TYPE_GALLERY = "gallery"
         const val TYPE_INVALID = "invalid"
+
+
+        /**
+         * functions for shared preferences
+         */
+        const val SHARED_PREFRENCES: String = "SHARED_PREFERENCES"
+        val CDN_IMAGE_NAME: String = "CDN_IMAGE_NAME"
+
+        /**
+         * function for setting shared preference value
+         */
+        fun setSharedPreferences(mContext: Context, mSharedPreferencesKey: String, mSharedPreferencesValue: String) {
+            var sharedPreferences = mContext.getSharedPreferences(SHARED_PREFRENCES, Context.MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString(mSharedPreferencesKey, mSharedPreferencesValue)
+        }
+
+        /**
+         * function for getting shared preference value
+         */
+        fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String) {
+            var sharedPreferences = mContext.getSharedPreferences(SHARED_PREFRENCES, Context.MODE_PRIVATE)
+            sharedPreferences.getString(mSharedPreferencesKey, "")
+        }
     }
 }
