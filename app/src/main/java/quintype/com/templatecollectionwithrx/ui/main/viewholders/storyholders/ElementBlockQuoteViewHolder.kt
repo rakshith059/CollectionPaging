@@ -12,7 +12,7 @@ import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 class ElementBlockQuoteViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     companion object {
-        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): ElementBlockQuoteViewHolder {
+        fun create(parent: ViewGroup): ElementBlockQuoteViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.story_block_quote_element_holder, parent, false)
             return ElementBlockQuoteViewHolder(view)
         }
@@ -21,7 +21,9 @@ class ElementBlockQuoteViewHolder(itemView: View?) : RecyclerView.ViewHolder(ite
     fun bind(storyElement: StoryElement) {
         var tvTextContent = itemView?.findViewById<TextView>(R.id.block_quote_holder_text_content)
         var tvTextAttribute = itemView?.findViewById<TextView>(R.id.block_quote_holder_attribute_text)
-        tvTextContent?.text = storyElement?.subTypeMeta()?.content
-        tvTextAttribute?.text = storyElement?.subTypeMeta()?.attribution
+        if (storyElement?.subTypeMeta()?.content != null)
+            tvTextContent?.text = Html.fromHtml(storyElement.subTypeMeta()?.content)
+        if (storyElement?.subTypeMeta()?.attribution != null)
+            tvTextAttribute?.text = storyElement.subTypeMeta()?.attribution
     }
 }

@@ -23,9 +23,10 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         when (viewType) {
             ElementViewType.TEXT -> return ElementTextViewHolder.create(parent, mFragmentCallbacks)
             ElementViewType.IMAGE -> return ElementImageViewHolder.create(parent, mFragmentCallbacks)
-            ElementViewType.BLURB -> return ElementBlurbViewHolder.create(parent, mFragmentCallbacks)
-            ElementViewType.QUOTE -> return ElementQuoteViewHolder.create(parent, mFragmentCallbacks)
-            ElementViewType.BLOCK_QUOTE -> return ElementBlockQuoteViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.GIF -> return ElementImageViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.BLURB -> return ElementBlurbViewHolder.create(parent)
+            ElementViewType.QUOTE -> return ElementQuoteViewHolder.create(parent)
+            ElementViewType.BLOCK_QUOTE -> return ElementBlockQuoteViewHolder.create(parent)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }

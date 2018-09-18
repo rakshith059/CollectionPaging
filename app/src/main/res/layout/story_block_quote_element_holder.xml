@@ -10,7 +10,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/size_8dp">
 
         <ImageView
             android:id="@+id/story_block_quote_element_holder_iv_block_quote"
@@ -37,7 +38,7 @@
         android:layout_marginTop="@dimen/size_10dp"
         android:breakStrategy="high_quality"
         android:elegantTextHeight="true"
-        android:fontFamily="monospace"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="right"
         android:lineSpacingExtra="@dimen/size_8dp"
         android:paddingRight="@dimen/size_6dp"

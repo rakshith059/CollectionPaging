@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.WebActivity
+import quintype.com.templatecollectionwithrx.ui.main.activities.WebActivity
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 

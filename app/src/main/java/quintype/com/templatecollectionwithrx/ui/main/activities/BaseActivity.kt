@@ -1,10 +1,11 @@
-package quintype.com.templatecollectionwithrx
+package quintype.com.templatecollectionwithrx.ui.main.activities
 
 import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 

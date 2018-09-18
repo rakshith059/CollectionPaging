@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,7 +9,8 @@
         android:layout_width="@dimen/size_50dp"
         android:layout_height="@dimen/size_50dp"
         android:layout_gravity="top"
-        android:src="@drawable/ic_quote" />
+        android:src="@drawable/ic_quote"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/quote_holder_layout"
@@ -19,15 +21,42 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <!--<TextView-->
+        <!--android:id="@+id/quote_holder_text_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:fontFamily="monospace"-->
+        <!--android:lineSpacingExtra="@dimen/size_8sp"-->
+        <!--android:paddingRight="@dimen/size_8dp"-->
+        <!--android:textColor="@color/black_opacity_75"-->
+        <!--android:textSize="@dimen/size_20sp"-->
+        <!--android:visibility="gone" />-->
+
         <TextView
             android:id="@+id/quote_holder_text_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:lineSpacingExtra="@dimen/size_8sp"
-            android:paddingRight="@dimen/size_8dp"
+            android:layout_marginLeft="@dimen/size_30dp"
+            android:layout_marginRight="@dimen/size_30dp"
+            android:fontFamily="cursive"
+            android:lineSpacingExtra="@dimen/size_8dp"
             android:textColor="@color/black_opacity_75"
-            android:textSize="@dimen/size_20sp"
-            android:visibility="gone" />
+            android:textSize="@dimen/size_20sp" />
+
+        <TextView
+            android:id="@+id/quote_holder_attribute_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:breakStrategy="high_quality"
+            android:elegantTextHeight="true"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="right"
+            android:lineSpacingExtra="@dimen/size_8dp"
+            android:paddingRight="@dimen/size_6dp"
+            android:textColor="@color/black_opacity_75"
+            android:textSize="@dimen/size_16sp"
+            tools:targetApi="m" />
+
     </LinearLayout>
 </LinearLayout>

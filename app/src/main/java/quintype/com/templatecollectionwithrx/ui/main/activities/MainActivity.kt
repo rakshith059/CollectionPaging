@@ -1,8 +1,8 @@
-package quintype.com.templatecollectionwithrx
+package quintype.com.templatecollectionwithrx.ui.main.activities
 
 import android.os.Bundle
+import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
-import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 class MainActivity : BaseActivity() {
 
