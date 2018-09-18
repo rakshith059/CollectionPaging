@@ -9,13 +9,14 @@ import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.utils.Constants
 
 class TitleInsideImageViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
         super.bind(collectionItem, collectionAssociatedMetadata)
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_inside_image_header_row_iv_hero_icon)
 
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)
                 .load(heroImageURL)

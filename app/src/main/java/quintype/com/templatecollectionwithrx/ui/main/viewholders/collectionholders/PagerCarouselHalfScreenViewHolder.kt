@@ -22,7 +22,7 @@ class PagerCarouselHalfScreenViewHolder(itemView: View?) : BaseTitleBelowImageBl
         tvTitle?.minLines = 2
         tvTitle?.ellipsize = TextUtils.TruncateAt.END
 
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)
                 .load(heroImageURL)

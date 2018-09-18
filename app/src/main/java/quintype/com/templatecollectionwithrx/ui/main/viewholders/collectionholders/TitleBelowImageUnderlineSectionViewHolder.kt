@@ -17,7 +17,7 @@ class TitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseTitleBelo
         super.bind(collectionItem, collectionAssociatedMetadata)
 
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_underline_section_header_row_iv_hero_icon)
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(ivHeroImage?.context as Context)
                 .load(heroImageURL)

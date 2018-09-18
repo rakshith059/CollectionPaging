@@ -11,13 +11,15 @@ import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.utils.Constants
 
 open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_inside_image_grid_row_iv_hero_icon)
         var tvStoryTitle = itemView?.findViewById<TextView>(R.id.title_inside_image_grid_row_tv_title)
 
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val cdnHostName = Constants.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)
                 .load(heroImageURL)

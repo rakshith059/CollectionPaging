@@ -10,12 +10,15 @@ import de.hdodenhof.circleimageview.CircleImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 
 open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     private var isShowAuthorName = true
     private var isShowTimeToPublish = false
+
+    val cdnHostName = Constants.getSharedPreferences(itemView?.context as Context, Constants.SP_CDN_IMAGE_NAME)
 
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
         var view = this.itemView.rootView

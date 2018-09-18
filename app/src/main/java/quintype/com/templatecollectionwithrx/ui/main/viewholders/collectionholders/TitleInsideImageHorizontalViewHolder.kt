@@ -25,7 +25,7 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
         var rbCustomRatingBar = itemView?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
         var tvStoryTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
 
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(ivHeroImage?.context as Context)
                 .load(heroImageURL)

@@ -21,7 +21,7 @@ class LeftImageChildViewHolder(itemView: View) : BaseTitleBelowImageUnderlineSec
 
 //        tvStoryTitle?.text = collectionItem?.headline
 
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(ivStoryHeroImage.context)
                 .load(heroImageURL)

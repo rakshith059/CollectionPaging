@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 
@@ -53,7 +54,8 @@ class ElementImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
                     ivImage.layoutParams = params
                 }
 
-                val heroImageURL = "https://" + "images.assettype.com" + "/" + element.imageS3Key()
+                val cdnHostName = Constants.getSharedPreferences(ivImage.context, Constants.SP_CDN_IMAGE_NAME)
+                val heroImageURL = cdnHostName + element.imageS3Key()
 
                 Glide.with(ivImage.context as Context)
                         .load(heroImageURL)

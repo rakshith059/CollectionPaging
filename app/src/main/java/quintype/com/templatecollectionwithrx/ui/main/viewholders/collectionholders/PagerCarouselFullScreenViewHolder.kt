@@ -15,7 +15,7 @@ class PagerCarouselFullScreenViewHolder(itemView: View?) : BaseTitleInsideImageB
         super.bind(collectionItem, collectionAssociatedMetadata)
 
         ivHeroImage = itemView?.findViewById<ImageView>(R.id.pager_carousel_title_inside_image_row_iv_hero_icon)
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)
                 .load(heroImageURL)

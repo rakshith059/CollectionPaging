@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.utils.Constants
 
 class StoryViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
     fun bind(collectionItem: BulkTableModel) {
@@ -17,7 +18,7 @@ class StoryViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHold
 
 //        tvStoryTitle?.text = collectionItem?.story?.headline
 
-        val heroImageURL = "https://" + "images.assettype.com" + "/" + collectionItem.story?.heroImageS3Key
+        val heroImageURL = cdnHostName + collectionItem.story?.heroImageS3Key
 
         Glide.with(ivStoryHeroImage.context)
                 .load(heroImageURL)

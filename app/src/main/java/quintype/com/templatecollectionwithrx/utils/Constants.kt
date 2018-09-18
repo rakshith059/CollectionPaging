@@ -9,6 +9,7 @@ import android.R.attr.y
 import android.R.attr.x
 import android.content.SharedPreferences
 import android.graphics.Point
+import android.preference.PreferenceManager
 
 
 /**
@@ -106,23 +107,36 @@ class Constants {
          * functions for shared preferences
          */
         const val SHARED_PREFRENCES: String = "SHARED_PREFERENCES"
-        val CDN_IMAGE_NAME: String = "CDN_IMAGE_NAME"
+        const val SP_CDN_IMAGE_NAME: String = "SP_CDN_IMAGE_NAME"
+        const val SP_PUBLISHER_COPYRIGHT: String = "SP_PUBLISHER_COPYRIGHT"
+        const val SP_PUBLISHER_NAME: String = "SP_PUBLISHER_NAME"
+        const val SP_SHRUBBERY_HOST: String = "SP_SHRUBBERY_HOST"
+        const val SP_POLLTYPE_HOST: String = "SP_POLLTYPE_HOST"
+        const val SP_TERMS_AND_CONDITION: String = "SP_TERMS_AND_CONDITION"
+        const val SP_PRIVACY_POLICY: String = "SP_PRIVACY_POLICY"
+        const val SP_ABOUT_US: String = "SP_ABOUT_US"
+
+
+        const val TERMS_AND_CONDITION: String = "terms-and-conditions"
+        const val ABOUT_US: String = "about-us"
+        const val PRIVACY_POLICY: String = "privacy-policy"
 
         /**
          * function for setting shared preference value
          */
         fun setSharedPreferences(mContext: Context, mSharedPreferencesKey: String, mSharedPreferencesValue: String) {
-            var sharedPreferences = mContext.getSharedPreferences(SHARED_PREFRENCES, Context.MODE_PRIVATE)
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
             var editor: SharedPreferences.Editor = sharedPreferences.edit()
             editor.putString(mSharedPreferencesKey, mSharedPreferencesValue)
+            editor.apply()
         }
 
         /**
          * function for getting shared preference value
          */
-        fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String) {
-            var sharedPreferences = mContext.getSharedPreferences(SHARED_PREFRENCES, Context.MODE_PRIVATE)
-            sharedPreferences.getString(mSharedPreferencesKey, "")
+        fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String): String {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+            return sharedPreferences.getString(mSharedPreferencesKey, "")
         }
     }
 }
