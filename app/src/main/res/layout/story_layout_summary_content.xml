@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/snapshot_content_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/story_element_summary_bg"
+        android:fontFamily="cursive"
+        android:lineSpacingExtra="@dimen/size_4dp"
+        android:padding="@dimen/size_16dp"
+        android:textColor="@color/black_opacity_75"
+        android:textSize="@dimen/size_16sp" />
+
+</android.support.constraint.ConstraintLayout>

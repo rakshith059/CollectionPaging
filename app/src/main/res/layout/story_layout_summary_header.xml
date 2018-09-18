@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/snapshot_header_text"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_weight="1"
+    android:fontFamily="sans-serif-condensed"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:padding="@dimen/size_16dp"
+    android:text="@string/summary"
+    android:textAllCaps="true"
+    android:textColor="@color/colorPrimary"
+    android:textSize="@dimen/size_16sp"
+    android:textStyle="bold" />

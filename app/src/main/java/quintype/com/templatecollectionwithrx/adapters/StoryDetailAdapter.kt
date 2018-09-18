@@ -27,6 +27,9 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.BLURB -> return ElementBlurbViewHolder.create(parent)
             ElementViewType.QUOTE -> return ElementQuoteViewHolder.create(parent)
             ElementViewType.BLOCK_QUOTE -> return ElementBlockQuoteViewHolder.create(parent)
+            ElementViewType.MEDIA -> return ElementWebViewHolder.create(parent)
+            ElementViewType.SUMMARY -> return ElementStorySummaryHolder.create(parent)
+            ElementViewType.QUESTION_ANSWER -> return ElementStoryQAHolder.create(parent)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -50,6 +53,12 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementBlockQuoteViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementQuoteViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementWebViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStorySummaryHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStoryQAHolder)
             holder.bind(storyElement)
     }
 }

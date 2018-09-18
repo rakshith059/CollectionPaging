@@ -12,15 +12,16 @@ import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 class ElementBlurbViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     companion object {
-        fun create(parent: ViewGroup): ElementTextViewHolder {
+        fun create(parent: ViewGroup): ElementBlurbViewHolder {
             var view: View = LayoutInflater.from(parent.context).inflate(R.layout.story_blurb_element_holder, parent, false)
-            return ElementTextViewHolder(view)
+            return ElementBlurbViewHolder(view)
         }
     }
 
     fun bind(storyElement: StoryElement) {
         var tvText = itemView?.findViewById<TextView>(R.id.story_blurb_element_holder_tv_text)
-        if (storyElement.text() != null)
-            tvText?.text = Html.fromHtml(storyElement.text())
+        var blurbContent = storyElement.subTypeMeta()?.content
+        if (blurbContent != null)
+            tvText?.text = Html.fromHtml(blurbContent)
     }
 }

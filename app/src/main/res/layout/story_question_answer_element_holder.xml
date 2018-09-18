@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/size_16dp">
+
+    <LinearLayout
+        android:id="@+id/story_question_answer_element_holder_ll_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/size_8sp"
+            android:paddingLeft="@dimen/size_16dp"
+            android:paddingRight="@dimen/size_16dp"
+            android:text="@string/q_text_placeholder"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_24sp"
+            android:textStyle="bold"
+            app:fontFamily="sans-serif-condensed" />
+
+        <TextView
+            android:id="@+id/story_question_answer_element_holder_tv_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/size_8sp"
+            android:paddingRight="@dimen/size_16dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_18sp"
+            app:fontFamily="sans-serif-condensed" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/story_question_answer_element_holder_ll_question">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/size_8sp"
+            android:paddingLeft="@dimen/size_16dp"
+            android:paddingRight="@dimen/size_16dp"
+            android:text="@string/a_text_placeholder"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_24sp"
+            android:textStyle="bold"
+            app:fontFamily="sans-serif-condensed" />
+
+        <TextView
+            android:id="@+id/story_question_answer_element_holder_tv_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/size_8sp"
+            android:paddingRight="@dimen/size_16dp"
+            android:paddingBottom="@dimen/size_16dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_18sp"
+            app:fontFamily="sans-serif-condensed" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

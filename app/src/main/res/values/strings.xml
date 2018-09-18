@@ -11,4 +11,7 @@
     <string name="oops">Oops...\\nSomething went wrong!</string>
     <string name="no_internet">Please check your Internet connection and try again.</string>
     <string name="retry">Retry</string>
+    <string name="summary">Summary</string>
+    <string name="q_text_placeholder">Q</string>
+    <string name="a_text_placeholder">A</string>
 </resources>
