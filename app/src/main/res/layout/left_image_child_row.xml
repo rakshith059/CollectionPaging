@@ -18,7 +18,7 @@
             android:layout_height="@dimen/size_100dp"
             android:layout_gravity="center"
             android:background="@color/colorAccent"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerCrop" />
 
         <include
             layout="@layout/section_underline_title_author_row"

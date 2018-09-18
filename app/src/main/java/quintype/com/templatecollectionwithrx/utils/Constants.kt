@@ -1,15 +1,10 @@
 package quintype.com.templatecollectionwithrx.utils
 
 import android.content.Context
-import android.view.Display
-import android.view.WindowManager
-import android.R.attr.y
-import android.R.attr.x
-import android.R.attr.y
-import android.R.attr.x
 import android.content.SharedPreferences
 import android.graphics.Point
 import android.preference.PreferenceManager
+import android.view.WindowManager
 
 
 /**
@@ -39,7 +34,7 @@ class Constants {
         //        const val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        const val BASE_URL = "https://www.thequint.com"
         const val BASE_URL = "https://madrid.quintype.io"
-        //        const val BASE_URL = "https://ace-web.staging.quintype.io"
+        //        const val BASE_URL = "https://ace-web.qtstage.io"
         //        const val BASE_URL = "https://www.samachara.com"
         const val COLLECTION_HOME: String = "home"
         const val PAGE_LIMIT: Int = 20
