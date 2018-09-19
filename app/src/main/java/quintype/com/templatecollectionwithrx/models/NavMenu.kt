@@ -12,31 +12,31 @@ import quintype.com.templatecollectionwithrx.models.story.Tag
 class NavMenu : Parcelable {
 
     @SerializedName("updated-at")
-    private var updatedAt: Long = 0
+    public var updatedAt: Long = 0
     @SerializedName("tag-name")
-    private var tagName: String? = null
+    public var tagName: String? = null
     @SerializedName("publisher-id")
-    private var publisherId: String = ""
+    public var publisherId: String = ""
     @SerializedName("item-id")
-    private var itemId: String = ""
+    public var itemId: String = ""
     @SerializedName("rank")
-    private var rank: Long = 0
+    public var rank: Long = 0
     @SerializedName("title")
-    private var title: String? = null
+    public var title: String? = null
     @SerializedName("item-type")
-    private var type: String = ""
+    public var type: String = ""
     @SerializedName("section-slug")
-    private var sectionSlug: String = ""
+    public var sectionSlug: String = ""
     @SerializedName("id")
-    private var id: String? = null
+    public var id: String? = null
     @SerializedName("parent-id")
-    private var parentId: String = ""
+    public var parentId: String = ""
     @SerializedName("created-at")
-    private var createdAt: Long = 0
+    public var createdAt: Long = 0
     @SerializedName("section-name")
-    private var sectionName: String? = null
+    public var sectionName: String? = null
     @SerializedName("data")
-    private var data: NavMenuData? = null
+    public var data: NavMenuData? = null
 
     private val homeType: String = "home"
 
@@ -219,23 +219,23 @@ class NavMenu : Parcelable {
         dest.writeParcelable(this.data, flags)
     }
 
-    constructor()
-
-    protected constructor(`in`: Parcel) {
-        this.updatedAt = `in`.readLong()
-        this.tagName = `in`.readString()
-        this.publisherId = `in`.readString()
-        this.itemId = `in`.readString()
-        this.rank = `in`.readLong()
-        this.title = `in`.readString()
-        this.type = `in`.readString()
-        this.sectionSlug = `in`.readString()
-        this.id = `in`.readString()
-        this.parentId = `in`.readString()
-        this.createdAt = `in`.readLong()
-        this.sectionName = `in`.readString()
-        this.data = `in`.readParcelable<NavMenuData>(NavMenuData::class.java.classLoader)
+    protected constructor(parcel: Parcel) {
+        this.updatedAt = parcel.readLong()
+        this.tagName = parcel.readString()
+        this.publisherId = parcel.readString()
+        this.itemId = parcel.readString()
+        this.rank = parcel.readLong()
+        this.title = parcel.readString()
+        this.type = parcel.readString()
+        this.sectionSlug = parcel.readString()
+        this.id = parcel.readString()
+        this.parentId = parcel.readString()
+        this.createdAt = parcel.readLong()
+        this.sectionName = parcel.readString()
+        this.data = parcel.readParcelable<NavMenuData>(NavMenuData::class.java.classLoader)
     }
+
+    constructor()
 
     companion object {
         val TYPE_SECTION = "section"

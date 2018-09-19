@@ -98,5 +98,9 @@ class Constants {
         const val TYPE_SLIDESHOW = "slideshow"
         const val TYPE_GALLERY = "gallery"
         const val TYPE_INVALID = "invalid"
+
+        const val NAVMENU_GROUP_PARENT_POSITION = -1
+        const val NAVMENU_GROUP_NOTIFICATIONS_POSITION = "-2"
+        const val NAVMENU_GROUP_DISCLAIMER_POSITION = "-3"
     }
 }

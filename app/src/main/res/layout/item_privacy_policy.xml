@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/quintype_link_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/size_4dp"
+        android:paddingTop="@dimen/size_16dp"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="@dimen/size_14dp" />
+
+    <TextView
+        android:id="@+id/disclaimer_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/size_4dp"
+        android:textColor="@color/colorPrimary"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="@dimen/size_14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_16dp"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/size_4dp"
+        android:paddingBottom="@dimen/size_16dp"
+        android:paddingRight="@dimen/size_16dp"
+        android:text="@string/copyright_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_14sp" />
+</LinearLayout>
