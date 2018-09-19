@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/size_8dp"
         android:layout_marginEnd="@dimen/size_16dp"
         android:layout_marginBottom="@dimen/size_8dp"
-        android:background="@color/story_element_summary_bg"
+        android:background="@color/black_opacity_25"
         app:el_contentLayout="@layout/story_layout_summary_content"
         app:el_headerLayout="@layout/story_layout_summary_header" />
 </LinearLayout>
