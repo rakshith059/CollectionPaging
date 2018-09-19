@@ -18,8 +18,8 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_block_section_horizontal_scroll_row_iv_hero_icon)
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_below_image_block_section_horizontal_scroll_row_cl_main_container)
         var rbCustomRatingBar = itemView?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
@@ -27,16 +27,18 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
 
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
+        clMainContainer?.setOnClickListener(listner)
+
         Glide.with(ivHeroImage?.context as Context)
                 .load(heroImageURL)
                 .into(ivHeroImage)
 
-        ivHeroImage.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                var intent = Intent(ivHeroImage.context, WebActivity::class.java)
-                ivHeroImage.context.startActivity(intent)
-            }
-        })
+//        ivHeroImage.setOnClickListener(object : View.OnClickListener {
+//            override fun onClick(v: View?) {
+//                var intent = Intent(ivHeroImage.context, WebActivity::class.java)
+//                ivHeroImage.context.startActivity(intent)
+//            }
+//        })
 
         var reviewRatingValue: Float? = collectionItem?.storyMetaData?.reviewRating?.value()?.toFloat()
 

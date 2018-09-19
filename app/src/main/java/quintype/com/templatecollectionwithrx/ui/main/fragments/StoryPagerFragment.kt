@@ -31,7 +31,7 @@ class StoryPagerFragment : BaseFragment() {
     private fun getFragmentList(): List<Fragment> {
         var fragmentList = ArrayList<Fragment>()
         for (index in 0 until mStoryList.size)
-            fragmentList.add(StoryDetailFragment.newInstance(mStoryList))
+            fragmentList.add(index, StoryDetailFragment.newInstance(mStoryList.get(index)))
 
         return fragmentList
     }

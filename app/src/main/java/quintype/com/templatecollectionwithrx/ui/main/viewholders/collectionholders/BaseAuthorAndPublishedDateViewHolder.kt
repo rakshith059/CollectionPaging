@@ -20,7 +20,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
 
     val cdnHostName = Constants.getSharedPreferences(itemView?.context as Context, Constants.SP_CDN_IMAGE_NAME)
 
-    open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
+    open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         var view = this.itemView.rootView
 
         var clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)

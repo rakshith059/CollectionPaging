@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
@@ -13,14 +14,17 @@ import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 class PagerCarouselHalfScreenViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
 
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
 
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.pager_carousel_half_slider_row_iv_hero_icon)
         var tvTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
         tvTitle?.maxLines = 2
         tvTitle?.minLines = 2
         tvTitle?.ellipsize = TextUtils.TruncateAt.END
+
+        var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.pager_carousel_half_slider_row_cl_main_container)
+        clMainContainer?.setOnClickListener(listner)
 
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 

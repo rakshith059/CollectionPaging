@@ -30,7 +30,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCollectionName = itemView?.findViewById<TextView>(R.id.default_collection_row_tv_collection_name)
 
         var showCollectionName: Boolean
-        var associatedMetadataShowCollectionName = collectionItem?.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
+        var associatedMetadataShowCollectionName = collectionItem.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
         if (associatedMetadataShowCollectionName != null) {
             showCollectionName = associatedMetadataShowCollectionName
         } else showCollectionName = true
@@ -40,7 +40,6 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             tvCollectionName?.text = collectionItem.outerCollectionName
         } else
             llCollectionName?.visibility = View.GONE
-
 
         llCollectionName?.setOnClickListener({
             mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem?.slug), TAG)
@@ -53,7 +52,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (collectionInnerList?.size != null)
             prepareLayoutEngine(collectionInnerList, collectionItem.mOuterCollectionAssociatedMetadata, collectionList, collectionItem.outerCollectionName)
 
-        val innerCollectionAdapter = InnerCollectionAdapter(collectionList)
+        val innerCollectionAdapter = InnerCollectionAdapter(collectionList, mFragmentCallbacks)
 
         rvInnerCollection?.adapter = innerCollectionAdapter
     }

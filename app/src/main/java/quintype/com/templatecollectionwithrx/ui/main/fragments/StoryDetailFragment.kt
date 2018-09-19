@@ -28,13 +28,15 @@ class StoryDetailFragment : BaseFragment() {
     var storyViewModel: StoryViewModel? = null
 
     companion object {
-        var mStoryList = ArrayList<Story>()
+        var mStory = Story()
 
-        fun newInstance(mStoryList: ArrayList<Story>): StoryDetailFragment {
+        private const val ARG_STORY_ITEM: String = "ARG_STORY_ITEM"
+
+        fun newInstance(mStory: Story): StoryDetailFragment {
             val fragment = StoryDetailFragment()
             val args = Bundle()
+            args.putParcelable(ARG_STORY_ITEM, mStory)
             fragment.arguments = args
-            this.mStoryList = mStoryList
             return fragment
         }
     }
@@ -47,13 +49,15 @@ class StoryDetailFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        loadStoryDetailIfInternetPresent(mStoryList.get(0).slug())
+        mStory = arguments?.getParcelable(ARG_STORY_ITEM) as Story
+
+        loadStoryDetailIfInternetPresent()
         fragment_story_detail_pb_progress.visibility = View.VISIBLE
     }
 
-    private fun loadStoryDetailIfInternetPresent(storySlug: String) {
+    private fun loadStoryDetailIfInternetPresent() {
         if (NetworkUtils.isConnected(activity?.applicationContext as Context)) {
-            loadStoryDetailBySlug(storySlug)
+            loadStoryDetailBySlug(mStory.slug)
         } else {
             fragment_story_detail_swipe_refresh_layout.isRefreshing = false
             fragment_story_detail_fl_main_container.visibility = View.GONE
