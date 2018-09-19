@@ -34,7 +34,7 @@ class TitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowIma
         itemView?.setOnClickListener({
             var storyList = ArrayList<Story>()
             storyList.add(collectionItem)
-            mFragmentCallbacks?.replaceFragment(StoryPagerFragment.newInstance(storyList), "StoryDetailFragment")
+            mFragmentCallbacks?.addFragment(StoryPagerFragment.newInstance(storyList), "StoryDetailFragment")
         })
     }
 
@@ -42,7 +42,7 @@ class TitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowIma
         var mFragmentCallbacks: FragmentCallbacks? = null
         fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): TitleBelowImageBlockSectionViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_block_section_header_row, parent, false)
-            Companion.mFragmentCallbacks = mFragmentCallbacks
+            this.mFragmentCallbacks = mFragmentCallbacks
             return TitleBelowImageBlockSectionViewHolder(view)
         }
     }

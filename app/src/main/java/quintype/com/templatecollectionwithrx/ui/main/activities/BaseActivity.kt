@@ -35,7 +35,7 @@ open class BaseActivity : AppCompatActivity(), FragmentCallbacks {
             fragmentTransaction?.addToBackStack(mBackStack)
         }
         mFragment = fragment
-        fragmentTransaction?.commit()
+        fragmentTransaction?.commitAllowingStateLoss()
     }
 
     override fun replaceFragment(fragment: Fragment, mBackStack: String?) {

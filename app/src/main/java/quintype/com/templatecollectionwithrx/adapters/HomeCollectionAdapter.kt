@@ -20,7 +20,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             Constants.TYPE_OUTER_COLLECTION ->
-                return CollectionViewHolder.create(parent)
+                return CollectionViewHolder.create(parent, mFragmentCallbacks)
             Constants.TYPE_OUTER_STORY ->
                 return StoryViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD ->
@@ -52,8 +52,8 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     }
 
     override fun getItemViewType(position: Int): Int {
-        var itemType = collectionList.get(position).story
-        if (itemType == null)
+        var itemStory = collectionList.get(position).story
+        if (itemStory == null)
             return Constants.TYPE_OUTER_COLLECTION
         else
             return Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION

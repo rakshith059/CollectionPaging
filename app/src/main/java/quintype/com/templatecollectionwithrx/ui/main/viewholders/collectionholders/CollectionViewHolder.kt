@@ -14,7 +14,9 @@ import quintype.com.templatecollectionwithrx.models.*
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
@@ -38,6 +40,11 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             tvCollectionName?.text = collectionItem.outerCollectionName
         } else
             llCollectionName?.visibility = View.GONE
+
+
+        llCollectionName?.setOnClickListener({
+            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem?.slug), TAG)
+        })
 
         rvInnerCollection = itemView?.findViewById<RecyclerView>(R.id.default_collection_row_rv_inner_collection)
 
@@ -188,8 +195,11 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     companion object {
-        fun create(parent: ViewGroup): CollectionViewHolder {
+        var mFragmentCallbacks: FragmentCallbacks? = null
+        val TAG = CollectionViewHolder.javaClass.simpleName
+        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): CollectionViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.default_collection_row, parent, false)
+            this.mFragmentCallbacks = mFragmentCallbacks
             return CollectionViewHolder(view)
         }
     }

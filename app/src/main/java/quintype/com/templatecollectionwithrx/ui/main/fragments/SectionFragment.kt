@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +18,16 @@ import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 
-class MainFragment : BaseFragment() {
-
+class SectionFragment : BaseFragment() {
     companion object {
-        fun newInstance(): MainFragment {
-            val fragment = MainFragment()
+        var mCollectionSlug: String? = null
+
+        fun newInstance(collectionSlug: String?): SectionFragment {
+            val sectionFragment = SectionFragment()
             val args = Bundle()
-            fragment.arguments = args
-            return fragment
+            sectionFragment.arguments = args
+            this.mCollectionSlug = collectionSlug
+            return sectionFragment
         }
     }
 
@@ -42,52 +45,39 @@ class MainFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
-
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0)
-        observeViewModel(viewModel)
+        if (!TextUtils.isEmpty(mCollectionSlug)) {
+            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0)
+            observeViewModel(viewModel)
 
-        var layoutManager = LinearLayoutManager(getActivity())
-        main_fragment_rv_collection_list.layoutManager = layoutManager
+            var layoutManager = LinearLayoutManager(getActivity())
+            main_fragment_rv_collection_list.layoutManager = layoutManager
 
-//        var recyclerViewPool = object : RecyclerView.RecycledViewPool() {
-//            override fun getRecycledView(viewType: Int): RecyclerView.ViewHolder? {
-//                return super.getRecycledView(viewType)
-//            }
-//
-//            override fun putRecycledView(scrap: RecyclerView.ViewHolder?) {
-//                super.putRecycledView(scrap)
-//            }
-//
-//            override fun toString(): String {
-//                return super.toString()
-//            }
-//        }
+            main_fragment_rv_collection_list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                }
 
-        main_fragment_rv_collection_list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
+                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
 
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
+                    var visibleItemCount = layoutManager.childCount
+                    var totalItemCount = layoutManager.itemCount
 
-                var visibleItemCount = layoutManager.childCount
-                var totalItemCount = layoutManager.itemCount
+                    var firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                var firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                    if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
+                            && totalItemCount >= Constants.PAGE_LIMIT) {
+                        var currentPage = totalItemCount / Constants.PAGE_LIMIT
 
-                if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
-                        && totalItemCount >= Constants.PAGE_LIMIT) {
-                    var currentPage = totalItemCount / Constants.PAGE_LIMIT
-
-                    if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
-                        Log.d("Rakshith", "current page is ===  $currentPage")
-                        viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, currentPage)
+                        if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
+                            Log.d("Rakshith", "current page is ===  $currentPage")
+                            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, currentPage)
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun observeViewModel(viewModel: MainViewModel) {
