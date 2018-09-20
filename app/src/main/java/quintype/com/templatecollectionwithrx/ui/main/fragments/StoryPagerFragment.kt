@@ -12,13 +12,16 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 
 class StoryPagerFragment : BaseFragment() {
     companion object {
-        var mStoryList = ArrayList<Story>()
+        var pagerFragmentStoryList = ArrayList<Story>()
+        var storyFragmentList: ArrayList<Fragment> = ArrayList()
+        var mPosition = 0
 
         fun newInstance(storyList: ArrayList<Story>): StoryPagerFragment {
             val fragment = StoryPagerFragment()
             val args = Bundle()
             fragment.arguments = args
-            this.mStoryList = storyList
+            this.pagerFragmentStoryList = storyList
+            this.mPosition = 2
             return fragment
         }
     }
@@ -28,17 +31,31 @@ class StoryPagerFragment : BaseFragment() {
         return view
     }
 
+    private fun setAdapter() {
+        if (pagerFragmentStoryList != null) {
+            for (i in 0 until pagerFragmentStoryList.size) {
+                storyFragmentList.add(i, StoryDetailFragment.newInstance(pagerFragmentStoryList[i]))
+            }
+            val pagerAdapter = StoryPagerAdapter(childFragmentManager, getFragmentList())
+            story_pager_vp_pager.adapter = pagerAdapter
+            story_pager_vp_pager.currentItem = mPosition
+        }
+    }
+
     private fun getFragmentList(): List<Fragment> {
         var fragmentList = ArrayList<Fragment>()
-        for (index in 0 until mStoryList.size)
-            fragmentList.add(index, StoryDetailFragment.newInstance(mStoryList.get(index)))
+        for (index in 0 until pagerFragmentStoryList.size)
+            fragmentList.add(index, StoryDetailFragment.newInstance(pagerFragmentStoryList.get(index)))
 
         return fragmentList
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val pagerAdapter = StoryPagerAdapter(childFragmentManager, getFragmentList())
-        story_pager_vp_pager.adapter = pagerAdapter
+        if (pagerFragmentStoryList == null) {
+            activity?.onBackPressed()
+        } else {
+            setAdapter();
+        }
     }
 }
