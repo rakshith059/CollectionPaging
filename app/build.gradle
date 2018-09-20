@@ -65,4 +65,7 @@ dependencies {
 
     //for Expandable RecyclerView(NavMenu)
     implementation 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
+
+    //for parsing html
+    implementation 'org.jsoup:jsoup:1.8.2'
 }

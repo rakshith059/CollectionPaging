@@ -4,9 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.TitleImageSliderViewHolder
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.*
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.TitleBelowImageBlockSectionViewHolder.Companion.mFragmentCallbacks
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.TitleBelowImageBlockSectionViewHolder.Companion.mFragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

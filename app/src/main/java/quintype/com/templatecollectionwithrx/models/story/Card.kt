@@ -2,7 +2,9 @@ package quintype.com.templatecollectionwithrx.models.story
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.text.TextUtils
 import com.google.gson.annotations.SerializedName
+import org.jsoup.Jsoup
 import java.util.*
 
 /**
@@ -11,89 +13,92 @@ import java.util.*
 class Card : Parcelable {
 
     @SerializedName("id")
-    private var id: String? = null
+    public var id: String? = null
     @SerializedName("content-id")
-    private var contentId: String? = null
+    public var contentId: String? = null
     @SerializedName("story-elements")
-    private var storyElements = emptyList<StoryElement>()
+    public var storyElements = emptyList<StoryElement>()
     @SerializedName("status")
-    private val status: String
+    public val status: String
     @SerializedName("content-version-id")
-    private var contentVersionId: String? = null
+    public var contentVersionId: String? = null
     @SerializedName("version")
-    private val version: String
+    public val version: String
     @SerializedName("index")
-    private val index: Int
+    public val index: Int
     @SerializedName("totalCards")
-    private val totalCards: Int
+    public val totalCards: Int
     @SerializedName("card-updated-at")
-    private var cardUpdatedAt: Long = 0
+    public var cardUpdatedAt: Long = 0
     @SerializedName("card-added-at")
-    private var cardAddedAt: Long = 0
+    public var cardAddedAt: Long = 0
     @SerializedName("metadata")
-    private val metadata: CardMetadata
+    public val metadata: CardMetadata
 
-    private var uiStoryElements = ArrayList<StoryElement>()
+    public var uiStoryElements = ArrayList<StoryElement>()
 
     /**
      * takes the default story elements and builds them to a new list of story elements for ui
      * purposes
      */
-    //    public void buildUIStoryElements() {
-    //        uiStoryElements.clear();
-    //        for (StoryElement storyElement : storyElements) {
-    //            if (storyElement.isTypeText() && !storyElement.isTypeQuote()
-    //                    && !storyElement.isTypeBlockQuote() && !storyElement.isTypeBlurb()) {
-    //                Document htmlDoc = Jsoup.parse(storyElement.text());
-    //                htmlDoc.outputSettings().prettyPrint(false).indentAmount(0);
-    //                Elements blockQuoteElements = htmlDoc.select("blockquote");
-    //                if (!blockQuoteElements.isEmpty()) {
-    //                    StoryElement breakUpStoryElement = StoryElement.fromStoryElement(storyElement);
-    //                    for (Element blockQuote : blockQuoteElements) {
-    //                        StoryElement blockQuoteStoryElement = StoryElement.fromStoryElement
-    //                                (breakUpStoryElement);
-    //                        blockQuoteStoryElement.setTypeAsQuote();
-    //                        blockQuoteStoryElement.text = (blockQuote.html());
-    //
-    //                        String textToBeRemoved = blockQuote.outerHtml();
-    //                        int textRemovalIndex = breakUpStoryElement.text().indexOf(textToBeRemoved);
-    //                        if (textRemovalIndex >= 0) {
-    //                            StoryElement textBeforeQuoteStoryElement = StoryElement
-    //                                    .fromStoryElement(breakUpStoryElement);
-    //                            textBeforeQuoteStoryElement.text = (breakUpStoryElement.text()
-    //                                    .substring(0,
-    //                                            breakUpStoryElement.text().indexOf(textToBeRemoved)));
-    //                            breakUpStoryElement.text = (breakUpStoryElement.text().
-    //                                    replace(textBeforeQuoteStoryElement.text() + textToBeRemoved,
-    //                                            ""));
-    //
-    //                            if (!textBeforeQuoteStoryElement.text().isEmpty()) {
-    //                                uiStoryElements.add(textBeforeQuoteStoryElement);
-    //                            }
-    //                            uiStoryElements.add(blockQuoteStoryElement);
-    //                        } else {
-    //                            //something is wrong with the index
-    //                            break;
-    //                        }
-    //                    }
-    //
-    //                    if (!breakUpStoryElement.text().isEmpty()) {
-    //                        uiStoryElements.add(breakUpStoryElement);
-    //                    }
-    //
-    //                } else {
-    //                    if (!TextUtils.isEmpty(storyElement.text())) {
-    //                        uiStoryElements.add(storyElement);
-    //                    }
-    //                }
-    //            } else {
-    //                if (storyElement.isTypeJsembed()) {
-    //                    storyElement.prepareForTwitter();
-    //                }
-    //                uiStoryElements.add(storyElement);
-    //            }
-    //        }
-    //    }
+    fun buildUIStoryElements() {
+        if (uiStoryElements != null)
+            uiStoryElements.clear()
+        else
+            uiStoryElements = ArrayList()
+
+        for (storyElement in storyElements) {
+            if (storyElement.isTypeText() && !storyElement.isTypeQuote()
+                    && !storyElement.isTypeBlockQuote() && !storyElement.isTypeBlurb()) {
+                val htmlDoc = Jsoup.parse(storyElement.text())
+                htmlDoc.outputSettings().prettyPrint(false).indentAmount(0)
+                val blockQuoteElements = htmlDoc.select("blockquote")
+                if (!blockQuoteElements.isEmpty()) {
+                    val breakUpStoryElement = StoryElement.fromStoryElement(storyElement)
+                    for (blockQuote in blockQuoteElements) {
+                        val blockQuoteStoryElement = StoryElement.fromStoryElement(breakUpStoryElement)
+                        blockQuoteStoryElement.setTypeAsQuote()
+                        blockQuoteStoryElement.text = blockQuote.html()
+
+                        val textToBeRemoved = blockQuote.outerHtml()
+                        val textRemovalIndex = breakUpStoryElement.text().indexOf(textToBeRemoved)
+                        if (textRemovalIndex >= 0) {
+                            val textBeforeQuoteStoryElement = StoryElement
+                                    .fromStoryElement(breakUpStoryElement)
+                            textBeforeQuoteStoryElement.text = breakUpStoryElement.text()
+                                    .substring(0,
+                                            breakUpStoryElement.text().indexOf(textToBeRemoved))
+                            breakUpStoryElement.text = breakUpStoryElement.text().replace(textBeforeQuoteStoryElement.text() + textToBeRemoved,
+                                    "")
+
+                            if (!textBeforeQuoteStoryElement.text().isEmpty()) {
+                                uiStoryElements.add(textBeforeQuoteStoryElement)
+                            }
+                            uiStoryElements.add(blockQuoteStoryElement)
+                        } else {
+                            //something is wrong with the index
+                            break
+                        }
+                    }
+
+                    if (!breakUpStoryElement.text().isEmpty()) {
+                        uiStoryElements.add(breakUpStoryElement)
+                    }
+
+                } else {
+                    if (!TextUtils.isEmpty(storyElement.text())) {
+                        uiStoryElements.add(storyElement)
+                    }
+                }
+            } else {
+                if (storyElement.isTypeJsembed()) {
+                    storyElement.prepareForTwitter()
+                }
+                uiStoryElements.add(storyElement)
+            }
+        }
+    }
+
 
     /**
      * @return First youtube element in this card
@@ -162,13 +167,14 @@ class Card : Parcelable {
         this.storyElements = storyElements
     }
 
-    //    fun dummyCard(): Card {
+//    fun dummyCard(): Card {
 //        val card = Card()
 //        card.id = UUID.randomUUID().toString()
 //        card.contentId = UUID.randomUUID().toString()
 //        card.contentVersionId = UUID.randomUUID().toString()
 //        return card
 //    }
+
     companion object CREATOR : Parcelable.Creator<Card> {
         override fun createFromParcel(parcel: Parcel): Card {
             return Card(parcel)

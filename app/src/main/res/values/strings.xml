@@ -14,4 +14,7 @@
     <string name="home_title">HOME</string>
     <string name="copyright_text">© Copyright 2018 - Quintype</string>
     <string name="notification_title">NOTIFICATION</string>
+    <string name="summary">Summary</string>
+    <string name="q_text_placeholder">Q</string>
+    <string name="a_text_placeholder">A</string>
 </resources>

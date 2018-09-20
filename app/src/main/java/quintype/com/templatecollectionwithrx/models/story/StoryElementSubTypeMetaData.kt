@@ -3,8 +3,12 @@ package quintype.com.templatecollectionwithrx.models.story
 import android.os.Parcel
 import android.os.Parcelable
 import android.support.annotation.StringDef
+import android.text.TextUtils
 import com.google.gson.annotations.SerializedName
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Constants.Companion.TYPE_GALLERY
+import quintype.com.templatecollectionwithrx.utils.Constants.Companion.TYPE_INVALID
+import quintype.com.templatecollectionwithrx.utils.Constants.Companion.TYPE_SLIDESHOW
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
@@ -15,19 +19,19 @@ import java.lang.annotation.RetentionPolicy
 class StoryElementSubTypeMetaData : Parcelable {
 
     @SerializedName("tweet-url")
-    private val tweetUrl: String
+    public val tweetUrl: String
     @SerializedName("tweet-id")
-    private val tweetId: String
+    public val tweetId: String
     @SerializedName("attribution")
-    private val attribution: String
+    public val attribution: String
     @SerializedName("content")
-    private val content: String
+    public val content: String
     @SerializedName("type")
-    private val type: String
+    public val type: String
     @SerializedName("question")
-    private val question: String
+    public val question: String
     @SerializedName("answer")
-    private val answer: String
+    public val answer: String
     @SerializedName("video-id")
     var videoId: String
     @SerializedName("file-name")
@@ -39,9 +43,9 @@ class StoryElementSubTypeMetaData : Parcelable {
     @SerializedName("linked-story-id")
     var linkedStoryId: String
     @SerializedName("account-id")
-    private val mBrightCoveAccountID: String
+    public val mBrightCoveAccountID: String
     @SerializedName("poster-url")
-    private val mBrightCovePosterURL: String
+    public val mBrightCovePosterURL: String
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef(Constants.TYPE_SLIDESHOW, Constants.TYPE_GALLERY, Constants.TYPE_INVALID)
@@ -70,38 +74,33 @@ class StoryElementSubTypeMetaData : Parcelable {
      *
      * @return String [Type]
      */
-    //    public
-    //    @Type
-    //    String type() {
-    //        if (TextUtils.isEmpty(type)) {
-    //            return TYPE_INVALID;
-    //        }
-    //
-    //        if (isTypeSlideShow()) {
-    //            return TYPE_SLIDESHOW;
-    //        } else if (isTypeGallery()) {
-    //            return TYPE_GALLERY;
-    //        }
-    //        return TYPE_INVALID;
-    //    }
+    fun type(): String {
+        return if (TextUtils.isEmpty(this.type)) {
+            "invalid"
+        } else if (this.isTypeSlideShow()) {
+            "slideshow"
+        } else {
+            if (this.isTypeGallery()) "gallery" else "invalid"
+        }
+    }
 
     /**
      * Check if SubElement is of type gallery
      *
      * @return true if the element is gallery else false
      */
-    //    public boolean isTypeGallery() {
-    //        return StringUtils.equalsIgnoreCase(type, TYPE_GALLERY);
-    //    }
-    //
-    //    /**
-    //     * Check if SubElement is of type slide show
-    //     *
-    //     * @return true is the element is slideshow else false
-    //     */
-    //    public boolean isTypeSlideShow() {
-    //        return StringUtils.equalsIgnoreCase(type, TYPE_SLIDESHOW);
-    //    }
+    fun isTypeGallery(): Boolean {
+        return type.equals(TYPE_GALLERY, true)
+    }
+
+    /**
+     * Check if SubElement is of type slide show
+     *
+     * @return true is the element is slideshow else false
+     */
+    fun isTypeSlideShow(): Boolean {
+        return type.equals(TYPE_SLIDESHOW, true)
+    }
 
     override fun describeContents(): Int {
         return 0

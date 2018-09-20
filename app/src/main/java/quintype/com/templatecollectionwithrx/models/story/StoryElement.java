@@ -161,7 +161,7 @@ public class StoryElement implements Parcelable {
     @SerializedName("embed-js")
     private String embedJs;
     @SerializedName("image-metadata")
-    private ImageMetaData imageMeta;
+    public ImageMetaData imageMeta;
     @SerializedName("subtype")
     private String subType;
     @SerializedName("metadata")
@@ -383,350 +383,365 @@ public class StoryElement implements Parcelable {
     /**
      * @return whether this story element is text type
      */
-//    public boolean isTypeText() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_TEXT);
-//    }
-//
-//    /**
-//     * @return whether this story element is image type and gif
-//     */
-//    public boolean isTypeImageGif() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_IMAGE) &&
-//                imageS3Key.endsWith(".gif");
-//    }
-//
-//    /**
-//     * @return whether this story element is image type
-//     */
-//    public boolean isTypeImage() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_IMAGE);
-//    }
-//
-//    /**
-//     * @return whether this story element is video type
-//     */
-//    public boolean isTypeVideo() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_VIDEO);
-//    }
-//
-//    /**
-//     * @return whether this story element is youtube type
-//     */
-//    public boolean isTypeYoutube() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_YOUTUBE_VIDEO);
-//    }
-//
-//
-//    /**
-//     * @return whether this story element is BitGravity Video
-//     */
-//    public boolean isTypeBitGravity() {
-//        return isTypeExternal() && StringUtils.equalsIgnoreCase(subType,
-//                TYPE_STORY_ELEMENT_SUB_BIT_GRAVITY);
-//    }
-//
-//    /**
-//     * @return whether this story element is media type
-//     */
-//    public boolean isTypeMedia() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_MEDIA);
-//    }
-//
-//    /**
-//     * @return whether this story element is audio type
-//     */
-//    public boolean isTypeAudio() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_AUDIO);
-//    }
-//
-//    /**
-//     * @return whether this story element is quote type
-//     */
-//    public boolean isTypeVirtualQuote() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_VIRTUAL_QUOTE);
-//    }
-//
-//    /**
-//     * @return whether this story element is blog posted at type
-//     */
-//    public boolean isTypeBlogPostedAt() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_BLOG_POSTED_AT);
-//    }
-//
-//    /**
-//     * @return whether this story element is blog updated at type
-//     */
-//    public boolean isTypeBlogUpdatedAt() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_BLOG_UPDATED_AT);
-//    }
-//
-//    /**
-//     * @return whether this story element is soundcloud type
-//     */
-//    public boolean isTypeSoundcloud() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_SOUNDCLOUD_AUDIO);
-//    }
-//
-//    /**
-//     * @return whether this story element is title type
-//     */
-//    public boolean isTypeTitle() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_TITLE);
-//    }
-//
-//    /**
-//     * @return whether this story element is title type
-//     */
-//    public boolean isTypeTable() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_DATA) &&
-//                StringUtils.equalsIgnoreCase(subType, SUB_TYPE_STORY_ELEMENT_TABLE);
-//    }
-//
-//    /**
-//     * @return whether this story element is title type
-//     */
-//    public boolean isTypeTimeStamp() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_LIVE_BLOG_ADDED_AT_TIME_STAMP);
-//    }
-//
-//    /**
-//     * @return whether this story element is dummy sort card type
-//     */
-//    public boolean isTypeSortCards() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_SORT_CARDS);
-//    }
-//
-//    /**
-//     * @return whether this story element is dummy type nested story
-//     */
-//    public boolean isTypeNestedStory() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_NESTED_STORY);
-//    }
-//
-//
-//    /**
-//     * @return whether this story element is poll type
-//     */
-//    public boolean isTypePollType() {
-//
-//        if (StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_POLLTYPE)) {
-//            return true;
-//        } else if (!TextUtils.isEmpty(polltypeId)) {
-//            return true;
-//        } else if (isTypeJsembed()) {
-//            if (TextUtils.isEmpty(decodedJsEmbed)) {
-//                try {
-//                    byte[] data = Base64.decode(embedJs, Base64.DEFAULT);
-//                    String decodedJsEmbed = new String(data, "UTF-8");
-//                    decodedJsEmbed = decodedJsEmbed.replace("src=\"//", "src=\"http://");
-//                    Matcher m = POLLTYPE_EMBED_PATTERN.matcher(decodedJsEmbed);
-//                    String pollId = null;
-//                    while (m.find() && pollId == null) {
-//                        System.out.println(m.group());
-//                        Timber.i("Matcher found Poll Id = " + m.group());
-//                        pollId = m.group();
-//                    }
-//                    if (TextUtils.isEmpty(pollId)) {
-//                        return false;
-//                    } else {
-//                        polltypeId = pollId.replaceAll("[^0-9]", "");
-//                        return true;
-//                    }
-//                } catch (UnsupportedEncodingException e) {
-//                    Timber.e("UnsupportedEncodingException", e);
-//                    return false;
-//                }
-//            } else {
-//                Matcher m = POLLTYPE_EMBED_PATTERN.matcher(decodedJsEmbed);
-//                String pollId = null;
-//                while (m.find() && pollId == null) {
-//                    System.out.println(m.group());
-//                    Timber.i("Matcher found Poll Id = " + m.group());
-//                    pollId = m.group();
-//                }
-//                if (TextUtils.isEmpty(pollId)) {
-//                    return false;
-//                } else {
-//                    polltypeId = pollId.replaceAll("[^0-9]", "");
-//                    return true;
-//                }
-//            }
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    /**
-//     * @return whether this story element is external file type
-//     */
-//
-//    public boolean isTypeExternal() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_EXTERNAL);
-//    }
-//
-//    /**
-//     * @return whether the type of this element is summary
-//     */
-//    public boolean isTypeSummary() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_SUMMARY);
-//    }
-//
-//    /**
-//     * @return whether the type of the element is quote
-//     */
-//    public boolean isTypeQuote() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_QUOTE);
-//    }
-//
-//    /**
-//     * @return whether the type of the element is blockquote
-//     */
-//    public boolean isTypeBlockQuote() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_BLOCKQUOTE);
-//    }
-//
-//    public boolean isTypeQuestionAnswer() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_QUESTION_ANSWER);
-//    }
-//
-//    public boolean isTypeQuestion() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_QUESTION);
-//    }
-//
-//    public boolean isTypeAnswer() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_ANSWER);
-//    }
-//
-//
-//    /**
-//     * @return whether the type of the element is blurb
-//     */
-//    public boolean isTypeBlurb() {
-//        return isTypeText() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_BLURB);
-//    }
-//
-//    /**
-//     * @return whether the type of the element is composite
-//     */
-//    public boolean isTypeComposite() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_COMPOSITE);
-//    }
-//
-//    /**
-//     * @return whether the type of the element is image gallery
-//     */
-//    public boolean isImageGallery() {
-//        return isTypeComposite() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_IMAGE_GALLERY) && subTypeMeta.isTypeGallery();
-//    }
-//
-//    /**
-//     * Check
-//     *
-//     * @return whether the type of the element is image slideshow
-//     */
-//    public boolean isImageSlideshow() {
-//        return isTypeComposite() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_IMAGE_GALLERY) && subTypeMeta.isTypeSlideShow();
-//    }
-//
-//    /**
-//     * @return whether this story element is jsembed type
-//     */
-//    public boolean isTypeJsembed() {
-//        return StringUtils.equalsIgnoreCase(type, TYPE_STORY_ELEMENT_JSEMBED);
-//    }
-//
-//    public boolean isTypeTwitter() {
-//        return isTypeJsembed() && StringUtils.equalsIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_TWEET);
-//    }
-//
-//    /**
-//     * @return whether this story element is type big fact
-//     */
-//    public boolean isTypeBigFact() {
-//        return isTypeText() && StringUtils.endsWithIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_BIG_FACT);
-//    }
-//
-//    /**
-//     * @return whether this story element is type brightcove-video
-//     */
-//    public boolean isTypeBrightCoveVideo() {
-//        return isTypeExternal() && StringUtils.endsWithIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_BRIGHTCOVE);
-//    }
-//
-//    /**
-//     * @return whether this story element is type AlsoRead
-//     */
-//    public boolean isAlsoRead() {
-//        return isTypeText() && StringUtils.endsWithIgnoreCase(subType,
-//                SUB_TYPE_STORY_ELEMENT_ALSO_READ);
-//    }
-//
-//    public Long tweetId() {
-//        return tweetId;
-//    }
-//
-//    public Long getCardAddedAt() {
-//        return cardAddedAt;
-//    }
-//
-//    public void setCardAddedAt(Long cardAddedAt) {
-//        this.cardAddedAt = cardAddedAt;
-//    }
-//
-//    public boolean isKeyEvent() {
-//        return keyEvent;
-//    }
-//
-//    public void setKeyEvent(boolean keyEvent) {
-//        this.keyEvent = keyEvent;
-//    }
-//
-//    /**
-//     * Parses and prepares this story element for twitter
-//     */
-//    public void prepareForTwitter() {
-//        isTypeJsEmbedWithTwitter = false;
-//        if (StringUtils.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TWEET, subType)
-//                && !TextUtils.isEmpty(subTypeMeta.tweetId())) {
-//            //Timber.d("Sub type matches twitter");
-//            try {
-//
-//                tweetId = Long.valueOf(subTypeMeta.tweetId());
-//                isTypeJsEmbedWithTwitter = true;
-//            } catch (Exception e) {
-//                //Timber.e(e, "Failed parsing twitter sub type");
-//            }
-//        } else {
-//            if (!TextUtils.isEmpty(embedJs)) {
-//                try {
-//                    byte[] data = Base64.decode(embedJs, Base64.DEFAULT);
-//                    decodedJsEmbed = new String(data, "UTF-8");
-//                    decodedJsEmbed = decodedJsEmbed.replace("src=\"//", "src=\"http://");
-//                    Matcher matcher = TWITTER_EMBED_PATTERN.matcher(decodedJsEmbed);
-//                    if (matcher.find()) {
-//                        String tid = matcher.group(3);
-//                        tweetId = Long.valueOf(tid);
-//                        isTypeJsEmbedWithTwitter = true;
-//                    }
-//                } catch (Exception e) {
-//                    //Timber.e(e, "Failed parsing js embed");
-//                    decodedJsEmbed = "";
-//                }
-//            }
-//        }
-//    }
+    public boolean isTypeText() {
+        return type.equalsIgnoreCase(TYPE_TEXT);
+    }
+
+    /**
+     * @return whether this story element is image type and gif
+     */
+    public boolean isTypeImageGif() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_IMAGE) &&
+                imageS3Key.endsWith(".gif");
+    }
+
+    /**
+     * @return whether this story element is image type
+     */
+    public boolean isTypeImage() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_IMAGE);
+    }
+
+    /**
+     * @return whether this story element is video type
+     */
+    public boolean isTypeVideo() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_VIDEO);
+    }
+
+    /**
+     * @return whether this story element is youtube type
+     */
+    public boolean isTypeYoutube() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_YOUTUBE_VIDEO);
+    }
+
+
+    /**
+     * @return whether this story element is BitGravity Video
+     */
+    public boolean isTypeBitGravity() {
+        if (subType != null)
+            return isTypeExternal() && subType.equalsIgnoreCase(
+                    TYPE_STORY_ELEMENT_SUB_BIT_GRAVITY);
+        else return false;
+    }
+
+    /**
+     * @return whether this story element is media type
+     */
+    public boolean isTypeMedia() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_MEDIA);
+    }
+
+    /**
+     * @return whether this story element is audio type
+     */
+    public boolean isTypeAudio() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_AUDIO);
+    }
+
+    /**
+     * @return whether this story element is quote type
+     */
+    public boolean isTypeVirtualQuote() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_VIRTUAL_QUOTE);
+    }
+
+    /**
+     * @return whether this story element is blog posted at type
+     */
+    public boolean isTypeBlogPostedAt() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_BLOG_POSTED_AT);
+    }
+
+    /**
+     * @return whether this story element is blog updated at type
+     */
+    public boolean isTypeBlogUpdatedAt() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_BLOG_UPDATED_AT);
+    }
+
+    /**
+     * @return whether this story element is soundcloud type
+     */
+    public boolean isTypeSoundcloud() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_SOUNDCLOUD_AUDIO);
+    }
+
+    /**
+     * @return whether this story element is title type
+     */
+    public boolean isTypeTitle() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_TITLE);
+    }
+
+    /**
+     * @return whether this story element is title type
+     */
+    public boolean isTypeTable() {
+        if (subType != null)
+            return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_DATA) &&
+                    subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TABLE);
+        return false;
+    }
+
+    /**
+     * @return whether this story element is title type
+     */
+    public boolean isTypeTimeStamp() {
+        return type.equalsIgnoreCase(TYPE_LIVE_BLOG_ADDED_AT_TIME_STAMP);
+    }
+
+    /**
+     * @return whether this story element is dummy sort card type
+     */
+    public boolean isTypeSortCards() {
+        return type.equalsIgnoreCase(TYPE_SORT_CARDS);
+    }
+
+    /**
+     * @return whether this story element is dummy type nested story
+     */
+    public boolean isTypeNestedStory() {
+        return type.equalsIgnoreCase(TYPE_NESTED_STORY);
+    }
+
+
+    /**
+     * @return whether this story element is poll type
+     */
+    public boolean isTypePollType() {
+
+        if (type.equalsIgnoreCase(TYPE_STORY_ELEMENT_POLLTYPE)) {
+            return true;
+        } else if (!TextUtils.isEmpty(polltypeId)) {
+            return true;
+        } else if (isTypeJsembed()) {
+            if (TextUtils.isEmpty(decodedJsEmbed)) {
+                try {
+                    byte[] data = Base64.decode(embedJs, Base64.DEFAULT);
+                    String decodedJsEmbed = new String(data, "UTF-8");
+                    decodedJsEmbed = decodedJsEmbed.replace("src=\"//", "src=\"http://");
+                    Matcher m = POLLTYPE_EMBED_PATTERN.matcher(decodedJsEmbed);
+                    String pollId = null;
+                    while (m.find() && pollId == null) {
+                        System.out.println(m.group());
+                        pollId = m.group();
+                    }
+                    if (TextUtils.isEmpty(pollId)) {
+                        return false;
+                    } else {
+                        polltypeId = pollId.replaceAll("[^0-9]", "");
+                        return true;
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    return false;
+                }
+            } else {
+                Matcher m = POLLTYPE_EMBED_PATTERN.matcher(decodedJsEmbed);
+                String pollId = null;
+                while (m.find() && pollId == null) {
+                    System.out.println(m.group());
+                    pollId = m.group();
+                }
+                if (TextUtils.isEmpty(pollId)) {
+                    return false;
+                } else {
+                    polltypeId = pollId.replaceAll("[^0-9]", "");
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return whether this story element is external file type
+     */
+
+    public boolean isTypeExternal() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_EXTERNAL);
+    }
+
+    /**
+     * @return whether the type of this element is summary
+     */
+    public boolean isTypeSummary() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_SUMMARY);
+        else return false;
+    }
+
+    /**
+     * @return whether the type of the element is quote
+     */
+    public boolean isTypeQuote() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_QUOTE);
+        else return false;
+    }
+
+    /**
+     * @return whether the type of the element is blockquote
+     */
+    public boolean isTypeBlockQuote() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_BLOCKQUOTE);
+        else return false;
+    }
+
+    public boolean isTypeQuestionAnswer() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_QUESTION_ANSWER);
+        else return false;
+    }
+
+    public boolean isTypeQuestion() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_QUESTION);
+        else return false;
+    }
+
+    public boolean isTypeAnswer() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_ANSWER);
+        else return false;
+    }
+
+
+    /**
+     * @return whether the type of the element is blurb
+     */
+    public boolean isTypeBlurb() {
+        if (subType != null)
+            return isTypeText() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_BLURB);
+        else return false;
+    }
+
+    /**
+     * @return whether the type of the element is composite
+     */
+    public boolean isTypeComposite() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_COMPOSITE);
+    }
+
+    /**
+     * @return whether the type of the element is image gallery
+     */
+    public boolean isImageGallery() {
+        if (subType != null)
+            return isTypeComposite() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_IMAGE_GALLERY) && subTypeMeta.isTypeGallery();
+        else return false;
+    }
+
+    /**
+     * Check
+     *
+     * @return whether the type of the element is image slideshow
+     */
+    public boolean isImageSlideshow() {
+        if (subType != null)
+            return isTypeComposite() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_IMAGE_GALLERY) && subTypeMeta.isTypeSlideShow();
+        else return false;
+    }
+
+    /**
+     * @return whether this story element is jsembed type
+     */
+    public boolean isTypeJsembed() {
+        return type.equalsIgnoreCase(TYPE_STORY_ELEMENT_JSEMBED);
+    }
+
+    public boolean isTypeTwitter() {
+        if (subType != null)
+            return isTypeJsembed() && subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TWEET);
+        else return false;
+    }
+
+    /**
+     * @return whether this story element is type big fact
+     */
+    public boolean isTypeBigFact() {
+        if (subType != null)
+            return isTypeText() && subType.endsWith(SUB_TYPE_STORY_ELEMENT_BIG_FACT);
+        else return false;
+    }
+
+    /**
+     * @return whether this story element is type brightcove-video
+     */
+    public boolean isTypeBrightCoveVideo() {
+        if (subType != null)
+            return isTypeExternal() && subType.endsWith(SUB_TYPE_STORY_ELEMENT_BRIGHTCOVE);
+        else return false;
+    }
+
+    /**
+     * @return whether this story element is type AlsoRead
+     */
+    public boolean isAlsoRead() {
+        if (subType != null)
+            return isTypeText() && subType.endsWith(SUB_TYPE_STORY_ELEMENT_ALSO_READ);
+        else return false;
+    }
+
+    public Long tweetId() {
+        return tweetId;
+    }
+
+    public Long getCardAddedAt() {
+        return cardAddedAt;
+    }
+
+    public void setCardAddedAt(Long cardAddedAt) {
+        this.cardAddedAt = cardAddedAt;
+    }
+
+    public boolean isKeyEvent() {
+        return keyEvent;
+    }
+
+    public void setKeyEvent(boolean keyEvent) {
+        this.keyEvent = keyEvent;
+    }
+
+    /**
+     * Parses and prepares this story element for twitter
+     */
+    public void prepareForTwitter() {
+        isTypeJsEmbedWithTwitter = false;
+        if (subType != null)
+            if (subType.equalsIgnoreCase(SUB_TYPE_STORY_ELEMENT_TWEET)
+                    && !TextUtils.isEmpty(subTypeMeta.getTweetId())) {
+                //Timber.d("Sub type matches twitter");
+                try {
+
+                    tweetId = Long.valueOf(subTypeMeta.getTweetId());
+                    isTypeJsEmbedWithTwitter = true;
+                } catch (Exception e) {
+                    //Timber.e(e, "Failed parsing twitter sub type");
+                }
+            } else {
+                if (!TextUtils.isEmpty(embedJs)) {
+                    try {
+                        byte[] data = Base64.decode(embedJs, Base64.DEFAULT);
+                        decodedJsEmbed = new String(data, "UTF-8");
+                        decodedJsEmbed = decodedJsEmbed.replace("src=\"//", "src=\"http://");
+                        Matcher matcher = TWITTER_EMBED_PATTERN.matcher(decodedJsEmbed);
+                        if (matcher.find()) {
+                            String tid = matcher.group(3);
+                            tweetId = Long.valueOf(tid);
+                            isTypeJsEmbedWithTwitter = true;
+                        }
+                    } catch (Exception e) {
+                        //Timber.e(e, "Failed parsing js embed");
+                        decodedJsEmbed = "";
+                    }
+                }
+            }
+    }
 
     /**
      * @return whether this story element image is landscape, true by default

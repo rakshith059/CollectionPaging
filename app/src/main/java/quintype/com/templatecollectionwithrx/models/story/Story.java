@@ -5,10 +5,12 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -158,39 +160,39 @@ public class Story implements Parcelable {
      *
      * @return parsed list of story level entities
      */
-//    public List<EntityModel> entitiesInStoryAttributes() {
-//        //if story entities doesn't have anything yet, try to parse it from the json
-//        if (storyEntityList == null || storyEntityList.isEmpty()) {
-//            storyEntityList = new ArrayList<>();
-//            Map<String, EntityModel> entityModelMap = parsedEntityList();
-//            JsonObject storyAttributes = storyMetaData.storyAttributes();
-//            //assumption: linked entities has valid json data and not residual data from deleted
-//            //entities.
-//            if (hasLinkedEntities() && storyAttributes != null) {
-//                JsonObject storyAttributesJsonObject = storyAttributes.getAsJsonObject();
-//                //parsing the storyAttributes json to get the id/name list of entities
-//                for (Map.Entry<String, JsonElement> entry : storyAttributesJsonObject.entrySet()) {
-//                    //getting the array at this position in the story attribute set
-//                    String key = entry.getKey();
-//                    JsonElement attrElement = storyAttributesJsonObject.get(key);
-//                    JsonArray jsonArrayElement = attrElement.getAsJsonArray();
-//
-//                    //parsing id and name as this will be constant
-//                    for (int i = 0; i < jsonArrayElement.size(); i++) {
-//                        JsonElement jsonElement = jsonArrayElement.get(i);
-//                        //a json primitive is definitely not our guy,
-//                        //nor is one that doesn't have an id
-//                        if (!jsonElement.isJsonPrimitive() &&
-//                                !jsonElement.getAsJsonObject().get("id").isJsonNull())
-//                            storyEntityList.add(entityModelMap.get(
-//                                    jsonElement.getAsJsonObject().get("id").getAsString())
-//                            );
-//                    }
-//                }
-//            }
-//        }
-//        return storyEntityList;
-//    }
+    public List<EntityModel> entitiesInStoryAttributes() {
+        //if story entities doesn't have anything yet, try to parse it from the json
+        if (storyEntityList == null || storyEntityList.isEmpty()) {
+            storyEntityList = new ArrayList<>();
+            Map<String, EntityModel> entityModelMap = parsedEntityList();
+            JsonObject storyAttributes = storyMetaData.getStoryAttributes();
+            //assumption: linked entities has valid json data and not residual data from deleted
+            //entities.
+            if (hasLinkedEntities() && storyAttributes != null) {
+                JsonObject storyAttributesJsonObject = storyAttributes.getAsJsonObject();
+                //parsing the storyAttributes json to get the id/name list of entities
+                for (Map.Entry<String, JsonElement> entry : storyAttributesJsonObject.entrySet()) {
+                    //getting the array at this position in the story attribute set
+                    String key = entry.getKey();
+                    JsonElement attrElement = storyAttributesJsonObject.get(key);
+                    JsonArray jsonArrayElement = attrElement.getAsJsonArray();
+
+                    //parsing id and name as this will be constant
+                    for (int i = 0; i < jsonArrayElement.size(); i++) {
+                        JsonElement jsonElement = jsonArrayElement.get(i);
+                        //a json primitive is definitely not our guy,
+                        //nor is one that doesn't have an id
+                        if (!jsonElement.isJsonPrimitive() &&
+                                !jsonElement.getAsJsonObject().get("id").isJsonNull())
+                            storyEntityList.add(entityModelMap.get(
+                                    jsonElement.getAsJsonObject().get("id").getAsString())
+                            );
+                    }
+                }
+            }
+        }
+        return storyEntityList;
+    }
 
     /**
      * Parses all the linked entities Json into the model class and then puts them in a map
@@ -198,26 +200,29 @@ public class Story implements Parcelable {
      *
      * @return all linked entities parsed into their respective model classes
      */
-//    public Map<String, EntityModel> parsedEntityList() {
-//        if (linkedEntities != null &&
-//                (expandedEntitiesMap == null || expandedEntitiesMap.isEmpty())) {
-//            //get the model classes for the current app
-//            Map<String, Class> typeClassMap = Quintype.config().entityTypeModelMap();
-//            if (typeClassMap == null)
-//                return new HashMap<>();
-//            expandedEntitiesMap = new HashMap<>(linkedEntities.size());
-//            for (JsonElement element : linkedEntities) {
-//                if (!element.isJsonPrimitive()) { //to eliminate residual deleted linked entities
-//                    //get the .class from the map using the type name from the jsonObject
-//                    //and use that to parse the entity
-//                    EntityModel entity = EntityModel.createFromJson(element.getAsJsonObject(),
-//                            typeClassMap.get(element.getAsJsonObject().get("type").getAsString()));
-//                    expandedEntitiesMap.put(entity.id(), entity);
-//                }
-//            }
-//        }
-//        return expandedEntitiesMap;
-//    }
+    public Map<String, EntityModel> parsedEntityList() {
+        if (linkedEntities != null &&
+                (expandedEntitiesMap == null || expandedEntitiesMap.isEmpty())) {
+            Map<String, Class> entityTypeModelMap = new HashMap<>();
+
+            //get the model classes for the current app
+            Map<String, Class> typeClassMap = entityTypeModelMap;
+            if (typeClassMap == null)
+                return new HashMap<>();
+            expandedEntitiesMap = new HashMap<>(linkedEntities.size());
+            for (JsonElement element : linkedEntities) {
+                if (!element.isJsonPrimitive()) { //to eliminate residual deleted linked entities
+                    //get the .class from the map using the type name from the jsonObject
+                    //and use that to parse the entity
+                    EntityModel entity = EntityModel.createFromJson(element.getAsJsonObject(),
+                            typeClassMap.get(element.getAsJsonObject().get("type").getAsString()));
+                    expandedEntitiesMap.put(entity.id(), entity);
+                }
+            }
+        }
+        return expandedEntitiesMap;
+    }
+
     public boolean hasLinkedEntities() {
         return linkedEntities != null;
     }
@@ -717,12 +722,12 @@ public class Story implements Parcelable {
     /**
      * @return whether this story element is image type and gif
      */
-//    public boolean isTypeImageGif() {
-//        if (!StringUtils.isEmpty(heroImageS3Key()))
-//            return heroImageS3Key().endsWith(".gif");
-//        else
-//            return false;
-//    }
+    public boolean isTypeImageGif() {
+        if (!TextUtils.isEmpty(heroImageS3Key()))
+            return heroImageS3Key().endsWith(".gif");
+        else
+            return false;
+    }
 
     /**
      * checks if the story passed as a parameter is an invalid story but contains a slug from
@@ -732,9 +737,9 @@ public class Story implements Parcelable {
      * @param story - a reference to the story
      * @return true if the story is a slug story, false otherwise
      */
-//    public static boolean isSlugStory(Story story) {
-//        return (StringUtils.isNotEmpty(story.slug()));
-//    }
+    public static boolean isSlugStory(Story story) {
+        return (!TextUtils.isEmpty(story.slug()));
+    }
 
     /**
      * check if the story has tags.
@@ -750,18 +755,18 @@ public class Story implements Parcelable {
      *
      * @return true if the story's template is a video template, false otherwise
      */
-//    public boolean isVideoTemplate() {
-//        return StringUtils.equalsIgnoreCase(TYPE_TEMPLATE_VIDEO, template);
-//    }
+    public boolean isVideoTemplate() {
+        return template.equalsIgnoreCase(TYPE_TEMPLATE_VIDEO);
+    }
 
     /**
      * check whether the story's template is a review template
      *
      * @return true if the story's template is a review template, false otherwise
      */
-//    public boolean isReviewTemplate() {
-//        return StringUtils.equalsIgnoreCase(TYPE_TEMPLATE_REVIEW, template);
-//    }
+    public boolean isReviewTemplate() {
+        return template.equalsIgnoreCase(TYPE_TEMPLATE_REVIEW);
+    }
 
     /**
      * check whether the story's template is a live blog

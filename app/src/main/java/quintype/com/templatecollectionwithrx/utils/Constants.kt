@@ -1,13 +1,10 @@
 package quintype.com.templatecollectionwithrx.utils
 
 import android.content.Context
-import android.view.Display
-import android.view.WindowManager
-import android.R.attr.y
-import android.R.attr.x
-import android.R.attr.y
-import android.R.attr.x
+import android.content.SharedPreferences
 import android.graphics.Point
+import android.preference.PreferenceManager
+import android.view.WindowManager
 
 
 /**
@@ -36,8 +33,8 @@ class Constants {
 
         //        const val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        const val BASE_URL = "https://www.thequint.com"
-        const val BASE_URL = "https://madrid.quintype.io"
-        //        const val BASE_URL = "https://ace-web.staging.quintype.io"
+//        const val BASE_URL = "https://madrid.quintype.io"
+        const val BASE_URL = "https://ace-web.qtstage.io"
         //        const val BASE_URL = "https://www.samachara.com"
         const val COLLECTION_HOME: String = "home"
         const val PAGE_LIMIT: Int = 20
@@ -45,6 +42,7 @@ class Constants {
         const val PAGE_LIMIT_CHILD: Int = 5
         const val PRE_FETCH_ITEM: Int = 5
         const val DELAY_SEC: Long = 3
+        const val SPLASH_SCREEN_DELAY_MILLI_SEC: Long = 1000
         const val TYPE_STORY: String = "story"
         const val WIDGET_TEMPLATE: String = "widget"
         const val STORY_FIELDS: String = "id,hero-image-s3-key,sections,headline,authors,created-at,hero-image-caption,story-content-id,alternative,hero-image-metadata,slug,last-published-at,published-at,first-published-at"
@@ -102,5 +100,42 @@ class Constants {
         const val NAVMENU_GROUP_PARENT_POSITION = -1
         const val NAVMENU_GROUP_NOTIFICATIONS_POSITION = "-2"
         const val NAVMENU_GROUP_DISCLAIMER_POSITION = "-3"
+
+
+        /**
+         * functions for shared preferences
+         */
+        const val SHARED_PREFRENCES: String = "SHARED_PREFERENCES"
+        const val SP_CDN_IMAGE_NAME: String = "SP_CDN_IMAGE_NAME"
+        const val SP_PUBLISHER_COPYRIGHT: String = "SP_PUBLISHER_COPYRIGHT"
+        const val SP_PUBLISHER_NAME: String = "SP_PUBLISHER_NAME"
+        const val SP_SHRUBBERY_HOST: String = "SP_SHRUBBERY_HOST"
+        const val SP_POLLTYPE_HOST: String = "SP_POLLTYPE_HOST"
+        const val SP_TERMS_AND_CONDITION: String = "SP_TERMS_AND_CONDITION"
+        const val SP_PRIVACY_POLICY: String = "SP_PRIVACY_POLICY"
+        const val SP_ABOUT_US: String = "SP_ABOUT_US"
+
+
+        const val TERMS_AND_CONDITION: String = "terms-and-conditions"
+        const val ABOUT_US: String = "about-us"
+        const val PRIVACY_POLICY: String = "privacy-policy"
+
+        /**
+         * function for setting shared preference value
+         */
+        fun setSharedPreferences(mContext: Context, mSharedPreferencesKey: String, mSharedPreferencesValue: String) {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+            var editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString(mSharedPreferencesKey, mSharedPreferencesValue)
+            editor.apply()
+        }
+
+        /**
+         * function for getting shared preference value
+         */
+        fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String): String {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+            return sharedPreferences.getString(mSharedPreferencesKey, "")
+        }
     }
 }
