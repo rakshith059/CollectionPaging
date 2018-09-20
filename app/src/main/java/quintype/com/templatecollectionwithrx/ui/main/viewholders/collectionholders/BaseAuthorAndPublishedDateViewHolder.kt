@@ -61,7 +61,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
             if (isShowTimeToPublish) {
                 val publishedDate = collectionItem.publishedAt.toString()
                 if (publishedDate != null) {
-                    tvPublishedDate?.text = publishedDate
+                    tvPublishedDate?.text = Constants.formatDate(publishedDate)
 
                     clMainContainer?.visibility = View.VISIBLE
                     tvPublishedDate?.visibility = View.VISIBLE

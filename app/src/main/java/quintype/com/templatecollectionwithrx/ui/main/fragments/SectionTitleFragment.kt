@@ -77,7 +77,7 @@ class SectionTitleFragment() : Fragment() {
                 if (isShowTimeToPublish) {
                     val publishedDate = collectionItem.publishedAt.toString()
                     if (publishedDate != null) {
-                        author_image_row_tv_published_date?.text = publishedDate
+                        author_image_row_tv_published_date?.text = Constants.formatDate(publishedDate)
 
                         author_image_row_main_container?.visibility = View.VISIBLE
                         author_image_row_tv_published_date?.visibility = View.VISIBLE
