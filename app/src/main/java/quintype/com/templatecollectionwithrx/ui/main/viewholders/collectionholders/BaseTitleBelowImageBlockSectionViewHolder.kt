@@ -15,8 +15,9 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 open class BaseTitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseAuthorAndPublishedDateViewHolder(itemView) {
     private var isShowSectionName = false
 
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
         var view = this.itemView.rootView
 
         var tvTitle = view?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)

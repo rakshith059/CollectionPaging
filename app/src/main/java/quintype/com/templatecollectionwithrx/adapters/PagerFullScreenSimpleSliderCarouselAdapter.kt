@@ -11,10 +11,11 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.PagerCarouselFullScreenSimpleSliderViewHolder
 import quintype.com.templatecollectionwithrx.utils.Constants
 
-class PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata: AssociatedMetadata?, collectionList: List<CollectionItem>?, collectionName: String?) : PagerAdapter() {
+class PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata: AssociatedMetadata?, collectionList: List<CollectionItem>?, collectionName: String?, listner: View.OnClickListener) : PagerAdapter() {
     var storyList = collectionList
     var mCollectionAssociatedMetadata = collectionAssociatedMetadata
     var mCollectionName = collectionName
+    var mListner = listner
 
     override fun getCount(): Int {
         if (mCollectionAssociatedMetadata?.associatedMetadataNumberOfStoriesToShow as Int > 0)
@@ -32,7 +33,7 @@ class PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata: A
         var slideShowViewHolder = PagerCarouselFullScreenSimpleSliderViewHolder(view)
         val story = storyList?.get(position)?.story as Story
 
-        slideShowViewHolder.bind(story, mCollectionAssociatedMetadata, mCollectionName)
+        slideShowViewHolder.bind(story, mCollectionAssociatedMetadata, mCollectionName, mListner)
         container.addView(view)
         return view
     }

@@ -7,7 +7,7 @@
         android:id="@+id/snapshot_content_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/story_element_summary_bg"
+        android:background="@color/black_opacity_25"
         android:fontFamily="cursive"
         android:lineSpacingExtra="@dimen/size_4dp"
         android:padding="@dimen/size_16dp"

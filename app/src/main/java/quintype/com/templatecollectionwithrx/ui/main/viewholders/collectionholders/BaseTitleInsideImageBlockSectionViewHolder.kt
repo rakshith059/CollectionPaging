@@ -8,8 +8,8 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 
 open class BaseTitleInsideImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
 
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
 
         var view = this.itemView.rootView
 

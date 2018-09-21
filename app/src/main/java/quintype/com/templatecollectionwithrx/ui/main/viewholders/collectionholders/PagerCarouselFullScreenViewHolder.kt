@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -11,10 +12,14 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 class PagerCarouselFullScreenViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
     var ivHeroImage: ImageView? = null
 
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
 
         ivHeroImage = itemView?.findViewById<ImageView>(R.id.pager_carousel_title_inside_image_row_iv_hero_icon)
+
+        var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.pager_carousel_title_inside_image_row_cl_main_container)
+        clMainContainer?.setOnClickListener(listner)
+
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)

@@ -19,7 +19,7 @@ import quintype.com.templatecollectionwithrx.utils.widgets.PagerScheduleProxy
 
 
 class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-    fun bind(collectionList: List<CollectionItem>?, collectionAssociatedMetadata: AssociatedMetadata?, collectionName: String?) {
+    fun bind(collectionList: List<CollectionItem>?, collectionAssociatedMetadata: AssociatedMetadata?, collectionName: String?, listner: View.OnClickListener) {
         /**
          * Checking for indicator type
          */
@@ -38,11 +38,11 @@ class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(item
         var associatedMetadataLayout = collectionAssociatedMetadata.associatedMetadataLayout
         when (associatedMetadataLayout) {
             Constants.FULL_IMAGE_SLIDER ->
-                mSlideShowPager?.adapter = PagerFullCarouselAdapter(collectionAssociatedMetadata, collectionList)
+                mSlideShowPager?.adapter = PagerFullCarouselAdapter(collectionAssociatedMetadata, collectionList, listner)
             Constants.HALF_IMAGE_SLIDER ->
-                mSlideShowPager?.adapter = PagerHalfCarouselAdapter(collectionAssociatedMetadata, collectionList)
+                mSlideShowPager?.adapter = PagerHalfCarouselAdapter(collectionAssociatedMetadata, collectionList, listner)
             Constants.FULL_SCREEN_SIMPLE_SLIDER ->
-                mSlideShowPager?.adapter = PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata, collectionList, collectionName)
+                mSlideShowPager?.adapter = PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata, collectionList, collectionName, listner)
         }
 
         /**

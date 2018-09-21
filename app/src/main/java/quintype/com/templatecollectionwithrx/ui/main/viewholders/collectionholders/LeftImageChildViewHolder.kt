@@ -1,5 +1,6 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,13 @@ import quintype.com.templatecollectionwithrx.models.story.Story
  */
 
 class LeftImageChildViewHolder(itemView: View) : BaseTitleBelowImageUnderlineSectionViewHolder(itemView) {
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
 //        var tvStoryTitle = itemView.findViewById<TextView>(R.id.left_image_child_row_tv_title)
         var ivStoryHeroImage = itemView.findViewById<ImageView>(R.id.left_image_child_row_iv_hero_icon)
+
+        var cvMainContainer = itemView?.findViewById<CardView>(R.id.left_image_child_row_cv_main_container)
+        cvMainContainer?.setOnClickListener(listner)
 
 //        tvStoryTitle?.text = collectionItem?.headline
 

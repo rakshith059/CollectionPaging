@@ -12,8 +12,8 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 open class BaseTitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseAuthorAndPublishedDateViewHolder(itemView) {
     private var isShowSectionName = false
 
-    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
-        super.bind(collectionItem, collectionAssociatedMetadata)
+    override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
+        super.bind(collectionItem, collectionAssociatedMetadata, listner)
         var view = this.itemView.rootView
 
         var tvTitle = view?.findViewById<TextView>(R.id.section_underline_title_author_row_tv_title)
@@ -25,7 +25,7 @@ open class BaseTitleBelowImageUnderlineSectionViewHolder(itemView: View?) : Base
         var tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
         var tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
 
-        tvTitle?.text = collectionItem?.headline
+        tvTitle?.text = collectionItem.headline
 
         if (collectionAssociatedMetadata != null) {
             isShowSectionName = collectionAssociatedMetadata.associatedMetadataShowSectionTag
