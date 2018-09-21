@@ -13,6 +13,8 @@ import quintype.com.templatecollectionwithrx.models.config.PublisherConfig
 import quintype.com.templatecollectionwithrx.services.PublisherConfigServiceApi
 import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
 import quintype.com.templatecollectionwithrx.utils.Constants
+import com.google.gson.Gson
+
 
 class SplashActivity : BaseActivity() {
 
@@ -43,6 +45,7 @@ class SplashActivity : BaseActivity() {
                         val pollTypeHost = publisherConfig.polltypeHost
                         val staticPageUrls = publisherConfig.staticPageUrls
 
+
                         if (staticPageUrls != null) {
                             staticPageUrls.forEach { staticPageUrl ->
                                 if (staticPageUrl.contains(Constants.TERMS_AND_CONDITION))
@@ -59,6 +62,11 @@ class SplashActivity : BaseActivity() {
                         Constants.setSharedPreferences(this@SplashActivity, Constants.SP_PUBLISHER_NAME, publisherName as String)
                         Constants.setSharedPreferences(this@SplashActivity, Constants.SP_SHRUBBERY_HOST, shrubberyHost as String)
                         Constants.setSharedPreferences(this@SplashActivity, Constants.SP_POLLTYPE_HOST, pollTypeHost as String)
+
+                        if (publisherConfig.layout != null) {
+                            val layoutAsString = Gson().toJson(publisherConfig.layout)
+                            Constants.setSharedPreferences(this@SplashActivity, Constants.SP_LAYOUT, layoutAsString as String)
+                        }
 
                         var handler = Handler()
                         handler.postDelayed(Runnable {

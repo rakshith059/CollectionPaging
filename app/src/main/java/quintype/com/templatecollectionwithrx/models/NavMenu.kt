@@ -3,6 +3,7 @@ package quintype.com.templatecollectionwithrx.models
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.TextUtils
+import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
 import quintype.com.templatecollectionwithrx.models.sections.Section
@@ -12,31 +13,34 @@ import quintype.com.templatecollectionwithrx.models.story.Tag
 class NavMenu : Parcelable {
 
     @SerializedName("updated-at")
-    public var updatedAt: Long = 0
+    var updatedAt: Long = 0
     @SerializedName("tag-name")
-    public var tagName: String? = null
+    var tagName: String? = null
     @SerializedName("publisher-id")
-    public var publisherId: String = ""
+    var publisherId: String = ""
     @SerializedName("item-id")
-    public var itemId: String = ""
+    var itemId: String = ""
     @SerializedName("rank")
-    public var rank: Long = 0
+    var rank: Long = 0
     @SerializedName("title")
-    public var title: String? = null
+    var title: String? = null
     @SerializedName("item-type")
-    public var type: String = ""
+    var type: String = ""
     @SerializedName("section-slug")
-    public var sectionSlug: String = ""
+    var sectionSlug: String = ""
     @SerializedName("id")
-    public var id: String? = null
+    var id: String? = null
     @SerializedName("parent-id")
-    public var parentId: String = ""
+    var parentId: String = ""
     @SerializedName("created-at")
-    public var createdAt: Long = 0
+    var createdAt: Long = 0
     @SerializedName("section-name")
-    public var sectionName: String? = null
+    var sectionName: String? = null
     @SerializedName("data")
-    public var data: NavMenuData? = null
+    var data: NavMenuData? = null
+    @SerializedName("menu-group-slug")
+    @Expose
+    var menuGroupSlug: String? = null
 
     private val homeType: String = "home"
 
@@ -59,58 +63,6 @@ class NavMenu : Parcelable {
      */
     fun isTypeLink(): Boolean {
         return type.equals(TYPE_LINK, ignoreCase = true)
-    }
-
-    fun updatedAt(): Long {
-        return updatedAt
-    }
-
-    fun tagName(): String? {
-        return tagName
-    }
-
-    fun publisherId(): String {
-        return publisherId
-    }
-
-    fun itemId(): String {
-        return itemId
-    }
-
-    fun rank(): Long {
-        return rank
-    }
-
-    fun title(): String? {
-        return title
-    }
-
-    fun type(): String {
-        return type
-    }
-
-    fun sectionSlug(): String {
-        return sectionSlug
-    }
-
-    fun id(): String? {
-        return id
-    }
-
-    fun parentId(): String {
-        return parentId
-    }
-
-    fun createdAt(): Long {
-        return createdAt
-    }
-
-    fun sectionName(): String? {
-        return sectionName
-    }
-
-    fun data(): NavMenuData? {
-        return data
     }
 
     override fun toString(): String {
@@ -180,24 +132,6 @@ class NavMenu : Parcelable {
         this.id = id
     }
 
-    /**
-     * update section Name for the navMenu
-     *
-     * @param sectionName
-     */
-    fun sectionName(sectionName: String) {
-        this.sectionName = sectionName
-    }
-
-    /**
-     * update tag Name for the navMenu
-     *
-     * @param tagName
-     */
-    fun tagName(tagName: String) {
-        this.tagName = tagName
-    }
-
 
     override fun describeContents(): Int {
         return 0
@@ -217,22 +151,24 @@ class NavMenu : Parcelable {
         dest.writeLong(this.createdAt)
         dest.writeString(this.sectionName)
         dest.writeParcelable(this.data, flags)
+        dest.writeString(menuGroupSlug)
     }
 
     protected constructor(parcel: Parcel) {
-        this.updatedAt = parcel.readLong()
-        this.tagName = parcel.readString()
-        this.publisherId = parcel.readString()
-        this.itemId = parcel.readString()
-        this.rank = parcel.readLong()
-        this.title = parcel.readString()
-        this.type = parcel.readString()
-        this.sectionSlug = parcel.readString()
-        this.id = parcel.readString()
-        this.parentId = parcel.readString()
-        this.createdAt = parcel.readLong()
-        this.sectionName = parcel.readString()
-        this.data = parcel.readParcelable<NavMenuData>(NavMenuData::class.java.classLoader)
+        updatedAt = parcel.readLong()
+        tagName = parcel.readString()
+        publisherId = parcel.readString()
+        itemId = parcel.readString()
+        rank = parcel.readLong()
+        title = parcel.readString()
+        type = parcel.readString()
+        sectionSlug = parcel.readString()
+        id = parcel.readString()
+        parentId = parcel.readString()
+        createdAt = parcel.readLong()
+        sectionName = parcel.readString()
+        data = parcel.readParcelable<NavMenuData>(NavMenuData::class.java.classLoader)
+        menuGroupSlug = parcel.readString()
     }
 
     constructor()

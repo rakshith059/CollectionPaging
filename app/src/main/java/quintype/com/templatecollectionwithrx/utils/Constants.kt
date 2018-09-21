@@ -114,6 +114,7 @@ class Constants {
         const val SP_TERMS_AND_CONDITION: String = "SP_TERMS_AND_CONDITION"
         const val SP_PRIVACY_POLICY: String = "SP_PRIVACY_POLICY"
         const val SP_ABOUT_US: String = "SP_ABOUT_US"
+        const val SP_LAYOUT: String = "SP_LAYOUT"
 
 
         const val TERMS_AND_CONDITION: String = "terms-and-conditions"

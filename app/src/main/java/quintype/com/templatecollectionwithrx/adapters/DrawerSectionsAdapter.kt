@@ -18,20 +18,17 @@ import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionChildVie
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionParentViewHolder
 import quintype.com.templatecollectionwithrx.utils.Constants
 
-class DrawerSectionsAdapter(parentItemList: MutableList<ParentListItem>) : ExpandableRecyclerAdapter<SectionParentViewHolder, SectionChildViewHolder>(parentItemList) {
+class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<ParentListItem>) : ExpandableRecyclerAdapter<SectionParentViewHolder, SectionChildViewHolder>(parentItemList) {
 
     private val TYPE_HEADER = 1000
     private val TYPE_FOOTER = 2000
-    var selectedNavMenuGroup: NavMenuGroup? = null
-    var mParentItemList: MutableList<ParentListItem>? = null
-    private var mInflater: LayoutInflater? = null
+    private var selectedNavMenuGroup: NavMenuGroup? = null
+    private val mParentItemList = parentItemList
+    private val mInflater = LayoutInflater.from(context)
     private var mListener: OnDrawerItemSelectedListener? = null
-    private var mContext: Context? = null
+    private val mContext = context
 
-    constructor(context: Context, parentItemList: MutableList<ParentListItem>) : this(parentItemList) {
-        mContext = context
-        mParentItemList = parentItemList
-
+    init {
         //Check if the calling activity/fragment has implemented the item selection listener.
         //otherwise, item clicks cannot be handled.
         if (context is OnDrawerItemSelectedListener)
@@ -39,7 +36,6 @@ class DrawerSectionsAdapter(parentItemList: MutableList<ParentListItem>) : Expan
         else
             throw RuntimeException(context.toString() + " must implement " +
                     "OnAddItemsInteractionListener")
-        mInflater = LayoutInflater.from(context)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -70,6 +66,12 @@ class DrawerSectionsAdapter(parentItemList: MutableList<ParentListItem>) : Expan
         return SectionChildViewHolder(childSection, mListener)
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (position > 0) {
+            super.onBindViewHolder(holder, position)
+        }
+    }
+
     override fun onBindChildViewHolder(childViewHolder: SectionChildViewHolder?, position: Int, childListItem: Any?) {
         val subsection = childListItem as NavMenu
         childViewHolder?.bind(subsection)
@@ -79,7 +81,7 @@ class DrawerSectionsAdapter(parentItemList: MutableList<ParentListItem>) : Expan
             for (i in parentItemList.indices) {
                 val item = parentItemList[i]
                 //find out which parent this child belongs to
-                if (subsection.parentId().equals((item as NavMenuGroup).menuItem?.id)) {
+                if (subsection.parentId.equals((item as NavMenuGroup).menuItem?.id)) {
                     parent = item
                     val j: Int = 0
                     for (j in 0 until parent.childItemList.size) {
@@ -103,6 +105,10 @@ class DrawerSectionsAdapter(parentItemList: MutableList<ParentListItem>) : Expan
                 }
             }
         }
+    }
+
+    override fun getItemCount(): Int {
+        return mParentItemList?.size
     }
 
     override fun onBindParentViewHolder(parentViewHolder: SectionParentViewHolder?, position: Int, parentListItem: ParentListItem?) {

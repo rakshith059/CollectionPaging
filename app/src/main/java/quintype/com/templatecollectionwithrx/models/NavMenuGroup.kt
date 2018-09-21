@@ -22,10 +22,10 @@ class NavMenuGroup() : ParentListItem, Parcelable {
     }
 
     fun getName(context: Context): String? {
-        return if (menuItem?.id().equals(NavMenu.HOME.id())) {
+        return if (menuItem?.id?.equals(NavMenu.HOME.id)!!) {
             context.getResources().getString(R.string.home_title)
         } else {
-            menuItem?.title()
+            menuItem?.title
         }
     }
 
@@ -57,5 +57,9 @@ class NavMenuGroup() : ParentListItem, Parcelable {
         override fun newArray(size: Int): Array<NavMenuGroup?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun addSubsection(subsection: NavMenu) {
+        mSubsections.add(subsection)
     }
 }

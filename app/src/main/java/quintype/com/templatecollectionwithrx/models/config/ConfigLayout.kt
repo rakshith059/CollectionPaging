@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import quintype.com.templatecollectionwithrx.models.NavMenu
 
 class ConfigLayout() : Parcelable {
     override fun describeContents(): Int {
@@ -15,14 +16,14 @@ class ConfigLayout() : Parcelable {
     var storiesBetweenStacks: Int? = null
     @SerializedName("menu")
     @Expose
-    var menu: List<ConfigLayoutMenu>? = null
+    var menu: List<NavMenu>? = null
     @SerializedName("stacks")
     @Expose
     var stacks: List<ConfigLayoutStack>? = null
 
     constructor(parcel: Parcel) : this() {
         storiesBetweenStacks = parcel.readValue(Int::class.java.classLoader) as? Int
-        menu = parcel.createTypedArrayList(ConfigLayoutMenu)
+        menu = parcel.createTypedArrayList(NavMenu.CREATOR)
         stacks = parcel.createTypedArrayList(ConfigLayoutStack)
     }
 
