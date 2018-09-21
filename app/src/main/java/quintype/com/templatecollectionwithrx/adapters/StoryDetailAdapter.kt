@@ -17,6 +17,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
 
     init {
         storyPresenter = StoryPresenter.create(mStory)
+        storyPresenter?.insertElementBinder(0, ElementStoryHeroImageViewHolder::class.java)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,6 +31,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.MEDIA -> return ElementWebViewHolder.create(parent)
             ElementViewType.SUMMARY -> return ElementStorySummaryHolder.create(parent)
             ElementViewType.QUESTION_ANSWER -> return ElementStoryQAHolder.create(parent)
+//            ElementViewType.QUESTION_ANSWER -> return ElementStoryHeroImageViewHolder.create(parent, mFragmentCallbacks)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }

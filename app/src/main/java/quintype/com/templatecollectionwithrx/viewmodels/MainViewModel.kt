@@ -17,12 +17,12 @@ class MainViewModel : ViewModel() {
         return collectionListObservable
     }
 
-    fun getCollectionResponse() {
-        collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(0)
+    fun getCollectionResponse(collectionSlug: String) {
+        collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(collectionSlug, 0)
 //        CollectionService.getInstance(compositeDisposable).getChildRxResponse("home", Constants.PAGE_LIMIT, 0)
     }
 
-    fun getCollectionLoadMoreResponse(currentPage: Int) {
-        collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(currentPage)
+    fun getCollectionLoadMoreResponse(collectionSlug: String, currentPage: Int) {
+        collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(collectionSlug, currentPage)
     }
 }

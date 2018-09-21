@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,12 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 
 open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-    open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?) {
+    open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_inside_image_grid_row_iv_hero_icon)
         var tvStoryTitle = itemView?.findViewById<TextView>(R.id.title_inside_image_grid_row_tv_title)
+
+        var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_inside_image_grid_row_cl_main_container)
+        clMainContainer?.setOnClickListener(listner)
 
         val cdnHostName = Constants.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key

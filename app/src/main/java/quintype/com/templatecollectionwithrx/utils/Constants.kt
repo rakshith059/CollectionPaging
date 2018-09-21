@@ -5,7 +5,8 @@ import android.content.SharedPreferences
 import android.graphics.Point
 import android.preference.PreferenceManager
 import android.view.WindowManager
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
@@ -132,6 +133,15 @@ class Constants {
         fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String): String {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
             return sharedPreferences.getString(mSharedPreferencesKey, "")
+        }
+
+        /**
+         * function for formatting the date
+         */
+        fun formatDate(dateFormat: String): String {
+            var formatter = SimpleDateFormat("dd MMM,yyyy HH:mm a")
+            var dateString: String = formatter.format(Date(dateFormat.toLong()))
+            return dateString
         }
     }
 }

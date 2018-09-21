@@ -24,12 +24,12 @@ class ElementStorySummaryHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
         fun create(parent: ViewGroup): ElementStorySummaryHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.story_summary_element_holder, parent, false)
 
-            val holder: ElementStorySummaryHolder = ElementStorySummaryHolder(view);
-            holder.snapshotContentText = view.findViewById(R.id.snapshot_content_text);
-            holder.snapshotHeaderText = view.findViewById(R.id.snapshot_header_text);
-            holder.snapshotExpandableLayout = view.findViewById(R.id.sm_story_snapshot_layout_expandable);
-            holder.plusImage = parent.getContext().getResources().getDrawable(R.drawable.ic_plus);
-            holder.minusImage = parent.getContext().getResources().getDrawable(R.drawable.ic_minus);
+            val holder = ElementStorySummaryHolder(view)
+            holder.snapshotContentText = view.findViewById(R.id.snapshot_content_text)
+            holder.snapshotHeaderText = view.findViewById(R.id.snapshot_header_text)
+            holder.snapshotExpandableLayout = view.findViewById(R.id.sm_story_snapshot_layout_expandable)
+            holder.plusImage = parent.getContext().getResources().getDrawable(R.drawable.ic_plus)
+            holder.minusImage = parent.getContext().getResources().getDrawable(R.drawable.ic_minus)
 
             return holder
         }

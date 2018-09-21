@@ -14,7 +14,9 @@ import quintype.com.templatecollectionwithrx.models.*
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
@@ -28,7 +30,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCollectionName = itemView?.findViewById<TextView>(R.id.default_collection_row_tv_collection_name)
 
         var showCollectionName: Boolean
-        var associatedMetadataShowCollectionName = collectionItem?.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
+        var associatedMetadataShowCollectionName = collectionItem.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
         if (associatedMetadataShowCollectionName != null) {
             showCollectionName = associatedMetadataShowCollectionName
         } else showCollectionName = true
@@ -39,6 +41,10 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } else
             llCollectionName?.visibility = View.GONE
 
+        llCollectionName?.setOnClickListener({
+            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem?.slug), TAG)
+        })
+
         rvInnerCollection = itemView?.findViewById<RecyclerView>(R.id.default_collection_row_rv_inner_collection)
 
         val collectionList = ArrayList<CollectionInnerListModel>()
@@ -46,7 +52,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (collectionInnerList?.size != null)
             prepareLayoutEngine(collectionInnerList, collectionItem.mOuterCollectionAssociatedMetadata, collectionList, collectionItem.outerCollectionName)
 
-        val innerCollectionAdapter = InnerCollectionAdapter(collectionList)
+        val innerCollectionAdapter = InnerCollectionAdapter(collectionList, mFragmentCallbacks)
 
         rvInnerCollection?.adapter = innerCollectionAdapter
     }
@@ -188,8 +194,11 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     companion object {
-        fun create(parent: ViewGroup): CollectionViewHolder {
+        var mFragmentCallbacks: FragmentCallbacks? = null
+        val TAG = CollectionViewHolder.javaClass.simpleName
+        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): CollectionViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.default_collection_row, parent, false)
+            this.mFragmentCallbacks = mFragmentCallbacks
             return CollectionViewHolder(view)
         }
     }

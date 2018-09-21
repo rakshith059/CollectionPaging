@@ -38,10 +38,10 @@ class CollectionService {
         }
     }
 
-    fun getCollectionResponse(pageNumber: Int): LiveData<BulkTableModel> {
+    fun getCollectionResponse(collectionSlug: String, pageNumber: Int): LiveData<BulkTableModel> {
         Log.d("Rakshith", "api call started for first iteration.. ")
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(Constants.COLLECTION_HOME, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
+        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
                 .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                 .retry(3)
                 .subscribeOn(Schedulers.io())

@@ -64,7 +64,7 @@ public class StoryPresenter implements Parcelable {
     List<Integer> recreateHolderList = new ArrayList<>();
 
     BinderCallback callback;
-    LinkedHashMap<Integer, Class<? extends StoryElementBinder>> embedElementsMap = new
+    LinkedHashMap<Integer, Class> embedElementsMap = new
             LinkedHashMap<>();
 
     /**
@@ -287,8 +287,7 @@ public class StoryPresenter implements Parcelable {
      * @param atPosition position to insert the story element.
      * @param cls        {@link StoryElementBinder} class type of the Binder.
      */
-    public void insertElement(StoryElement element, int atPosition, Class<? extends
-            StoryElementBinder> cls) {
+    public void insertElement(StoryElement element, int atPosition, Class cls) {
         if (element != null && cls != null) {
             if (atPosition >= flattenedStoryElements.size()) {
                 //add element at last if the position is greater than the size itself.
@@ -300,7 +299,7 @@ public class StoryPresenter implements Parcelable {
                 flattenedStoryElements.add(atPosition, element);
 
                 //increment all the keys after the position the element was added.
-                LinkedHashMap<Integer, Class<? extends StoryElementBinder>> tempMap = new
+                LinkedHashMap<Integer, Class> tempMap = new
                         LinkedHashMap<>();
                 tempMap.put(atPosition, cls);
 
@@ -326,7 +325,7 @@ public class StoryPresenter implements Parcelable {
      * @param atPosition position to insert the story element.
      * @param cls        {@link StoryElementBinder} class type of the Binder.
      */
-    public void insertElementBinder(int atPosition, Class<? extends StoryElementBinder> cls) {
+    public void insertElementBinder(int atPosition, Class cls) {
         insertElement(StoryElement.dummyElement(), atPosition, cls);
     }
 

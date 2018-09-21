@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pager_carousel_half_slider_row_cl_main_container"
+    android:id="@+id/story_hero_image_view_holder_cl_main_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,20 +16,15 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/pager_carousel_half_slider_row_iv_hero_icon"
+                android:id="@+id/story_hero_image_view_holder_iv_hero_icon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_300dp"
                 android:scaleType="centerCrop" />
 
-            <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@drawable/pager_carousel_background_gradient" />-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/pager_carousel_half_slider_row_iv_hero_icon">
+                app:layout_constraintTop_toBottomOf="@+id/story_hero_image_view_holder_iv_hero_icon">
 
                 <include
                     layout="@layout/section_block_title_author_row"
