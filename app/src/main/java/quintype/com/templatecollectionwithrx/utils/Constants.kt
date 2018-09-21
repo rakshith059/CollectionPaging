@@ -32,11 +32,11 @@ class Constants {
             return height
         }
 
-        //        const val BASE_URL = "https://thequint-web.staging.quintype.io"
-//        const val BASE_URL = "https://www.thequint.com"
-//        const val BASE_URL = "https://madrid.quintype.io"
+        //const val BASE_URL = "https://thequint-web.staging.quintype.io"
+        //const val BASE_URL = "https://www.thequint.com"
+        //const val BASE_URL = "https://madrid.quintype.io"
         const val BASE_URL = "https://ace-web.qtstage.io"
-        //        const val BASE_URL = "https://www.samachara.com"
+        //const val BASE_URL = "https://www.samachara.com"
         const val COLLECTION_HOME: String = "home"
         const val PAGE_LIMIT: Int = 20
         const val TYPE_COLLECTION: String = "collection"

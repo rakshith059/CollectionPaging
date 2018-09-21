@@ -107,10 +107,6 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
         }
     }
 
-    override fun getItemCount(): Int {
-        return mParentItemList?.size
-    }
-
     override fun onBindParentViewHolder(parentViewHolder: SectionParentViewHolder?, position: Int, parentListItem: ParentListItem?) {
         val section = parentListItem as NavMenuGroup
         if (!isPositionFooter(position)) {
