@@ -28,10 +28,10 @@ class CollectionResponse : Parcelable {
     var summary: String
     @SerializedName("created-at")
     @Expose
-    var createdAt: String
+    var createdAt: Long
     @SerializedName("updated-at")
     @Expose
-    var updatedAt: String
+    var updatedAt: Long
     @SerializedName("items")
     @Expose
     var items: List<CollectionItem>? = null
@@ -50,8 +50,8 @@ class CollectionResponse : Parcelable {
         slug = parcel.readString()
         name = parcel.readString()
         summary = parcel.readString()
-        createdAt = parcel.readString()
-        updatedAt = parcel.readString()
+        createdAt = parcel.readLong()
+        updatedAt = parcel.readLong()
         items = parcel.createTypedArrayList(CollectionItem)
         totalCount = parcel.readInt()
         collectionMetadata = parcel.readParcelable(Metadata::class.java.classLoader)
@@ -63,35 +63,12 @@ class CollectionResponse : Parcelable {
         parcel.writeString(slug)
         parcel.writeString(name)
         parcel.writeString(summary)
-        parcel.writeString(createdAt)
-        parcel.writeString(updatedAt)
+        parcel.writeLong(createdAt)
+        parcel.writeLong(updatedAt)
         parcel.writeTypedList(items)
         parcel.writeInt(totalCount)
         parcel.writeParcelable(collectionMetadata, i)
         parcel.writeString(template)
-    }
-
-    override fun toString(): String {
-        return "CollectionResponse{" +
-                "id=" + id +
-                ", slug='" + slug + '\''.toString() +
-                ", name='" + name + '\''.toString() +
-                ", summary='" + summary + '\''.toString() +
-                ", createdAt='" + createdAt + '\''.toString() +
-                ", updatedAt='" + updatedAt + '\''.toString() +
-                ", items=" + items +
-                ", totalCount=" + totalCount +
-                ", collectionMetadata=" + collectionMetadata +
-                ", template='" + template + '\''.toString() +
-                '}'.toString()
-    }
-
-    fun template(): String {
-        return template
-    }
-
-    fun template(template: String) {
-        this.template = template
     }
 
     companion object CREATOR : Parcelable.Creator<CollectionResponse> {

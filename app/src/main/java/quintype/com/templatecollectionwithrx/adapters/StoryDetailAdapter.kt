@@ -29,9 +29,12 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.QUOTE -> return ElementQuoteViewHolder.create(parent)
             ElementViewType.BLOCK_QUOTE -> return ElementBlockQuoteViewHolder.create(parent)
             ElementViewType.MEDIA -> return ElementWebViewHolder.create(parent)
+            ElementViewType.AUDIO -> return ElementWebViewHolder.create(parent)
+            ElementViewType.VIDEO -> return ElementWebViewHolder.create(parent)
             ElementViewType.SUMMARY -> return ElementStorySummaryHolder.create(parent)
             ElementViewType.QUESTION_ANSWER -> return ElementStoryQAHolder.create(parent)
-//            ElementViewType.QUESTION_ANSWER -> return ElementStoryHeroImageViewHolder.create(parent, mFragmentCallbacks)
+            ElementViewType.BIG_FACT -> return ElementStoryBigFactViewHolder.create(parent)
+            ElementViewType.JS_EMBED -> return ElementStoryJSEmbedViewHolder.create(parent)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -61,6 +64,10 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStorySummaryHolder)
             holder.bind(storyElement)
         else if (holder is ElementStoryQAHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStoryBigFactViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStoryJSEmbedViewHolder)
             holder.bind(storyElement)
     }
 }

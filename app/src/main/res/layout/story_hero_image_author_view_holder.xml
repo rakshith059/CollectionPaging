@@ -22,6 +22,7 @@
             android:paddingRight="@dimen/size_8dp"
             android:paddingBottom="@dimen/size_4dp"
             android:text="@string/section"
+            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/size_16sp"
             android:textStyle="bold"
