@@ -15,6 +15,14 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1dp"
+        android:layout_margin="@dimen/size_8dp"
+        android:background="@color/black_opacity_50"
+        app:layout_constraintBottom_toTopOf="@+id/story_big_fact_view_holder_tv_attribution"
+        app:layout_constraintTop_toBottomOf="@+id/story_big_fact_view_holder_tv_content" />
+
     <TextView
         android:id="@+id/story_big_fact_view_holder_tv_attribution"
         android:layout_width="match_parent"
@@ -26,5 +34,13 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/story_big_fact_view_holder_tv_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1dp"
+        android:layout_margin="@dimen/size_8dp"
+        android:background="@color/black_opacity_50"
+        app:layout_constraintTop_toBottomOf="@+id/story_big_fact_view_holder_tv_attribution" />
+
 
 </android.support.constraint.ConstraintLayout>

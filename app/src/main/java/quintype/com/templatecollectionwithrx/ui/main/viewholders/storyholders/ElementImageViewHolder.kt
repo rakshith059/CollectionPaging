@@ -16,6 +16,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 class ElementImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -33,7 +34,7 @@ class ElementImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
 
         val title = element.title()
         if (!TextUtils.isEmpty(title)) {
-            tvImageCaption?.text = Html.fromHtml(title)
+            tvImageCaption?.text = Utilities.parseHtml(title)
             tvImageCaption?.setVisibility(View.VISIBLE)
         } else {
             tvImageCaption?.setVisibility(View.GONE)

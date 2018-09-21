@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable
 import android.text.Html
 import quintype.com.templatecollectionwithrx.utils.widgets.ExpandableLayout
 import android.widget.TextView
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 class ElementStorySummaryHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -38,7 +39,7 @@ class ElementStorySummaryHolder(itemView: View?) : RecyclerView.ViewHolder(itemV
     fun bind(element: StoryElement) {
         var summaryContent = element.text()
         if (summaryContent != null)
-            snapshotContentText?.text = Html.fromHtml(summaryContent)
+            snapshotContentText?.text = Utilities.parseHtml(summaryContent)
         snapshotExpandableLayout?.show(object : ExpandableLayoutCallBackInterface {
             override fun isLayoutOpen(isOpen: Boolean) {
                 if (isOpen) {

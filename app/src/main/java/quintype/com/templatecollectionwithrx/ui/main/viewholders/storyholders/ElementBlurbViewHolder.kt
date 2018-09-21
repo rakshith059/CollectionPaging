@@ -9,6 +9,7 @@ import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class ElementBlurbViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     companion object {
@@ -22,6 +23,6 @@ class ElementBlurbViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
         var tvText = itemView?.findViewById<TextView>(R.id.story_blurb_element_holder_tv_text)
         var blurbContent = storyElement.subTypeMeta()?.content
         if (blurbContent != null)
-            tvText?.text = Html.fromHtml(blurbContent)
+            tvText?.text = Utilities.parseHtml(blurbContent)
     }
 }

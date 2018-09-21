@@ -9,6 +9,7 @@ import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class ElementBlockQuoteViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     companion object {
@@ -22,7 +23,7 @@ class ElementBlockQuoteViewHolder(itemView: View?) : RecyclerView.ViewHolder(ite
         var tvTextContent = itemView?.findViewById<TextView>(R.id.block_quote_holder_text_content)
         var tvTextAttribute = itemView?.findViewById<TextView>(R.id.block_quote_holder_attribute_text)
         if (storyElement?.subTypeMeta()?.content != null)
-            tvTextContent?.text = Html.fromHtml(storyElement.subTypeMeta()?.content)
+            tvTextContent?.text = Utilities.parseHtml(storyElement.subTypeMeta()?.content as String)
         if (storyElement?.subTypeMeta()?.attribution != null)
             tvTextAttribute?.text = storyElement.subTypeMeta()?.attribution
     }
