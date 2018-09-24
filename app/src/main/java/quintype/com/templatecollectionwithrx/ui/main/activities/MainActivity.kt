@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -44,25 +46,6 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
                 .navigation_drawer_close)
         mDrawerLayout?.addDrawerListener(toggle)
         toggle.syncState()
-
-        mDrawerLayout?.addDrawerListener(object : DrawerLayout.DrawerListener {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                Log.d("##NavMenu", "onDrawerSlide");
-            }
-
-            override fun onDrawerOpened(drawerView: View) {
-                Log.d("##NavMenu", "onDrawerOpened");
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                Log.d("##NavMenu", "onDrawerClosed");
-            }
-
-            override fun onDrawerStateChanged(newState: Int) {
-                Log.d("##NavMenu", "onDrawerStateChanged");
-            }
-        }
-        )
 
         setupHomeScreen()
         setUpNavDrawer()
@@ -126,8 +109,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
         //Let's sort the final list of sections so that they appear in the order in which
         //they appear in the website
         val list: MutableList<ParentListItem> = ArrayList(finalMenuMap.values)
-        //TODO Sort the Menu List
-        //Collections.sort(list) { t1, t2 -> ((t1 as NavMenuGroup).menuItem?.rank as Long).compareTo((t2 as NavMenuGroup).menuItem?.rank!!) }
+        list.sortWith(Comparator { t1, t2 -> ((t1 as NavMenuGroup).menuItem?.rank() as Long).compareTo((t2 as NavMenuGroup).menuItem?.rank()!!) })
 
         //finally, populate the adapter with the sorted list and set the adapter to the navMenu
         drawerAdapter = DrawerSectionsAdapter(this, list)
@@ -155,6 +137,12 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
             if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_SECTION, true)) {
                 //TODO: Calling the sectionFragment with the section slug, have to call the pager fragment with the sub section fragments.
                 replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug()), TAG)
+            } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
+                Toast.makeText(this, "Menu type LINK not yet handled", LENGTH_SHORT).show()
+            } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_TAG, true)) {
+                Toast.makeText(this, "Menu type TAG not yet handled", LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Unknown menu type", LENGTH_SHORT).show()
             }
         }
         mDrawerLayout?.closeDrawer(GravityCompat.START)
