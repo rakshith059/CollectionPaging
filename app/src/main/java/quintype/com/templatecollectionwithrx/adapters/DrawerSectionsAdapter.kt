@@ -12,11 +12,11 @@ import android.widget.TextView
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.NavMenu
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionChildViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionParentViewHolder
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.models.NavMenu
 
 class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<ParentListItem>) : ExpandableRecyclerAdapter<SectionParentViewHolder, SectionChildViewHolder>(parentItemList) {
 
@@ -81,11 +81,11 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
             for (i in parentItemList.indices) {
                 val item = parentItemList[i]
                 //find out which parent this child belongs to
-                if (subsection.parentId.equals((item as NavMenuGroup).menuItem?.id)) {
+                if (subsection.parentId().equals((item as NavMenuGroup).menuItem?.id())) {
                     parent = item
                     val j: Int = 0
                     for (j in 0 until parent.childItemList.size) {
-                        if (parent.childItemList.get(j).id?.equals(subsection.id, true) as Boolean) {
+                        if (parent.childItemList.get(j)?.id()?.equals(subsection.id(), true) as Boolean) {
                             break
                         }
                     }
@@ -95,9 +95,9 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
                     //setting the selected state for the parent of this child,
                     //same as that done in the ParentViewHolder
                     if (selectedNavMenuGroup != null) {
-                        selectedNavMenuGroup?.selected = false
+                        selectedNavMenuGroup?.isSelected = false
                     }
-                    parent.selected = true
+                    parent.isSelected = true
                     selectedNavMenuGroup = parent
                     notifyDataSetChanged()
                     mListener?.onDrawerItemSelected(parent)
@@ -124,7 +124,7 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
 
             //This section sets the selected state of the navDrawer.
             val color: Int
-            if (section.selected) {
+            if (section.isSelected) {
                 // Check if the section is selected and set the text color accordingly
                 color = ContextCompat.getColor(mListener as Context, R.color.colorAccent)
                 parentViewHolder?.mSectionName?.setTextColor(color)
@@ -143,9 +143,9 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
                     //and keep track of it. Then notifyDataSetChanged to change the selected
                     //state in the navDrawer.
                     if (selectedNavMenuGroup != null) {
-                        selectedNavMenuGroup?.selected = false
+                        selectedNavMenuGroup?.isSelected = false
                     }
-                    section.selected = true
+                    section.isSelected = true
                     selectedNavMenuGroup = section
                     notifyDataSetChanged()
 

@@ -20,6 +20,6 @@ class SectionChildViewHolder(itemView: View?) : ChildViewHolder(itemView) {
     }
 
     fun bind(subSection: NavMenu) {
-        mSubsectionTextView?.text = subSection.title
+        mSubsectionTextView?.text = subSection.title()
     }
 }

@@ -10,16 +10,15 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
 import com.google.gson.Gson
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
-import quintype.com.templatecollectionwithrx.models.NavMenu
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
 import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.models.NavMenu
+import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 import java.util.*
 
 class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener {
-
     val TAG = MainActivity::class.java.simpleName
     private var mDrawerLayout: DrawerLayout? = null
     private var navMenuRecyclerview: RecyclerView? = null
@@ -66,31 +65,31 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
         val finalMenuMap = HashMap<String, NavMenuGroup>()
 
         if (menuList != null)
-            menuList.forEach { menuItem ->
-                val parentId = menuItem.parentId
+            for (NavMenu in menuList) {
+                val parentId = NavMenu.parentId()
                 // If the section doesn't have a parent ID, check if its ID is already there in the map.
                 // If it is, set the parent section of that entry as this menu item. Else, add it to
                 // the hashMap as a new parent section
-                if (parentId == "") {
-                    if (initialMenuMap.containsKey(menuItem.id)) {
-                        initialMenuMap.get(menuItem.id)?.menuItem = menuItem
+                if (parentId == null) {
+                    if (initialMenuMap.containsKey(NavMenu.id())) {
+                        initialMenuMap.get(NavMenu.id())?.menuItem = NavMenu
                     } else {
                         val parentSection = NavMenuGroup()
-                        parentSection.menuItem = menuItem
-                        initialMenuMap.put(menuItem.id!!, parentSection)
+                        parentSection.menuItem = NavMenu
+                        initialMenuMap.put(NavMenu.id()!!, parentSection)
                     }
                 }
                 //if the parentID of this section is already in the hashMap, add it to the hashMap
                 //as a child of the existing parent section
                 else if (initialMenuMap.containsKey(parentId)) {
-                    initialMenuMap[parentId]?.addSubsection(menuItem)
+                    initialMenuMap[parentId]?.addSubsection(NavMenu)
                 }
                 //if the section contains a parentId, but that id is not in the hashMap yet, keep the
                 //section as a child section but add the parent ID to the hashMap as the ID of a new
                 //blank parent section.
                 else {
                     val parentSection = NavMenuGroup()
-                    parentSection.addSubsection(menuItem)
+                    parentSection.addSubsection(NavMenu)
                     initialMenuMap.put(parentId, parentSection)
                 }
             }
@@ -103,10 +102,10 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
                 for (childItem in currentSection.childItemList) {
                     val parentSection = NavMenuGroup()
                     parentSection.menuItem = childItem
-                    childItem.id?.let { finalMenuMap.put(it, parentSection) };
+                    childItem?.id()?.let { finalMenuMap.put(it, parentSection) };
                 }
             } else {
-                finalMenuMap.put(currentSection.menuItem?.id!!, currentSection);
+                finalMenuMap.put(currentSection.menuItem?.id()!!, currentSection);
             }
         }
 
@@ -140,9 +139,9 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
 
     override fun onDrawerItemSelected(menuGroup: NavMenuGroup?) {
         if (menuGroup != null) {
-            if (menuGroup.menuItem?.type.equals(NavMenu.TYPE_SECTION, true)) {
+            if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_SECTION, true)) {
                 //TODO: Calling the sectionFragment with the section slug, have to call the pager fragment with the sub section fragments.
-                replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug), TAG)
+                replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug()), TAG)
             }
         }
     }
