@@ -33,7 +33,7 @@ import java.util.*
  */
 class StoryDetailFragment : BaseFragment() {
 
-    var storyViewModel: StoryViewModel? = null
+    private var storyViewModel: StoryViewModel? = null
 
     companion object {
         var mStory = Story()
