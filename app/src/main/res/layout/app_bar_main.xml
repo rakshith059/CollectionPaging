@@ -63,8 +63,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:paddingTop="@dimen/size_10dp"
                         android:paddingBottom="@dimen/size_10dp"
+                        android:paddingTop="@dimen/size_10dp"
                         app:srcCompat="@drawable/ic_search_layer_list" />
 
                     <!--<ImageView-->

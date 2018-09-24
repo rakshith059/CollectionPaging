@@ -1,13 +1,17 @@
 package quintype.com.templatecollectionwithrx.ui.main.activities
 
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
 import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
@@ -23,6 +27,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
     private var mDrawerLayout: DrawerLayout? = null
     private var navMenuRecyclerview: RecyclerView? = null
     private var drawerAdapter: DrawerSectionsAdapter? = null
+    private var toolBar: Toolbar? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +35,15 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
         setContentView(R.layout.main_activity)
         mDrawerLayout = findViewById(R.id.drawer_layout)
         navMenuRecyclerview = findViewById(R.id.nav_menu_recyclerview)
+        toolBar = findViewById(R.id.toolbar)
+
+        setSupportActionBar(toolBar)
+
+        val toggle = ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string
+                .navigation_drawer_close)
+        mDrawerLayout?.addDrawerListener(toggle)
+        toggle.syncState()
 
         mDrawerLayout?.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
@@ -118,7 +132,6 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
         //finally, populate the adapter with the sorted list and set the adapter to the navMenu
         drawerAdapter = DrawerSectionsAdapter(this, list)
         navMenuRecyclerview?.adapter = drawerAdapter
-
     }
 
     private fun setupHomeScreen() {
@@ -144,6 +157,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
                 replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug()), TAG)
             }
         }
+        mDrawerLayout?.closeDrawer(GravityCompat.START)
     }
 
 }
