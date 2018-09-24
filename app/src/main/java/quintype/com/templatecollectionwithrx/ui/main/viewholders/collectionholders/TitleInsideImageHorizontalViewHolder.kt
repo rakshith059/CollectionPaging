@@ -28,6 +28,7 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
         Glide.with(ivHeroImage?.context as Context)
                 .load(heroImageURL)

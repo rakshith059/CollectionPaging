@@ -2,6 +2,7 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +17,14 @@ class StoryPagerFragment : BaseFragment() {
         var storyFragmentList: ArrayList<Fragment> = ArrayList()
         var mPosition = 0
 
-        fun newInstance(storyList: ArrayList<Story>): StoryPagerFragment {
+        fun newInstance(storyList: ArrayList<Story>, itemPosition: Int): StoryPagerFragment {
             val fragment = StoryPagerFragment()
             val args = Bundle()
             fragment.arguments = args
             this.pagerFragmentStoryList = storyList
-            this.mPosition = 2
+            this.mPosition = itemPosition
+            Log.d("Rakshith", "clicked position is $mPosition")
+
             return fragment
         }
     }

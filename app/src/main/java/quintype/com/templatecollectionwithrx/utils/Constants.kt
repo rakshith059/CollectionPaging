@@ -116,6 +116,7 @@ class Constants {
         const val TERMS_AND_CONDITION: String = "terms-and-conditions"
         const val ABOUT_US: String = "about-us"
         const val PRIVACY_POLICY: String = "privacy-policy"
+        const val ITEM_POSITION: String = "ITEM_POSITION"
 
         /**
          * function for setting shared preference value

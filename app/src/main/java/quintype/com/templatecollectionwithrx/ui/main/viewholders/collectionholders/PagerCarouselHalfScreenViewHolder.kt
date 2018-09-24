@@ -25,6 +25,7 @@ class PagerCarouselHalfScreenViewHolder(itemView: View?) : BaseTitleBelowImageBl
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.pager_carousel_half_slider_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 

@@ -19,6 +19,7 @@ class PagerCarouselFullScreenViewHolder(itemView: View?) : BaseTitleInsideImageB
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.pager_carousel_title_inside_image_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
