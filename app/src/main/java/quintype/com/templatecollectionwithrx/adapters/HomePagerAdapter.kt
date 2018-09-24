@@ -9,8 +9,7 @@ class HomePagerAdapter(fm: FragmentManager?, fragmentList: List<Fragment>, title
     var mTitle = title
 
     override fun getItem(position: Int): Fragment {
-        var mFragment: Fragment = fragmentList.get(position)
-        return mFragment
+        return fragmentList[position]
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -19,6 +18,6 @@ class HomePagerAdapter(fm: FragmentManager?, fragmentList: List<Fragment>, title
     }
 
     override fun getCount(): Int {
-        return fragmentList?.size
+        return fragmentList.size
     }
 }

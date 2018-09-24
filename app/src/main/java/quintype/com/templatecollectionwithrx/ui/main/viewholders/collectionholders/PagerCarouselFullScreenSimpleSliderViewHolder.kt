@@ -22,6 +22,7 @@ class PagerCarouselFullScreenSimpleSliderViewHolder(itemView: View?) : RecyclerV
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.pager_carousel_full_screen_simple_slider_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
         val cdnHostName = Constants.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key

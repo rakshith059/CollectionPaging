@@ -58,7 +58,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
         } else if (holder is TitleInsideImageGridViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata, this)
         } else if (holder is TitleInsideImageHorizontalViewHolder) {
-            holder.bind(collectionItemStory, collectionAssociatedMetadata, this
+            holder.bind( collectionItemStory, collectionAssociatedMetadata, this
             )
         }
     }
@@ -72,6 +72,8 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
 
     override fun onClick(v: View?) {
         var storyList: ArrayList<Story> = ArrayList()
+        var itemPosition: Int = v?.tag as Int
+
         for (index in 0 until mCollectionItem.size) {
             storyList?.add(mCollectionItem.get(index).story as Story)
         }
@@ -86,7 +88,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             R.id.pager_carousel_title_inside_image_row_cl_main_container,
             R.id.pager_carousel_half_slider_row_cl_main_container,
             R.id.title_below_image_underline_section_header_row_cl_main_container ->
-                fragmentCallbacks?.addFragment(StoryPagerFragment.newInstance(storyList), "InnerCollectionAdapter")
+                fragmentCallbacks?.addFragment(StoryPagerFragment.newInstance(storyList, itemPosition), "InnerCollectionAdapter")
         }
     }
 }
