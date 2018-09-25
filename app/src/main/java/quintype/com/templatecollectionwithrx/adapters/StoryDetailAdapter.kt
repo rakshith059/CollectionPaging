@@ -17,7 +17,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
 
     init {
         storyPresenter = StoryPresenter.create(mStory)
-        storyPresenter?.insertElementBinder(0, ElementStoryHeroImageViewHolder::class.java)
+//        storyPresenter?.insertElementBinder(0, ElementStoryHeroImageViewHolder::class.java)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -36,6 +36,8 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.BIG_FACT -> return ElementStoryBigFactViewHolder.create(parent)
             ElementViewType.JS_EMBED -> return ElementStoryJSEmbedViewHolder.create(parent)
             ElementViewType.SLIDESHOW -> return ElementStorySlideShowViewHolder.create(parent)
+            ElementViewType.QUESTION -> return ElementStoryQuestionViewHolder.create(parent)
+            ElementViewType.ANSWER -> return ElementStoryAnswerViewHolder.create(parent)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -71,6 +73,9 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStoryJSEmbedViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStorySlideShowViewHolder)
+        else if (holder is ElementStoryQuestionViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStoryAnswerViewHolder)
             holder.bind(storyElement)
     }
 }

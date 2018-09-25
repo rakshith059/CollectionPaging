@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +78,8 @@ class StoryDetailFragment : BaseFragment() {
         storyViewModel = ViewModelProviders.of(this).get(StoryViewModel::class.java)
         storyViewModel?.getStoryDetailBySlug(storySlug)
 
-        var layoutManager = LinearLayoutManager(getActivity())
+        val layoutManager = LinearLayoutManager(activity)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
         fragment_story_detail_rv_recycler_view?.layoutManager = layoutManager
 
         observableStoryViewHolder(storyViewModel)

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 class ElementStoryBigFactViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -30,7 +31,7 @@ class ElementStoryBigFactViewHolder(itemView: View?) : RecyclerView.ViewHolder(i
         val mBigFactContent = element.subTypeMeta()?.content
         val mBigFactAttribute = element.subTypeMeta()?.attribution
         if (!TextUtils.isEmpty(mBigFactContent)) {
-            tvBigFactContent?.text = Html.fromHtml(mBigFactContent)
+            tvBigFactContent?.text = Utilities.parseHtml(mBigFactContent as String)
             tvBigFactContent?.visibility = View.VISIBLE
         } else
             tvBigFactContent?.visibility = View.GONE

@@ -1,22 +1,29 @@
 package quintype.com.templatecollectionwithrx.utils
 
-import android.content.Context
-import android.preference.PreferenceManager
-import android.content.SharedPreferences
+import android.annotation.TargetApi
+import android.os.Build
 import android.support.constraint.ConstraintLayout
+import android.text.Html
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 9/25/18.
  */
 class Utilities {
-
     companion object {
+        /**
+         * Parsing html text and converting the same to string and trimming the extra space
+         */
+        @TargetApi(Build.VERSION_CODES.N)
+        fun parseHtml(mSource: String): String? {
+            return Html.fromHtml(mSource, Html.FROM_HTML_MODE_LEGACY).toString().trim()
+        }
+
         fun createLayoutParams(view: View, width: Int, height: Int): ViewGroup.LayoutParams {
             val viewGroup = view.getParent() as ViewGroup
             if (viewGroup is FrameLayout) {
@@ -45,11 +52,6 @@ class Utilities {
 
         private fun createLinearParams(width: Int, height: Int): LinearLayout.LayoutParams {
             return LinearLayout.LayoutParams(width, height)
-        }
-
-        fun getSharedPrefrenceString(context: Context, key: String): String {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString(key, "")
         }
     }
 }

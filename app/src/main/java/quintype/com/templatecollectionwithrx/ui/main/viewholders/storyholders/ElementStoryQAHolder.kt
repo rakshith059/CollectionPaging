@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 class ElementStoryQAHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -28,8 +29,8 @@ class ElementStoryQAHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) 
         var mQuestion = element.subTypeMeta().question
         var mAnswer = element.subTypeMeta().answer
         if (mQuestion != null)
-            tvQuestion?.text = Html.fromHtml(mQuestion)
+            tvQuestion?.text = Utilities.parseHtml(mQuestion)
         if (mAnswer != null)
-            tvAnswer?.text = Html.fromHtml(mAnswer)
+            tvAnswer?.text = Utilities.parseHtml(mAnswer)
     }
 }
