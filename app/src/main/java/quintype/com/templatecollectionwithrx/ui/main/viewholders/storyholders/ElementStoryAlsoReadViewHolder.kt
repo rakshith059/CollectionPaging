@@ -10,7 +10,6 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.Story
@@ -20,7 +19,7 @@ import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragmen
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import java.util.ArrayList
 
-class ElementStoryAlsoReadHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ElementStoryAlsoReadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var mStory: Story? = null
     var mAlsoReadHeadline: TextView? = null
     var mFragmentCallback: FragmentCallbacks? = null
@@ -62,12 +61,12 @@ class ElementStoryAlsoReadHolder(itemView: View) : RecyclerView.ViewHolder(itemV
      * *
      * @param story
      * *
-     * @return an instance of [ElementStoryAlsoReadHolder]
+     * @return an instance of [ElementStoryAlsoReadViewHolder]
      */
     companion object {
-        fun create(parent: ViewGroup, story: Story?, fragmentCallbacks: FragmentCallbacks?): ElementStoryAlsoReadHolder {
+        fun create(parent: ViewGroup, story: Story?, fragmentCallbacks: FragmentCallbacks?): ElementStoryAlsoReadViewHolder {
             var view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_story_also_read_card, parent, false)
-            var elementAlsoRead: ElementStoryAlsoReadHolder = ElementStoryAlsoReadHolder(view)
+            var elementAlsoRead: ElementStoryAlsoReadViewHolder = ElementStoryAlsoReadViewHolder(view)
             elementAlsoRead.mStory = story
             elementAlsoRead.mFragmentCallback = fragmentCallbacks
             elementAlsoRead.mAlsoReadHeadline = view.findViewById<TextView>(R.id.news_story_also_read_headline)

@@ -16,4 +16,9 @@
     <string name="a_text_placeholder">A</string>
     <string name="qs_frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
     <string name="also_read">Also read</string>
+    <string name="select_entries">Select number of entries:</string>
+    <string name="search_hint">Search</string>
+    <string name="empty_data">No entries found</string>
+    <string name="table_entry_count">Displaying %1$d to %2$d entries</string>
+
 </resources>

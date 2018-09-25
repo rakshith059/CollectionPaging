@@ -43,8 +43,7 @@ class SlideShowImageHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) 
     fun bind(storyElement: StoryElement) {
         if (!TextUtils.isEmpty(storyElement.title())) {
             tvSlideShowImageTitle?.visibility = View.VISIBLE
-            tvSlideShowImageTitle?.movementMethod = LinkMovementMethod.getInstance()
-            Utilities.parseHtml(storyElement.title())
+            tvSlideShowImageTitle?.text = Utilities.parseHtml(storyElement.title())
         } else {
             tvSlideShowImageTitle?.visibility = View.GONE
         }

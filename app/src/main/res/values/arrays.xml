@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--row counts for table element-->
+    <!--Note: integer values should always populate this array even though the type is string-->
+    <string-array name="entry_counts">
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+    </string-array>
+</resources>
