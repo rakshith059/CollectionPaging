@@ -20,5 +20,6 @@
     <color name="theme_secondary_color">#80000000</color>
     <color name="theme_secondary_background_color">#000000</color>
     <color name="story_blurb_text">#754c00</color>
+    <color name="also_read_blue_link_color">#1A87B1</color>
 
 </resources>

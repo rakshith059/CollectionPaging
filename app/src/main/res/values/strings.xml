@@ -15,4 +15,5 @@
     <string name="q_text_placeholder">Q</string>
     <string name="a_text_placeholder">A</string>
     <string name="qs_frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
+    <string name="also_read">Also read</string>
 </resources>

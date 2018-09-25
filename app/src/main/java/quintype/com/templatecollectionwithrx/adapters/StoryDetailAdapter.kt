@@ -38,6 +38,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.SLIDESHOW -> return ElementStorySlideShowViewHolder.create(parent)
             ElementViewType.QUESTION -> return ElementStoryQuestionViewHolder.create(parent)
             ElementViewType.ANSWER -> return ElementStoryAnswerViewHolder.create(parent)
+            ElementViewType.ALSO_READ -> return ElementStoryAlsoReadHolder.create(parent, mStory, mFragmentCallbacks)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -77,6 +78,8 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStoryQuestionViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStoryAnswerViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStoryAlsoReadHolder)
             holder.bind(storyElement)
     }
 }
