@@ -12,6 +12,7 @@ import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 
 class HomePagerFragment : BaseFragment() {
     private var navMenuGroup: NavMenuGroup? = null
+    val childSectionFragments = java.util.ArrayList<SectionFragment>()
 
     companion object {
         private val NAV_MENU_GROUP = "navMenuGroup"
@@ -42,7 +43,6 @@ class HomePagerFragment : BaseFragment() {
 
         if (navMenuGroup != null) {
             //Let's create the list of fragments that this viewPager should display
-            val childSectionFragments = java.util.ArrayList<SectionFragment>()
             // since the parent menu item is the first element in the viewPager, create a
             //next, add fragments for all the child items in the navMenuGroup
 
@@ -70,5 +70,11 @@ class HomePagerFragment : BaseFragment() {
 
         //link the tab layout and viewpager
         fragment_home_pager_tab_layout.setupWithViewPager(home_pager_vp_pager)
+    }
+
+    fun setCurrentItem(pos: Int) {
+        if (home_pager_vp_pager != null && childSectionFragments.size > pos) {
+            home_pager_vp_pager.currentItem = pos
+        }
     }
 }

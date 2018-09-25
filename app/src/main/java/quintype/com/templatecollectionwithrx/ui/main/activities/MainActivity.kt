@@ -27,7 +27,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
     private var navMenuRecyclerview: RecyclerView? = null
     private var drawerAdapter: DrawerSectionsAdapter? = null
     private var toolBar: Toolbar? = null
-
+    private var currentSection: NavMenu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,8 +132,20 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
     override fun onDrawerItemSelected(menuGroup: NavMenuGroup?) {
         if (menuGroup != null) {
             if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_SECTION, true)) {
-                //replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug()), TAG)
-                replaceFragment(HomePagerFragment.newInstance(menuGroup), TAG)
+
+                val submenuPosition = menuGroup.position
+                val parentMenuId = menuGroup.menuItem.id()
+
+                //if the parent section is currently open, but at a different subsection
+                //right now, simply move the viewPager to the correct position
+                val fragment = supportFragmentManager.findFragmentById(R.id.home_container)
+
+                if (parentMenuId.equals(currentSection?.id(), true) && fragment is HomePagerFragment) {
+                    fragment.setCurrentItem(submenuPosition + 1)
+                } else {
+                    currentSection = menuGroup.menuItem
+                    replaceFragment(HomePagerFragment.newInstance(menuGroup), TAG)
+                }
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
                 Toast.makeText(this, "Menu type LINK not yet handled", LENGTH_SHORT).show()
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_TAG, true)) {
