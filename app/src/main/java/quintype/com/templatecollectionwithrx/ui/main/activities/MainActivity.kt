@@ -6,9 +6,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
@@ -18,7 +16,6 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
 import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
 import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
@@ -123,7 +120,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
 //            val fragmentTransaction = fragmentManager.beginTransaction()
 //            fragmentTransaction.add(R.id.home_container, HomePagerFragment.newInstance())
 //            fragmentTransaction.commit()
-            addFragment(HomePagerFragment.newInstance(), null)
+            addFragment(HomePagerFragment.newInstance(null), null)
         }
 //        displayDetailScreen()
     }
@@ -135,8 +132,8 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
     override fun onDrawerItemSelected(menuGroup: NavMenuGroup?) {
         if (menuGroup != null) {
             if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_SECTION, true)) {
-                //TODO: Calling the sectionFragment with the section slug, have to call the pager fragment with the sub section fragments.
-                replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug()), TAG)
+                //replaceFragment(SectionFragment.newInstance(menuGroup.menuItem?.sectionSlug()), TAG)
+                replaceFragment(HomePagerFragment.newInstance(menuGroup), TAG)
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
                 Toast.makeText(this, "Menu type LINK not yet handled", LENGTH_SHORT).show()
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_TAG, true)) {
@@ -147,5 +144,4 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
         }
         mDrawerLayout?.closeDrawer(GravityCompat.START)
     }
-
 }

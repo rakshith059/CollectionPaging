@@ -8,16 +8,21 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home_pager.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
+import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 
 class HomePagerFragment : BaseFragment() {
+    private var navMenuGroup: NavMenuGroup? = null
+
     companion object {
-        fun newInstance() = HomePagerFragment()
-//        {
-//            val fragment = HomePagerFragment()
-//            val args = Bundle()
-//            fragment.arguments = args
-//            return fragment
-//        }
+        private val NAV_MENU_GROUP = "navMenuGroup"
+
+        fun newInstance(menuGroup: NavMenuGroup?): HomePagerFragment {
+            val fragment = HomePagerFragment()
+            val args = Bundle()
+            args.putParcelable(NAV_MENU_GROUP, menuGroup)
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,10 +38,43 @@ class HomePagerFragment : BaseFragment() {
         return fragmentList
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        navMenuGroup = arguments?.getParcelable(NAV_MENU_GROUP)
+
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val pagerAdapter = HomePagerAdapter(childFragmentManager, getFragmentList(), resources.getString(R.string.app_name))
-        home_pager_vp_pager.adapter = pagerAdapter
+
+        if (navMenuGroup != null) {
+            //Let's create the list of fragments that this viewPager should display
+            val childSectionFragments = java.util.ArrayList<SectionFragment>()
+            // since the parent menu item is the first element in the viewPager, create a
+            //next, add fragments for all the child items in the navMenuGroup
+
+
+            // fragment for that first and add it to the list of fragments
+            if (navMenuGroup?.getMenuItem()?.section()?.name != null) {
+                /* childSectionFragments.add(SectionFragment.newInstance(
+                         navMenuGroup.getMenuItem().section())*/
+                childSectionFragments.add(SectionFragment.newInstance(navMenuGroup?.menuItem?.sectionSlug()))
+            }
+
+
+            if (navMenuGroup?.childItemList != null)
+                for (menuItem in navMenuGroup?.childItemList!!) {
+                    childSectionFragments.add(SectionFragment.newInstance(menuItem.sectionSlug()))
+                }
+
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments, navMenuGroup?.menuItem?.section()?.name!!)
+            home_pager_vp_pager.adapter = pagerAdapter
+        } else {
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, getFragmentList(), "HOME")
+            home_pager_vp_pager.adapter = pagerAdapter
+        }
+
         //link the tab layout and viewpager
         fragment_home_pager_tab_layout.setupWithViewPager(home_pager_vp_pager)
     }
