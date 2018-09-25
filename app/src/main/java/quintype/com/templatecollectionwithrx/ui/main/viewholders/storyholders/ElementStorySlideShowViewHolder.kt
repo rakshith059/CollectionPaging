@@ -39,7 +39,7 @@ class ElementStorySlideShowViewHolder(itemView: View?) : RecyclerView.ViewHolder
 
     fun bind(elem: StoryElement) {
         vpSlideShowPager?.adapter = ElementStorySlideShowAdapter(elem.storyElements(), mImageWidth, vpSlideShowPager?.height)
-        val position = if (vpSlideShowPager?.currentItem != null) vpSlideShowPager?.currentItem else 0
+        val position = vpSlideShowPager?.currentItem
 
         // setCount(1, elem.storyElements().size());
         vpSlideShowPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {

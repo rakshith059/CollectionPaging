@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Point
 import android.support.v4.view.PagerAdapter
-import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.github.chrisbanes.photoview.PhotoView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class GalleryAdapter
 /**
@@ -56,11 +56,10 @@ class GalleryAdapter
                 .load(heroImageURL)
                 .into(ivPhoto as ImageView)
 
-
         //And load the caption, if the image has one.
         if (!TextUtils.isEmpty(imageElements[position].title())) {
             tvCaption?.visibility = View.VISIBLE
-            Html.fromHtml(imageElements[position].title())
+            Utilities.parseHtml(imageElements[position].title())
         } else
             tvCaption?.visibility = View.GONE
 

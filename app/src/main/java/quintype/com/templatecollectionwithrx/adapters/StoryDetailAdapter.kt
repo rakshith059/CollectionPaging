@@ -73,6 +73,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStoryJSEmbedViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStorySlideShowViewHolder)
+            holder.bind(storyElement)
         else if (holder is ElementStoryQuestionViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStoryAnswerViewHolder)

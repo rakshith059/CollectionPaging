@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/pager_carousel_background_gradient"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/item_story_element_slideshow_image_iv_hero_icon" />
 
     <TextView
         android:id="@+id/item_story_element_slideshow_image_tv_image_title"
@@ -29,7 +28,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
