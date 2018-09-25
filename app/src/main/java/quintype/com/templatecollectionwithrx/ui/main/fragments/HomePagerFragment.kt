@@ -58,13 +58,13 @@ class HomePagerFragment : BaseFragment() {
                 childSectionFragments.add(SectionFragment.newInstance(menuItem.sectionSlug(), menuItem.title()))
             }
 
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments, navMenuGroup?.menuItem?.title()!!)
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments)
             home_pager_vp_pager.adapter = pagerAdapter
         } else {
             var homeFragment = ArrayList<Fragment>()
             homeFragment.add(MainFragment.newInstance())
 
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment, "HOME")
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment)
             home_pager_vp_pager.adapter = pagerAdapter
         }
 

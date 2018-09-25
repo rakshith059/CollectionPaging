@@ -47,7 +47,7 @@ class Constants {
         const val TYPE_STORY: String = "story"
         const val WIDGET_TEMPLATE: String = "widget"
         const val STORY_FIELDS: String = "id,hero-image-s3-key,sections,headline,authors,created-at,hero-image-caption,story-content-id,alternative,hero-image-metadata,slug,last-published-at,published-at,first-published-at"
-
+        const val PAGE_TITLE: String = "PAGE_TITLE"
         /**
          * Constants for query params
          */

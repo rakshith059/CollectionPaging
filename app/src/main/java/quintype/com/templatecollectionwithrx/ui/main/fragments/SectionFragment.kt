@@ -22,13 +22,13 @@ class SectionFragment : BaseFragment() {
     companion object {
         var mCollectionSlug: String? = null
         const val COLLECTION_SLUG = "COLLECTION_SLUG"
-        const val SECTION_NAME = "SECTION_NAME"
 
-        fun newInstance(collectionSlug: String?, sectionName: String?): SectionFragment {
+
+        fun newInstance(collectionSlug: String?, title: String?): SectionFragment {
             val sectionFragment = SectionFragment()
             val args = Bundle()
             args.putString(COLLECTION_SLUG, collectionSlug)
-            args.putString(SECTION_NAME, sectionName)
+            args.putString(Constants.PAGE_TITLE, title)
             sectionFragment.arguments = args
             return sectionFragment
         }
