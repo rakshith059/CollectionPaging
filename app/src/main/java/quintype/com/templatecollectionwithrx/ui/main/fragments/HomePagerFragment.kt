@@ -30,14 +30,6 @@ class HomePagerFragment : BaseFragment() {
         return view
     }
 
-    private fun getFragmentList(): List<Fragment> {
-        var fragmentList = ArrayList<Fragment>()
-        for (index in 0 until 1)
-            fragmentList.add(MainFragment.newInstance())
-
-        return fragmentList
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navMenuGroup = arguments?.getParcelable(NAV_MENU_GROUP)
@@ -59,19 +51,20 @@ class HomePagerFragment : BaseFragment() {
             if (navMenuGroup?.getMenuItem()?.section()?.name != null) {
                 /* childSectionFragments.add(SectionFragment.newInstance(
                          navMenuGroup.getMenuItem().section())*/
-                childSectionFragments.add(SectionFragment.newInstance(navMenuGroup?.menuItem?.sectionSlug()))
+                childSectionFragments.add(SectionFragment.newInstance(navMenuGroup?.menuItem?.sectionSlug(), navMenuGroup?.menuItem?.title()))
             }
 
+            for (menuItem in navMenuGroup?.childItemList!!) {
+                childSectionFragments.add(SectionFragment.newInstance(menuItem.sectionSlug(), menuItem.title()))
+            }
 
-            if (navMenuGroup?.childItemList != null)
-                for (menuItem in navMenuGroup?.childItemList!!) {
-                    childSectionFragments.add(SectionFragment.newInstance(menuItem.sectionSlug()))
-                }
-
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments, navMenuGroup?.menuItem?.section()?.name!!)
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments, navMenuGroup?.menuItem?.title()!!)
             home_pager_vp_pager.adapter = pagerAdapter
         } else {
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, getFragmentList(), "HOME")
+            var homeFragment = ArrayList<Fragment>()
+            homeFragment.add(MainFragment.newInstance())
+
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment, "HOME")
             home_pager_vp_pager.adapter = pagerAdapter
         }
 

@@ -21,12 +21,15 @@ import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 class SectionFragment : BaseFragment() {
     companion object {
         var mCollectionSlug: String? = null
+        const val COLLECTION_SLUG = "COLLECTION_SLUG"
+        const val SECTION_NAME = "SECTION_NAME"
 
-        fun newInstance(collectionSlug: String?): SectionFragment {
+        fun newInstance(collectionSlug: String?, sectionName: String?): SectionFragment {
             val sectionFragment = SectionFragment()
             val args = Bundle()
+            args.putString(COLLECTION_SLUG, collectionSlug)
+            args.putString(SECTION_NAME, sectionName)
             sectionFragment.arguments = args
-            this.mCollectionSlug = collectionSlug
             return sectionFragment
         }
     }
@@ -43,6 +46,7 @@ class SectionFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mCollectionSlug = arguments?.getString(COLLECTION_SLUG)
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
