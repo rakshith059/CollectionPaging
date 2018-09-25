@@ -117,6 +117,7 @@ class Constants {
         const val ABOUT_US: String = "about-us"
         const val PRIVACY_POLICY: String = "privacy-policy"
         const val ITEM_POSITION: String = "ITEM_POSITION"
+        const val PHOTOS_LIST: String = "PHOTOS_LIST"
 
         /**
          * function for setting shared preference value

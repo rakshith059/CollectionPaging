@@ -35,6 +35,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.QUESTION_ANSWER -> return ElementStoryQAHolder.create(parent)
             ElementViewType.BIG_FACT -> return ElementStoryBigFactViewHolder.create(parent)
             ElementViewType.JS_EMBED -> return ElementStoryJSEmbedViewHolder.create(parent)
+            ElementViewType.SLIDESHOW -> return ElementStorySlideShowViewHolder.create(parent)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -68,6 +69,8 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStoryBigFactViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStoryJSEmbedViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStorySlideShowViewHolder)
             holder.bind(storyElement)
     }
 }

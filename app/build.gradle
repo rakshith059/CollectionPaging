@@ -65,4 +65,7 @@ dependencies {
 
     //for parsing html
     implementation 'org.jsoup:jsoup:1.8.2'
+
+    //for gallery image preview photoview
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }
