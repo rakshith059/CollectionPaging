@@ -13,6 +13,9 @@ import quintype.com.templatecollectionwithrx.models.config.PublisherConfig
 import quintype.com.templatecollectionwithrx.services.PublisherConfigServiceApi
 import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
 import quintype.com.templatecollectionwithrx.utils.Constants
+import com.twitter.sdk.android.core.TwitterAuthConfig
+
+
 
 class SplashActivity : BaseActivity() {
 

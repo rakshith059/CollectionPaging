@@ -21,4 +21,10 @@
     <string name="empty_data">No entries found</string>
     <string name="table_entry_count">Displaying %1$d to %2$d entries</string>
 
+
+
+    <!-- Twitter Keys -->
+    <string name="twitter_consumer_key">xZM7OR43sZW7Qcw59ZQQBvbUp</string>
+    <string name="twitter_consumer_secret">xPIh3ZVFCpwW71rQxhcGNvbgi2ERld1fRxuSnV0Vx3bzFesxBC</string>
+
 </resources>
