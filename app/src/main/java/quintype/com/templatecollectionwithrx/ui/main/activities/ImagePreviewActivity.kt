@@ -33,8 +33,8 @@ class ImagePreviewActivity : BaseActivity() {
         // set the action bar to have an up button, but no title, so that
         // it does not interfere with the images
         mActionBar = supportActionBar
-        mActionBar!!.setDisplayHomeAsUpEnabled(true)
-        mActionBar!!.setDisplayShowTitleEnabled(false)
+        mActionBar?.setDisplayHomeAsUpEnabled(true)
+        mActionBar?.setDisplayShowTitleEnabled(false)
 
         //get the list of images and the image position from the intent
         photoList = intent.getParcelableExtra(Constants.PHOTOS_LIST)

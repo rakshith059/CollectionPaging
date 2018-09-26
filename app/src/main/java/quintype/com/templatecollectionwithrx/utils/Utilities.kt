@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.utils
 
 import android.annotation.TargetApi
+import android.content.res.Resources
 import android.os.Build
 import android.support.constraint.ConstraintLayout
 import android.text.Html
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.support.annotation.DimenRes
+import android.util.TypedValue
 
 
 /**
@@ -52,6 +55,18 @@ class Utilities {
 
         private fun createLinearParams(width: Int, height: Int): LinearLayout.LayoutParams {
             return LinearLayout.LayoutParams(width, height)
+        }
+
+
+        fun dpToPx(dp: Float, res: Resources): Int {
+            return TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    dp,
+                    res.getDisplayMetrics()).toInt()
+        }
+
+        fun dpToPx(@DimenRes resId: Int, res: Resources): Int {
+            return dpToPx(res.getDimension(resId), res)
         }
     }
 }

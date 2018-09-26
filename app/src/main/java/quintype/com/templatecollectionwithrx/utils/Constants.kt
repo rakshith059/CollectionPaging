@@ -122,6 +122,10 @@ class Constants {
         const val ITEM_POSITION: String = "ITEM_POSITION"
         const val PHOTOS_LIST: String = "PHOTOS_LIST"
 
+        @JvmField
+        var INTENT_EXTRA_STORY_ELEM: String = "storyElem"
+
+
         /**
          * function for setting shared preference value
          */

@@ -41,6 +41,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.ALSO_READ -> return ElementStoryAlsoReadViewHolder.create(parent, mStory, mFragmentCallbacks)
             ElementViewType.TABLE -> return ElementStoryTableViewHolder.create(parent)
             ElementViewType.TWEET -> return ElementStoryTweetViewHolder.create(parent)
+            ElementViewType.YOUTUBE -> return ElementStoryYoutubeViewHolder.create(parent, mStory, mFragmentCallbacks)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -86,6 +87,8 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStoryTableViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStoryTweetViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStoryYoutubeViewHolder)
             holder.bind(storyElement)
     }
 }
