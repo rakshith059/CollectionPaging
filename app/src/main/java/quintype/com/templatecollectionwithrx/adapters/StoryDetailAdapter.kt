@@ -35,13 +35,15 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.QUESTION_ANSWER -> return ElementStoryQAHolder.create(parent)
             ElementViewType.BIG_FACT -> return ElementStoryBigFactViewHolder.create(parent)
             ElementViewType.JS_EMBED -> return ElementStoryJSEmbedViewHolder.create(parent)
-            ElementViewType.SLIDESHOW -> return ElementStorySlideShowViewHolder.create(parent)
+            ElementViewType.SLIDESHOW -> return ElementStorySlideShowViewHolder.create(parent, viewType)
+            ElementViewType.GALLERY -> return ElementStorySlideShowViewHolder.create(parent, viewType)
             ElementViewType.QUESTION -> return ElementStoryQuestionViewHolder.create(parent)
             ElementViewType.ANSWER -> return ElementStoryAnswerViewHolder.create(parent)
             ElementViewType.ALSO_READ -> return ElementStoryAlsoReadViewHolder.create(parent, mStory, mFragmentCallbacks)
             ElementViewType.TABLE -> return ElementStoryTableViewHolder.create(parent)
             ElementViewType.TWEET -> return ElementStoryTweetViewHolder.create(parent)
             ElementViewType.YOUTUBE -> return ElementStoryYoutubeViewHolder.create(parent, mStory, mFragmentCallbacks)
+            ElementViewType.SOUND_CLOUD -> return ElementStorySoundCloudViewHolder.create(parent)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -89,6 +91,8 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
         else if (holder is ElementStoryTweetViewHolder)
             holder.bind(storyElement)
         else if (holder is ElementStoryYoutubeViewHolder)
+            holder.bind(storyElement)
+        else if (holder is ElementStorySoundCloudViewHolder)
             holder.bind(storyElement)
     }
 }

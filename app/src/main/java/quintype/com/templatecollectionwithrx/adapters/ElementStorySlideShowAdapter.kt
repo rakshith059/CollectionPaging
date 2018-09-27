@@ -30,7 +30,7 @@ class ElementStorySlideShowAdapter(private val storyElements: List<StoryElement>
         imageHolder.bind(elem)
 
         imageHolder.ivSlideShowImage?.setOnClickListener({
-            var photoList = StoryElementList()
+            val photoList = StoryElementList()
             photoList.mItems = ArrayList(storyElements)
             photoList.mSelectedItem = position
 

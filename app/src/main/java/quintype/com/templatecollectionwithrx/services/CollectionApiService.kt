@@ -16,7 +16,8 @@ interface CollectionApiService {
     fun getCollectionApiService(
             @Path(Constants.COLLECTION_SLUG) mCollectionName: String,
             @Query(Constants.QUERY_PARAM_KEY_LIMIT) limit: Int,
-            @Query(Constants.QUERY_PARAM_KEY_OFFSET) offset: Int): Flowable<CollectionResponse>
+            @Query(Constants.QUERY_PARAM_KEY_OFFSET) offset: Int,
+            @Query(Constants.QUERY_PARAM_KEY_FIELDS) storyFields: String): Flowable<CollectionResponse>
 
     @Headers(Constants.CONTENT_TYPE_APPLICATION_JSON_CHARSET_UTF_8)
     @GET("/api/v1/collections/{" + Constants.COLLECTION_SLUG + "}")

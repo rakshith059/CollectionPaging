@@ -1,8 +1,12 @@
 package quintype.com.templatecollectionwithrx.utils
 
 import android.annotation.TargetApi
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
+import android.graphics.Point
 import android.os.Build
+import android.preference.PreferenceManager
 import android.support.constraint.ConstraintLayout
 import android.text.Html
 import android.view.View
@@ -12,6 +16,9 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.support.annotation.DimenRes
 import android.util.TypedValue
+import android.view.WindowManager
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -67,6 +74,57 @@ class Utilities {
 
         fun dpToPx(@DimenRes resId: Int, res: Resources): Int {
             return dpToPx(res.getDimension(resId), res)
+        }
+
+        /**
+         * function for getting screen width
+         */
+        fun getScreenWidth(context: Context?): Int {
+            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val width = size.x
+            return width
+        }
+
+        /**
+         * function for getting screen height
+         */
+        fun getScreenHeight(context: Context?): Int {
+            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val height = size.y
+            return height
+        }
+
+        /**
+         * function for setting shared preference value
+         */
+        fun setSharedPreferences(mContext: Context, mSharedPreferencesKey: String, mSharedPreferencesValue: String) {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+            var editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString(mSharedPreferencesKey, mSharedPreferencesValue)
+            editor.apply()
+        }
+
+        /**
+         * function for getting shared preference value
+         */
+        fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String): String {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+            return sharedPreferences.getString(mSharedPreferencesKey, "")
+        }
+
+        /**
+         * function for formatting the date
+         */
+        fun formatDate(dateFormat: String): String {
+            var formatter = SimpleDateFormat("dd MMM,yyyy HH:mm a")
+            var dateString: String = formatter.format(Date(dateFormat.toLong()))
+            return dateString
         }
     }
 }

@@ -49,7 +49,7 @@ class GalleryAdapter
         display.getSize(size)
         val width = size.x
 
-        val cdnHostName = Constants.getSharedPreferences(ivPhoto?.context as Context, Constants.SP_CDN_IMAGE_NAME)
+        val cdnHostName = Utilities.getSharedPreferences(ivPhoto?.context as Context, Constants.SP_CDN_IMAGE_NAME)
         val heroImageURL = cdnHostName + imageElements[position].imageS3Key()
 
         Glide.with(ivPhoto?.context as Context)

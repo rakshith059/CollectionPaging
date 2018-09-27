@@ -14,7 +14,7 @@ import quintype.com.templatecollectionwithrx.services.PublisherConfigServiceApi
 import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
 import quintype.com.templatecollectionwithrx.utils.Constants
 import com.twitter.sdk.android.core.TwitterAuthConfig
-
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 class SplashActivity : BaseActivity() {
@@ -49,19 +49,19 @@ class SplashActivity : BaseActivity() {
                         if (staticPageUrls != null) {
                             staticPageUrls.forEach { staticPageUrl ->
                                 if (staticPageUrl.contains(Constants.TERMS_AND_CONDITION))
-                                    Constants.setSharedPreferences(this@SplashActivity, Constants.SP_TERMS_AND_CONDITION, staticPageUrl)
+                                    Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_TERMS_AND_CONDITION, staticPageUrl)
                                 else if (staticPageUrl.contains(Constants.PRIVACY_POLICY))
-                                    Constants.setSharedPreferences(this@SplashActivity, Constants.SP_PRIVACY_POLICY, staticPageUrl)
+                                    Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_PRIVACY_POLICY, staticPageUrl)
                                 else if (staticPageUrl.contains(Constants.ABOUT_US))
-                                    Constants.setSharedPreferences(this@SplashActivity, Constants.SP_ABOUT_US, staticPageUrl)
+                                    Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_ABOUT_US, staticPageUrl)
                             }
                         }
 
-                        Constants.setSharedPreferences(this@SplashActivity, Constants.SP_CDN_IMAGE_NAME, cdnImageName as String)
-                        Constants.setSharedPreferences(this@SplashActivity, Constants.SP_PUBLISHER_COPYRIGHT, publisherCopyRight as String)
-                        Constants.setSharedPreferences(this@SplashActivity, Constants.SP_PUBLISHER_NAME, publisherName as String)
-                        Constants.setSharedPreferences(this@SplashActivity, Constants.SP_SHRUBBERY_HOST, shrubberyHost as String)
-                        Constants.setSharedPreferences(this@SplashActivity, Constants.SP_POLLTYPE_HOST, pollTypeHost as String)
+                        Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_CDN_IMAGE_NAME, cdnImageName as String)
+                        Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_PUBLISHER_COPYRIGHT, publisherCopyRight as String)
+                        Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_PUBLISHER_NAME, publisherName as String)
+                        Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_SHRUBBERY_HOST, shrubberyHost as String)
+                        Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_POLLTYPE_HOST, pollTypeHost as String)
 
                         var handler = Handler()
                         handler.postDelayed(Runnable {

@@ -73,12 +73,6 @@ class ElementStoryYoutubeViewHolder(itemView: View?) : RecyclerView.ViewHolder(i
         })
         itemView.setOnClickListener {
             mFragmentCallbacks?.addFragment(YoutubeFragment.newInstance(element, mStory), TAG)
-
-//            val intent = Intent(itemView.context, YoutubePlayerActivity::class.java)
-//            intent.putExtra(Constants.INTENT_EXTRA_STORY_ELEM, element)
-//
-//            intent.putExtra(YoutubePlayerActivity.INTENT_EXTRA_STORY, mStory)
-//            itemView.context.startActivity(intent)
         }
     }
 

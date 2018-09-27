@@ -21,6 +21,7 @@ import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
 import quintype.com.templatecollectionwithrx.models.story.SlugStory
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
 import java.text.DateFormat
@@ -93,7 +94,7 @@ class StoryDetailFragment : BaseFragment() {
 
             val mStory = it?.story
 
-            val heroImageURL = Constants.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory?.heroImageS3Key
+            val heroImageURL = Utilities.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory?.heroImageS3Key
             Glide.with(activity?.applicationContext as Context)
                     .load(heroImageURL)
                     .into(fragment_story_detail_iv_hero_image)
@@ -158,7 +159,7 @@ class StoryDetailFragment : BaseFragment() {
              */
             val publishedDate = mStory?.publishedAt.toString()
             if (publishedDate != null) {
-                story_hero_image_author_view_holder_tv_published_date?.text = Constants.formatDate(publishedDate)
+                story_hero_image_author_view_holder_tv_published_date?.text = Utilities.formatDate(publishedDate)
                 story_hero_image_author_view_holder_tv_published_date?.visibility = View.VISIBLE
             }
 

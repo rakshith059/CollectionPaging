@@ -14,7 +14,9 @@
     <string name="summary">Summary</string>
     <string name="q_text_placeholder">Q</string>
     <string name="a_text_placeholder">A</string>
-    <string name="qs_frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
+    <string name="frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
+    <string name="soundcloud_html">&lt;style> body {margin:0;} &lt;/style>&lt;iframe width="100%" scrolling="yes" frameborder="no" src="replace">&lt;/iframe></string>
+
     <string name="also_read">Also read</string>
     <string name="select_entries">Select number of entries:</string>
     <string name="search_hint">Search</string>

@@ -22,8 +22,8 @@ class SlideShowImageHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) 
 
         fun create(view: View, mImageWidth: Int, height: Int?): SlideShowImageHolder {
             val slideShowImageHolder = SlideShowImageHolder(view)
-            val displayWidth = Constants.getScreenWidth(view.context)
-            val panelHeight = (displayWidth * 0.75).toInt()
+            val displayWidth = Utilities.getScreenWidth(view.context)
+            val panelHeight = (displayWidth * Constants.DIMEN_16_TO_9).toInt()
 
             slideShowImageHolder.ivSlideShowImage = view.findViewById(R.id.item_story_element_slideshow_image_iv_hero_icon)
             slideShowImageHolder.tvSlideShowImageTitle = view.findViewById(R.id.item_story_element_slideshow_image_tv_image_title)
@@ -48,7 +48,7 @@ class SlideShowImageHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) 
             tvSlideShowImageTitle?.visibility = View.GONE
         }
 
-        val cdnHostName = Constants.getSharedPreferences(ivSlideShowImage?.context as Context, Constants.SP_CDN_IMAGE_NAME)
+        val cdnHostName = Utilities.getSharedPreferences(ivSlideShowImage?.context as Context, Constants.SP_CDN_IMAGE_NAME)
         val heroImageURL = cdnHostName + storyElement.imageS3Key()
 
         Glide.with(ivSlideShowImage?.context as Context)

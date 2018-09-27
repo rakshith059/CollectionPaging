@@ -11,6 +11,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 
@@ -18,7 +19,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
     private var isShowAuthorName = true
     private var isShowTimeToPublish = false
 
-    val cdnHostName = Constants.getSharedPreferences(itemView?.context as Context, Constants.SP_CDN_IMAGE_NAME)
+    val cdnHostName = Utilities.getSharedPreferences(itemView?.context as Context, Constants.SP_CDN_IMAGE_NAME)
 
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         var view = this.itemView.rootView
@@ -61,7 +62,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
             if (isShowTimeToPublish) {
                 val publishedDate = collectionItem.publishedAt.toString()
                 if (publishedDate != null) {
-                    tvPublishedDate?.text = Constants.formatDate(publishedDate)
+                    tvPublishedDate?.text = Utilities.formatDate(publishedDate)
 
                     clMainContainer?.visibility = View.VISIBLE
                     tvPublishedDate?.visibility = View.VISIBLE

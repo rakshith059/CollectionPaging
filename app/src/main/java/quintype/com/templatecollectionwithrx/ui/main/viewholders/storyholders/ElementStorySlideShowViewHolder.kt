@@ -10,6 +10,8 @@ import android.widget.ImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.ElementStorySlideShowAdapter
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import quintype.com.templatecollectionwithrx.models.storypresenter.ElementViewType
+import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
@@ -20,25 +22,39 @@ class ElementStorySlideShowViewHolder(itemView: View?) : RecyclerView.ViewHolder
     private var ivSlideRight: ImageView? = null
 
     private var mImageWidth: Int = 0
+    private var mImageHeight: Int = 0
 
     companion object {
-        fun create(parent: ViewGroup): ElementStorySlideShowViewHolder {
+        var isGalleryElement: Boolean = false
+
+        fun create(parent: ViewGroup, viewType: Int): ElementStorySlideShowViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.story_slide_show_view_holder, parent, false)
             val elementStorySlideShowViewHolder = ElementStorySlideShowViewHolder(view)
-            val dimen = (parent.width * 0.75).toInt()
 
-            elementStorySlideShowViewHolder.vpSlideShowPager = view.findViewById(R.id.story_slide_show_view_holder_view_pager)
-            elementStorySlideShowViewHolder.mImageWidth = parent.width
-            elementStorySlideShowViewHolder.vpSlideShowPager?.layoutParams = Utilities.createLayoutParams(elementStorySlideShowViewHolder.vpSlideShowPager as ViewPager, parent.width, dimen)
             elementStorySlideShowViewHolder.ivSlideLeft = view.findViewById(R.id.story_slide_show_view_holder_iv_left_arrow)
             elementStorySlideShowViewHolder.ivSlideRight = view.findViewById(R.id.story_slide_show_view_holder_iv_right_arrow)
+
+            var mWidth = parent.width
+            if (viewType == ElementViewType.GALLERY) {
+//                mWidth = parent.width - 100
+
+                isGalleryElement = true
+
+                elementStorySlideShowViewHolder.ivSlideRight?.visibility = View.INVISIBLE
+            }
+            val mHeight = (parent.width * Constants.DIMEN_16_TO_9).toInt()
+
+            elementStorySlideShowViewHolder.vpSlideShowPager = view.findViewById(R.id.story_slide_show_view_holder_view_pager)
+            elementStorySlideShowViewHolder.mImageWidth = mWidth
+            elementStorySlideShowViewHolder.mImageHeight = mHeight
+            elementStorySlideShowViewHolder.vpSlideShowPager?.layoutParams = Utilities.createLayoutParams(elementStorySlideShowViewHolder.vpSlideShowPager as ViewPager, parent.width, mHeight)
 
             return elementStorySlideShowViewHolder
         }
     }
 
     fun bind(elem: StoryElement) {
-        vpSlideShowPager?.adapter = ElementStorySlideShowAdapter(elem.storyElements(), mImageWidth, vpSlideShowPager?.height)
+        vpSlideShowPager?.adapter = ElementStorySlideShowAdapter(elem.storyElements(), mImageWidth, mImageHeight)
         val position = vpSlideShowPager?.currentItem
 
         // setCount(1, elem.storyElements().size());
@@ -50,16 +66,18 @@ class ElementStorySlideShowViewHolder(itemView: View?) : RecyclerView.ViewHolder
             override fun onPageSelected(position: Int) {
                 Log.d("Rakshith", "position -- $position")
                 Log.d("rakshith", "Element size -- " + elem.storyElements().size)
-                if (position == 0) {
-                    ivSlideLeft?.setVisibility(View.INVISIBLE)
-                } else {
-                    ivSlideLeft?.setVisibility(View.VISIBLE)
-                }
+                if (!isGalleryElement) {
+                    if (position == 0) {
+                        ivSlideLeft?.setVisibility(View.INVISIBLE)
+                    } else {
+                        ivSlideLeft?.setVisibility(View.VISIBLE)
+                    }
 
-                if (position == elem.storyElements().size - 1) {
-                    ivSlideRight?.setVisibility(View.INVISIBLE)
-                } else {
-                    ivSlideRight?.setVisibility(View.VISIBLE)
+                    if (position == elem.storyElements().size - 1) {
+                        ivSlideRight?.setVisibility(View.INVISIBLE)
+                    } else {
+                        ivSlideRight?.setVisibility(View.VISIBLE)
+                    }
                 }
                 //setCount(position + 1, elem.storyElements().size());
             }

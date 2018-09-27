@@ -58,8 +58,7 @@ class YoutubeFragment : BaseFragment(), YouTubePlayer.OnInitializedListener, You
         mYoutubeUri = Uri.parse(mStoryElement?.url())
 
 
-        val youTubePlayerFragment = childFragmentManager
-                ?.findFragmentById(R.id.activity_youtube_player_youtube_fragment)
+        val youTubePlayerFragment = childFragmentManager.findFragmentById(R.id.activity_youtube_player_youtube_fragment)
 
         if (youTubePlayerFragment != null) {
             youTubePlayerFragment as YouTubePlayerSupportFragment
