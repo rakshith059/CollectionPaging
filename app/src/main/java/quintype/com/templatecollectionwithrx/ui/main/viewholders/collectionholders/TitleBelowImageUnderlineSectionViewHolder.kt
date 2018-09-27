@@ -22,6 +22,7 @@ class TitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseTitleBelo
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_below_image_underline_section_header_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
         Glide.with(ivHeroImage?.context as Context)
                 .load(heroImageURL)

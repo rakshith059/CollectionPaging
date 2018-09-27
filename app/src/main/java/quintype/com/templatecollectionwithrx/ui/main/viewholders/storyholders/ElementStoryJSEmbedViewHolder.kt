@@ -64,7 +64,7 @@ class ElementStoryJSEmbedViewHolder(itemView: View?) : RecyclerView.ViewHolder(i
         val urlToLoad = Constants.BASE_URL + elem.pageUrl()
         if (urlToLoad != loadedUrl) {
             jsEmbedWebView?.tag = urlToLoad
-            val htmlContent = jsEmbedWebView?.context?.getString(R.string.qs_frameless_html_css)
+            val htmlContent = jsEmbedWebView?.context?.getString(R.string.frameless_html_css)
             Log.d("Force loading url %s", elem.pageUrl())
             if (!TextUtils.isEmpty(elem.decodedJsEmbed())) {
                 val jsEmbedd = fixAspectRatio(elem.decodedJsEmbed())

@@ -11,6 +11,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 
@@ -18,18 +19,18 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
     private var isShowAuthorName = true
     private var isShowTimeToPublish = false
 
-    val cdnHostName = Constants.getSharedPreferences(itemView?.context as Context, Constants.SP_CDN_IMAGE_NAME)
+    val cdnHostName = Utilities.getSharedPreferences(itemView?.context as Context, Constants.SP_CDN_IMAGE_NAME)
 
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
-        var view = this.itemView.rootView
+        val view = this.itemView.rootView
 
-        var clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
-        var ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
-        var tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
-        var tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
-        var rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
+        val clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
+        val ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
+        val tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
+        val tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
+        val rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
 
-        var reviewRatingValue: Float? = collectionItem?.storyMetaData?.reviewRating?.value()?.toFloat()
+        val reviewRatingValue: Float? = collectionItem.storyMetaData?.reviewRating?.value()?.toFloat()
 
         if (reviewRatingValue != null && reviewRatingValue > 0f) {
             rbCustomRatingBar?.visibility = View.VISIBLE
@@ -43,7 +44,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
             isShowTimeToPublish = collectionAssociatedMetadata.associatedMetadataShowTimeToPublish
 
             if (isShowAuthorName) {
-                val authorName = collectionItem?.authors?.first()?.name
+                val authorName = collectionItem.authors?.first()?.name
                 if (authorName != null) {
                     tvAuthorName?.text = authorName
                     tvAuthorName?.visibility = View.VISIBLE
@@ -60,12 +61,10 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
             }
             if (isShowTimeToPublish) {
                 val publishedDate = collectionItem.publishedAt.toString()
-                if (publishedDate != null) {
-                    tvPublishedDate?.text = Constants.formatDate(publishedDate)
+                tvPublishedDate?.text = Utilities.formatDate(publishedDate)
 
-                    clMainContainer?.visibility = View.VISIBLE
-                    tvPublishedDate?.visibility = View.VISIBLE
-                }
+                clMainContainer?.visibility = View.VISIBLE
+                tvPublishedDate?.visibility = View.VISIBLE
             }
         }
     }

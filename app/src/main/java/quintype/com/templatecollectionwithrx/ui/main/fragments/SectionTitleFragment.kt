@@ -16,6 +16,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 8/24/18.
@@ -77,7 +78,7 @@ class SectionTitleFragment() : Fragment() {
                 if (isShowTimeToPublish) {
                     val publishedDate = collectionItem.publishedAt.toString()
                     if (publishedDate != null) {
-                        author_image_row_tv_published_date?.text = Constants.formatDate(publishedDate)
+                        author_image_row_tv_published_date?.text = Utilities.formatDate(publishedDate)
 
                         author_image_row_main_container?.visibility = View.VISIBLE
                         author_image_row_tv_published_date?.visibility = View.VISIBLE

@@ -12,6 +12,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class PagerCarouselFullScreenSimpleSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, collectionName: String?, listner: View.OnClickListener) {
@@ -22,8 +23,9 @@ class PagerCarouselFullScreenSimpleSliderViewHolder(itemView: View?) : RecyclerV
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.pager_carousel_full_screen_simple_slider_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
-        val cdnHostName = Constants.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
+        val cdnHostName = Utilities.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)

@@ -22,6 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -65,4 +70,13 @@ dependencies {
 
     //for parsing html
     implementation 'org.jsoup:jsoup:1.8.2'
+
+    //for gallery image preview photoview
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    //for twitter sdk
+    implementation 'com.twitter.sdk.android:tweet-ui:3.1.1'
+
+    //for youtube library
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 }

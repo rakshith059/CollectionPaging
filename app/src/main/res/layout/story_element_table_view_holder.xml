@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/table_element_vertical_dotted_line"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/size_10dp"
+        android:background="@drawable/vertical_dotted_lines"
+        android:layerType="software"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_16dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <ImageButton
+                android:id="@+id/table_view_previous_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scaleX="-1"
+                app:srcCompat="@drawable/ic_right_arrow" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:gravity="end"
+                android:text="@string/select_entries" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/entries_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
+            <EditText
+                android:id="@+id/table_view_search_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:hint="@string/search_hint"
+                android:inputType="textMultiLine"
+                android:textSize="@dimen/size_16sp" />
+
+            <ImageButton
+                android:id="@+id/table_view_next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_right_arrow" />
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_table_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/tv_item_index"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/size_10dp"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/size_18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

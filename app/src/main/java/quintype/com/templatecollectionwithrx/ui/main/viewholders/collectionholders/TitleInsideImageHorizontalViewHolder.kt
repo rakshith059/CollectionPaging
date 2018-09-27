@@ -15,6 +15,7 @@ import quintype.com.templatecollectionwithrx.ui.main.activities.WebActivity
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
@@ -28,6 +29,7 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
         Glide.with(ivHeroImage?.context as Context)
                 .load(heroImageURL)
@@ -52,7 +54,7 @@ class TitleInsideImageHorizontalViewHolder(itemView: View?) : BaseTitleBelowImag
         tvStoryTitle?.maxLines = 2
         tvStoryTitle?.minLines = 2
         tvStoryTitle?.ellipsize = TextUtils.TruncateAt.END
-        var screenWidth = Constants.getScreenWidth(itemView.context)
+        var screenWidth = Utilities.getScreenWidth(itemView.context)
         var viewWidth = screenWidth - 100
         var viewHeight = 700
 

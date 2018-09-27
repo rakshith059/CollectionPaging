@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">TemplateCollectionWithRx</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="section">Section</string>
     <string name="title">Title</string>
@@ -14,5 +13,20 @@
     <string name="summary">Summary</string>
     <string name="q_text_placeholder">Q</string>
     <string name="a_text_placeholder">A</string>
-    <string name="qs_frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
+    <string name="frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
+    <string name="soundcloud_html">&lt;style> body {margin:0;} &lt;/style>&lt;iframe width="100%" scrolling="yes" frameborder="no" src="replace">&lt;/iframe></string>
+
+    <string name="also_read">Also read</string>
+    <string name="select_entries">Select number of entries:</string>
+    <string name="search_hint">Search</string>
+    <string name="empty_data">No entries found</string>
+    <string name="table_entry_count">Displaying %1$d to %2$d entries</string>
+
+    <!-- Twitter Keys for staging env-->
+    <string name="twitter_consumer_key">xZM7OR43sZW7Qcw59ZQQBvbUp</string>
+    <string name="twitter_consumer_secret">xPIh3ZVFCpwW71rQxhcGNvbgi2ERld1fRxuSnV0Vx3bzFesxBC</string>
+
+    <!-- Facebook Keys for staging env-->
+    <string name="youtube_key">AIzaSyBk7kGIL9ScotWobkZ0FqySe2Q1vqcvoN8</string>
+
 </resources>

@@ -23,12 +23,6 @@
                 android:background="@color/colorPrimary"
                 android:scaleType="fitXY" />
 
-            <!--<quintype.com.templatecollectionwithrx.ui.main.fragments.SectionBlockTitleAuthorFragment-->
-            <!--android:id="@+id/section_block_title_author_row_fragment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/title_below_image_header_row_iv_hero_icon" />-->
-
             <include
                 layout="@layout/section_underline_title_author_row"
                 android:layout_width="match_parent"

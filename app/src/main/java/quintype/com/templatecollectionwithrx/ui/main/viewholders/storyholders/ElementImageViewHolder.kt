@@ -55,7 +55,7 @@ class ElementImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
                     ivImage.layoutParams = params
                 }
 
-                val cdnHostName = Constants.getSharedPreferences(ivImage.context, Constants.SP_CDN_IMAGE_NAME)
+                val cdnHostName = Utilities.getSharedPreferences(ivImage.context, Constants.SP_CDN_IMAGE_NAME)
                 val heroImageURL = cdnHostName + element.imageS3Key()
 
                 Glide.with(ivImage.context as Context)

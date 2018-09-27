@@ -13,6 +13,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
@@ -21,8 +22,9 @@ open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHo
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_inside_image_grid_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
+        clMainContainer?.tag = adapterPosition
 
-        val cdnHostName = Constants.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
+        val cdnHostName = Utilities.getSharedPreferences(itemView.context, Constants.SP_CDN_IMAGE_NAME)
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         Glide.with(itemView?.context as Context)

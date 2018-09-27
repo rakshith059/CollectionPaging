@@ -44,7 +44,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
         if (holder is CollectionViewHolder) {
             holder.bind(collectionList.get(position))
         } else if (holder is StoryViewHolder) {
-            holder.bind(collectionList.get(position))
+            holder.bind(collectionList.get(position), this)
         } else if (holder is LeftImageChildViewHolder) {
             holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
         } else if (holder is RightImageChildViewHolder) {
@@ -75,17 +75,18 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     }
 
     override fun onClick(v: View?) {
-        var storyList: ArrayList<Story> = ArrayList()
+        val storyList: ArrayList<Story> = ArrayList()
+        val itemPosition: Int = v?.tag as Int
         for (index in 0 until collectionList.size) {
-            if (collectionList?.get(index)?.story != null)
-                storyList?.add(collectionList.get(index).story as Story)
+            if (collectionList[index].story != null)
+                storyList.add(collectionList.get(index).story as Story)
         }
-        when (v?.id) {
+        when (v.id) {
             R.id.title_below_image_block_section_header_row_cl_main_container,
             R.id.left_image_child_row_cv_main_container,
             R.id.right_image_child_row_cv_main_container,
             R.id.title_below_image_underline_section_header_row_cl_main_container ->
-                mFragmentCallbacks?.replaceFragment(StoryPagerFragment.newInstance(storyList), "HomeCollectionAdapter")
+                mFragmentCallbacks?.replaceFragment(StoryPagerFragment.newInstance(storyList, itemPosition), "HomeCollectionAdapter")
         }
     }
 }

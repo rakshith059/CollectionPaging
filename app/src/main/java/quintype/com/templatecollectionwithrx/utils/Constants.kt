@@ -17,24 +17,6 @@ import java.util.*
 
 class Constants {
     companion object {
-        fun getScreenWidth(context: Context?): Int {
-            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val display = wm.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            val width = size.x
-            return width
-        }
-
-        fun getScreenHeight(context: Context?): Int {
-            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val display = wm.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            val height = size.y
-            return height
-        }
-
         //        const val BASE_URL = "https://thequint-web.staging.quintype.io"
 //        const val BASE_URL = "https://www.thequint.com"
 //        const val BASE_URL = "https://madrid.quintype.io"
@@ -119,32 +101,12 @@ class Constants {
         const val TERMS_AND_CONDITION: String = "terms-and-conditions"
         const val ABOUT_US: String = "about-us"
         const val PRIVACY_POLICY: String = "privacy-policy"
+        const val ITEM_POSITION: String = "ITEM_POSITION"
+        const val PHOTOS_LIST: String = "PHOTOS_LIST"
 
-        /**
-         * function for setting shared preference value
-         */
-        fun setSharedPreferences(mContext: Context, mSharedPreferencesKey: String, mSharedPreferencesValue: String) {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
-            var editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putString(mSharedPreferencesKey, mSharedPreferencesValue)
-            editor.apply()
-        }
-
-        /**
-         * function for getting shared preference value
-         */
-        fun getSharedPreferences(mContext: Context, mSharedPreferencesKey: String): String {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
-            return sharedPreferences.getString(mSharedPreferencesKey, "")
-        }
-
-        /**
-         * function for formatting the date
-         */
-        fun formatDate(dateFormat: String): String {
-            var formatter = SimpleDateFormat("dd MMM,yyyy HH:mm a")
-            var dateString: String = formatter.format(Date(dateFormat.toLong()))
-            return dateString
-        }
+        @JvmField
+        var INTENT_EXTRA_STORY_ELEM: String = "storyElem"
+        const val DIMEN_16_TO_9: Double = 0.5625
+        const val DIMEN_4_TO_3: Double = 0.75
     }
 }

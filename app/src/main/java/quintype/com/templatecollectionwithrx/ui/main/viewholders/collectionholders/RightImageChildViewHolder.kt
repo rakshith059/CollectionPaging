@@ -18,6 +18,7 @@ class RightImageChildViewHolder(itemView: View?) : BaseTitleBelowImageUnderlineS
 
         var cvMainContainer = itemView?.findViewById<CardView>(R.id.right_image_child_row_cv_main_container)
         cvMainContainer?.setOnClickListener(listner)
+        cvMainContainer?.tag = adapterPosition
 
 //        tvStoryTitle?.text = collectionItem?.headline
 

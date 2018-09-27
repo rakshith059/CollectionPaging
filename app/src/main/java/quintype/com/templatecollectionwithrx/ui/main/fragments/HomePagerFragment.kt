@@ -21,8 +21,7 @@ class HomePagerFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_home_pager, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_home_pager, container, false)
     }
 
     private fun getFragmentList(): List<Fragment> {
