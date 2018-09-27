@@ -14,9 +14,9 @@ class Section : Parcelable {
     @SerializedName("name")
     var name: String
     @SerializedName("id")
-    var id: String
+    var id: String = ""
     @SerializedName("display-name")
-    var displayName: String
+    var displayName: String = ""
     @SerializedName("trending-stories-story-order")
     var trendingStories = ArrayList<String>()
     @SerializedName("featured-stories-story-order")
@@ -26,7 +26,7 @@ class Section : Parcelable {
     @SerializedName("story-order")
     var stories = ArrayList<String>()
     @SerializedName("publisher-id")
-    var publisherId: String
+    var publisherId: String = ""
 
     override fun toString(): String {
         return "Section{" +
@@ -67,6 +67,10 @@ class Section : Parcelable {
         this.publisherId = parcel.readString()
     }
 
+    constructor(mSectionName: String) {
+        this.name = mSectionName
+    }
+
     companion object CREATOR : Parcelable.Creator<Section> {
         override fun createFromParcel(parcel: Parcel): Section {
             return Section(parcel)
@@ -75,23 +79,5 @@ class Section : Parcelable {
         override fun newArray(size: Int): Array<Section?> {
             return arrayOfNulls(size)
         }
-
-//        val HOME = Section()
-//
-//        init {
-//            HOME.name = "home"
-//            HOME.id = "-1"
-//        }
-//
-//        fun createSection(sectionMeta: SectionMeta): Section {
-//            val section = Section(sectionMeta.name())
-//            section.id(sectionMeta.id())
-//            section.displayName(sectionMeta.displayName())
-//            return section
-//        }
-//
-//        fun isHome(section: Section): Boolean {
-//            return section == Section.HOME
-//        }
     }
 }
