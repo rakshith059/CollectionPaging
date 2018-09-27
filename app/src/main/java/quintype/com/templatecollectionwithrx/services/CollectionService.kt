@@ -48,15 +48,15 @@ class CollectionService {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { mCollectionResponse ->
                     for (index in 0 until mCollectionResponse.items?.size as Int) {
-                        var mCollectionItem = mCollectionResponse.items?.get(index)
+                        val mCollectionItem = mCollectionResponse.items?.get(index)
 
                         if (mCollectionItem?.type == Constants.TYPE_COLLECTION) {
 
-                            var bulkTableModel = BulkTableModel(mCollectionItem.slug,
+                            val bulkTableModel = BulkTableModel(mCollectionItem.slug,
                                     null,
-                                    mCollectionItem?.name,
-                                    mCollectionItem?.associatedMetadata,
-                                    mCollectionItem?.template,
+                                    mCollectionItem.name,
+                                    mCollectionItem.associatedMetadata,
+                                    mCollectionItem.template,
                                     null,
                                     null,
                                     null)
@@ -66,8 +66,8 @@ class CollectionService {
                             collectionData.value = bulkTableModel
 
                         } else if (mCollectionItem?.type == Constants.TYPE_STORY) {
-                            var bulkTableModel = BulkTableModel(mCollectionItem?.story?.slug,
-                                    mCollectionItem?.story,
+                            val bulkTableModel = BulkTableModel(mCollectionItem.story?.slug,
+                                    mCollectionItem.story,
                                     null,
                                     null,
                                     null,
@@ -86,7 +86,7 @@ class CollectionService {
                 .filter { mCollectionItem -> mCollectionItem.type.equals(Constants.TYPE_COLLECTION) }
                 .concatMapEager { mCollectionItem ->
                     var PAGE_LIMIT_CHILD = Constants.PAGE_LIMIT_CHILD
-                    var noOfStoriesToShow = mCollectionItem.associatedMetadata?.associatedMetadataNumberOfStoriesToShow
+                    val noOfStoriesToShow = mCollectionItem.associatedMetadata?.associatedMetadataNumberOfStoriesToShow
                     if (noOfStoriesToShow != null && noOfStoriesToShow > 0) {
                         PAGE_LIMIT_CHILD = noOfStoriesToShow
                     }
@@ -95,7 +95,7 @@ class CollectionService {
                     /**
                      * Using getCollectionOnlyStoriesApiService for getting only stories
                      */
-                    return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem?.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
+                    return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                             .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())
@@ -108,9 +108,9 @@ class CollectionService {
                     }
 
                     override fun onNext(mCollectionsModel: CollectionResponse) {
-                        var mCollectionSlug = mCollectionsModel?.slug
-                        var mCollectionItems = mCollectionsModel?.items
-                        var mCollectionSize = mCollectionItems?.size as Int
+                        val mCollectionSlug = mCollectionsModel.slug
+                        val mCollectionItems = mCollectionsModel.items
+                        val mCollectionSize = mCollectionItems?.size as Int
 
                         Log.d("Rakshith", "collectionItem slug is ${mCollectionsModel.slug}")
 
@@ -118,11 +118,11 @@ class CollectionService {
 //                            mCollectionSize = 4
 
                         for (index in 0 until collectionModelList.size) {
-                            if (collectionModelList.get(index)?.slug?.equals(mCollectionSlug) == true) {
-                                var bulkModel: BulkTableModel = collectionModelList.get(index)
+                            if (collectionModelList[index].slug?.equals(mCollectionSlug) == true) {
+                                val bulkModel: BulkTableModel = collectionModelList[index]
 
-                                if (mCollectionsModel?.items?.size as Int > 0) {
-                                    var innerCollectionFirstItem = mCollectionsModel?.items?.get(0)
+                                if (mCollectionsModel.items?.size as Int > 0) {
+                                    val innerCollectionFirstItem = mCollectionsModel.items?.get(0)
 
                                     bulkModel.outerCollectionInnerSlug = innerCollectionFirstItem?.slug
                                     bulkModel.outerCollectionInnerItem = innerCollectionFirstItem
@@ -131,7 +131,7 @@ class CollectionService {
                         }
 
                         for (index in 0 until mCollectionSize) {
-                            var mCollectionItem = mCollectionItems.get(index)
+                            val mCollectionItem = mCollectionItems.get(index)
 
                             if (index == 0 && mCollectionItem.type?.equals(Constants.TYPE_COLLECTION) as Boolean) {
                                 if (mCollectionItem.template?.equals(Constants.WIDGET_TEMPLATE) == false) {
@@ -141,8 +141,8 @@ class CollectionService {
                                 }
                             } else if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
                                 for (collectionListIndex in 0 until collectionModelList.size) {
-                                    if (collectionModelList.get(collectionListIndex)?.slug?.equals(mCollectionSlug) == true) {
-                                        var bulkModel: BulkTableModel = collectionModelList.get(collectionListIndex)
+                                    if (collectionModelList.get(collectionListIndex).slug?.equals(mCollectionSlug) == true) {
+                                        val bulkModel: BulkTableModel = collectionModelList.get(collectionListIndex)
                                         bulkModel.innerCollectionResponse = mCollectionsModel
 
                                         collectionData.value = bulkModel
@@ -162,7 +162,7 @@ class CollectionService {
     }
 
     fun getChildRxResponse(collectionSlug: String, limit: Int, offset: Int) {
-        var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
+        val collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
 
         mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                 .subscribeOn(Schedulers.io())
@@ -174,13 +174,13 @@ class CollectionService {
                     }
 
                     override fun onNext(mCollectionsModel: CollectionResponse) {
-                        var mCollectionSlug = mCollectionsModel?.slug
-                        var mCollectionItems = mCollectionsModel?.items
-                        var mCollectionSize = mCollectionItems?.size as Int
+                        val mCollectionSlug = mCollectionsModel.slug
+                        val mCollectionItems = mCollectionsModel.items
+                        val mCollectionSize = mCollectionItems?.size as Int
 
                         for (index in 0 until collectionModelList.size) {
-                            if (collectionModelList.get(index)?.outerCollectionInnerSlug?.equals(mCollectionSlug) == true && collectionModelList.get(index)?.outerCollectionInnerSlug?.isEmpty() == false) {
-                                var bulkModel: BulkTableModel = collectionModelList.get(index)
+                            if (collectionModelList[index].outerCollectionInnerSlug?.equals(mCollectionSlug) == true && collectionModelList[index].outerCollectionInnerSlug?.isEmpty() == false) {
+                                val bulkModel: BulkTableModel = collectionModelList.get(index)
                                 bulkModel.innerCollectionResponse = mCollectionsModel
 
                                 collectionData.value = bulkModel
@@ -189,7 +189,7 @@ class CollectionService {
                         Log.d("Rakshith", " second iteration collectionItem slug is ${mCollectionsModel.slug}")
 
                         for (index in 0 until mCollectionSize) {
-                            var mCollectionItem = mCollectionItems.get(index)
+                            val mCollectionItem = mCollectionItems[index]
 
                             if (index == 0 && mCollectionItem.type?.equals(Constants.TYPE_COLLECTION) as Boolean) {
                                 if (mCollectionItem.template?.equals(Constants.WIDGET_TEMPLATE) == false) {

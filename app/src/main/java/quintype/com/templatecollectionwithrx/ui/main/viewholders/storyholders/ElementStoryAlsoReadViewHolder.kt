@@ -34,11 +34,11 @@ class ElementStoryAlsoReadViewHolder(itemView: View) : RecyclerView.ViewHolder(i
     }
 
     private fun setAlsoReadText(element: StoryElement?) {
-        var linkedStoryId = element?.subTypeMeta()?.linkedStoryId
+        val linkedStoryId = element?.subTypeMeta()?.linkedStoryId
         if (linkedStoryId != null) {
-            var linkedStory = mStory?.linkedStories?.get(linkedStoryId)
+            val linkedStory = mStory?.linkedStories?.get(linkedStoryId)
             if (linkedStory?.headline() != null) {
-                val spannableString = SpannableString(mContext?.resources?.getString(R.string.also_read) + ": " + linkedStory?.headline())
+                val spannableString = SpannableString(mContext?.resources?.getString(R.string.also_read) + ": " + linkedStory.headline())
                 spannableString.setSpan(ForegroundColorSpan(mContext?.resources?.getColor(R.color.black_opacity_75) as Int), 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -56,20 +56,13 @@ class ElementStoryAlsoReadViewHolder(itemView: View) : RecyclerView.ViewHolder(i
                 StoryDetailFragment::class.java.simpleName)
     }
 
-    /**
-     * @param parent parent view group
-     * *
-     * @param story
-     * *
-     * @return an instance of [ElementStoryAlsoReadViewHolder]
-     */
     companion object {
         fun create(parent: ViewGroup, story: Story?, fragmentCallbacks: FragmentCallbacks?): ElementStoryAlsoReadViewHolder {
-            var view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_story_also_read_card, parent, false)
-            var elementAlsoRead: ElementStoryAlsoReadViewHolder = ElementStoryAlsoReadViewHolder(view)
+            val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_story_also_read_card, parent, false)
+            val elementAlsoRead = ElementStoryAlsoReadViewHolder(view)
             elementAlsoRead.mStory = story
             elementAlsoRead.mFragmentCallback = fragmentCallbacks
-            elementAlsoRead.mAlsoReadHeadline = view.findViewById<TextView>(R.id.news_story_also_read_headline)
+            elementAlsoRead.mAlsoReadHeadline = view.findViewById(R.id.news_story_also_read_headline)
             return elementAlsoRead
         }
     }

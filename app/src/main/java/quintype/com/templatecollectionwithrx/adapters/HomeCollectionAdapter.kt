@@ -44,7 +44,7 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
         if (holder is CollectionViewHolder) {
             holder.bind(collectionList.get(position))
         } else if (holder is StoryViewHolder) {
-            holder.bind(collectionList.get(position))
+            holder.bind(collectionList.get(position), this)
         } else if (holder is LeftImageChildViewHolder) {
             holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
         } else if (holder is RightImageChildViewHolder) {
