@@ -31,7 +31,6 @@
         android:textColor="@color/theme_secondary_color"
         android:textSize="@dimen/size_16sp"
         android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/section_block_title_author_row_tv_section_name" />
 
     <quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar

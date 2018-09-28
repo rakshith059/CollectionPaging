@@ -11,9 +11,8 @@ class StoryViewModel : ViewModel() {
     val compositeDisposable = CompositeDisposable()
     private var storyObservable: LiveData<SlugStory>? = null
 
-    fun getStoryDetailBySlug(storySlug: String) {
-        storyObservable = StoryService.getInstance(compositeDisposable).getStoryResponse(storySlug)
-    }
+    fun getStoryDetailBySlug(storySlug: String) =
+            StoryService.getInstance(compositeDisposable).getStoryDetailResponse(storySlug)
 
     /**
      * Expose the LiveData Projects query so the UI can observe it.
