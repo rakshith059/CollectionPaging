@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/story_element_author_view_holder_main_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/size_8dp">
+
+    <quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
+        android:id="@+id/story_element_author_view_holder_item_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_20dp"
+        android:layout_marginTop="@dimen/size_4dp"
+        android:isIndicator="true"
+        android:visibility="gone"
+        app:halfStars="true"
+        app:maxStars="5"
+        app:onlyForDisplay="true"
+        app:starPadding="@dimen/size_2dp" />
+
+    <include
+        layout="@layout/author_image_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/story_element_author_view_holder_item_rating_bar" />
+
+</android.support.constraint.ConstraintLayout>

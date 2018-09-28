@@ -17,7 +17,10 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
 
     init {
         storyPresenter = StoryPresenter.create(mStory)
-//        storyPresenter?.insertElementBinder(0, ElementStoryHeroImageViewHolder::class.java)
+        storyPresenter?.insertElementBinder(0, ElementAuthorViewHolder::class.java)
+
+        storyPresenter?.insertElementBinder(storyPresenter?.elementCount as Int, ElementTagViewHolder::class.java)
+//        storyPresenter?.insertElementBinder(itemCount, ElementAuthorViewHolder::class.java)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -44,6 +47,9 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.TWEET -> return ElementStoryTweetViewHolder.create(parent)
             ElementViewType.YOUTUBE -> return ElementStoryYoutubeViewHolder.create(parent, mStory, mFragmentCallbacks)
             ElementViewType.SOUND_CLOUD -> return ElementStorySoundCloudViewHolder.create(parent)
+
+            ElementViewType.STORY_HERO_AUTHOR -> return ElementAuthorViewHolder.create(parent)
+            ElementViewType.STORY_TAG -> return ElementTagViewHolder.create(parent, mFragmentCallbacks)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)
     }
@@ -53,6 +59,12 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
     }
 
     override fun getItemViewType(position: Int): Int {
+        if (position == 0) {
+            return ElementViewType.STORY_HERO_AUTHOR
+        } else if (position == storyPresenter?.elementCount as Int - 1) {
+            return ElementViewType.STORY_TAG
+        }
+
         return storyPresenter?.getElementViewType(position) as Int
     }
 
@@ -94,5 +106,9 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             holder.bind(storyElement)
         else if (holder is ElementStorySoundCloudViewHolder)
             holder.bind(storyElement)
+        else if (holder is ElementAuthorViewHolder)
+            holder.bind(mStory as Story)
+        else if (holder is ElementTagViewHolder)
+            holder.bind(mStory as Story)
     }
 }

@@ -4,10 +4,12 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -24,10 +26,6 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.ZoneOffset.UTC
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -106,68 +104,71 @@ class StoryDetailFragment : BaseFragment() {
              * checking for sections display name if it's null then checking for section's name
              */
             var sectionName: String? = null
-            var storySection = mStory?.sections?.first()
+            val storySection = mStory?.sections?.first()
             if (storySection?.displayName != null)
-                sectionName = storySection?.displayName
+                sectionName = storySection.displayName
             else if (storySection?.name != null)
-                sectionName = storySection?.name
+                sectionName = storySection.name
             if (!TextUtils.isEmpty(sectionName)) {
-                story_hero_image_author_view_holder_tv_section_name.text = sectionName
-                story_hero_image_author_view_holder_ll_section?.visibility = View.VISIBLE
+                fragment_story_detail_tv_section_name.text = sectionName
+                fragment_story_detail_ll_section?.visibility = View.VISIBLE
             }
 
             /**
              * checking for story headline
              */
-            var mStoryTitle: String? = mStory?.headline
+            val mStoryTitle: String? = mStory?.headline
             if (!TextUtils.isEmpty(mStoryTitle)) {
-                story_hero_image_author_view_holder_tv_title?.visibility = View.VISIBLE
-                story_hero_image_author_view_holder_tv_title.minLines = 2
-                story_hero_image_author_view_holder_tv_title.text = mStory?.headline
+                fragment_story_detail_tv_title?.visibility = View.VISIBLE
+                fragment_story_detail_tv_title.minLines = 2
+                fragment_story_detail_tv_title.text = mStory?.headline
             }
 
-            /**
-             * Checking for rating bar
-             */
-            var reviewRatingValue: Float? = mStory?.storyMetaData?.reviewRating?.value()?.toFloat()
-            if (reviewRatingValue != null && reviewRatingValue > 0f) {
-                story_hero_image_author_view_holder_item_rating_bar?.visibility = View.VISIBLE
-                story_hero_image_author_view_holder_item_rating_bar?.score = reviewRatingValue
-            } else {
-                story_hero_image_author_view_holder_item_rating_bar?.visibility = View.GONE
-            }
+//            /**
+//             * Checking for rating bar
+//             */
+//            val reviewRatingValue: Float? = mStory?.storyMetaData?.reviewRating?.value()?.toFloat()
+//            if (reviewRatingValue != null && reviewRatingValue > 0f) {
+//                story_hero_image_author_view_holder_item_rating_bar?.visibility = View.VISIBLE
+//                story_hero_image_author_view_holder_item_rating_bar?.score = reviewRatingValue
+//            } else {
+//                story_hero_image_author_view_holder_item_rating_bar?.visibility = View.GONE
+//            }
+//
+//            /**
+//             * Checking for Author name and Author icon
+//             */
+//            val authorName = mStory?.authors?.first()?.name
+//            if (authorName != null) {
+//                story_hero_image_author_view_holder_tv_author_name?.text = authorName
+//                story_hero_image_author_view_holder_tv_author_name?.visibility = View.VISIBLE
+//
+//                val authorImageURL = mStory.authors?.first()?.avatarUrl
+//                if (authorImageURL != null) {
+//                    story_hero_image_author_view_holder_iv_author_icon?.visibility = View.VISIBLE
+//                    Glide.with(story_hero_image_author_view_holder_iv_author_icon?.context as Context)
+//                            .load(authorImageURL)
+//                            .into(story_hero_image_author_view_holder_iv_author_icon)
+//                }
+//            }
+//
+//            /**
+//             * Checking for Published date
+//             */
+//            val publishedDate = mStory?.publishedAt.toString()
+//            if (publishedDate != null) {
+//                story_hero_image_author_view_holder_tv_published_date?.text = Utilities.formatDate(publishedDate)
+//                story_hero_image_author_view_holder_tv_published_date?.visibility = View.VISIBLE
+//            }
 
-            /**
-             * Checking for Author name and Author icon
-             */
-            val authorName = mStory?.authors?.first()?.name
-            if (authorName != null) {
-                story_hero_image_author_view_holder_tv_author_name?.text = authorName
-                story_hero_image_author_view_holder_tv_author_name?.visibility = View.VISIBLE
-
-                val heroImageURL = mStory.authors?.first()?.avatarUrl
-                if (heroImageURL != null) {
-                    story_hero_image_author_view_holder_iv_author_icon?.visibility = View.VISIBLE
-                    Glide.with(story_hero_image_author_view_holder_iv_author_icon?.context as Context)
-                            .load(heroImageURL)
-                            .into(story_hero_image_author_view_holder_iv_author_icon)
-                }
-            }
-
-            /**
-             * Checking for Published date
-             */
-            val publishedDate = mStory?.publishedAt.toString()
-            if (publishedDate != null) {
-                story_hero_image_author_view_holder_tv_published_date?.text = Utilities.formatDate(publishedDate)
-                story_hero_image_author_view_holder_tv_published_date?.visibility = View.VISIBLE
-            }
+//            activity?.setActionBar(toolbar)
+//            activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
 //            toolbar?.title = mStory?.headline
 //            toolbar?.setTitleTextColor(resources.getColor(R.color.black_opacity_75))
-//            collapsing_toolbar_layout?.setCollapsedTitleTextColor(resources.getColor(R.color.white_transparency_75))
+//            collapsing_toolbar?.setCollapsedTitleTextColor(resources.getColor(R.color.white_transparency_75))
 
-            var storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
+            val storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
             fragment_story_detail_rv_recycler_view?.adapter = storyDetailAdapter
         })
     }

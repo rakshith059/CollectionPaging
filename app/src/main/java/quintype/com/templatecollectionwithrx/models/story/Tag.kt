@@ -11,9 +11,9 @@ import com.google.gson.annotations.SerializedName
 class Tag : Parcelable {
 
     @SerializedName("name")
-    private var name: String? = null
+    public var name: String? = null
     @SerializedName("id")
-    private val id: String
+    public val id: String
 
     override fun describeContents(): Int {
         return 0

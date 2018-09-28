@@ -55,6 +55,7 @@ class StoryPagerFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         if (pagerFragmentStoryList == null) {
             activity?.onBackPressed()
         } else {

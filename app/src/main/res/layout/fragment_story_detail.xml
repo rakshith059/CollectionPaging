@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <FrameLayout
         android:id="@+id/fragment_story_detail_fl_main_container"
@@ -26,7 +28,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_story_detail_rv_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/white" />
         <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
@@ -39,9 +41,121 @@
     <!--android:background="@color/white"-->
     <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
+    <!--<android.support.design.widget.AppBarLayout-->
+    <!--android:id="@+id/app_bar_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+
+    <!--<android.support.design.widget.CollapsingToolbarLayout-->
+    <!--android:id="@+id/collapsing_toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--app:contentScrim="?attr/colorPrimary"-->
+    <!--app:expandedTitleMarginEnd="64dp"-->
+    <!--app:expandedTitleMarginStart="48dp"-->
+    <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_collapseMode="pin">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/fragment_story_detail_iv_hero_image"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_250dp"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--android:visibility="visible"-->
+    <!--app:layout_collapseMode="none"-->
+    <!--app:srcCompat="@drawable/ic_launcher_background" />-->
+
+    <!--&lt;!&ndash;<View&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@drawable/pager_carousel_background_gradient" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:background="@color/white"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:orientation="vertical">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;&lt;!&ndash;<include layout="@layout/story_hero_image_author_view_holder" />&ndash;&gt;&ndash;&gt;-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/fragment_story_detail_ll_section"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:visibility="gone">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/fragment_story_detail_tv_section_name"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:ellipsize="end"-->
+    <!--android:fontFamily="sans-serif"-->
+    <!--android:paddingLeft="@dimen/size_8dp"-->
+    <!--android:paddingTop="@dimen/size_8dp"-->
+    <!--android:paddingRight="@dimen/size_8dp"-->
+    <!--android:paddingBottom="@dimen/size_4dp"-->
+    <!--android:text="@string/section"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="@dimen/size_16sp"-->
+    <!--android:textStyle="bold"-->
+    <!--android:visibility="visible" />-->
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_4dp"-->
+    <!--android:layout_marginLeft="@dimen/size_8dp"-->
+    <!--android:layout_marginRight="@dimen/size_8dp"-->
+    <!--android:background="@color/colorPrimaryDark"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/story_hero_image_author_view_holder_tv_section_name" />-->
+    <!--</LinearLayout>-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/fragment_story_detail_tv_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/size_8dp"-->
+    <!--android:fontFamily="sans-serif-condensed"-->
+    <!--android:gravity="start|center"-->
+    <!--android:minLines="2"-->
+    <!--android:text="@string/collection_list_size"-->
+    <!--android:textColor="@color/black_opacity_75"-->
+    <!--android:textSize="@dimen/size_20sp"-->
+    <!--android:visibility="gone" />-->
+
+    <!--&lt;!&ndash;<include layout="@layout/section_underline_title_author_row" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+    <!--</LinearLayout>-->
+
+    <!--<Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--app:layout_collapseMode="pin"-->
+    <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+    <!--tools:targetApi="lollipop" />-->
+
+    <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
@@ -74,23 +188,57 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:orientation="vertical">
 
-                    <include layout="@layout/story_hero_image_author_view_holder" />
+                    <!--<include layout="@layout/story_hero_image_author_view_holder" />-->
 
-                    <!--<TextView-->
-                    <!--android:id="@+id/fragment_story_detail_tv_title"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="@dimen/size_8dp"-->
-                    <!--android:fontFamily="sans-serif-condensed"-->
-                    <!--android:gravity="left|center"-->
-                    <!--android:minLines="2"-->
-                    <!--android:text="@string/collection_list_size"-->
-                    <!--android:textColor="@color/black_opacity_75"-->
-                    <!--android:textSize="@dimen/size_20sp"-->
-                    <!--android:visibility="gone" />-->
+                    <LinearLayout
+                        android:id="@+id/fragment_story_detail_ll_section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/fragment_story_detail_tv_section_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif"
+                            android:paddingLeft="@dimen/size_8dp"
+                            android:paddingTop="@dimen/size_8dp"
+                            android:paddingRight="@dimen/size_8dp"
+                            android:paddingBottom="@dimen/size_4dp"
+                            android:text="@string/section"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/size_16sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_4dp"
+                            android:layout_marginLeft="@dimen/size_8dp"
+                            android:layout_marginRight="@dimen/size_8dp"
+                            android:background="@color/colorPrimaryDark"
+                            app:layout_constraintTop_toBottomOf="@+id/story_hero_image_author_view_holder_tv_section_name" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/fragment_story_detail_tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/size_8dp"
+                        android:layout_marginLeft="@dimen/size_16dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="left|center"
+                        android:minLines="2"
+                        android:text="@string/collection_list_size"
+                        android:textColor="@color/black_opacity_75"
+                        android:textSize="@dimen/size_20sp"
+                        android:visibility="gone" />
 
                     <!--<include layout="@layout/section_underline_title_author_row" />-->
                 </LinearLayout>
@@ -100,10 +248,33 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:visibility="gone"
-                app:layout_collapseMode="none" />
+                android:backgroundTint="@color/white_transparency_25"
+                android:visibility="visible"
+                app:layout_collapseMode="pin"
+                app:titleTextColor="@color/black">
+
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/ic_left_arrow" />-->
+
+            </android.support.v7.widget.Toolbar>
+
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="@dimen/size_50dp"
+        android:layout_height="@dimen/size_50dp"
+        android:layout_margin="@dimen/size_8dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:visibility="gone"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@drawable/ic_share" />
+
 </android.support.design.widget.CoordinatorLayout>
 
 
@@ -120,4 +291,3 @@
     <!--<android.support.v7.widget.RecyclerView--><!--android:id="@+id/fragment_story_detail_rv_recycler_view"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="@color/white" />--><!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
     <!--</FrameLayout>--><!--</FrameLayout>-->
-

@@ -36,6 +36,9 @@ public @interface ElementViewType {
     int TABLE = 10;
     int UNKNOWN = 48;
 
+    int STORY_HERO_AUTHOR = 51;
+    int STORY_TAG = 52;
+
     public static class Process {
         public Process() {
         }

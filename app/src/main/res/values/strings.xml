@@ -28,5 +28,6 @@
 
     <!-- Facebook Keys for staging env-->
     <string name="youtube_key">AIzaSyBk7kGIL9ScotWobkZ0FqySe2Q1vqcvoN8</string>
+    <string name="tags">Tags</string>
 
 </resources>
