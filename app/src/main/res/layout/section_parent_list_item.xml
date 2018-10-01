@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minHeight="?android:attr/actionBarSize"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/size_16sp"
+    android:paddingRight="@dimen/size_16sp">
+
+    <TextView
+        android:id="@+id/section_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-condensed"
+        android:letterSpacing="0.075"
+        android:paddingBottom="@dimen/size_5dp"
+        android:paddingTop="@dimen/size_5dp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/notification_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="sans-serif-condensed"
+        android:letterSpacing="0.075"
+        android:paddingBottom="@dimen/size_5dp"
+        android:paddingTop="@dimen/size_5dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/section_expand_button"
+        android:layout_width="@dimen/size_28dp"
+        android:layout_height="@dimen/size_24dp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/size_8dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_down_arrow" />
+
+
+</LinearLayout>

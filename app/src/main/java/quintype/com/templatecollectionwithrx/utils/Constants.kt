@@ -17,11 +17,29 @@ import java.util.*
 
 class Constants {
     companion object {
-        //        const val BASE_URL = "https://thequint-web.staging.quintype.io"
-//        const val BASE_URL = "https://www.thequint.com"
-//        const val BASE_URL = "https://madrid.quintype.io"
+        fun getScreenWidth(context: Context?): Int {
+            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val width = size.x
+            return width
+        }
+
+        fun getScreenHeight(context: Context?): Int {
+            val wm = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val height = size.y
+            return height
+        }
+
+        //const val BASE_URL = "https://thequint-web.staging.quintype.io"
+        //const val BASE_URL = "https://www.thequint.com"
+        //const val BASE_URL = "https://madrid.quintype.io"
         const val BASE_URL = "https://ace-web.qtstage.io"
-        //        const val BASE_URL = "https://www.samachara.com"
+        //const val BASE_URL = "https://www.samachara.com"
         const val COLLECTION_HOME: String = "home"
         const val PAGE_LIMIT: Int = 20
         const val TYPE_COLLECTION: String = "collection"
@@ -32,7 +50,7 @@ class Constants {
         const val TYPE_STORY: String = "story"
         const val WIDGET_TEMPLATE: String = "widget"
         const val STORY_FIELDS: String = "id,hero-image-s3-key,sections,headline,authors,created-at,hero-image-caption,story-content-id,alternative,hero-image-metadata,slug,last-published-at,published-at,first-published-at"
-
+        const val PAGE_TITLE: String = "PAGE_TITLE"
         /**
          * Constants for query params
          */
@@ -83,6 +101,10 @@ class Constants {
         const val TYPE_GALLERY = "gallery"
         const val TYPE_INVALID = "invalid"
 
+        const val NAVMENU_GROUP_PARENT_POSITION = -1
+        const val NAVMENU_GROUP_NOTIFICATIONS_POSITION = "-2"
+        const val NAVMENU_GROUP_DISCLAIMER_POSITION = "-3"
+
 
         /**
          * functions for shared preferences
@@ -96,6 +118,7 @@ class Constants {
         const val SP_TERMS_AND_CONDITION: String = "SP_TERMS_AND_CONDITION"
         const val SP_PRIVACY_POLICY: String = "SP_PRIVACY_POLICY"
         const val SP_ABOUT_US: String = "SP_ABOUT_US"
+        const val SP_LAYOUT: String = "SP_LAYOUT"
 
 
         const val TERMS_AND_CONDITION: String = "terms-and-conditions"

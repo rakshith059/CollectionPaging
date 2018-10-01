@@ -13,6 +13,8 @@ import quintype.com.templatecollectionwithrx.models.config.PublisherConfig
 import quintype.com.templatecollectionwithrx.services.PublisherConfigServiceApi
 import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
 import quintype.com.templatecollectionwithrx.utils.Constants
+import com.google.gson.Gson
+
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
@@ -62,6 +64,11 @@ class SplashActivity : BaseActivity() {
                         Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_PUBLISHER_NAME, publisherName as String)
                         Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_SHRUBBERY_HOST, shrubberyHost as String)
                         Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_POLLTYPE_HOST, pollTypeHost as String)
+
+                        if (publisherConfig.layout != null) {
+                            val layoutAsString = Gson().toJson(publisherConfig.layout)
+                            Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_LAYOUT, layoutAsString as String)
+                        }
 
                         var handler = Handler()
                         handler.postDelayed(Runnable {

@@ -23,6 +23,7 @@ class MainFragment : BaseFragment() {
         fun newInstance(): MainFragment {
             val fragment = MainFragment()
             val args = Bundle()
+            args.putString(Constants.PAGE_TITLE, "HOME")
             fragment.arguments = args
             return fragment
         }

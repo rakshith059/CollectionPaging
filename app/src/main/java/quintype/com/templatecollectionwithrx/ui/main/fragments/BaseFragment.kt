@@ -17,7 +17,6 @@ open class BaseFragment : Fragment() {
     var fragmentCallbacks: FragmentCallbacks? = null
     internal var TAG = BaseFragment::class.java.simpleName
     //    private var mTracker: Tracker? = null
-    internal var screenName: String? = null
 
     /*
      * onAttach(Context) is not called on pre API 23 versions of Android and onAttach(Activity) is deprecated

@@ -10,9 +10,16 @@
     <string name="oops">Oops… \n Something went wrong!</string>
     <string name="no_internet">Please check your Internet connection and try again.</string>
     <string name="retry">Retry</string>
+    <string name="home_title">HOME</string>
+    <string name="copyright_text">© Copyright 2018 - Quintype</string>
+    <string name="notification_title">NOTIFICATION</string>
     <string name="summary">Summary</string>
     <string name="q_text_placeholder">Q</string>
     <string name="a_text_placeholder">A</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="frameless_html_css">&lt;html>&lt;style>body {margin: 0;} iframe {box-shadow:none !important;}&lt;/style>&lt;body>replace&lt;/body>&lt;/html></string>
     <string name="soundcloud_html">&lt;style> body {margin:0;} &lt;/style>&lt;iframe width="100%" scrolling="yes" frameborder="no" src="replace">&lt;/iframe></string>
 
