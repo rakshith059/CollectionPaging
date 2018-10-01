@@ -6,6 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import quintype.com.templatecollectionwithrx.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
@@ -21,6 +22,7 @@ class RetrofitApiClient {
         //                .setLevel(HttpLoggingInterceptor.Level.BODY)
 //                .setLevel(HttpLoggingInterceptor.Level.HEADERS)
         var builder: OkHttpClient.Builder = OkHttpClient().newBuilder().addInterceptor(interceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
 
         fun getRetrofitApiClient(): Retrofit {
             retrofit = Retrofit

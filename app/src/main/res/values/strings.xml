@@ -7,7 +7,7 @@
     <string name="clicked_position">clicked_position</string>
     <string name="collection_list_size">collection_list_size</string>
     <string name="read_story">Read Story</string>
-    <string name="oops">Oops…\\nSomething went wrong!</string>
+    <string name="oops">Oops… \n Something went wrong!</string>
     <string name="no_internet">Please check your Internet connection and try again.</string>
     <string name="retry">Retry</string>
     <string name="summary">Summary</string>

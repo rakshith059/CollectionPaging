@@ -12,14 +12,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/retry_layout" />
-
-        <ProgressBar
-            android:id="@+id/fragment_story_detail_pb_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <!--<android.support.v4.widget.SwipeRefreshLayout-->
         <!--android:id="@+id/fragment_story_detail_swipe_refresh_layout"-->
         <!--android:layout_width="match_parent"-->
@@ -32,6 +24,14 @@
             android:background="@color/white" />
         <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
+        <include layout="@layout/retry_layout" />
+
+        <ProgressBar
+            android:id="@+id/fragment_story_detail_pb_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
     </FrameLayout>
 
     <android.support.design.widget.AppBarLayout
@@ -39,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:visibility="gone">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
@@ -114,7 +115,6 @@
                         android:fontFamily="sans-serif-condensed"
                         android:gravity="left|center"
                         android:minLines="2"
-                        android:text="@string/collection_list_size"
                         android:textColor="@color/black_opacity_75"
                         android:textSize="@dimen/size_20sp"
                         android:visibility="gone" />

@@ -1,8 +1,10 @@
 package quintype.com.templatecollectionwithrx.adapters
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.story.Story
@@ -11,9 +13,10 @@ import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholde
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.TitleBelowImageBlockSectionViewHolder.Companion.mFragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 
 class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>, mFragmentCallbacks: FragmentCallbacks?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
-    var mCollectionItem = collectionItem
+    private var mCollectionItem = collectionItem
     var fragmentCallbacks = mFragmentCallbacks
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -33,15 +36,15 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
     }
 
     override fun getItemCount(): Int {
-        if (mCollectionItem?.size != null)
-            return mCollectionItem?.size
+        if (mCollectionItem.size != null)
+            return mCollectionItem.size
         else return 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var collectionItemStory = mCollectionItem?.get(position)?.story as Story
-        var collectionAssociatedMetadata = mCollectionItem?.get(position)?.associatedMetadata
-        var collectionName = mCollectionItem?.get(position)?.outerCollectionName
+        val collectionItemStory = mCollectionItem.get(position).story as Story
+        val collectionAssociatedMetadata = mCollectionItem.get(position).associatedMetadata
+        val collectionName = mCollectionItem.get(position).outerCollectionName
 
         if (holder is TitleBelowImageBlockSectionViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata, this)
@@ -58,37 +61,40 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
         } else if (holder is TitleInsideImageGridViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata, this)
         } else if (holder is TitleInsideImageHorizontalViewHolder) {
-            holder.bind( collectionItemStory, collectionAssociatedMetadata, this
-            )
+            holder.bind(collectionItemStory, collectionAssociatedMetadata, this)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        var viewHolderType = mCollectionItem?.get(position)?.viewHolderType
+        val viewHolderType = mCollectionItem[position].viewHolderType
         if (viewHolderType != null)
             return viewHolderType
         else return Constants.VIEWHOLDER_TYPE_STORY
     }
 
     override fun onClick(v: View?) {
-        var storyList: ArrayList<Story> = ArrayList()
-        var itemPosition: Int = v?.tag as Int
+        val mContext = v?.context as Context
+        if (NetworkUtils.isConnected(mContext)) {
+            val storyList: ArrayList<Story> = ArrayList()
+            val itemPosition: Int = v.tag as Int
 
-        for (index in 0 until mCollectionItem.size) {
-            storyList?.add(mCollectionItem.get(index).story as Story)
-        }
-        when (v?.id) {
-            R.id.title_below_image_block_section_header_row_cl_main_container,
-            R.id.left_image_child_row_cv_main_container,
-            R.id.right_image_child_row_cv_main_container,
-            R.id.title_inside_image_header_row_cl_main_container,
-            R.id.title_inside_image_grid_row_cl_main_container,
-            R.id.title_below_image_block_section_horizontal_scroll_row_cl_main_container,
-            R.id.pager_carousel_full_screen_simple_slider_row_cl_main_container,
-            R.id.pager_carousel_title_inside_image_row_cl_main_container,
-            R.id.pager_carousel_half_slider_row_cl_main_container,
-            R.id.title_below_image_underline_section_header_row_cl_main_container ->
-                fragmentCallbacks?.addFragment(StoryPagerFragment.newInstance(storyList, itemPosition), "InnerCollectionAdapter")
-        }
+            for (index in 0 until mCollectionItem.size) {
+                storyList.add(mCollectionItem.get(index).story as Story)
+            }
+            when (v.id) {
+                R.id.title_below_image_block_section_header_row_cl_main_container,
+                R.id.left_image_child_row_cv_main_container,
+                R.id.right_image_child_row_cv_main_container,
+                R.id.title_inside_image_header_row_cl_main_container,
+                R.id.title_inside_image_grid_row_cl_main_container,
+                R.id.title_below_image_block_section_horizontal_scroll_row_cl_main_container,
+                R.id.pager_carousel_full_screen_simple_slider_row_cl_main_container,
+                R.id.pager_carousel_title_inside_image_row_cl_main_container,
+                R.id.pager_carousel_half_slider_row_cl_main_container,
+                R.id.title_below_image_underline_section_header_row_cl_main_container ->
+                    fragmentCallbacks?.addFragment(StoryPagerFragment.newInstance(storyList, itemPosition), "InnerCollectionAdapter")
+            }
+        } else
+            Toast.makeText(mContext, mContext.resources.getString(R.string.no_internet), Toast.LENGTH_LONG).show()
     }
 }

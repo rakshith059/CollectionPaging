@@ -27,6 +27,7 @@
             android:id="@+id/story_question_answer_element_holder_tv_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_8dp"
             android:lineSpacingExtra="@dimen/size_8sp"
             android:paddingRight="@dimen/size_16dp"
             android:textColor="@color/colorPrimary"
