@@ -19,6 +19,7 @@ import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
 class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener {
@@ -50,7 +51,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
     }
 
     private fun setUpNavDrawer() {
-        val layoutAsString = Constants.getSharedPreferences(this, Constants.SP_LAYOUT)
+        val layoutAsString = Utilities.getSharedPreferences(this, Constants.SP_LAYOUT)
         val layoutMenu = Gson().fromJson(layoutAsString, ConfigLayout::class.java)
         val menuList: List<NavMenu>? = layoutMenu.menu
 
