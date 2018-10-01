@@ -145,7 +145,7 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
                     fragment.setCurrentItem(submenuPosition + 1)
                 } else {
                     currentSection = menuGroup.menuItem
-                    replaceFragment(HomePagerFragment.newInstance(menuGroup), TAG)
+                    addFragment(HomePagerFragment.newInstance(menuGroup), TAG)
                 }
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
                 Toast.makeText(this, "Menu type LINK not yet handled", LENGTH_SHORT).show()

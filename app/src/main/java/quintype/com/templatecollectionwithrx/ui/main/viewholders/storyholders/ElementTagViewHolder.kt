@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.ui.main.fragments.TagListFragment
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.widgets.FlowLayout
 
@@ -35,14 +36,14 @@ class ElementTagViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) 
             itemView.visibility = View.VISIBLE
             tagsLayout?.visibility = View.VISIBLE
             tagsLayout?.removeAllViews()
-            for (tag in mStory.tags()) {
+            for (storyTag in mStory.tags()) {
                 val tagView = LayoutInflater.from(tagsLayout?.context).inflate(R.layout.tag_item_layout, tagsLayout, false) as FrameLayout
                 val tvTagName = tagView.findViewById<TextView>(R.id.tag_name)
-                tvTagName.text = tag?.name
-                tagView.tag = tag
+                tvTagName.text = storyTag.name
+//                tagView.tag = tag
                 tagView.setOnClickListener {
-                    //                    fragmentCallbacks.replaceFragment(TagListFragment.newInstance(tag),
-//                            TagListFragment::class.java!!.getName() + " : " + tag.name())
+                    mFragmentCallbacks?.addFragment(TagListFragment.newInstance(storyTag.name),
+                            TagListFragment::class.java?.getName() + " : " + storyTag.name)
 //                    fragmentCallbacks.clickAnalyticsEvent(Constants
 //                            .CATEGORY_STORY_DETAIL_SCREEN, Constants.EVENT_TAG_CLICK, tag
 //                            .name(), 0)
