@@ -15,7 +15,6 @@ import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
 import quintype.com.templatecollectionwithrx.utils.Constants
 import com.google.gson.Gson
 
-import com.twitter.sdk.android.core.TwitterAuthConfig
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
@@ -68,6 +67,11 @@ class SplashActivity : BaseActivity() {
                         if (publisherConfig.layout != null) {
                             val layoutAsString = Gson().toJson(publisherConfig.layout)
                             Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_LAYOUT, layoutAsString as String)
+                        }
+
+                        if(publisherConfig.sections!=null){
+                            val sectionsAsString=Gson().toJson(publisherConfig.sections)
+                            Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_SECTIONS, sectionsAsString as String)
                         }
 
                         var handler = Handler()

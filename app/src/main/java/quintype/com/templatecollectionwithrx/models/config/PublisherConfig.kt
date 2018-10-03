@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import quintype.com.templatecollectionwithrx.models.sections.Section
+import quintype.com.templatecollectionwithrx.models.sections.SectionMeta
 
 
 /**
@@ -31,7 +32,7 @@ class PublisherConfig() : Parcelable {
     var facebook: FacebookConfig? = null
     @SerializedName("sections")
     @Expose
-    var sections: List<Section>? = null
+    var sections: List<SectionMeta>? = null
     @SerializedName("social-links")
     @Expose
     var socialLinks: SocialLinks? = null
@@ -104,7 +105,7 @@ class PublisherConfig() : Parcelable {
 
     constructor(parcel: Parcel) : this() {
         sketchesHost = parcel.readString()
-        sections = parcel.createTypedArrayList(Section)
+        sections = parcel.createTypedArrayList(SectionMeta)
         cdnName = parcel.readString()
         publisherId = parcel.readValue(Long::class.java.classLoader) as? Long
         numHeadlines = parcel.readValue(Int::class.java.classLoader) as? Int

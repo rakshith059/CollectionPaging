@@ -37,7 +37,7 @@ class SectionFragment : BaseFragment() {
     private lateinit var viewModel: MainViewModel
     var collectionAdapter: HomeCollectionAdapter? = null
 
-    var linkedHashMap = LinkedHashMap<String, BulkTableModel>()
+    var linkedHashMap: LinkedHashMap<String, BulkTableModel>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -47,6 +47,8 @@ class SectionFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mCollectionSlug = arguments?.getString(COLLECTION_SLUG)
+
+        linkedHashMap = LinkedHashMap<String, BulkTableModel>()
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -86,21 +88,26 @@ class SectionFragment : BaseFragment() {
 
     private fun observeViewModel(viewModel: MainViewModel) {
         viewModel.getCollectionListObservable()?.observe(this, Observer<BulkTableModel>() {
-            it?.let { it1 -> linkedHashMap.put(it?.slug.toString(), it1) }
-            var linkedCollectionList = linkedHashMap.values.toList()
+            it?.let { it1 -> linkedHashMap?.put(it?.slug.toString(), it1) }
+            var linkedCollectionList = linkedHashMap?.values?.toList()
 
             Log.d("Rakshith", "summary is ${it?.slug}")
-            if (linkedHashMap.size < Constants.PAGE_LIMIT) {
-                collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
-                main_fragment_rv_collection_list?.adapter = collectionAdapter
-            } else {
-                collectionAdapter?.notifyAdapter(linkedCollectionList)
+            if (linkedCollectionList != null) {
+                val hashMapSize = linkedHashMap?.size as Int
+                if (hashMapSize < Constants.PAGE_LIMIT) {
+                    collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
+                    main_fragment_rv_collection_list?.adapter = collectionAdapter
+                } else {
+
+                    collectionAdapter?.notifyAdapter(linkedCollectionList)
+                }
             }
         })
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        linkedHashMap?.clear()
         viewModel.compositeDisposable.dispose()
     }
 }

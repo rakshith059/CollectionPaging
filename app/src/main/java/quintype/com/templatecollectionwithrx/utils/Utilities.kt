@@ -17,6 +17,10 @@ import android.widget.RelativeLayout
 import android.support.annotation.DimenRes
 import android.util.TypedValue
 import android.view.WindowManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import quintype.com.templatecollectionwithrx.models.sections.SectionMeta
+import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -125,6 +129,25 @@ class Utilities {
             var formatter = SimpleDateFormat("dd MMM,yyyy HH:mm a")
             var dateString: String = formatter.format(Date(dateFormat.toLong()))
             return dateString
+        }
+
+        fun getCollectionSlug(context: Context, sectionName: String): String? {
+            val sectionsAsString = Utilities.getSharedPreferences(context, Constants.SP_SECTIONS)
+
+            val listType: Type = object : TypeToken<ArrayList<SectionMeta>>() {}.type
+
+            val sections = Gson().fromJson<List<SectionMeta>>(sectionsAsString, listType)
+            var collectionSlug: String? = null
+
+            for (section: SectionMeta in sections) {
+                if (sectionName.equals(section.name)) {
+                    if (section.collectionMeta?.slug != null) {
+                        collectionSlug = section?.collectionMeta?.slug!!
+                    }
+                    break
+                }
+            }
+            return collectionSlug
         }
     }
 }
