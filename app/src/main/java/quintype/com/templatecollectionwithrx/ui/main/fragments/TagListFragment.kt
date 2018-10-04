@@ -28,7 +28,7 @@ class TagListFragment : BaseFragment() {
         var mTagName: String? = null
         const val TAG_NAME = "TAG_NAME"
 
-        val mStoriesList = ArrayList<Story>()
+        var mStoriesList: ArrayList<Story>? = null
 
         fun newInstance(tagName: String?): TagListFragment {
             val tagListFragment = TagListFragment()
@@ -49,6 +49,8 @@ class TagListFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        mStoriesList = ArrayList<Story>()
 
         val layoutManager = LinearLayoutManager(getActivity())
         main_fragment_rv_collection_list.layoutManager = layoutManager
@@ -90,20 +92,26 @@ class TagListFragment : BaseFragment() {
 
     private fun observeViewModel(viewModel: StoriesListViewModel) {
         viewModel.getStoriesListObservable()?.observe(this, Observer<Story>() {
-            mStoriesList.add(it as Story)
+            mStoriesList?.add(it as Story)
 
             if (searchListAdapter == null) {
-                searchListAdapter = SearchListAdapter(mStoriesList, fragmentCallbacks)
+                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
                 main_fragment_rv_collection_list?.adapter = searchListAdapter
             } else {
-                searchListAdapter?.notifyAdapter(mStoriesList)
+                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
             }
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        mStoriesList?.clear()
+        searchListAdapter = null
+        storiesListViewModel.mCompositeDisposable.dispose()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        mStoriesList.clear()
-        storiesListViewModel.mCompositeDisposable.dispose()
     }
 }

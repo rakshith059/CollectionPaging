@@ -15,6 +15,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.support.annotation.DimenRes
+import android.support.annotation.RequiresApi
 import android.util.TypedValue
 import android.view.WindowManager
 import java.text.SimpleDateFormat
@@ -29,9 +30,12 @@ class Utilities {
         /**
          * Parsing html text and converting the same to string and trimming the extra space
          */
-        @TargetApi(Build.VERSION_CODES.N)
         fun parseHtml(mSource: String): String? {
-            return Html.fromHtml(mSource, Html.FROM_HTML_MODE_LEGACY).toString().trim()
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(mSource, Html.FROM_HTML_MODE_LEGACY).toString().trim()
+            } else {
+                Html.fromHtml(mSource).toString().trim()
+            }
         }
 
         fun createLayoutParams(view: View, width: Int, height: Int): ViewGroup.LayoutParams {
