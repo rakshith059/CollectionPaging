@@ -9,13 +9,12 @@ import quintype.com.templatecollectionwithrx.services.StoriesListService
 
 class StoriesListViewModel : ViewModel() {
     var mCompositeDisposable = CompositeDisposable()
-    var mStoriesListObservable: LiveData<Story>? = null
+//    var mStoriesListObservable: LiveData<Story>? = null
 
-    fun getStoriesListResponse(mSearchTerm: String, mPageNamber: Int) {
-        mStoriesListObservable = StoriesListService.getInstance(mCompositeDisposable).getStoriesListResponse(mSearchTerm, mPageNamber)
-    }
+    fun getStoriesListResponse(mSearchTerm: String, mPageNamber: Int) = StoriesListService.getInstance(mCompositeDisposable).getStoriesListResponse(mSearchTerm, mPageNamber)
 
-    fun getStoriesListObservable(): LiveData<Story>? {
-        return mStoriesListObservable
-    }
+
+//    fun getStoriesListObservable(): LiveData<Story>? {
+//        return mStoriesListObservable
+//    }
 }

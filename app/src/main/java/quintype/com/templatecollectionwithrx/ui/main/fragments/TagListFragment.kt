@@ -11,9 +11,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.ResourceSubscriber
+import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
+import quintype.com.templatecollectionwithrx.models.TagListResponse
+import quintype.com.templatecollectionwithrx.models.story.SlugStory
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
@@ -60,8 +68,8 @@ class TagListFragment : BaseFragment() {
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         storiesListViewModel = ViewModelProviders.of(this).get(StoriesListViewModel::class.java)
         if (!TextUtils.isEmpty(mTagName)) {
-            storiesListViewModel.getStoriesListResponse(mTagName as String, 0)
-            observeViewModel(storiesListViewModel)
+//            storiesListViewModel.getStoriesListResponse(mTagName as String, 0)
+            observeViewModel(storiesListViewModel, mTagName as String, 0)
 
             main_fragment_rv_collection_list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
@@ -82,7 +90,8 @@ class TagListFragment : BaseFragment() {
 
                         if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
                             Log.d("Rakshith", "current page is ===  $currentPage")
-                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
+//                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
+                            observeViewModel(storiesListViewModel, mTagName as String, currentPage)
                         }
                     }
                 }
@@ -90,17 +99,42 @@ class TagListFragment : BaseFragment() {
         }
     }
 
-    private fun observeViewModel(viewModel: StoriesListViewModel) {
-        viewModel.getStoriesListObservable()?.observe(this, Observer<Story>() {
-            mStoriesList?.add(it as Story)
+    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int) {
+        viewModel?.getStoriesListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
+                    override fun onComplete() {
+                        Log.d("Rakshith", " tag list api call completed..")
 
-            if (searchListAdapter == null) {
-                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                main_fragment_rv_collection_list?.adapter = searchListAdapter
-            } else {
-                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
-            }
-        })
+                        if (searchListAdapter == null) {
+                            searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                            main_fragment_rv_collection_list?.adapter = searchListAdapter
+                        } else {
+                            searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                        }
+                    }
+
+                    override fun onNext(tagListResponse: TagListResponse?) {
+                        for (index in 0 until tagListResponse?.stories?.size as Int)
+                            mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
+                    }
+
+                    override fun onError(t: Throwable?) {
+                        Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
+                    }
+                })
+
+//        viewModel.getStoriesListObservable()?.observe(this, Observer<Story>() {
+//            mStoriesList?.add(it as Story)
+//
+//            if (searchListAdapter == null) {
+//                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+//                main_fragment_rv_collection_list?.adapter = searchListAdapter
+//            } else {
+//                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+//            }
+//        })
     }
 
     override fun onDestroyView() {
