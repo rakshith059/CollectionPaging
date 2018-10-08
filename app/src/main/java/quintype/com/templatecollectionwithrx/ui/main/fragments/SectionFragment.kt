@@ -23,7 +23,6 @@ class SectionFragment : BaseFragment() {
         var mCollectionSlug: String? = null
         const val COLLECTION_SLUG = "COLLECTION_SLUG"
 
-
         fun newInstance(collectionSlug: String?, title: String?): SectionFragment {
             val sectionFragment = SectionFragment()
             val args = Bundle()

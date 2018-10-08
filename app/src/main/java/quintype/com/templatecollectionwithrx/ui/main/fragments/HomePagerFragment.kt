@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home_pager.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
+import quintype.com.templatecollectionwithrx.models.MenuItemModel
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 
 class HomePagerFragment : BaseFragment() {
     private var navMenuGroup: NavMenuGroup? = null
-    val childSectionFragments = java.util.ArrayList<SectionFragment>()
+    val childSectionFragments = ArrayList<MenuItemModel>()
 
     companion object {
         private val NAV_MENU_GROUP = "navMenuGroup"
@@ -50,20 +51,20 @@ class HomePagerFragment : BaseFragment() {
             if (navMenuGroup?.getMenuItem()?.section()?.name != null) {
                 /* childSectionFragments.add(SectionFragment.newInstance(
                          navMenuGroup.getMenuItem().section())*/
-                childSectionFragments.add(SectionFragment.newInstance(navMenuGroup?.menuItem?.sectionSlug(), navMenuGroup?.menuItem?.title()))
+                childSectionFragments.add(MenuItemModel(navMenuGroup?.menuItem?.sectionSlug(), navMenuGroup?.menuItem?.title()))
             }
 
             for (menuItem in navMenuGroup?.childItemList!!) {
-                childSectionFragments.add(SectionFragment.newInstance(menuItem.sectionSlug(), menuItem.title()))
+                childSectionFragments.add(MenuItemModel(menuItem.sectionSlug(), menuItem.title()))
             }
 
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments)
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments, false)
             home_pager_vp_pager.adapter = pagerAdapter
         } else {
-            var homeFragment = ArrayList<Fragment>()
-            homeFragment.add(MainFragment.newInstance())
+            var homeFragment = ArrayList<MenuItemModel>()
+            homeFragment.add(MenuItemModel("", ""))
 
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment)
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment, true)
             home_pager_vp_pager.adapter = pagerAdapter
         }
 

@@ -14,7 +14,6 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 class StoryPagerFragment : BaseFragment() {
     companion object {
         var pagerFragmentStoryList = ArrayList<Story>()
-        var storyFragmentList: ArrayList<Fragment> = ArrayList()
         var mPosition = 0
 
         fun newInstance(storyList: ArrayList<Story>, itemPosition: Int): StoryPagerFragment {
@@ -36,19 +35,16 @@ class StoryPagerFragment : BaseFragment() {
 
     private fun setAdapter() {
         if (pagerFragmentStoryList != null) {
-            for (i in 0 until pagerFragmentStoryList.size) {
-                storyFragmentList.add(i, StoryDetailFragment.newInstance(pagerFragmentStoryList[i]))
-            }
             val pagerAdapter = StoryPagerAdapter(childFragmentManager, getFragmentList())
             story_pager_vp_pager.adapter = pagerAdapter
             story_pager_vp_pager.currentItem = mPosition
         }
     }
 
-    private fun getFragmentList(): List<Fragment> {
-        var fragmentList = ArrayList<Fragment>()
+    private fun getFragmentList(): List<Story> {
+        var fragmentList = ArrayList<Story>()
         for (index in 0 until pagerFragmentStoryList.size)
-            fragmentList.add(index, StoryDetailFragment.newInstance(pagerFragmentStoryList.get(index)))
+            fragmentList.add(index, pagerFragmentStoryList.get(index))
 
         return fragmentList
     }
