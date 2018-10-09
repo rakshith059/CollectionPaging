@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import de.hdodenhof.circleimageview.CircleImageView
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
+
 
 class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
@@ -28,7 +28,7 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
         val view = this.itemView.rootView
 
         val clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
-        val ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
+        val ivAuthorIcon = view?.findViewById<SimpleDraweeView>(R.id.author_image_row_iv_author_icon)
         val tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
         val tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
         val rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.story_element_author_view_holder_item_rating_bar)
@@ -51,9 +51,13 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
             val heroImageURL = mStory.authors?.first()?.avatarUrl
             if (heroImageURL != null) {
                 ivAuthorIcon?.visibility = View.VISIBLE
-                Glide.with(ivAuthorIcon?.context as Context)
-                        .load(heroImageURL)
-                        .into(ivAuthorIcon)
+
+                ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context)
+                ivAuthorIcon.setImageURI(heroImageURL)
+
+//                Glide.with(ivAuthorIcon?.context as Context)
+//                        .load(heroImageURL)
+//                        .into(ivAuthorIcon)
             }
         }
         val publishedDate = mStory.publishedAt.toString()

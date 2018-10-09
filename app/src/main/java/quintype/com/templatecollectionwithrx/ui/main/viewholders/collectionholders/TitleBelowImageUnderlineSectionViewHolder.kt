@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.ui.main.activities.WebActivity
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
@@ -17,20 +18,22 @@ class TitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseTitleBelo
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         super.bind(collectionItem, collectionAssociatedMetadata, listner)
 
-        var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_underline_section_header_row_iv_hero_icon)
+        var ivHeroImage = itemView?.findViewById<SimpleDraweeView>(R.id.title_below_image_underline_section_header_row_iv_hero_icon)
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_below_image_underline_section_header_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
         clMainContainer?.tag = adapterPosition
 
-        Glide.with(ivHeroImage?.context as Context)
-                .load(heroImageURL)
-                .into(ivHeroImage)
+//        Glide.with(ivHeroImage?.context as Context)
+//                .load(heroImageURL)
+//                .into(ivHeroImage)
 
-        ivHeroImage.setOnClickListener(object : View.OnClickListener {
+        ivHeroImage?.setImageURI(heroImageURL)
+
+        ivHeroImage?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                var intent = Intent(ivHeroImage.context, WebActivity::class.java)
+                val intent = Intent(ivHeroImage.context, WebActivity::class.java)
                 ivHeroImage.context.startActivity(intent)
             }
         })

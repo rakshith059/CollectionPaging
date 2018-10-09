@@ -18,6 +18,10 @@ import android.support.annotation.DimenRes
 import android.support.annotation.RequiresApi
 import android.util.TypedValue
 import android.view.WindowManager
+import com.facebook.drawee.generic.GenericDraweeHierarchy
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
+import com.facebook.drawee.generic.RoundingParams
+import quintype.com.templatecollectionwithrx.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -129,6 +133,21 @@ class Utilities {
             var formatter = SimpleDateFormat("dd MMM,yyyy HH:mm a")
             var dateString: String = formatter.format(Date(dateFormat.toLong()))
             return dateString
+        }
+
+        /**
+         * function for setting frisco round image hierarchy
+         */
+        fun getFriscoRoundImageHierarchy(mContext: Context): GenericDraweeHierarchy {
+            val roundingParams = RoundingParams.fromCornersRadius(10f)
+            roundingParams.borderColor = mContext.resources?.getColor(R.color.colorPrimary) as Int
+            roundingParams.borderWidth = 3f
+            roundingParams.roundAsCircle = true
+            return GenericDraweeHierarchyBuilder
+                    .newInstance(mContext.resources)
+                    .setRoundingParams(roundingParams)
+                    .setFailureImage(mContext.resources?.getDrawable(R.drawable.scrim))
+                    .build()
         }
     }
 }

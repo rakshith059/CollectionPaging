@@ -2,6 +2,7 @@ package quintype.com.templatecollectionwithrx
 
 import android.app.Application
 import android.util.Log
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.DefaultLogger
@@ -22,5 +23,7 @@ class TemplateApp : Application() {
                 .debug(true)
                 .build()
         Twitter.initialize(config)
+
+        Fresco.initialize(this)
     }
 }
