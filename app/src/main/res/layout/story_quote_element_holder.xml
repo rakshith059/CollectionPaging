@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/quote_holder_image_quote_bg"
         android:layout_width="@dimen/size_50dp"
         android:layout_height="@dimen/size_50dp"
@@ -12,7 +12,7 @@
         android:src="@drawable/ic_quote"
         android:visibility="gone" />
 
-    <LinearLayout
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/quote_holder_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,5 +58,5 @@
             android:textSize="@dimen/size_16sp"
             tools:targetApi="m" />
 
-    </LinearLayout>
+    </com.facebook.drawee.view.SimpleDraweeView>
 </LinearLayout>

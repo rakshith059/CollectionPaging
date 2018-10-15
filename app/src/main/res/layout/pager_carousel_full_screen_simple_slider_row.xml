@@ -16,11 +16,17 @@
             android:layout_height="match_parent"
             android:background="@color/black">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/pager_carousel_full_screen_simple_slider_row_iv_hero_icon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_500dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:fadeDuration="300"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:progressBarImage="@drawable/ic_full_star_review"
+                app:progressBarImageScaleType="centerInside" />
 
             <View
                 android:layout_width="match_parent"

@@ -55,13 +55,16 @@
                 android:orientation="vertical"
                 app:layout_collapseMode="none">
 
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/fragment_story_detail_iv_hero_image"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_250dp"
                     android:scaleType="centerCrop"
                     android:visibility="visible"
                     app:layout_collapseMode="none"
+                    app:layout_constraintDimensionRatio="4:3"
+                    app:progressBarImage="@drawable/ic_full_star_review"
+                    app:progressBarImageScaleType="centerInside"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
                 <LinearLayout

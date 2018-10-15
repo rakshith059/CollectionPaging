@@ -1,18 +1,13 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
-import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 
