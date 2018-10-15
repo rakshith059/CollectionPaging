@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/size_8dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/story_block_quote_element_holder_iv_block_quote"
             android:layout_width="@dimen/size_30dp"
             android:layout_height="@dimen/size_30dp"

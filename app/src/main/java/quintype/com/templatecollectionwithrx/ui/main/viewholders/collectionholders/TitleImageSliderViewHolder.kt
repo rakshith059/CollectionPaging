@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.facebook.drawee.view.SimpleDraweeView
+import android.widget.ImageView
 import me.relex.circleindicator.CircleIndicator
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.PagerFullCarouselAdapter
@@ -90,8 +90,8 @@ class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(item
         var pagerScheduleProxy: PagerScheduleProxy? = null
         var attachStateChangeListener: View.OnAttachStateChangeListener? = null
 
-        var ivLeftArrow: SimpleDraweeView? = null
-        var ivRightArrow: SimpleDraweeView? = null
+        var ivLeftArrow: ImageView? = null
+        var ivRightArrow: ImageView? = null
 
         var currentPosition = 0
         fun create(parent: ViewGroup): TitleImageSliderViewHolder {

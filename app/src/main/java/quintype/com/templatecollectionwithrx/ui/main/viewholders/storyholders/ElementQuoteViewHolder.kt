@@ -7,19 +7,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
-import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 class ElementQuoteViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    var tvTextContent: TextView? = null
+    var tvTextAttribution: TextView? = null
+
     companion object {
+
         fun create(parent: ViewGroup): ElementQuoteViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.story_quote_element_holder, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.story_quote_element_holder, parent, false)
+            val elementQuoteHolder = ElementQuoteViewHolder(view)
+            elementQuoteHolder.tvTextContent = view?.findViewById(R.id.quote_holder_text_content)
+            elementQuoteHolder.tvTextAttribution = view?.findViewById(R.id.quote_holder_attribute_text)
             return ElementQuoteViewHolder(view)
         }
     }
 
     fun bind(storyElement: StoryElement) {
-        var tvTextContent = itemView?.findViewById<TextView>(R.id.quote_holder_text_content)
-        var tvTextAttribution = itemView?.findViewById<TextView>(R.id.quote_holder_attribute_text)
 
         val subtypeContent = storyElement.subTypeMeta()?.content
         val subtypeAttribution = storyElement.subTypeMeta()?.attribution

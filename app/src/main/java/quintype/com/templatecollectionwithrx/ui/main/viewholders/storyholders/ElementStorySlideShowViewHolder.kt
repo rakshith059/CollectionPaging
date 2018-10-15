@@ -68,15 +68,15 @@ class ElementStorySlideShowViewHolder(itemView: View?) : RecyclerView.ViewHolder
                 Log.d("rakshith", "Element size -- " + elem.storyElements().size)
                 if (!isGalleryElement) {
                     if (position == 0) {
-                        ivSlideLeft?.setVisibility(View.INVISIBLE)
+                        ivSlideLeft?.visibility = View.INVISIBLE
                     } else {
-                        ivSlideLeft?.setVisibility(View.VISIBLE)
+                        ivSlideLeft?.visibility = View.VISIBLE
                     }
 
                     if (position == elem.storyElements().size - 1) {
-                        ivSlideRight?.setVisibility(View.INVISIBLE)
+                        ivSlideRight?.visibility = View.INVISIBLE
                     } else {
-                        ivSlideRight?.setVisibility(View.VISIBLE)
+                        ivSlideRight?.visibility = View.VISIBLE
                     }
                 }
                 //setCount(position + 1, elem.storyElements().size());
