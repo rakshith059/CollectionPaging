@@ -123,7 +123,7 @@ class TableElementAdapter
 
             //finally, setting the cell data
             if (rowData?.size as Int > 1)
-                holder.textView.text = rowData!![cellIndex].replace("\"", "")
+                holder.textView.text = rowData?.get(cellIndex)?.replace("\"", "")
         }
     }
 
