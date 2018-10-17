@@ -10,16 +10,20 @@ import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
 
 class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    var mFragmentCallbacks: FragmentCallbacks? = null
 
     companion object {
-        fun create(parent: ViewGroup): ElementAuthorViewHolder {
+        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): ElementAuthorViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.story_element_author_view_holder, parent, false)
             val elementAuthorViewHolder = ElementAuthorViewHolder(view)
+            elementAuthorViewHolder.mFragmentCallbacks = mFragmentCallbacks
             return elementAuthorViewHolder
         }
     }
@@ -58,6 +62,15 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
 //                Glide.with(ivAuthorIcon?.context as Context)
 //                        .load(heroImageURL)
 //                        .into(ivAuthorIcon)
+            }
+
+            tvAuthorName?.setOnClickListener {
+                mFragmentCallbacks?.replaceFragment(AuthorListFragment.newInstance(authorName,heroImageURL),
+                        AuthorListFragment::class.java.name + " : " + authorName)
+            }
+            ivAuthorIcon?.setOnClickListener {
+                mFragmentCallbacks?.replaceFragment(AuthorListFragment.newInstance(authorName, heroImageURL),
+                        AuthorListFragment::class.java.name + " : " + authorName)
             }
         }
         val publishedDate = mStory.publishedAt.toString()

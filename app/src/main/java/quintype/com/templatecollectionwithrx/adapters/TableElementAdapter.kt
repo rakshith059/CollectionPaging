@@ -96,7 +96,7 @@ class TableElementAdapter
             //formatting the header items and displaying them
             holder.textView.setBackgroundColor(Color.BLACK)
             holder.textView.setTextColor(Color.WHITE)
-            holder.textView.text = headers!![position]
+            holder.textView.text = headers?.get(position)
         } else {
             //if there are no headers or if the row is any one other than the header row
             //get the current cell position first

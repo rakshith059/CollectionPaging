@@ -2,7 +2,9 @@ package quintype.com.templatecollectionwithrx.services
 
 import io.reactivex.Flowable
 import quintype.com.templatecollectionwithrx.models.TagListResponse
+import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.models.story.StorySearchResult
 import quintype.com.templatecollectionwithrx.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -22,6 +24,8 @@ interface StoriesListApiService {
 
     @Headers(Constants.CONTENT_TYPE_APPLICATION_JSON_CHARSET_UTF_8)
     @GET("api/v1/search")
-    fun getSearchStoriesList(@Query(Constants.QUERY_PARAM_KEY_SEARCH_TERM) tagName: String): Flowable<List<Story>>
+    fun getSearchStoriesList(@Query(Constants.QUERY_PARAM_KEY_SEARCH_TERM) tagName: String,
+                             @Query(Constants.QUERY_PARAM_KEY_LIMIT) limit: Int,
+                             @Query(Constants.QUERY_PARAM_KEY_OFFSET) offset: Int): Flowable<SearchStoryList>
 
 }
