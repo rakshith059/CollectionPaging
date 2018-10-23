@@ -100,17 +100,16 @@
                             android:fontFamily="sans-serif"
                             android:text="@string/no_of_stories"
                             android:textColor="@color/black_opacity_50"
-                            android:textSize="@dimen/size_20sp" />
+                            android:textSize="@dimen/size_20sp"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/author_list_fragment_tv_total_stories"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
-                            android:text="0"
                             android:textColor="@color/black_opacity_50"
-                            android:textSize="@dimen/size_20sp"
-                            android:textStyle="bold" />
+                            android:textSize="@dimen/size_14sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

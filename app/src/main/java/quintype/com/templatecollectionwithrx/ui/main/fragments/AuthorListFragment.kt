@@ -126,7 +126,15 @@ class AuthorListFragment : BaseFragment() {
                     }
 
                     override fun onNext(storiesSearchListResponse: SearchStoryList?) {
-                        author_list_fragment_tv_total_stories?.text = storiesSearchListResponse?.getResults()?.total.toString()
+
+                        val storiesByAuthor = storiesSearchListResponse?.getResults()?.total as Int
+                        var storiesByAuthorString: String? = null
+                        if (storiesByAuthor == 1)
+                            storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.story_by)} $mAuthorName"
+                        else if (storiesByAuthor > 1)
+                            storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.stories_by)} $mAuthorName"
+                        author_list_fragment_tv_total_stories?.text = storiesByAuthorString
+
 
                         for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
                             mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)

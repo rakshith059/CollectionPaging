@@ -38,5 +38,7 @@
     <string name="tags">Tags</string>
     <string name="author_name">Author name</string>
     <string name="no_of_stories">Stories count : </string>
+    <string name="story_by">Story by</string>
+    <string name="stories_by">Stories by</string>
 
 </resources>
