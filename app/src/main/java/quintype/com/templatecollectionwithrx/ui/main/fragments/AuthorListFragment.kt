@@ -67,9 +67,11 @@ class AuthorListFragment : BaseFragment() {
         mAuthorName = arguments?.getString(AUTHOR_NAME)
         mAuthorImage = arguments?.getString(AUTHOR_IMAGE)
 
+        author_list_fragment_tv_author_name?.text = mAuthorName
+
         if (mAuthorImage != null) {
             fragment_author_list_app_bar_layout?.visibility = View.VISIBLE
-//            fragment_author_list_iv_hero_image?.hierarchy = Utilities.getFriscoRoundImageHierarchy(activity?.applicationContext as Context)
+            fragment_author_list_iv_hero_image?.hierarchy = Utilities.getFriscoRoundImageHierarchy(activity?.applicationContext as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_10F, resources?.getColor(R.color.colorAccent))
             fragment_author_list_iv_hero_image.setImageURI(mAuthorImage)
         }
 
@@ -124,6 +126,8 @@ class AuthorListFragment : BaseFragment() {
                     }
 
                     override fun onNext(storiesSearchListResponse: SearchStoryList?) {
+                        author_list_fragment_tv_total_stories?.text = storiesSearchListResponse?.getResults()?.total.toString()
+
                         for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
                             mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
                     }

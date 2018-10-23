@@ -2,7 +2,6 @@ package quintype.com.templatecollectionwithrx.models.search
 
 import android.os.Parcel
 import android.os.Parcelable
-import quintype.com.templatecollectionwithrx.models.story.StorySearchResult.Results
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
+import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
@@ -56,7 +57,7 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
             if (heroImageURL != null) {
                 ivAuthorIcon?.visibility = View.VISIBLE
 
-                ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context)
+                ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_3F, ivAuthorIcon.context?.resources?.getColor(R.color.colorPrimary) as Int)
                 ivAuthorIcon.setImageURI(heroImageURL)
 
 //                Glide.with(ivAuthorIcon?.context as Context)
@@ -65,11 +66,11 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
             }
 
             tvAuthorName?.setOnClickListener {
-                mFragmentCallbacks?.replaceFragment(AuthorListFragment.newInstance(authorName,heroImageURL),
+                mFragmentCallbacks?.addFragment(AuthorListFragment.newInstance(authorName, heroImageURL),
                         AuthorListFragment::class.java.name + " : " + authorName)
             }
             ivAuthorIcon?.setOnClickListener {
-                mFragmentCallbacks?.replaceFragment(AuthorListFragment.newInstance(authorName, heroImageURL),
+                mFragmentCallbacks?.addFragment(AuthorListFragment.newInstance(authorName, heroImageURL),
                         AuthorListFragment::class.java.name + " : " + authorName)
             }
         }

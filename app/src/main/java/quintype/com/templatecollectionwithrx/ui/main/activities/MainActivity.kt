@@ -26,7 +26,7 @@ import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragmen
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
-class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener, FragmentManager.OnBackStackChangedListener {
+open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener, FragmentManager.OnBackStackChangedListener {
 
     val TAG = MainActivity::class.java.simpleName
     private var mDrawerLayout: DrawerLayout? = null

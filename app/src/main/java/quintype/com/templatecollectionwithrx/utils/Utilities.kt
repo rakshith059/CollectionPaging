@@ -1,6 +1,5 @@
 package quintype.com.templatecollectionwithrx.utils
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -15,7 +14,6 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.support.annotation.DimenRes
-import android.support.annotation.RequiresApi
 import android.util.TypedValue
 import android.view.WindowManager
 import com.facebook.drawee.generic.GenericDraweeHierarchy
@@ -138,10 +136,10 @@ class Utilities {
         /**
          * function for setting frisco round image hierarchy
          */
-        fun getFriscoRoundImageHierarchy(mContext: Context): GenericDraweeHierarchy {
+        fun getFriscoRoundImageHierarchy(mContext: Context, mBorderWidth: Float, mBorderColor: Int): GenericDraweeHierarchy {
             val roundingParams = RoundingParams.fromCornersRadius(10f)
-            roundingParams.borderColor = mContext.resources?.getColor(R.color.colorPrimary) as Int
-            roundingParams.borderWidth = 3f
+            roundingParams.borderColor = mBorderColor
+            roundingParams.borderWidth = mBorderWidth
             roundingParams.roundAsCircle = true
             return GenericDraweeHierarchyBuilder
                     .newInstance(mContext.resources)

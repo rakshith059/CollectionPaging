@@ -3,8 +3,6 @@ package quintype.com.templatecollectionwithrx.services
 import io.reactivex.Flowable
 import quintype.com.templatecollectionwithrx.models.TagListResponse
 import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.models.story.StorySearchResult
 import quintype.com.templatecollectionwithrx.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Headers

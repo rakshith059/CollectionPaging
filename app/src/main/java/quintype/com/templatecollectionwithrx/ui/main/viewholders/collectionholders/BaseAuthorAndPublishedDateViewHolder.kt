@@ -54,7 +54,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
 
                         ivAuthorIcon?.visibility = View.VISIBLE
 
-                        ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context)
+                        ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_3F, ivAuthorIcon.context?.resources?.getColor(R.color.colorPrimary) as Int)
                         ivAuthorIcon.setImageURI(heroImageURL)
 
 //                        Glide.with(ivAuthorIcon?.context as Context)

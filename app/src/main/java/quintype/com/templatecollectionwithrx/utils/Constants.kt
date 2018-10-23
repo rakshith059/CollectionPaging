@@ -39,7 +39,7 @@ class Constants {
         //const val BASE_URL = "https://www.thequint.com"
         //const val BASE_URL = "https://madrid.quintype.io"
         const val BASE_URL = "https://ace-web.qtstage.io"
-//        const val BASE_URL = "https://www.knocksense.com/"
+        //        const val BASE_URL = "https://www.knocksense.com/"
         //const val BASE_URL = "https://www.samachara.com"
         const val COLLECTION_HOME: String = "home"
         const val PAGE_LIMIT: Int = 20
@@ -129,10 +129,14 @@ class Constants {
         const val PRIVACY_POLICY: String = "privacy-policy"
         const val ITEM_POSITION: String = "ITEM_POSITION"
         const val PHOTOS_LIST: String = "PHOTOS_LIST"
+        const val STORY_LIST: String = "STORY_LIST"
 
         @JvmField
         var INTENT_EXTRA_STORY_ELEM: String = "storyElem"
         const val DIMEN_16_TO_9: Double = 0.5625
         const val DIMEN_4_TO_3: Double = 0.75
+        val CIRCLE_IMAGE_BORDER_WIDTH_3F: Float = 3f
+        val CIRCLE_IMAGE_BORDER_WIDTH_10F: Float = 10f
+        val CIRCLE_IMAGE_BORDER_WIDTH_15F: Float = 15f
     }
 }
