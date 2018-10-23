@@ -14,7 +14,7 @@ import android.util.Log
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.tweetui.TweetUtils
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.StoryElement
 
 
 class ElementStoryTweetViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {

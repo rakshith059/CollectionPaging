@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Utilities
 

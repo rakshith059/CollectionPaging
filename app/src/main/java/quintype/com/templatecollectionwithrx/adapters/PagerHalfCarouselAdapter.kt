@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.collection.AssociatedMetadata
+import com.example.androidcore.models.collection.CollectionItem
+import com.example.androidcore.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.PagerCarouselHalfScreenViewHolder
 
 class PagerHalfCarouselAdapter(collectionAssociatedMetadata: AssociatedMetadata?, collectionList: List<CollectionItem>?, listner: View.OnClickListener) : PagerAdapter() {

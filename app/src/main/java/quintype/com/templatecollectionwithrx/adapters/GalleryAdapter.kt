@@ -13,8 +13,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.github.chrisbanes.photoview.PhotoView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.story.StoryElement
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class GalleryAdapter

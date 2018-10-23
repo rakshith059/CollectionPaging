@@ -1,7 +1,6 @@
 package quintype.com.templatecollectionwithrx.utils.widgets
 
 import android.content.Context
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 
 

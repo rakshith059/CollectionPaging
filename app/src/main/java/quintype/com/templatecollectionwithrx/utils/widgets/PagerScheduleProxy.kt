@@ -1,9 +1,8 @@
 package quintype.com.templatecollectionwithrx.utils.widgets
 
 import android.os.Handler
-import javax.xml.datatype.DatatypeConstants.SECONDS
 import android.support.v4.view.ViewPager
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.Constants
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit

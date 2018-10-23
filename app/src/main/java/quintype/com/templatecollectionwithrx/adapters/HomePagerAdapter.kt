@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.text.TextUtils
-import quintype.com.templatecollectionwithrx.models.MenuItemModel
+import com.example.androidcore.models.MenuItemModel
 import quintype.com.templatecollectionwithrx.ui.main.fragments.MainFragment
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 
 class HomePagerAdapter(fm: FragmentManager?, private val menuItemModelList: List<MenuItemModel>, private val isMenuGroupNull: Boolean) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {

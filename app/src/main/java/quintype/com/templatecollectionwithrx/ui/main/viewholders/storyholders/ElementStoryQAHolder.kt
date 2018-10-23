@@ -1,13 +1,12 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders
 
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
 import android.widget.TextView
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 

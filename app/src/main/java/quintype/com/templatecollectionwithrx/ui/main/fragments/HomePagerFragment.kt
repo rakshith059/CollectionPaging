@@ -1,15 +1,14 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home_pager.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
-import quintype.com.templatecollectionwithrx.models.MenuItemModel
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import com.example.androidcore.models.MenuItemModel
+import quintype.com.templatecollectionwithrx.ui.main.navmenu.NavMenuGroup
 
 class HomePagerFragment : BaseFragment() {
     private var navMenuGroup: NavMenuGroup? = null

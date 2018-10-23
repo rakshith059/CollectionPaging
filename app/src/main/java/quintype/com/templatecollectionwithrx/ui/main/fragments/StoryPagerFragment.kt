@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_story_pager.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.StoryPagerAdapter
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.story.Story
 
 class StoryPagerFragment : BaseFragment() {
     companion object {

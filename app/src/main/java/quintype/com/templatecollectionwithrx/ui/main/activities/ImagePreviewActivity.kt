@@ -1,18 +1,17 @@
 package quintype.com.templatecollectionwithrx.ui.main.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBar
 import android.util.Log
 import quintype.com.templatecollectionwithrx.R
 import android.view.MotionEvent
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
-import quintype.com.templatecollectionwithrx.models.StoryElementList
+import com.example.androidcore.models.story.StoryElement
+import com.example.androidcore.models.StoryElementList
 import me.relex.circleindicator.CircleIndicator
 import android.view.MenuItem
 import quintype.com.templatecollectionwithrx.adapters.GalleryAdapter
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 
 
 class ImagePreviewActivity : BaseActivity() {

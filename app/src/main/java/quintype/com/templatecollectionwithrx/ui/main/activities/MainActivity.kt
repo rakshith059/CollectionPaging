@@ -16,12 +16,11 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
-import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
+import com.example.androidcore.models.config.ConfigLayout
 import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
-import quintype.com.templatecollectionwithrx.models.NavMenu
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryDetailFragment
+import quintype.com.templatecollectionwithrx.Constants
+import com.example.androidcore.models.NavMenu
+import quintype.com.templatecollectionwithrx.ui.main.navmenu.NavMenuGroup
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*

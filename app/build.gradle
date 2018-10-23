@@ -42,16 +42,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
-    //Networking
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-
-    //Rx
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     //Paging
     implementation "android.arch.paging:runtime:1.0.1"
@@ -71,9 +61,6 @@ dependencies {
     //for Expandable RecyclerView(NavMenu)
     implementation 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
 
-    //for parsing html
-    implementation 'org.jsoup:jsoup:1.8.2'
-
     //for gallery image preview photoview
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
@@ -82,4 +69,7 @@ dependencies {
 
     //for youtube library
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    //for supporting android-core supporting library
+    implementation project(path: ':androidcore')
 }

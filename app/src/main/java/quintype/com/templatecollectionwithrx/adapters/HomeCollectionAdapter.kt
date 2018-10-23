@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.BulkTableModel
+import com.example.androidcore.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 /**

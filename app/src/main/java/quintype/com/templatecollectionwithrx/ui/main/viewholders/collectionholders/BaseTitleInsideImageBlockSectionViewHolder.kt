@@ -3,8 +3,8 @@ package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionhold
 import android.view.View
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.collection.AssociatedMetadata
+import com.example.androidcore.models.story.Story
 
 open class BaseTitleInsideImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
 

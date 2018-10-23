@@ -13,8 +13,8 @@ import android.view.WindowManager
 import kotlinx.android.synthetic.main.main_fragment.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomeCollectionAdapter
-import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.BulkTableModel
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 
 class MainFragment : BaseFragment() {

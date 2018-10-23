@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.ui.main.navmenu.NavMenuGroup
 
 open class SectionParentViewHolder(itemView: View?) : ParentViewHolder(itemView) {
 

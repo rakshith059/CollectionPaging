@@ -3,9 +3,9 @@ package quintype.com.templatecollectionwithrx.viewmodels
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
-import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.story.SlugStory
-import quintype.com.templatecollectionwithrx.services.StoryService
+import com.example.androidcore.models.BulkTableModel
+import com.example.androidcore.models.story.SlugStory
+import com.example.androidcore.services.StoryService
 
 class StoryViewModel : ViewModel() {
     val compositeDisposable = CompositeDisposable()

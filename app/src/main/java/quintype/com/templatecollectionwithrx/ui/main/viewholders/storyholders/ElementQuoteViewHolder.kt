@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.StoryElement
 
 class ElementQuoteViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     var tvTextContent: TextView? = null

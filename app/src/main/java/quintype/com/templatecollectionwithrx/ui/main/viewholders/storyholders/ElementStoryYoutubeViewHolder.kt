@@ -9,8 +9,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubeThumbnailLoader
 import com.google.android.youtube.player.YouTubeThumbnailView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.Story
+import com.example.androidcore.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.ui.main.fragments.YoutubeFragment
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Utilities

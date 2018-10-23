@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.CollectionInnerListModel
+import com.example.androidcore.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.TitleBelowImageBlockSectionViewHolder.Companion.mFragmentCallbacks
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 

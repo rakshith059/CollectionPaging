@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.BulkTableModel
+import com.example.androidcore.models.story.Story
 
 class StoryViewHolder(itemView: View?) : BaseTitleBelowImageBlockSectionViewHolder(itemView) {
     fun bind(collectionItem: BulkTableModel, listner: View.OnClickListener) {

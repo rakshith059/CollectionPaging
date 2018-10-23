@@ -14,9 +14,9 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionChildViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionParentViewHolder
-import quintype.com.templatecollectionwithrx.utils.Constants
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.models.NavMenu
+import quintype.com.templatecollectionwithrx.Constants
+import quintype.com.templatecollectionwithrx.ui.main.navmenu.NavMenuGroup
+import com.example.androidcore.models.NavMenu
 
 class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<ParentListItem>) : ExpandableRecyclerAdapter<SectionParentViewHolder, SectionChildViewHolder>(parentItemList) {
 

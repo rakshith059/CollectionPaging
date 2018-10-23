@@ -12,9 +12,9 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.PagerFullCarouselAdapter
 import quintype.com.templatecollectionwithrx.adapters.PagerFullScreenSimpleSliderCarouselAdapter
 import quintype.com.templatecollectionwithrx.adapters.PagerHalfCarouselAdapter
-import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.collection.AssociatedMetadata
+import com.example.androidcore.models.collection.CollectionItem
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.widgets.PagerScheduleProxy
 
 

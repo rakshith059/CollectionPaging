@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.utils.widgets.ExpandableLayoutCallBackInterface
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.StoryElement
 import android.graphics.drawable.Drawable
-import android.text.Html
 import quintype.com.templatecollectionwithrx.utils.widgets.ExpandableLayout
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.utils.Utilities

@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.TableElementAdapter
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.StoryElement
 import java.util.*
 import kotlin.collections.ArrayList
 import android.R.attr.data

@@ -17,9 +17,9 @@ import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.author_list_fragment.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
-import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.search.SearchStoryList
+import com.example.androidcore.models.story.Story
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
 

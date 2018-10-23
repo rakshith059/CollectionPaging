@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.StoryElementList
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.StoryElementList
+import com.example.androidcore.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.ui.main.activities.ImagePreviewActivity
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.SlideShowImageHolder
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 
 
 class ElementStorySlideShowAdapter(private val storyElements: List<StoryElement>, val mImageWidth: Int, val height: Int?) : PagerAdapter() {

@@ -9,13 +9,12 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.config.PublisherConfig
-import quintype.com.templatecollectionwithrx.services.PublisherConfigServiceApi
-import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.config.PublisherConfig
+import com.example.androidcore.services.PublisherConfigServiceApi
+import com.example.androidcore.services.RetrofitApiClient
+import quintype.com.templatecollectionwithrx.Constants
 import com.google.gson.Gson
 
-import com.twitter.sdk.android.core.TwitterAuthConfig
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 

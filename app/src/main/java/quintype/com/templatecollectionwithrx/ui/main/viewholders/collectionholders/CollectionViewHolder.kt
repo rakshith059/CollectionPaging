@@ -10,12 +10,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.InnerCollectionAdapter
-import quintype.com.templatecollectionwithrx.models.*
-import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.*
+import com.example.androidcore.models.collection.AssociatedMetadata
+import com.example.androidcore.models.collection.CollectionItem
+import com.example.androidcore.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 /**

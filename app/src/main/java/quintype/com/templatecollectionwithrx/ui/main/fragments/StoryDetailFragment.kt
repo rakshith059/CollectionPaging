@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -19,9 +18,9 @@ import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
-import quintype.com.templatecollectionwithrx.models.story.SlugStory
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.story.SlugStory
+import com.example.androidcore.models.story.Story
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel

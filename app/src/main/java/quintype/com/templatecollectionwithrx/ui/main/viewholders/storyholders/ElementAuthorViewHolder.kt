@@ -9,9 +9,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar

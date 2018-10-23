@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.ElementStorySlideShowAdapter
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
-import quintype.com.templatecollectionwithrx.models.storypresenter.ElementViewType
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.story.StoryElement
+import com.example.androidcore.models.storypresenter.ElementViewType
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 

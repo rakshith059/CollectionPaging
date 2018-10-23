@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.story.StoryElement
+import quintype.com.templatecollectionwithrx.Constants
 
 
 class ElementWebViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {

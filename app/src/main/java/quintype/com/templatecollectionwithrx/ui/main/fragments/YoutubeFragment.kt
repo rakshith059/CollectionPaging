@@ -13,9 +13,9 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.Card
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
+import com.example.androidcore.models.story.Card
+import com.example.androidcore.models.story.Story
+import com.example.androidcore.models.story.StoryElement
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 9/26/18.

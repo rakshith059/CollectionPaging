@@ -1,6 +1,5 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,18 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
-import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.main_fragment.*
-import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
-import quintype.com.templatecollectionwithrx.models.TagListResponse
-import quintype.com.templatecollectionwithrx.models.story.SlugStory
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.utils.Constants
+import com.example.androidcore.models.TagListResponse
+import com.example.androidcore.models.story.SlugStory
+import com.example.androidcore.models.story.Story
+import quintype.com.templatecollectionwithrx.Constants
 import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
 
 

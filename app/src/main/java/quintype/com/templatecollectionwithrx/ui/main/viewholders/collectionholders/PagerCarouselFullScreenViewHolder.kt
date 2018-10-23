@@ -4,8 +4,8 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.collection.AssociatedMetadata
+import com.example.androidcore.models.story.Story
 
 class PagerCarouselFullScreenViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
     var ivHeroImage: SimpleDraweeView? = null

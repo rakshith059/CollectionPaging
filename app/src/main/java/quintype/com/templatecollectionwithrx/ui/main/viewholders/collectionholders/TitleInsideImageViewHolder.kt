@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.collection.AssociatedMetadata
+import com.example.androidcore.models.story.Story
 
 class TitleInsideImageViewHolder(itemView: View?) : BaseTitleInsideImageBlockSectionViewHolder(itemView) {
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {

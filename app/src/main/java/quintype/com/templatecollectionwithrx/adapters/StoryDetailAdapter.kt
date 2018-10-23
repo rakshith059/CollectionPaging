@@ -2,10 +2,10 @@ package quintype.com.templatecollectionwithrx.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.models.story.StoryElement
-import quintype.com.templatecollectionwithrx.models.storypresenter.ElementViewType
-import quintype.com.templatecollectionwithrx.models.storypresenter.StoryPresenter
+import com.example.androidcore.models.story.Story
+import com.example.androidcore.models.story.StoryElement
+import com.example.androidcore.models.storypresenter.ElementViewType
+import com.example.androidcore.models.storypresenter.StoryPresenter
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders.*
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 

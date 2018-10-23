@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.models.story.Story
+import com.example.androidcore.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.TagListFragment
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.widgets.FlowLayout

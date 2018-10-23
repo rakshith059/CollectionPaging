@@ -2,7 +2,7 @@ package quintype.com.templatecollectionwithrx.viewmodels
 
 import android.arch.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
-import quintype.com.templatecollectionwithrx.services.StoriesListService
+import com.example.androidcore.services.StoriesListService
 
 class StoriesListViewModel : ViewModel() {
     var mCompositeDisposable = CompositeDisposable()
