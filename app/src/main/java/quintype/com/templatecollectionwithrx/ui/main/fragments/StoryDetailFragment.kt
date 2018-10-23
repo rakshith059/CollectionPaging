@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_story_detail.*
@@ -22,8 +21,6 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.StoryDetailAdapter
 import quintype.com.templatecollectionwithrx.models.story.SlugStory
 import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
-import quintype.com.templatecollectionwithrx.services.StoryServiceApi
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
@@ -36,8 +33,6 @@ import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
 class StoryDetailFragment : BaseFragment() {
 
     private var storyViewModel: StoryViewModel? = null
-    val compositeDisposable = CompositeDisposable()
-    private var storyServiceApi: StoryServiceApi = RetrofitApiClient.getRetrofitApiClient().create(StoryServiceApi::class.java)
 
     companion object {
         var mStory = Story()
@@ -120,9 +115,12 @@ class StoryDetailFragment : BaseFragment() {
 //            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
 
         val heroImageURL = Utilities.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory.heroImageS3Key
-        Glide.with(activity?.applicationContext as Context)
-                .load(heroImageURL)
-                .into(fragment_story_detail_iv_hero_image)
+        fragment_story_detail_iv_hero_image.setImageURI(heroImageURL)
+
+
+//        Glide.with(activity?.applicationContext as Context)
+//                .load(heroImageURL)
+//                .into(fragment_story_detail_iv_hero_image)
 
 //            fragment_story_detail_tv_title?.text = mStory?.headline
 

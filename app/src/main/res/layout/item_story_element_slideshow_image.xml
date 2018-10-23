@@ -4,11 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/item_story_element_slideshow_image_iv_hero_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:fadeDuration="300"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:progressBarImage="@drawable/ic_full_star_review"
+        app:progressBarImageScaleType="centerInside"
+        app:roundBottomLeft="false"
+        app:roundBottomRight="false"
+        app:roundTopLeft="false"
+        app:roundTopRight="false" />
 
     <View
         android:id="@+id/view"

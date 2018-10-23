@@ -1,6 +1,5 @@
 package quintype.com.templatecollectionwithrx.utils
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -21,6 +20,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import quintype.com.templatecollectionwithrx.models.sections.SectionMeta
 import java.lang.reflect.Type
+import com.facebook.drawee.generic.GenericDraweeHierarchy
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
+import com.facebook.drawee.generic.RoundingParams
+import quintype.com.templatecollectionwithrx.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,9 +36,12 @@ class Utilities {
         /**
          * Parsing html text and converting the same to string and trimming the extra space
          */
-        @TargetApi(Build.VERSION_CODES.N)
         fun parseHtml(mSource: String): String? {
-            return Html.fromHtml(mSource, Html.FROM_HTML_MODE_LEGACY).toString().trim()
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(mSource, Html.FROM_HTML_MODE_LEGACY).toString().trim()
+            } else {
+                Html.fromHtml(mSource).toString().trim()
+            }
         }
 
         fun createLayoutParams(view: View, width: Int, height: Int): ViewGroup.LayoutParams {
@@ -148,6 +154,21 @@ class Utilities {
                 }
             }
             return collectionSlug
+        }
+
+        /**
+         * function for setting frisco round image hierarchy
+         */
+        fun getFriscoRoundImageHierarchy(mContext: Context, mBorderWidth: Float, mBorderColor: Int): GenericDraweeHierarchy {
+            val roundingParams = RoundingParams.fromCornersRadius(10f)
+            roundingParams.borderColor = mBorderColor
+            roundingParams.borderWidth = mBorderWidth
+            roundingParams.roundAsCircle = true
+            return GenericDraweeHierarchyBuilder
+                    .newInstance(mContext.resources)
+                    .setRoundingParams(roundingParams)
+                    .setFailureImage(mContext.resources?.getDrawable(R.drawable.scrim))
+                    .build()
         }
     }
 }

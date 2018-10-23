@@ -80,7 +80,7 @@ open class SectionParentViewHolder(itemView: View?) : ParentViewHolder(itemView)
     fun bind(menuItem: NavMenuGroup) {
         if (mSectionName != null) {
             //set the name of the menu item in the drawer
-            mSectionName!!.text = menuItem.getName(mSectionName!!.context)
+            mSectionName?.text = menuItem.getName(mSectionName?.context)
             //if a section doesn't have subsections, don't show the expand button
             if (menuItem.childItemList.size == 0) {
                 mExpandBtn?.setVisibility(View.GONE)

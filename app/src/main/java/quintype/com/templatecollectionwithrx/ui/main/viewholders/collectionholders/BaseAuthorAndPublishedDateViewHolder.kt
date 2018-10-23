@@ -5,8 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import de.hdodenhof.circleimageview.CircleImageView
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
@@ -25,7 +24,7 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
         val view = this.itemView.rootView
 
         val clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
-        val ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
+        val ivAuthorIcon = view?.findViewById<SimpleDraweeView>(R.id.author_image_row_iv_author_icon)
         val tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
         val tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
         val rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
@@ -52,10 +51,15 @@ open class BaseAuthorAndPublishedDateViewHolder(itemView: View?) : RecyclerView.
 
                     val heroImageURL = collectionItem.authors?.first()?.avatarUrl
                     if (heroImageURL != null) {
+
                         ivAuthorIcon?.visibility = View.VISIBLE
-                        Glide.with(ivAuthorIcon?.context as Context)
-                                .load(heroImageURL)
-                                .into(ivAuthorIcon)
+
+                        ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_3F, ivAuthorIcon.context?.resources?.getColor(R.color.colorPrimary) as Int)
+                        ivAuthorIcon.setImageURI(heroImageURL)
+
+//                        Glide.with(ivAuthorIcon?.context as Context)
+//                                .load(heroImageURL)
+//                                .into(ivAuthorIcon)
                     }
                 }
             }

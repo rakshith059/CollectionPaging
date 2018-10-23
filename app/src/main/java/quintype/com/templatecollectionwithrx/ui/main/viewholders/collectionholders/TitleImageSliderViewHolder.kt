@@ -97,13 +97,13 @@ class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(item
         fun create(parent: ViewGroup): TitleImageSliderViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
 
-            mSlideShowPager = view.findViewById<ViewPager>(R.id.title_inside_image_slider_vp_pager)
-            slideshowContainer = view.findViewById<ConstraintLayout>(R.id.title_inside_image_slider_cl_slideshow_container)
+            mSlideShowPager = view.findViewById(R.id.title_inside_image_slider_vp_pager)
+            slideshowContainer = view.findViewById(R.id.title_inside_image_slider_cl_slideshow_container)
             mImageWidth = view.width
-            circleIndicator = view.findViewById<CircleIndicator>(R.id.title_inside_image_slider_circle_indicator)
+            circleIndicator = view.findViewById(R.id.title_inside_image_slider_circle_indicator)
 
-            ivLeftArrow = view?.findViewById<ImageView>(R.id.pager_carousel_title_row_iv_left_arrow)
-            ivRightArrow = view?.findViewById<ImageView>(R.id.pager_carousel_title_row_iv_right_arrow)
+            ivLeftArrow = view?.findViewById(R.id.pager_carousel_title_row_iv_left_arrow)
+            ivRightArrow = view?.findViewById(R.id.pager_carousel_title_row_iv_right_arrow)
 
             attachStateChangeListener = object : View.OnAttachStateChangeListener {
                 override fun onViewAttachedToWindow(v: View) {

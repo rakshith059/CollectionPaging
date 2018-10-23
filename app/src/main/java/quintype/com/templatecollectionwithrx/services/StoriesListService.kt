@@ -31,24 +31,28 @@ class StoriesListService {
         }
     }
 
-    fun getStoriesListResponse(searchTerm: String, pageNumber: Int): LiveData<Story> {
-        mCompositeDisposable?.add(storiesListApiService.getTagStoriesList(searchTerm, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
-                    override fun onComplete() {
-                        Log.d("Rakshith", " tag list api call completed..")
-                    }
+    fun getStoriesListResponse(searchTerm: String, pageNumber: Int) = storiesListApiService.getTagStoriesList(searchTerm, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
 
-                    override fun onNext(tagListResponse: TagListResponse?) {
-                        for (index in 0 until tagListResponse?.stories?.size as Int)
-                            mStoriesListData.value = tagListResponse.stories?.get(index)
-                    }
+    fun getSearchStoryListResponse(searchTerm: String, pageNumber: Int) = storiesListApiService.getSearchStoriesList(searchTerm, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
 
-                    override fun onError(t: Throwable?) {
-                        Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
-                    }
-                }))
-        return mStoriesListData
-    }
+//    fun getStoriesListResponse(searchTerm: String, pageNumber: Int): LiveData<Story> {
+//        mCompositeDisposable?.add(storiesListApiService.getTagStoriesList(searchTerm, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
+//                    override fun onComplete() {
+//                        Log.d("Rakshith", " tag list api call completed..")
+//                    }
+//
+//                    override fun onNext(tagListResponse: TagListResponse?) {
+//                        for (index in 0 until tagListResponse?.stories?.size as Int)
+//                            mStoriesListData.value = tagListResponse.stories?.get(index)
+//                    }
+//
+//                    override fun onError(t: Throwable?) {
+//                        Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
+//                    }
+//                }))
+//        return mStoriesListData
+//    }
 }

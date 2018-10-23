@@ -1,17 +1,14 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.StoryElement
 import quintype.com.templatecollectionwithrx.utils.Constants
@@ -30,7 +27,7 @@ class ElementImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
 
     fun bind(element: StoryElement) {
         val tvImageCaption = itemView?.findViewById<TextView>(R.id.story_image_element_holder_tv_image_caption)
-        val ivImage = itemView?.findViewById<ImageView>(R.id.story_image_element_holder_iv_image)
+        val ivImage = itemView?.findViewById<SimpleDraweeView>(R.id.story_image_element_holder_iv_image)
 
         val title = element.title()
         if (!TextUtils.isEmpty(title)) {
@@ -58,9 +55,11 @@ class ElementImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView
                 val cdnHostName = Utilities.getSharedPreferences(ivImage.context, Constants.SP_CDN_IMAGE_NAME)
                 val heroImageURL = cdnHostName + element.imageS3Key()
 
-                Glide.with(ivImage.context as Context)
-                        .load(heroImageURL)
-                        .into(ivImage)
+                ivImage.setImageURI(heroImageURL)
+
+//                Glide.with(ivImage.context as Context)
+//                        .load(heroImageURL)
+//                        .into(ivImage)
 
 //                imageLoader
 //                        .width(imageView.getMeasuredWidth())

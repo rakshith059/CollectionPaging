@@ -7,19 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import de.hdodenhof.circleimageview.CircleImageView
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.story.Story
+import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
+import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar
 
+
 class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    var mFragmentCallbacks: FragmentCallbacks? = null
 
     companion object {
-        fun create(parent: ViewGroup): ElementAuthorViewHolder {
+        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): ElementAuthorViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.story_element_author_view_holder, parent, false)
             val elementAuthorViewHolder = ElementAuthorViewHolder(view)
+            elementAuthorViewHolder.mFragmentCallbacks = mFragmentCallbacks
             return elementAuthorViewHolder
         }
     }
@@ -28,7 +33,7 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
         val view = this.itemView.rootView
 
         val clMainContainer = view?.findViewById<LinearLayout>(R.id.author_image_row_main_container)
-        val ivAuthorIcon = view?.findViewById<CircleImageView>(R.id.author_image_row_iv_author_icon)
+        val ivAuthorIcon = view?.findViewById<SimpleDraweeView>(R.id.author_image_row_iv_author_icon)
         val tvAuthorName = view?.findViewById<TextView>(R.id.author_image_row_tv_author_name)
         val tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
         val rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.story_element_author_view_holder_item_rating_bar)
@@ -51,9 +56,22 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
             val heroImageURL = mStory.authors?.first()?.avatarUrl
             if (heroImageURL != null) {
                 ivAuthorIcon?.visibility = View.VISIBLE
-                Glide.with(ivAuthorIcon?.context as Context)
-                        .load(heroImageURL)
-                        .into(ivAuthorIcon)
+
+                ivAuthorIcon?.hierarchy = Utilities.getFriscoRoundImageHierarchy(ivAuthorIcon?.context as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_3F, ivAuthorIcon.context?.resources?.getColor(R.color.colorPrimary) as Int)
+                ivAuthorIcon.setImageURI(heroImageURL)
+
+//                Glide.with(ivAuthorIcon?.context as Context)
+//                        .load(heroImageURL)
+//                        .into(ivAuthorIcon)
+            }
+
+            tvAuthorName?.setOnClickListener {
+                mFragmentCallbacks?.addFragment(AuthorListFragment.newInstance(authorName, heroImageURL),
+                        AuthorListFragment::class.java.name + " : " + authorName)
+            }
+            ivAuthorIcon?.setOnClickListener {
+                mFragmentCallbacks?.addFragment(AuthorListFragment.newInstance(authorName, heroImageURL),
+                        AuthorListFragment::class.java.name + " : " + authorName)
             }
         }
         val publishedDate = mStory.publishedAt.toString()

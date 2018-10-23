@@ -1,17 +1,13 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
-import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.bumptech.glide.Glide
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 
@@ -19,7 +15,7 @@ class TitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowIma
 
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         super.bind(collectionItem, collectionAssociatedMetadata, listner)
-        var ivHeroImage = itemView?.findViewById<ImageView>(R.id.title_below_image_block_section_header_row_iv_hero_icon)
+        var ivHeroImage = itemView?.findViewById<SimpleDraweeView>(R.id.title_below_image_block_section_header_row_iv_hero_icon)
 
         var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_below_image_block_section_header_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
@@ -27,9 +23,11 @@ class TitleBelowImageBlockSectionViewHolder(itemView: View?) : BaseTitleBelowIma
 
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
-        Glide.with(ivHeroImage?.context as Context)
-                .load(heroImageURL)
-                .into(ivHeroImage)
+        ivHeroImage?.setImageURI(heroImageURL)
+
+//        Glide.with(ivHeroImage?.context as Context)
+//                .load(heroImageURL)
+//                .into(ivHeroImage)
 
 //        ivHeroImage.setOnClickListener(View.OnClickListener {
 //            var intent = Intent(ivHeroImage.context, WebActivity::class.java)

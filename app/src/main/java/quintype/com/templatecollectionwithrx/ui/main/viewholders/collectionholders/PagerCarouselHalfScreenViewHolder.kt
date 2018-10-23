@@ -1,12 +1,10 @@
 package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders
 
-import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.text.TextUtils
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
@@ -17,7 +15,7 @@ class PagerCarouselHalfScreenViewHolder(itemView: View?) : BaseTitleBelowImageBl
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         super.bind(collectionItem, collectionAssociatedMetadata, listner)
 
-        var ivHeroImage = itemView?.findViewById<ImageView>(R.id.pager_carousel_half_slider_row_iv_hero_icon)
+        var ivHeroImage = itemView?.findViewById<SimpleDraweeView>(R.id.pager_carousel_half_slider_row_iv_hero_icon)
         var tvTitle = itemView?.findViewById<TextView>(R.id.section_block_title_author_row_tv_title)
         tvTitle?.maxLines = 2
         tvTitle?.minLines = 2
@@ -29,9 +27,11 @@ class PagerCarouselHalfScreenViewHolder(itemView: View?) : BaseTitleBelowImageBl
 
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
-        Glide.with(itemView?.context as Context)
-                .load(heroImageURL)
-                .into(ivHeroImage as ImageView)
+        ivHeroImage?.setImageURI(heroImageURL)
+
+//        Glide.with(itemView?.context as Context)
+//                .load(heroImageURL)
+//                .into(ivHeroImage as ImageView)
 
         var rbCustomRatingBar = itemView?.findViewById<CustomRatingBar>(R.id.section_block_title_author_row_item_rating_bar)
 

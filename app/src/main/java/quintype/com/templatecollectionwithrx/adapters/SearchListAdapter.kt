@@ -42,7 +42,7 @@ class SearchListAdapter(var mStoriesList: ArrayList<Story>, val mFragmentCallbac
 
         when (v.id) {
             R.id.left_image_child_row_cv_main_container ->
-                mFragmentCallbacks?.replaceFragment(StoryPagerFragment.newInstance(mStoriesList, itemPosition), TAG)
+                mFragmentCallbacks?.addFragment(StoryPagerFragment.newInstance(mStoriesList, itemPosition), TAG)
         }
     }
 

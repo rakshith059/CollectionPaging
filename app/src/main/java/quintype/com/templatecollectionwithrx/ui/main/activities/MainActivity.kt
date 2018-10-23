@@ -1,12 +1,14 @@
 package quintype.com.templatecollectionwithrx.ui.main.activities
 
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
@@ -19,10 +21,13 @@ import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryDetailFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
-class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener {
+open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener, FragmentManager.OnBackStackChangedListener {
+
     val TAG = MainActivity::class.java.simpleName
     private var mDrawerLayout: DrawerLayout? = null
     private var navMenuRecyclerview: RecyclerView? = null
@@ -156,5 +161,17 @@ class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedL
             }
         }
         mDrawerLayout?.closeDrawer(GravityCompat.START)
+    }
+
+    /**
+     * getting back stack changed, Checking for fragment instance and hidding the toolbar in specific fragments
+     */
+    override fun onBackStackChanged() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.home_container)
+
+        if (fragment is StoryPagerFragment)
+            toolBar?.visibility = View.GONE
+        else
+            toolBar?.visibility = View.VISIBLE
     }
 }

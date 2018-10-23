@@ -48,7 +48,7 @@ class StoryDetailAdapter(story: Story?, fragmentCallbacks: FragmentCallbacks?) :
             ElementViewType.YOUTUBE -> return ElementStoryYoutubeViewHolder.create(parent, mStory, mFragmentCallbacks)
             ElementViewType.SOUND_CLOUD -> return ElementStorySoundCloudViewHolder.create(parent)
 
-            ElementViewType.STORY_HERO_AUTHOR -> return ElementAuthorViewHolder.create(parent)
+            ElementViewType.STORY_HERO_AUTHOR -> return ElementAuthorViewHolder.create(parent, mFragmentCallbacks)
             ElementViewType.STORY_TAG -> return ElementTagViewHolder.create(parent, mFragmentCallbacks)
         }
         return ElementTextViewHolder.create(parent, mFragmentCallbacks)

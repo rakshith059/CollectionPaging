@@ -23,11 +23,11 @@
         android:paddingTop="@dimen/size_10dp"
         android:paddingRight="@dimen/size_6dp"
         android:paddingBottom="@dimen/size_10dp"
-        app:srcCompat="@drawable/ic_left_arrow"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/title_inside_image_slider_circle_indicator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title_inside_image_slider_vp_pager" />
+        app:layout_constraintTop_toTopOf="@+id/title_inside_image_slider_vp_pager"
+        app:srcCompat="@drawable/ic_left_arrow" />
 
     <ImageView
         android:id="@+id/pager_carousel_title_row_iv_right_arrow"
@@ -39,11 +39,11 @@
         android:paddingTop="@dimen/size_10dp"
         android:paddingRight="@dimen/size_6dp"
         android:paddingBottom="@dimen/size_10dp"
-        app:srcCompat="@drawable/ic_right_arrow"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/title_inside_image_slider_circle_indicator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_right_arrow" />
 
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/title_inside_image_slider_circle_indicator"

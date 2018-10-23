@@ -17,18 +17,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/title_inside_image_grid_row_iv_hero_icon"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_150dp"
-                android:background="@color/colorPrimary"
-                android:scaleType="fitXY" />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:fadeDuration="300"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:progressBarImage="@drawable/ic_full_star_review"
+                app:progressBarImageScaleType="centerInside"
+                app:roundBottomLeft="false"
+                app:roundBottomRight="false"
+                app:roundTopLeft="true"
+                app:roundTopRight="true" />
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_150dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/pager_carousel_background_gradient"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
