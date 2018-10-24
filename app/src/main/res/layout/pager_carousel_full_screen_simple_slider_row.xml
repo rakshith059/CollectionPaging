@@ -25,7 +25,7 @@
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:progressBarImage="@drawable/ic_full_star_review"
+                app:progressBarImage="@drawable/ic_loader"
                 app:progressBarImageScaleType="centerInside" />
 
             <View

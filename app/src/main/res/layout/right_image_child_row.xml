@@ -26,7 +26,7 @@
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             app:fadeDuration="300"
-            app:progressBarImage="@drawable/ic_full_star_review"
+            app:progressBarImage="@drawable/ic_loader"
             app:progressBarImageScaleType="centerInside"
             app:roundBottomLeft="false"
             app:roundBottomRight="true"

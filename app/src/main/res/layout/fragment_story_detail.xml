@@ -63,7 +63,7 @@
                     android:visibility="visible"
                     app:layout_collapseMode="none"
                     app:layout_constraintDimensionRatio="4:3"
-                    app:progressBarImage="@drawable/ic_full_star_review"
+                    app:progressBarImage="@drawable/ic_loader"
                     app:progressBarImageScaleType="centerInside"
                     app:srcCompat="@drawable/ic_launcher_background" />
 

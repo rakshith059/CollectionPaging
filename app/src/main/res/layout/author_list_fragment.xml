@@ -59,14 +59,14 @@
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/fragment_author_list_iv_hero_image"
-                    android:layout_width="@dimen/size_200dp"
-                    android:layout_height="@dimen/size_200dp"
+                    android:layout_width="@dimen/size_150dp"
+                    android:layout_height="@dimen/size_150dp"
                     android:layout_margin="@dimen/size_8dp"
                     android:scaleType="centerCrop"
                     android:visibility="visible"
                     app:layout_collapseMode="parallax"
                     app:layout_constraintDimensionRatio="4:4"
-                    app:progressBarImage="@drawable/ic_full_star_review"
+                    app:progressBarImage="@drawable/ic_loader"
                     app:progressBarImageScaleType="centerInside"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
