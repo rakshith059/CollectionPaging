@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
@@ -21,18 +22,26 @@ import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryDetailFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.SearchFragment
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
-open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener, FragmentManager.OnBackStackChangedListener {
+open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSelectedListener, FragmentManager.OnBackStackChangedListener, View.OnClickListener {
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.search_icon -> {
+                addFragment(SearchFragment.newInstance(), "SearchScreen")
+            }
+        }
+    }
 
     val TAG = MainActivity::class.java.simpleName
     private var mDrawerLayout: DrawerLayout? = null
     private var navMenuRecyclerview: RecyclerView? = null
     private var drawerAdapter: DrawerSectionsAdapter? = null
     private var toolBar: Toolbar? = null
+    private var ivSearchIcon: ImageView? = null
     private var currentSection: NavMenu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +50,7 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
         mDrawerLayout = findViewById(R.id.drawer_layout)
         navMenuRecyclerview = findViewById(R.id.nav_menu_recyclerview)
         toolBar = findViewById(R.id.toolbar)
+        ivSearchIcon = findViewById(R.id.search_icon)
 
         setSupportActionBar(toolBar)
 
@@ -53,6 +63,7 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
         setupHomeScreen()
         setUpNavDrawer()
 
+        ivSearchIcon?.setOnClickListener(this)
     }
 
     private fun setUpNavDrawer() {
