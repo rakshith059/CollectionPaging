@@ -41,5 +41,9 @@
     <string name="no_of_stories">Stories count : </string>
     <string name="story_by">Story by</string>
     <string name="stories_by">Stories by</string>
+    <string name="recent_search">Recent search</string>
+    <string name="no_recent_search">Your search history is empty!!</string>
+    <string name="speech_not_supported">Your device dont support speech</string>
+    <string name="empty_search_term">Search something!!</string>
 
 </resources>

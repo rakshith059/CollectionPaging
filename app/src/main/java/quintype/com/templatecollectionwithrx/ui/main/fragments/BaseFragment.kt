@@ -7,6 +7,11 @@ import android.app.Activity
 import android.annotation.TargetApi
 import android.content.Context
 import android.support.v4.app.Fragment
+import android.view.KeyEvent
+import android.widget.Toast
+import android.view.KeyEvent.KEYCODE_BACK
+import android.view.View
+
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 9/5/18.
@@ -85,5 +90,12 @@ open class BaseFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         //Constants.freeMemory();
+    }
+
+    /**
+     * This method is used to pop recently added fragment from stack
+     */
+    fun OnBackPressed() {
+        fragmentManager?.popBackStackImmediate()
     }
 }
