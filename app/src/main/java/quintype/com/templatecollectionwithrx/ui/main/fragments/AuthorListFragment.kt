@@ -1,5 +1,6 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
@@ -15,14 +16,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.author_list_fragment.*
-import kotlinx.android.synthetic.main.fragment_story_detail.*
+import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
+import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
+import com.google.android.youtube.player.internal.i
+import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 
 
 /**
@@ -79,83 +83,132 @@ class AuthorListFragment : BaseFragment() {
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         searchListViewModel = ViewModelProviders.of(this).get(SearchListViewModel::class.java)
         if (!TextUtils.isEmpty(mAuthorName)) {
-//            storiesListViewModel.getStoriesListResponse(mTagName as String, 0)
-            observeViewModel(searchListViewModel, mAuthorName as String, 0)
+            author_list_swipeContainer.setOnRefreshListener {
+                observeViewModel(searchListViewModel, mAuthorName as String, 0, true)
+            }
+            observeViewModel(searchListViewModel, mAuthorName as String, 0, false)
 
-            fragment_author_list_rv_recycler_view?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
 
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
+            /*  fragment_author_list_rv_recycler_view?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                  override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                      super.onScrollStateChanged(recyclerView, newState)
+                  }
 
-                    val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
+                  override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                      super.onScrolled(recyclerView, dx, dy)
 
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                      val visibleItemCount = layoutManager.childCount
+                      val totalItemCount = layoutManager.itemCount
 
-                    if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
-                            && totalItemCount >= Constants.PAGE_LIMIT) {
-                        val currentPage = totalItemCount / Constants.PAGE_LIMIT
+                      val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                        if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
-                            Log.d("Rakshith", "current page is ===  $currentPage")
-//                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
-                            observeViewModel(searchListViewModel, mAuthorName as String, currentPage)
-                        }
-                    }
-                }
-            })
+                      if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
+                              && totalItemCount >= Constants.PAGE_LIMIT) {
+                          val currentPage = totalItemCount / Constants.PAGE_LIMIT
+
+                          if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
+                              Log.d("Rakshith", "current page is ===  $currentPage")
+  //                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
+                              observeViewModel(searchListViewModel, mAuthorName as String, currentPage, false)
+                          }
+                      }
+                  }
+              })*/
         }
     }
 
-    private fun observeViewModel(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int) {
-        viewModel?.getSearchListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : ResourceSubscriber<SearchStoryList>() {
-                    override fun onComplete() {
-                        Log.d("Rakshith", " tag list api call completed..")
-                        fragment_author_list_pb_progress.visibility = View.GONE
-                        if (searchListAdapter == null) {
-                            searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                            fragment_author_list_rv_recycler_view?.adapter = searchListAdapter
-                        } else {
-                            searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+    private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
+        return object : EndlessRecyclerOnScrollListener() {
+            override fun onLoadMore(currentPage: Int) {
+                observeViewModel(searchListViewModel, mAuthorName as String, currentPage, false)
+
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun observeViewModel(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean) {
+        if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
+            viewModel?.getSearchListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(object : ResourceSubscriber<SearchStoryList>() {
+                        override fun onComplete() {
+                            Log.d("Rakshith", " tag list api call completed..")
+                            author_list_progress_bar.visibility = View.GONE
+
+                            if (mStoriesList?.size!! > 0) {
+                                if (searchListAdapter == null) {
+                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                    fragment_author_list_rv_recycler_view?.adapter = searchListAdapter
+                                    fragment_author_list_rv_recycler_view.addOnScrollListener(getEndlessScrollListener())
+                                } else {
+                                    searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                                }
+                            } else {
+                                showNoDataMessage()
+                            }
                         }
-                    }
 
-                    override fun onNext(storiesSearchListResponse: SearchStoryList?) {
-                        val storiesByAuthor = storiesSearchListResponse?.getResults()?.total as Int
-                        var storiesByAuthorString: String? = null
-                        if (storiesByAuthor == 1)
-                            storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.story_by)} $mAuthorName"
-                        else if (storiesByAuthor > 1)
-                            storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.stories_by)} $mAuthorName"
-                        author_list_fragment_tv_total_stories?.text = storiesByAuthorString
+                        override fun onNext(storiesSearchListResponse: SearchStoryList?) {
+                            hideRetryLayout()
+
+                            if (refreshList) {
+                                author_list_swipeContainer.setRefreshing(false)
+                                mStoriesList?.clear()
+                                searchListAdapter = null
+                            }
+                            val storiesByAuthor = storiesSearchListResponse?.getResults()?.total as Int
+                            var storiesByAuthorString: String? = null
+                            if (storiesByAuthor == 1)
+                                storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.story_by)} $mAuthorName"
+                            else if (storiesByAuthor > 1)
+                                storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.stories_by)} $mAuthorName"
+                            author_list_fragment_tv_total_stories?.text = storiesByAuthorString
 
 
-                        for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
-                            mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
-                    }
+                            for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
+                                mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
 
-                    override fun onError(t: Throwable?) {
-                        fragment_author_list_pb_progress.visibility = View.GONE
-                        Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
-                    }
-                })
+                        }
 
-//        viewModel.getStoriesListObservable()?.observe(this, Observer<Story>() {
-//            mStoriesList?.add(it as Story)
-//
-//            if (searchListAdapter == null) {
-//                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-//                main_fragment_rv_collection_list?.adapter = searchListAdapter
-//            } else {
-//                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
-//            }
-//        })
+                        override fun onError(t: Throwable?) {
+                            author_list_progress_bar.visibility = View.GONE
+
+                            showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.oops))
+                            Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
+                        }
+                    })
+        } else {
+            /*Not connected to Network, show retry layout and hide the rest*/
+            showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.no_internet))
+        }
+
+    }
+
+    private fun showRetryLayout(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, errorMessage: CharSequence?) {
+        author_list_progress_bar.visibility = View.GONE
+        author_list_swipeContainer.visibility = View.GONE
+
+        retry_container.visibility = View.VISIBLE
+        error_message.text = errorMessage
+        retry_button.setOnClickListener { v ->
+            observeViewModel(viewModel, searchTerm, mPageNumber, refreshList)
+        }
+    }
+
+    private fun hideRetryLayout() {
+        retry_container.visibility = View.GONE
+        author_list_progress_bar.visibility = View.VISIBLE
+        author_list_swipeContainer.visibility = View.VISIBLE
+    }
+
+    private fun showNoDataMessage() {
+        author_list_progress_bar.visibility = View.GONE
+        author_list_swipeContainer.visibility = View.GONE
+        retry_container.visibility = View.GONE
+
+        author_list_empty_text_view.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

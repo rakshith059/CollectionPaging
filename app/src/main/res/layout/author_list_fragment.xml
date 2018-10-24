@@ -6,13 +6,13 @@
     android:background="@color/white">
 
     <FrameLayout
-        android:id="@+id/fragment_author_list_fl_main_container"
+        android:id="@+id/author_list_main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/fragment_story_detail_swipe_refresh_layout"
+            android:id="@+id/author_list_swipeContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -24,10 +24,22 @@
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <!--<include layout="@layout/retry_layout" />-->
+        <TextView
+            android:id="@+id/author_list_empty_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/size_10dp"
+            android:gravity="center"
+            android:text="@string/no_stories_found"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/aluminum"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <include layout="@layout/retry_layout" />
 
         <ProgressBar
-            android:id="@+id/fragment_author_list_pb_progress"
+            android:id="@+id/author_list_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

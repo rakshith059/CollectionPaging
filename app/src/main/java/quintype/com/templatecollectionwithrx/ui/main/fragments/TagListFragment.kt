@@ -2,6 +2,7 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -60,7 +61,7 @@ class TagListFragment : BaseFragment() {
         mStoriesList = ArrayList<Story>()
 
         val layoutManager = LinearLayoutManager(activity)
-        fragment_tag_recycler_view.layoutManager = layoutManager
+        tag_list_recycler_view.layoutManager = layoutManager
 
         mTagName = arguments?.getString(TAG_NAME)
 
@@ -115,7 +116,7 @@ class TagListFragment : BaseFragment() {
 
                             if (searchListAdapter == null) {
                                 searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                                fragment_tag_recycler_view?.adapter = searchListAdapter
+                                tag_list_recycler_view?.adapter = searchListAdapter
                             } else {
                                 searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
                             }
@@ -128,8 +129,15 @@ class TagListFragment : BaseFragment() {
                                 tag_list_swipeContainer.setRefreshing(false)
                                 mStoriesList?.clear()
                             }
-                            for (index in 0 until tagListResponse?.stories?.size as Int)
-                                mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
+
+                            if (tagListResponse?.stories?.size!! > 0) {
+                                tag_list_empty_text_view.visibility = View.GONE
+                                for (index in 0 until tagListResponse?.stories?.size as Int)
+                                    mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
+                            } else {
+                                /*No Stories to show*/
+                                showNoDataMessage()
+                            }
                         }
 
                         override fun onError(t: Throwable?) {
@@ -162,6 +170,14 @@ class TagListFragment : BaseFragment() {
         retry_container.visibility = View.GONE
         tag_list_progress_bar.visibility = View.VISIBLE
         tag_list_swipeContainer.visibility = View.VISIBLE
+    }
+
+    private fun showNoDataMessage() {
+        tag_list_progress_bar.visibility = View.GONE
+        tag_list_swipeContainer.visibility = View.GONE
+        retry_container.visibility = View.GONE
+
+        tag_list_empty_text_view.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

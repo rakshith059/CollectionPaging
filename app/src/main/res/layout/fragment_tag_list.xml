@@ -17,12 +17,24 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_tag_recycler_view"
+            android:id="@+id/tag_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/retry_layout" />
+
+    <TextView
+        android:id="@+id/tag_list_empty_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/size_10dp"
+        android:gravity="center"
+        android:text="@string/no_stories_found"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/aluminum"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </FrameLayout>
