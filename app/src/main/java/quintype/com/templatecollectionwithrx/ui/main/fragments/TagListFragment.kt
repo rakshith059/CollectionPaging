@@ -15,7 +15,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
+import kotlinx.android.synthetic.main.author_list_fragment.*
 import kotlinx.android.synthetic.main.fragment_story_detail.*
+import kotlinx.android.synthetic.main.fragment_tag_list.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
@@ -52,7 +54,7 @@ class TagListFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_tag_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,7 +63,7 @@ class TagListFragment : BaseFragment() {
         mStoriesList = ArrayList<Story>()
 
         val layoutManager = LinearLayoutManager(getActivity())
-        main_fragment_rv_collection_list.layoutManager = layoutManager
+        fragment_tag_recycler_view.layoutManager = layoutManager
 
         mTagName = arguments?.getString(TAG_NAME)
 
@@ -106,10 +108,10 @@ class TagListFragment : BaseFragment() {
                 .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
                     override fun onComplete() {
                         Log.d("Rakshith", " tag list api call completed..")
-
+                        pb_tag_fragment.visibility = View.GONE
                         if (searchListAdapter == null) {
                             searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                            main_fragment_rv_collection_list?.adapter = searchListAdapter
+                            fragment_tag_recycler_view?.adapter = searchListAdapter
                         } else {
                             searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
                         }
@@ -121,6 +123,7 @@ class TagListFragment : BaseFragment() {
                     }
 
                     override fun onError(t: Throwable?) {
+                        pb_tag_fragment.visibility = View.GONE
                         Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
                     }
                 })
