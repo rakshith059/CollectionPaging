@@ -1,6 +1,6 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
-import android.arch.lifecycle.Observer
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,20 +12,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
-import kotlinx.android.synthetic.main.author_list_fragment.*
-import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.fragment_tag_list.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.TagListResponse
-import quintype.com.templatecollectionwithrx.models.story.SlugStory
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
 
 
@@ -62,17 +59,21 @@ class TagListFragment : BaseFragment() {
 
         mStoriesList = ArrayList<Story>()
 
-        val layoutManager = LinearLayoutManager(getActivity())
+        val layoutManager = LinearLayoutManager(activity)
         fragment_tag_recycler_view.layoutManager = layoutManager
 
         mTagName = arguments?.getString(TAG_NAME)
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         storiesListViewModel = ViewModelProviders.of(this).get(StoriesListViewModel::class.java)
-        if (!TextUtils.isEmpty(mTagName)) {
-//            storiesListViewModel.getStoriesListResponse(mTagName as String, 0)
-            observeViewModel(storiesListViewModel, mTagName as String, 0)
 
+
+        if (!TextUtils.isEmpty(mTagName)) {
+            tag_list_swipeContainer.setOnRefreshListener {
+                observeViewModel(storiesListViewModel, mTagName as String, 0, true)
+            }
+
+            observeViewModel(storiesListViewModel, mTagName as String, 0, false)
             main_fragment_rv_collection_list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -93,7 +94,7 @@ class TagListFragment : BaseFragment() {
                         if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
                             Log.d("Rakshith", "current page is ===  $currentPage")
 //                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
-                            observeViewModel(storiesListViewModel, mTagName as String, currentPage)
+                            observeViewModel(storiesListViewModel, mTagName as String, currentPage, false)
                         }
                     }
                 }
@@ -101,43 +102,66 @@ class TagListFragment : BaseFragment() {
         }
     }
 
-    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int) {
-        viewModel?.getStoriesListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
-                    override fun onComplete() {
-                        Log.d("Rakshith", " tag list api call completed..")
-                        pb_tag_fragment.visibility = View.GONE
-                        if (searchListAdapter == null) {
-                            searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                            fragment_tag_recycler_view?.adapter = searchListAdapter
-                        } else {
-                            searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+    @SuppressLint("CheckResult")
+    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean) {
+        if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
+            viewModel?.getStoriesListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
+                        override fun onComplete() {
+                            Log.d("Rakshith", " tag list api call completed..")
+                            tag_list_progress_bar.visibility = View.GONE
+
+                            if (searchListAdapter == null) {
+                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                fragment_tag_recycler_view?.adapter = searchListAdapter
+                            } else {
+                                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                            }
                         }
-                    }
 
-                    override fun onNext(tagListResponse: TagListResponse?) {
-                        for (index in 0 until tagListResponse?.stories?.size as Int)
-                            mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
-                    }
+                        override fun onNext(tagListResponse: TagListResponse?) {
+                            hideRetryLayout()
 
-                    override fun onError(t: Throwable?) {
-                        pb_tag_fragment.visibility = View.GONE
-                        Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
-                    }
-                })
+                            if (refreshList) {
+                                tag_list_swipeContainer.setRefreshing(false)
+                                mStoriesList?.clear()
+                            }
+                            for (index in 0 until tagListResponse?.stories?.size as Int)
+                                mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
+                        }
 
-//        viewModel.getStoriesListObservable()?.observe(this, Observer<Story>() {
-//            mStoriesList?.add(it as Story)
-//
-//            if (searchListAdapter == null) {
-//                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-//                main_fragment_rv_collection_list?.adapter = searchListAdapter
-//            } else {
-//                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
-//            }
-//        })
+                        override fun onError(t: Throwable?) {
+                            tag_list_swipeContainer.setRefreshing(false)
+
+                            showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.oops))
+                            Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
+                        }
+                    })
+        } else {
+            /*Not connected to Network, show retry layout and hide the rest*/
+            showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.no_internet))
+        }
+
+
+    }
+
+    private fun showRetryLayout(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, errorMessage: CharSequence?) {
+        tag_list_progress_bar.visibility = View.GONE
+        tag_list_swipeContainer.visibility = View.GONE
+
+        retry_container.visibility = View.VISIBLE
+        error_message.text = errorMessage
+        retry_button.setOnClickListener { v ->
+            observeViewModel(viewModel, searchTerm, mPageNumber, refreshList)
+        }
+    }
+
+    private fun hideRetryLayout() {
+        retry_container.visibility = View.GONE
+        tag_list_progress_bar.visibility = View.VISIBLE
+        tag_list_swipeContainer.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
@@ -146,9 +170,5 @@ class TagListFragment : BaseFragment() {
         mStoriesList?.clear()
         searchListAdapter = null
         storiesListViewModel.mCompositeDisposable.dispose()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

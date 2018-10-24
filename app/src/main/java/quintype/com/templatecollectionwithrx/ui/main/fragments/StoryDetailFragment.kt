@@ -76,12 +76,12 @@ class StoryDetailFragment : BaseFragment() {
             loadStoryDetailBySlug(mStory.slug)
 
             fragment_story_detail_pb_progress?.visibility = View.VISIBLE
-            ll_no_internet?.visibility = View.GONE
+            retry_container?.visibility = View.GONE
             retry_button?.visibility = View.GONE
         } else {
 //            fragment_story_detail_swipe_refresh_layout?.isRefreshing = false
             fragment_story_detail_fl_main_container?.visibility = View.GONE
-            ll_no_internet?.visibility = View.VISIBLE
+            retry_container?.visibility = View.VISIBLE
             retry_button?.visibility = View.VISIBLE
         }
     }
@@ -95,7 +95,7 @@ class StoryDetailFragment : BaseFragment() {
                             override fun onSuccess(mStory: SlugStory) {
                                 setStoryDetail(mStory.story)
 
-                                ll_no_internet?.visibility = View.GONE
+                                retry_container?.visibility = View.GONE
                                 retry_button?.visibility = View.GONE
                             }
 
@@ -103,7 +103,7 @@ class StoryDetailFragment : BaseFragment() {
                                 Log.d("Rakshith", "error ${e.message}")
                                 fragment_story_detail_pb_progress?.visibility = View.GONE
 
-                                ll_no_internet?.visibility = View.VISIBLE
+                                retry_container?.visibility = View.VISIBLE
                                 retry_button?.visibility = View.VISIBLE
                             }
                         })

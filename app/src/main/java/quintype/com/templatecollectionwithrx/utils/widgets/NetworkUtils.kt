@@ -21,15 +21,4 @@ object NetworkUtils {
             return false
         }
     }
-
-    fun isNetworkAvailable(context: Context): Boolean {
-        try {
-            val cm = context.getSystemService(Context
-                    .CONNECTIVITY_SERVICE) as ConnectivityManager
-            return cm.activeNetworkInfo.isConnectedOrConnecting
-        } catch (e: Exception) {
-            return false
-        }
-
-    }
 }

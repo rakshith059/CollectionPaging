@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_no_internet"
+    android:id="@+id/retry_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="?attr/actionBarSize"
@@ -9,25 +9,22 @@
     android:visibility="gone">
 
     <TextView
+        android:id="@+id/error_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_10dp"
         android:gravity="center"
-        android:lineSpacingMultiplier="1.2"
-        android:text="@string/oops"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/no_internet" />
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/aluminum"
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/retry_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@color/colorPrimary"
         android:text="@string/retry"
         android:textColor="@color/white"
         android:textStyle="bold" />
