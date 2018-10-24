@@ -20,7 +20,9 @@ import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.TagListFragment
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
@@ -167,9 +169,9 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
     override fun onBackStackChanged() {
         val fragmentInstance = supportFragmentManager.findFragmentById(R.id.home_container)
 
-        if (fragmentInstance is StoryPagerFragment)
-            toolBar?.visibility = View.GONE
+        if (fragmentInstance is StoryPagerFragment || fragmentInstance is AuthorListFragment || fragmentInstance is TagListFragment)
+            toolbar_container?.visibility = View.GONE
         else
-            toolBar?.visibility = View.VISIBLE
+            toolbar_container?.visibility = View.VISIBLE
     }
 }
