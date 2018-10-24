@@ -87,33 +87,6 @@ class AuthorListFragment : BaseFragment() {
                 observeViewModel(searchListViewModel, mAuthorName as String, 0, true)
             }
             observeViewModel(searchListViewModel, mAuthorName as String, 0, false)
-
-
-            /*  fragment_author_list_rv_recycler_view?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                  override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                      super.onScrollStateChanged(recyclerView, newState)
-                  }
-
-                  override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                      super.onScrolled(recyclerView, dx, dy)
-
-                      val visibleItemCount = layoutManager.childCount
-                      val totalItemCount = layoutManager.itemCount
-
-                      val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                      if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
-                              && totalItemCount >= Constants.PAGE_LIMIT) {
-                          val currentPage = totalItemCount / Constants.PAGE_LIMIT
-
-                          if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
-                              Log.d("Rakshith", "current page is ===  $currentPage")
-  //                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
-                              observeViewModel(searchListViewModel, mAuthorName as String, currentPage, false)
-                          }
-                      }
-                  }
-              })*/
         }
     }
 

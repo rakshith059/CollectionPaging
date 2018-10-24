@@ -23,6 +23,7 @@ import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.TagListResponse
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
 
@@ -75,31 +76,14 @@ class TagListFragment : BaseFragment() {
             }
 
             observeViewModel(storiesListViewModel, mTagName as String, 0, false)
-            main_fragment_rv_collection_list?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
+        }
+    }
 
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-
-                    val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
-
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                    if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
-                            && totalItemCount >= Constants.PAGE_LIMIT) {
-                        val currentPage = totalItemCount / Constants.PAGE_LIMIT
-
-                        if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
-                            Log.d("Rakshith", "current page is ===  $currentPage")
-//                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
-                            observeViewModel(storiesListViewModel, mTagName as String, currentPage, false)
-                        }
-                    }
-                }
-            })
+    private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
+        return object : EndlessRecyclerOnScrollListener() {
+            override fun onLoadMore(currentPage: Int) {
+                observeViewModel(storiesListViewModel, mTagName as String, currentPage, false)
+            }
         }
     }
 
@@ -114,11 +98,16 @@ class TagListFragment : BaseFragment() {
                             Log.d("Rakshith", " tag list api call completed..")
                             tag_list_progress_bar.visibility = View.GONE
 
-                            if (searchListAdapter == null) {
-                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                                tag_list_recycler_view?.adapter = searchListAdapter
+                            if (mStoriesList?.size!! > 0) {
+                                if (searchListAdapter == null) {
+                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                    tag_list_recycler_view?.adapter = searchListAdapter
+                                    tag_list_recycler_view.addOnScrollListener(getEndlessScrollListener())
+                                } else {
+                                    searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                                }
                             } else {
-                                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                                showNoDataMessage()
                             }
                         }
 
@@ -128,16 +117,13 @@ class TagListFragment : BaseFragment() {
                             if (refreshList) {
                                 tag_list_swipeContainer.setRefreshing(false)
                                 mStoriesList?.clear()
+                                searchListAdapter = null
                             }
 
-                            if (tagListResponse?.stories?.size!! > 0) {
-                                tag_list_empty_text_view.visibility = View.GONE
-                                for (index in 0 until tagListResponse?.stories?.size as Int)
-                                    mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
-                            } else {
-                                /*No Stories to show*/
-                                showNoDataMessage()
-                            }
+                            tag_list_empty_text_view.visibility = View.GONE
+                            for (index in 0 until tagListResponse?.stories?.size as Int)
+                                mStoriesList?.add(tagListResponse?.stories?.get(index) as Story)
+
                         }
 
                         override fun onError(t: Throwable?) {
