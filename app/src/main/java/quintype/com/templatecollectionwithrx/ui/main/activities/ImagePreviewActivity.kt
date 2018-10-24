@@ -16,7 +16,6 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 
 
 class ImagePreviewActivity : BaseActivity() {
-
     internal var viewPager: ViewPager? = null
     internal var indicator: CircleIndicator? = null
     internal var position: Int = 0
@@ -81,6 +80,10 @@ class ImagePreviewActivity : BaseActivity() {
             return false
         }
 
+    }
+
+    override fun onBackStackChanged() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
 

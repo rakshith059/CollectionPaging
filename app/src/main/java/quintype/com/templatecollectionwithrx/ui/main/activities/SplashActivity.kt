@@ -19,7 +19,6 @@ import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 class SplashActivity : BaseActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -69,8 +68,8 @@ class SplashActivity : BaseActivity() {
                             Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_LAYOUT, layoutAsString as String)
                         }
 
-                        if(publisherConfig.sections!=null){
-                            val sectionsAsString=Gson().toJson(publisherConfig.sections)
+                        if (publisherConfig.sections != null) {
+                            val sectionsAsString = Gson().toJson(publisherConfig.sections)
                             Utilities.setSharedPreferences(this@SplashActivity, Constants.SP_SECTIONS, sectionsAsString as String)
                         }
 
@@ -85,5 +84,9 @@ class SplashActivity : BaseActivity() {
                         Log.d("Rakshith", "publisher config error message $t")
                     }
                 }))
+    }
+
+    override fun onBackStackChanged() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
