@@ -71,7 +71,7 @@ class AuthorListFragment : BaseFragment() {
 
         if (mAuthorImage != null) {
             fragment_author_list_app_bar_layout?.visibility = View.VISIBLE
-            fragment_author_list_iv_hero_image?.hierarchy = Utilities.getFriscoRoundImageHierarchy(activity?.applicationContext as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_10F, resources?.getColor(R.color.colorAccent))
+            fragment_author_list_iv_hero_image?.hierarchy = Utilities.getFriscoRoundImageHierarchy(activity?.applicationContext as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_3F, resources?.getColor(R.color.black_opacity_25))
             fragment_author_list_iv_hero_image.setImageURI(mAuthorImage)
         }
 
