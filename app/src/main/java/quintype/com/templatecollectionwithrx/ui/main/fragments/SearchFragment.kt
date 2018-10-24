@@ -1,11 +1,15 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DialogFragment
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.speech.RecognizerIntent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -31,9 +35,12 @@ import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
+import java.util.*
 
 
 class SearchFragment : BaseFragment(), View.OnClickListener {
+    private val REQ_CODE_SPEECH_INPUT: Int = 5001
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.search_list_fragment_iv_back ->
@@ -44,23 +51,34 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun openSpeechToTextDialog() {
-        val builder = AlertDialog.Builder(search_list_fragment_iv_voice_search?.context)
-        val dialogLayout = LayoutInflater.from(search_list_fragment_iv_voice_search?.context).inflate(R.layout.speech_dialog_fragment, null)
-        val ivSpeechIcon = dialogLayout.findViewById<SimpleDraweeView>(R.id.speech_dialog_fragment_iv_ripple)
+        convertSpeechToText()
+    }
 
-        var uri: Uri = Uri.Builder()
-                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
-                .path(R.drawable.ic_ripple.toString())
-                .build()
+    private fun convertSpeechToText() {
+        var intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+//        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, resources.getString(R.string.speech_prompt))
 
-        var controller: DraweeController = Fresco.newDraweeControllerBuilder()
-                .setUri(uri)
-                .setAutoPlayAnimations(true)
-                .build()
-        ivSpeechIcon.setController(controller);
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT)
+        } catch (exception: Exception) {
+            Toast.makeText(search_list_fragment_tet_search?.context, resources.getString(R.string.speech_not_supported), Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        builder.setView(dialogLayout)
-        builder.show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQ_CODE_SPEECH_INPUT) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                var result: ArrayList<String> = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                val searchTerm = result.get(0)
+                search_list_fragment_tet_search.setText(result.get(0))
+
+                observeViewModel(searchListViewModel, searchTerm, 0)
+            }
+        }
     }
 
     companion object {
@@ -102,7 +120,6 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
 
                 val searchTerm = search_list_fragment_tet_search?.text?.toString() as String
                 observeViewModel(searchListViewModel, searchTerm, 0)
-
                 true
             }
             false
@@ -110,17 +127,6 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
 
         search_list_fragment_iv_back?.setOnClickListener(this)
         search_list_fragment_iv_voice_search?.setOnClickListener(this)
-
-//        mAuthorName = arguments?.getString(AUTHOR_NAME)
-//        mAuthorImage = arguments?.getString(AUTHOR_IMAGE)
-//
-//        author_list_fragment_tv_author_name?.text = mAuthorName
-//
-//        if (mAuthorImage != null) {
-//            fragment_author_list_app_bar_layout?.visibility = View.VISIBLE
-//            fragment_author_list_iv_hero_image?.hierarchy = Utilities.getFriscoRoundImageHierarchy(activity?.applicationContext as Context, Constants.CIRCLE_IMAGE_BORDER_WIDTH_3F, resources?.getColor(R.color.black_opacity_25))
-//            fragment_author_list_iv_hero_image.setImageURI(mAuthorImage)
-//        }
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         searchListViewModel = ViewModelProviders.of(this).get(SearchListViewModel::class.java)
@@ -156,26 +162,27 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun observeViewModel(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int) {
-        viewModel?.getSearchListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : ResourceSubscriber<SearchStoryList>() {
-                    override fun onComplete() {
-                        Log.d("Rakshith", " tag list api call completed..")
+        if (searchTerm != null)
+            viewModel?.getSearchListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(object : ResourceSubscriber<SearchStoryList>() {
+                        override fun onComplete() {
+                            Log.d("Rakshith", " tag list api call completed..")
 
-                        search_list_fragment_fl_main_container?.visibility = View.VISIBLE
-                        search_list_fragment_ll_recent_search?.visibility = View.GONE
-                        search_list_fragment_tv_no_recent_history?.visibility = View.GONE
+                            search_list_fragment_fl_main_container?.visibility = View.VISIBLE
+                            search_list_fragment_ll_recent_search?.visibility = View.GONE
+                            search_list_fragment_tv_no_recent_history?.visibility = View.GONE
 
-                        if (searchListAdapter == null) {
-                            searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
-                            search_list_fragment_rv_recycler_view?.adapter = searchListAdapter
-                        } else {
-                            searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                            if (searchListAdapter == null) {
+                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                search_list_fragment_rv_recycler_view?.adapter = searchListAdapter
+                            } else {
+                                searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)
+                            }
                         }
-                    }
 
-                    override fun onNext(storiesSearchListResponse: SearchStoryList?) {
+                        override fun onNext(storiesSearchListResponse: SearchStoryList?) {
 
 //                        val storiesByAuthor = storiesSearchListResponse?.getResults()?.total as Int
 //                        var storiesByAuthorString: String? = null
@@ -186,14 +193,16 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
 //                        author_list_fragment_tv_total_stories?.text = storiesByAuthorString
 
 
-                        for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
-                            mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
-                    }
+                            for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
+                                mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
+                        }
 
-                    override fun onError(t: Throwable?) {
-                        Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
-                    }
-                })
+                        override fun onError(t: Throwable?) {
+                            Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
+                        }
+                    })
+        else
+            Toast.makeText(search_list_fragment_iv_voice_search.context, resources.getString(R.string.empty_search_term), Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {
