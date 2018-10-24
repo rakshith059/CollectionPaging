@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.author_list_fragment.*
+import kotlinx.android.synthetic.main.fragment_story_detail.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
@@ -116,7 +117,7 @@ class AuthorListFragment : BaseFragment() {
                 .subscribeWith(object : ResourceSubscriber<SearchStoryList>() {
                     override fun onComplete() {
                         Log.d("Rakshith", " tag list api call completed..")
-
+                        fragment_author_list_pb_progress.visibility = View.GONE
                         if (searchListAdapter == null) {
                             searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
                             fragment_author_list_rv_recycler_view?.adapter = searchListAdapter
@@ -126,7 +127,6 @@ class AuthorListFragment : BaseFragment() {
                     }
 
                     override fun onNext(storiesSearchListResponse: SearchStoryList?) {
-
                         val storiesByAuthor = storiesSearchListResponse?.getResults()?.total as Int
                         var storiesByAuthorString: String? = null
                         if (storiesByAuthor == 1)
@@ -141,6 +141,7 @@ class AuthorListFragment : BaseFragment() {
                     }
 
                     override fun onError(t: Throwable?) {
+                        fragment_author_list_pb_progress.visibility = View.GONE
                         Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
                     }
                 })

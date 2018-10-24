@@ -1,7 +1,7 @@
 package quintype.com.templatecollectionwithrx.ui.main.activities
 
+import android.app.FragmentManager
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -23,7 +23,9 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SearchFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
+import quintype.com.templatecollectionwithrx.ui.main.fragments.TagListFragment
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
@@ -178,11 +180,11 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
      * getting back stack changed, Checking for fragment instance and hidding the toolbar in specific fragments
      */
     override fun onBackStackChanged() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.home_container)
+        val fragmentInstance = supportFragmentManager.findFragmentById(R.id.home_container)
 
-        if (fragment is StoryPagerFragment)
-            toolBar?.visibility = View.GONE
+        if (fragmentInstance is StoryPagerFragment || fragmentInstance is AuthorListFragment || fragmentInstance is TagListFragment || fragmentInstance is SearchFragment)
+            toolbar_container?.visibility = View.GONE
         else
-            toolBar?.visibility = View.VISIBLE
+            toolbar_container?.visibility = View.VISIBLE
     }
 }

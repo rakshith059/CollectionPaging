@@ -4,12 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 
-open class BaseActivity : AppCompatActivity(), FragmentCallbacks {
+abstract class BaseActivity : AppCompatActivity(), FragmentCallbacks, FragmentManager.OnBackStackChangedListener {
+
     var mFragmentList: ArrayList<Fragment> = ArrayList()
     var mFragment: Fragment? = null
     var mContext: AppCompatActivity? = AppCompatActivity()
@@ -28,7 +30,9 @@ open class BaseActivity : AppCompatActivity(), FragmentCallbacks {
         }
         mFragmentList.add(fragment)
 
-        val fragmentTransaction = supportFragmentManager?.beginTransaction()
+        val fragmentManager = supportFragmentManager
+        fragmentManager.addOnBackStackChangedListener(this)
+        val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction?.add(R.id.home_container, fragment)
 
         if (mBackStack != null) {
@@ -43,8 +47,9 @@ open class BaseActivity : AppCompatActivity(), FragmentCallbacks {
             return
         }
         mFragmentList.add(fragment)
-
-        val fragmentTransaction = supportFragmentManager?.beginTransaction()
+        val fragmentManager = supportFragmentManager
+        fragmentManager.addOnBackStackChangedListener(this)
+        val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction?.replace(R.id.home_container, fragment)
 
         if (mBackStack != null) {
