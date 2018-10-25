@@ -122,7 +122,6 @@ class AuthorListFragment : BaseFragment() {
                                 showNoDataMessage()
                             }
                         }
-
                         override fun onNext(storiesSearchListResponse: SearchStoryList?) {
                             hideRetryLayout()
 
@@ -139,10 +138,8 @@ class AuthorListFragment : BaseFragment() {
                                 storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.stories_by)} $mAuthorName"
                             author_list_fragment_tv_total_stories?.text = storiesByAuthorString
 
-
                             for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
                                 mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
-
                         }
 
                         override fun onError(t: Throwable?) {
@@ -156,7 +153,6 @@ class AuthorListFragment : BaseFragment() {
             /*Not connected to Network, show retry layout and hide the rest*/
             showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.no_internet))
         }
-
     }
 
     private fun showRetryLayout(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, errorMessage: CharSequence?) {
