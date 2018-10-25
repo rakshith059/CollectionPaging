@@ -3,6 +3,7 @@ package quintype.com.templatecollectionwithrx.ui.main.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,8 +15,10 @@ import quintype.com.templatecollectionwithrx.services.PublisherConfigServiceApi
 import quintype.com.templatecollectionwithrx.services.RetrofitApiClient
 import quintype.com.templatecollectionwithrx.utils.Constants
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_splash.*
 
 import quintype.com.templatecollectionwithrx.utils.Utilities
+import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 
 
 class SplashActivity : BaseActivity() {
@@ -23,7 +26,9 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        getPublisherConfig()
+        if (NetworkUtils.isConnected(this))
+            getPublisherConfig() else
+            showRetrySnackBar(applicationContext.resources.getString(R.string.no_internet))
     }
 
     private fun getPublisherConfig() {
@@ -74,7 +79,7 @@ class SplashActivity : BaseActivity() {
                         }
 
                         var handler = Handler()
-                        handler.postDelayed(Runnable {
+                        handler.postDelayed({
                             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                             finish()
                         }, Constants.SPLASH_SCREEN_DELAY_MILLI_SEC)
@@ -82,8 +87,19 @@ class SplashActivity : BaseActivity() {
 
                     override fun onError(t: Throwable?) {
                         Log.d("Rakshith", "publisher config error message $t")
+                        showRetrySnackBar(applicationContext.resources.getString(R.string.oops))
                     }
                 }))
+    }
+
+    private fun showRetrySnackBar(message: String) {
+        val snackBar = Snackbar.make(splash_screen_main_container, message,
+                Snackbar.LENGTH_INDEFINITE)
+        snackBar.setAction(getString(R.string.retry)) {
+            snackBar.dismiss()
+            getPublisherConfig()
+        }
+        snackBar.show()
     }
 
     override fun onBackStackChanged() {
