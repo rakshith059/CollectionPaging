@@ -145,8 +145,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:backgroundTint="@color/white_transparency_25"
-                android:visibility="gone"
-                app:layout_collapseMode="none"
+                android:visibility="visible"
+                app:layout_collapseMode="pin"
                 app:titleTextColor="@color/black">
 
                 <!--<ImageView-->
