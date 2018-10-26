@@ -77,6 +77,10 @@ class StoryDetailFragment : BaseFragment() {
             loadStoryDetailIfInternetPresent()
         }
 
+        custom_tool_bar_iv_back_image.visibility = View.VISIBLE
+        custom_tool_bar_iv_share_image.visibility = View.VISIBLE
+        custom_tool_bar_tv_title.visibility = View.INVISIBLE
+
         custom_tool_bar_iv_back_image.setOnClickListener {
             fragmentManager?.popBackStack()
             fragmentManager?.executePendingTransactions()

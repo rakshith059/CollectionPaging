@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_tool_bar_ll_main_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?attr/actionBarSize"
     android:visibility="visible">
 
     <ImageView
@@ -11,13 +12,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="@dimen/size_8dp"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/custom_tool_bar_tv_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_18sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/custom_tool_bar_iv_share_image"
@@ -25,5 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="@dimen/size_8dp"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_share" />
 </LinearLayout>

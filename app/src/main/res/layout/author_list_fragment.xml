@@ -149,6 +149,7 @@
                 app:layout_collapseMode="pin"
                 app:titleTextColor="@color/black">
 
+                <include layout="@layout/custom_tool_bar" />
                 <!--<ImageView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
