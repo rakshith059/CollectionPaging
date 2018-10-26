@@ -2,8 +2,9 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
-import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -17,13 +18,11 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_tag_list.*
-import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.TagListResponse
 import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
@@ -34,6 +33,8 @@ import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
  */
 
 class TagListFragment : BaseFragment() {
+    var isGrid: Boolean = false
+
     companion object {
         var mTagName: String? = null
         const val TAG_NAME = "TAG_NAME"
@@ -62,9 +63,6 @@ class TagListFragment : BaseFragment() {
 
         mStoriesList = ArrayList<Story>()
 
-        val layoutManager = LinearLayoutManager(activity)
-        tag_list_recycler_view.layoutManager = layoutManager
-
         mTagName = arguments?.getString(TAG_NAME)
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
@@ -73,17 +71,22 @@ class TagListFragment : BaseFragment() {
 
         if (!TextUtils.isEmpty(mTagName)) {
             tag_list_swipeContainer.setOnRefreshListener {
-                observeViewModel(storiesListViewModel, mTagName as String, 0, true)
+                observeViewModel(storiesListViewModel, mTagName as String, 0, true, isGrid)
             }
 
-            observeViewModel(storiesListViewModel, mTagName as String, 0, false)
+            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
 
             custom_tool_bar_ll_main_container.visibility = View.VISIBLE
             custom_tool_bar_ll_main_container.setBackgroundColor(resources.getColor(R.color.colorPrimary))
 
             custom_tool_bar_iv_back_image.visibility = View.VISIBLE
-            custom_tool_bar_iv_share_image.visibility = View.INVISIBLE
+            custom_tool_bar_iv_share_image.visibility = View.VISIBLE
             custom_tool_bar_tv_title.visibility = View.VISIBLE
+
+            changeLayout()
+            custom_tool_bar_iv_share_image.setOnClickListener {
+                changeLayout()
+            }
 
             custom_tool_bar_tv_title.text = mTagName
             custom_tool_bar_iv_back_image.setOnClickListener {
@@ -92,18 +95,56 @@ class TagListFragment : BaseFragment() {
         }
     }
 
+    private fun changeLayout() {
+        val linearLayoutManager = LinearLayoutManager(activity)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        tag_list_recycler_view.layoutManager = linearLayoutManager
+
+        searchListAdapter = null
+        if (isGrid) {
+            custom_tool_bar_iv_share_image.setImageDrawable(resources.getDrawable(R.drawable.ic_list_icon))
+            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
+            var handler = Handler()
+            handler.postDelayed({
+                val gridLayoutManager = GridLayoutManager(tag_list_recycler_view?.context, 2)
+                /**
+                 * Added this to differentiate display child item with 2 grid
+                 */
+                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return 1
+                    }
+                }
+                tag_list_recycler_view.layoutManager = gridLayoutManager
+                isGrid = false
+            }, 500)
+        } else if (!isGrid) {
+            custom_tool_bar_iv_share_image.setImageDrawable(resources.getDrawable(R.drawable.ic_grid_icon))
+            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
+
+            var handler = Handler()
+            handler.postDelayed({
+                val linearLayoutManager = LinearLayoutManager(activity)
+                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                tag_list_recycler_view.layoutManager = linearLayoutManager
+                isGrid = true
+            }, 500)
+        }
+
+    }
+
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
-                observeViewModel(storiesListViewModel, mTagName as String, currentPage, false)
+                observeViewModel(storiesListViewModel, mTagName as String, currentPage, false, isGrid)
             }
         }
     }
 
     @SuppressLint("CheckResult")
-    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean) {
+    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, grid: Boolean) {
         if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
-            viewModel?.getStoriesListResponse(searchTerm, mPageNumber)?.subscribeOn(Schedulers.io())
+            viewModel.getStoriesListResponse(searchTerm, mPageNumber).subscribeOn(Schedulers.io())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : ResourceSubscriber<TagListResponse>() {
@@ -111,9 +152,9 @@ class TagListFragment : BaseFragment() {
                             Log.d("Rakshith", " tag list api call completed..")
                             tag_list_progress_bar.visibility = View.GONE
 
-                            if (mStoriesList?.size!! > 0) {
+                            if (mStoriesList?.size as Int > 0) {
                                 if (searchListAdapter == null) {
-                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks, grid)
                                     tag_list_recycler_view?.adapter = searchListAdapter
                                     tag_list_recycler_view.addOnScrollListener(getEndlessScrollListener())
                                 } else {
@@ -161,7 +202,7 @@ class TagListFragment : BaseFragment() {
         retry_container.visibility = View.VISIBLE
         error_message.text = errorMessage
         retry_button.setOnClickListener { v ->
-            observeViewModel(viewModel, searchTerm, mPageNumber, refreshList)
+            observeViewModel(viewModel, searchTerm, mPageNumber, refreshList, isGrid)
         }
     }
 

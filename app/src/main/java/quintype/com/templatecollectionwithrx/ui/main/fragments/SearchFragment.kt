@@ -1,14 +1,10 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.app.DialogFragment
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.speech.RecognizerIntent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -19,12 +15,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
-import com.facebook.common.util.UriUtil
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.interfaces.DraweeController
-import com.facebook.drawee.view.SimpleDraweeView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
@@ -175,7 +166,7 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
                             search_list_fragment_tv_no_recent_history?.visibility = View.GONE
 
                             if (searchListAdapter == null) {
-                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks, false)
                                 search_list_fragment_rv_recycler_view?.adapter = searchListAdapter
                             } else {
                                 searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
@@ -28,9 +26,7 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
-import com.google.android.youtube.player.internal.i
 import kotlinx.android.synthetic.main.custom_tool_bar.*
-import kotlinx.android.synthetic.main.fragment_story_detail.*
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 
 
@@ -141,7 +137,7 @@ class AuthorListFragment : BaseFragment() {
 
                             if (mStoriesList?.size!! > 0) {
                                 if (searchListAdapter == null) {
-                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
+                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks, false)
                                     fragment_author_list_rv_recycler_view?.adapter = searchListAdapter
                                     fragment_author_list_rv_recycler_view.addOnScrollListener(getEndlessScrollListener())
                                 } else {
