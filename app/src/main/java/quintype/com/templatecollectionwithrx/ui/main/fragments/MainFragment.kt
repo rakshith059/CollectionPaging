@@ -7,12 +7,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.collection_fragment_layout.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomeCollectionAdapter
@@ -42,25 +41,25 @@ class MainFragment : BaseFragment(), ErrorHandler {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.collection_fragment_layout, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         errorHandler = this
+
+        /*To avoid taking screenshot*/
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0, errorHandler)
 
 
-        home_fragment_swipeContainer.setOnRefreshListener {
+        collection_fragment_swipeContainer.setOnRefreshListener {
             collectionAdapter = null
             linkedHashMap.clear()
             viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0, errorHandler)
         }
-
-        main_fragment_rv_collection_list.layoutManager = LinearLayoutManager(getActivity())
 
         if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
             observeViewModel(viewModel)
@@ -86,8 +85,8 @@ class MainFragment : BaseFragment(), ErrorHandler {
             //Log.d("Rakshith", "summary is ${it?.slug}")
             if (linkedHashMap.size < Constants.COLLECTION_LIMIT) {
                 collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
-                main_fragment_rv_collection_list?.adapter = collectionAdapter
-                main_fragment_rv_collection_list.addOnScrollListener(getEndlessScrollListener())
+                collection_fragment_recycler_view?.adapter = collectionAdapter
+                collection_fragment_recycler_view.addOnScrollListener(getEndlessScrollListener())
             } else {
                 collectionAdapter?.notifyAdapter(linkedCollectionList)
             }
@@ -96,18 +95,19 @@ class MainFragment : BaseFragment(), ErrorHandler {
 
     override fun onAPISuccess() {
         hideRetryLayout()
-        home_fragment_swipeContainer.setRefreshing(false)
-        home_fragment_progress_bar.visibility = View.GONE
+        collection_fragment_swipeContainer.setRefreshing(false)
+        collection_fragment_progress_bar.visibility = View.GONE
     }
 
     override fun onAPIFailure() {
+        collection_fragment_progress_bar.visibility = View.GONE
         if (linkedHashMap.size == 0)
             showRetryLayout(viewModel, this.resources.getString(R.string.oops))
     }
 
     private fun showRetryLayout(viewModel: MainViewModel, errorMessage: CharSequence?) {
-        home_fragment_progress_bar.visibility = View.GONE
-        home_fragment_swipeContainer.visibility = View.GONE
+        collection_fragment_progress_bar.visibility = View.GONE
+        collection_fragment_swipeContainer.visibility = View.GONE
 
         retry_container.visibility = View.VISIBLE
         error_message.text = errorMessage
@@ -118,11 +118,12 @@ class MainFragment : BaseFragment(), ErrorHandler {
 
     private fun hideRetryLayout() {
         retry_container.visibility = View.GONE
-        home_fragment_swipeContainer.visibility = View.VISIBLE
+        collection_fragment_swipeContainer.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        linkedHashMap?.clear()
         viewModel.compositeDisposable.dispose()
     }
 }
