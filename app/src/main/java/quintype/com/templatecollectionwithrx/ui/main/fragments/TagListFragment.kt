@@ -154,7 +154,6 @@ class TagListFragment : BaseFragment() {
 
     private fun hideRetryLayout() {
         retry_container.visibility = View.GONE
-        tag_list_progress_bar.visibility = View.VISIBLE
         tag_list_swipeContainer.visibility = View.VISIBLE
     }
 

@@ -115,10 +115,10 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
                 for (childItem in currentSection.childItemList) {
                     val parentSection = NavMenuGroup()
                     parentSection.menuItem = childItem
-                    childItem?.id()?.let { finalMenuMap.put(it, parentSection) };
+                    childItem?.id()?.let { finalMenuMap.put(it, parentSection) }
                 }
             } else {
-                finalMenuMap.put(currentSection.menuItem?.id()!!, currentSection);
+                finalMenuMap.put(currentSection.menuItem?.id()!!, currentSection)
             }
         }
 
@@ -142,10 +142,6 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
             addFragment(HomePagerFragment.newInstance(null), null)
         }
 //        displayDetailScreen()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onDrawerItemSelected(menuGroup: NavMenuGroup?) {

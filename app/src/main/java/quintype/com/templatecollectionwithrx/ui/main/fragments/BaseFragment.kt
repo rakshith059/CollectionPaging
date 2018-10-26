@@ -1,16 +1,12 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
-import android.os.Bundle
-import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
-import android.os.Build
-import android.app.Activity
 import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Context
+import android.os.Build
+import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.KeyEvent
-import android.widget.Toast
-import android.view.KeyEvent.KEYCODE_BACK
-import android.view.View
+import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 
 /**

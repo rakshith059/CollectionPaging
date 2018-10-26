@@ -168,7 +168,6 @@ class AuthorListFragment : BaseFragment() {
 
     private fun hideRetryLayout() {
         retry_container.visibility = View.GONE
-        author_list_progress_bar.visibility = View.VISIBLE
         author_list_swipeContainer.visibility = View.VISIBLE
     }
 
