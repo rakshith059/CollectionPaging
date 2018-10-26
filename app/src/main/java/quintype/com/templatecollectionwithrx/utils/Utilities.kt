@@ -24,6 +24,7 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
 import com.facebook.drawee.generic.RoundingParams
 import quintype.com.templatecollectionwithrx.R
+import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryDetailFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -169,6 +170,13 @@ class Utilities {
                     .setRoundingParams(roundingParams)
                     .setFailureImage(mContext.resources?.getDrawable(R.drawable.scrim))
                     .build()
+        }
+
+        /**
+         * function for get Story link(for sharing)
+         */
+        fun getStoryLink(storySlug: String?): String {
+            return Constants.BASE_URL + "/" + storySlug
         }
     }
 }

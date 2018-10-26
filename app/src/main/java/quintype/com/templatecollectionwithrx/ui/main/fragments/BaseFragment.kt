@@ -6,11 +6,16 @@ import android.os.Build
 import android.app.Activity
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.Fragment
+import android.text.TextUtils
 import android.view.KeyEvent
 import android.widget.Toast
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
+import quintype.com.templatecollectionwithrx.utils.Utilities
+import android.support.v4.content.ContextCompat.startActivity
 
 
 /**
@@ -97,5 +102,20 @@ open class BaseFragment : Fragment() {
      */
     fun OnBackPressed() {
         fragmentManager?.popBackStackImmediate()
+    }
+
+    /**
+     * This method is used to share story link
+     */
+    fun ShareCurrentStory(mStorySlug: String) {
+        val mShareLink = Utilities.getStoryLink(mStorySlug)
+
+        if (!TextUtils.isEmpty(mShareLink)) {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_TEXT, mShareLink)
+            sendIntent.type = "text/plain"
+            context?.startActivity(sendIntent)
+        }
     }
 }

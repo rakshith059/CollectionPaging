@@ -26,6 +26,9 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
+import android.content.Intent
+import android.net.Uri
+import android.text.TextUtils
 
 
 /**
@@ -86,8 +89,7 @@ class StoryDetailFragment : BaseFragment() {
             fragmentManager?.executePendingTransactions()
         }
         custom_tool_bar_iv_share_image.setOnClickListener {
-            //TODO(Add share feature)
-            Toast.makeText(custom_tool_bar_iv_share_image.context, resources.getString(R.string.coming_soon), Toast.LENGTH_LONG).show()
+            ShareCurrentStory(mStory.slug)
         }
     }
 
