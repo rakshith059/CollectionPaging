@@ -2,6 +2,7 @@ package quintype.com.templatecollectionwithrx.ui.main.viewholders.storyholders
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
+import quintype.com.templatecollectionwithrx.R.id.*
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
@@ -38,6 +40,10 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
         val tvPublishedDate = view?.findViewById<TextView>(R.id.author_image_row_tv_published_date)
         val rbCustomRatingBar = view?.findViewById<CustomRatingBar>(R.id.story_element_author_view_holder_item_rating_bar)
 
+        val tvSectionName = view?.findViewById<TextView>(R.id.fragment_story_detail_tv_section_name)
+        val llSection = view?.findViewById<LinearLayout>(R.id.fragment_story_detail_ll_section)
+        val tvTitle = view?.findViewById<TextView>(R.id.fragment_story_detail_tv_title)
+
         val reviewRatingValue: Float? = mStory.storyMetaData?.reviewRating?.value()?.toFloat()
 
         if (reviewRatingValue != null && reviewRatingValue > 0f) {
@@ -45,6 +51,30 @@ class ElementAuthorViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemVie
             rbCustomRatingBar?.score = reviewRatingValue
         } else {
             rbCustomRatingBar?.visibility = View.GONE
+        }
+
+        /**
+         * checking for sections display name if it's null then checking for section's name
+         */
+        var sectionName: String? = null
+        val storySection = mStory.sections?.first()
+        if (storySection?.displayName != null)
+            sectionName = storySection.displayName
+        else if (storySection?.name != null)
+            sectionName = storySection.name
+        if (!TextUtils.isEmpty(sectionName)) {
+            tvSectionName?.text = sectionName
+            llSection?.visibility = View.VISIBLE
+        }
+
+        /**
+         * checking for story headline
+         */
+        val mStoryTitle: String? = mStory.headline
+        if (!TextUtils.isEmpty(mStoryTitle)) {
+            tvTitle?.visibility = View.VISIBLE
+//            fragment_story_detail_tv_title.minLines = 2
+            tvTitle?.text = mStory.headline
         }
 
         val authorName = mStory.authors?.first()?.name

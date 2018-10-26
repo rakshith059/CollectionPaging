@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 
 /**
@@ -93,5 +94,20 @@ open class BaseFragment : Fragment() {
      */
     fun OnBackPressed() {
         fragmentManager?.popBackStackImmediate()
+    }
+
+    /**
+     * This method is used to share story link
+     */
+    fun ShareCurrentStory(mStorySlug: String) {
+        val mShareLink = Utilities.getStoryLink(mStorySlug)
+
+        if (!TextUtils.isEmpty(mShareLink)) {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_TEXT, mShareLink)
+            sendIntent.type = "text/plain"
+            context?.startActivity(sendIntent)
+        }
     }
 }

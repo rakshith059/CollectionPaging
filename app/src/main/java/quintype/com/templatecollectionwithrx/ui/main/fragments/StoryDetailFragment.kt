@@ -5,16 +5,17 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
+import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_story_detail.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
@@ -25,6 +26,10 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
+import android.content.Intent
+import android.net.Uri
+import android.text.TextUtils
+
 
 /**
  * A simple [Fragment] subclass.
@@ -60,6 +65,11 @@ class StoryDetailFragment : BaseFragment() {
 
         fragment_story_detail_pb_progress?.visibility = View.VISIBLE
 
+        (activity as AppCompatActivity).setSupportActionBar(fragment_story_detail_toolbar)
+//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).title = null
+        fragment_story_detail_collapsing_toolbar_layout?.setContentScrimColor(resources.getColor(R.color.colorPrimary))
+
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         fragment_story_detail_rv_recycler_view?.layoutManager = layoutManager
@@ -68,6 +78,18 @@ class StoryDetailFragment : BaseFragment() {
 
         retry_button.setOnClickListener {
             loadStoryDetailIfInternetPresent()
+        }
+
+        custom_tool_bar_iv_back_image.visibility = View.VISIBLE
+        custom_tool_bar_iv_share_image.visibility = View.VISIBLE
+        custom_tool_bar_tv_title.visibility = View.INVISIBLE
+
+        custom_tool_bar_iv_back_image.setOnClickListener {
+            fragmentManager?.popBackStack()
+            fragmentManager?.executePendingTransactions()
+        }
+        custom_tool_bar_iv_share_image.setOnClickListener {
+            ShareCurrentStory(mStory.slug)
         }
     }
 
@@ -123,30 +145,6 @@ class StoryDetailFragment : BaseFragment() {
 //                .into(fragment_story_detail_iv_hero_image)
 
 //            fragment_story_detail_tv_title?.text = mStory?.headline
-
-        /**
-         * checking for sections display name if it's null then checking for section's name
-         */
-        var sectionName: String? = null
-        val storySection = mStory.sections?.first()
-        if (storySection?.displayName != null)
-            sectionName = storySection.displayName
-        else if (storySection?.name != null)
-            sectionName = storySection.name
-        if (!TextUtils.isEmpty(sectionName)) {
-            fragment_story_detail_tv_section_name.text = sectionName
-            fragment_story_detail_ll_section?.visibility = View.VISIBLE
-        }
-
-        /**
-         * checking for story headline
-         */
-        val mStoryTitle: String? = mStory.headline
-        if (!TextUtils.isEmpty(mStoryTitle)) {
-            fragment_story_detail_tv_title?.visibility = View.VISIBLE
-            fragment_story_detail_tv_title.minLines = 2
-            fragment_story_detail_tv_title.text = mStory.headline
-        }
 
         val storyDetailAdapter = StoryDetailAdapter(mStory, fragmentCallbacks)
         fragment_story_detail_rv_recycler_view?.adapter = storyDetailAdapter

@@ -15,6 +15,7 @@ import android.view.WindowManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
+import kotlinx.android.synthetic.main.custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_tag_list.*
 import kotlinx.android.synthetic.main.collection_fragment_layout.*
 import kotlinx.android.synthetic.main.retry_layout.*
@@ -76,6 +77,18 @@ class TagListFragment : BaseFragment() {
             }
 
             observeViewModel(storiesListViewModel, mTagName as String, 0, false)
+
+            custom_tool_bar_ll_main_container.visibility = View.VISIBLE
+            custom_tool_bar_ll_main_container.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+
+            custom_tool_bar_iv_back_image.visibility = View.VISIBLE
+            custom_tool_bar_iv_share_image.visibility = View.INVISIBLE
+            custom_tool_bar_tv_title.visibility = View.VISIBLE
+
+            custom_tool_bar_tv_title.text = mTagName
+            custom_tool_bar_iv_back_image.setOnClickListener {
+                OnBackPressed()
+            }
         }
     }
 

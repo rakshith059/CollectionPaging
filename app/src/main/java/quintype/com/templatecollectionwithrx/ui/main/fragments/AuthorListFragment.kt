@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -12,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
@@ -26,6 +29,8 @@ import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
 import com.google.android.youtube.player.internal.i
+import kotlinx.android.synthetic.main.custom_tool_bar.*
+import kotlinx.android.synthetic.main.fragment_story_detail.*
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 
 
@@ -87,6 +92,30 @@ class AuthorListFragment : BaseFragment() {
                 observeViewModel(searchListViewModel, mAuthorName as String, 0, true)
             }
             observeViewModel(searchListViewModel, mAuthorName as String, 0, false)
+
+            (activity as AppCompatActivity).setSupportActionBar(fragment_author_list_toolbar)
+//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            fragment_author_list_collapsing_toolbar_layout?.setContentScrimColor(resources.getColor(R.color.colorPrimary))
+
+            custom_tool_bar_iv_back_image.visibility = View.VISIBLE
+            custom_tool_bar_iv_share_image.visibility = View.INVISIBLE
+
+            custom_tool_bar_tv_title.text = mAuthorName
+            custom_tool_bar_iv_back_image.setOnClickListener {
+                OnBackPressed()
+            }
+
+            /**
+             * checking whether a toolbar is collapsed or not
+             */
+            fragment_author_list_app_bar_layout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                // toolbar is collapsed
+                if (Math.abs(verticalOffset) == appBarLayout.totalScrollRange)
+                    custom_tool_bar_tv_title.visibility = View.VISIBLE
+                // toolbar is expanded
+                else
+                    custom_tool_bar_tv_title.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -122,6 +151,7 @@ class AuthorListFragment : BaseFragment() {
                                 showNoDataMessage()
                             }
                         }
+
                         override fun onNext(storiesSearchListResponse: SearchStoryList?) {
                             hideRetryLayout()
 
