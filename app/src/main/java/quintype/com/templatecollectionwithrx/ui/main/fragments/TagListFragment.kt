@@ -24,6 +24,8 @@ import quintype.com.templatecollectionwithrx.models.TagListResponse
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerItemDecorator
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
 
 
@@ -33,6 +35,8 @@ import quintype.com.templatecollectionwithrx.viewmodels.StoriesListViewModel
 
 class TagListFragment : BaseFragment() {
     var isGrid: Boolean = false
+    var isGridFirstTime: Boolean = true
+    var isListFirstTime: Boolean = true
 
     companion object {
         var mTagName: String? = null
@@ -112,6 +116,10 @@ class TagListFragment : BaseFragment() {
                     return 1
                 }
             }
+            if (isGridFirstTime) {
+                tag_list_recycler_view.addItemDecoration(RecyclerviewGridItemDecorator(4))
+                isGridFirstTime = false
+            }
             tag_list_recycler_view.layoutManager = gridLayoutManager
             isGrid = false
         } else if (!isGrid) {
@@ -120,6 +128,10 @@ class TagListFragment : BaseFragment() {
 
             val linearLayoutManager = LinearLayoutManager(activity)
             linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+            if (isListFirstTime) {
+                tag_list_recycler_view.addItemDecoration(RecyclerItemDecorator(false, 8, 8, 8, 8))
+                isListFirstTime = false
+            }
             tag_list_recycler_view.layoutManager = linearLayoutManager
             isGrid = true
         }
