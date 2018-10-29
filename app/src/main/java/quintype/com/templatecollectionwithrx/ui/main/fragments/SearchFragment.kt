@@ -166,7 +166,7 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
                             search_list_fragment_tv_no_recent_history?.visibility = View.GONE
 
                             if (searchListAdapter == null) {
-                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks, false)
+                                searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
                                 search_list_fragment_rv_recycler_view?.adapter = searchListAdapter
                             } else {
                                 searchListAdapter?.notifyAdapter(mStoriesList as ArrayList<Story>)

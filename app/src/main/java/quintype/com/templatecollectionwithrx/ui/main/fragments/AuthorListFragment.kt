@@ -137,7 +137,7 @@ class AuthorListFragment : BaseFragment() {
 
                             if (mStoriesList?.size!! > 0) {
                                 if (searchListAdapter == null) {
-                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks, false)
+                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
                                     fragment_author_list_rv_recycler_view?.adapter = searchListAdapter
                                     fragment_author_list_rv_recycler_view.addOnScrollListener(getEndlessScrollListener())
                                 } else {

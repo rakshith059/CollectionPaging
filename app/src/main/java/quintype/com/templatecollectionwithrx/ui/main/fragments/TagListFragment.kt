@@ -3,7 +3,6 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -61,8 +60,6 @@ class TagListFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mStoriesList = ArrayList<Story>()
-
         mTagName = arguments?.getString(TAG_NAME)
 
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
@@ -71,10 +68,10 @@ class TagListFragment : BaseFragment() {
 
         if (!TextUtils.isEmpty(mTagName)) {
             tag_list_swipeContainer.setOnRefreshListener {
-                observeViewModel(storiesListViewModel, mTagName as String, 0, true, isGrid)
+                observeViewModel(storiesListViewModel, mTagName as String, 0, true)
             }
 
-            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
+            observeViewModel(storiesListViewModel, mTagName as String, 0, false)
 
             custom_tool_bar_ll_main_container.visibility = View.VISIBLE
             custom_tool_bar_ll_main_container.setBackgroundColor(resources.getColor(R.color.colorPrimary))
@@ -96,6 +93,8 @@ class TagListFragment : BaseFragment() {
     }
 
     private fun changeLayout() {
+        mStoriesList = ArrayList<Story>()
+
         val linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         tag_list_recycler_view.layoutManager = linearLayoutManager
@@ -103,32 +102,26 @@ class TagListFragment : BaseFragment() {
         searchListAdapter = null
         if (isGrid) {
             custom_tool_bar_iv_share_image.setImageDrawable(resources.getDrawable(R.drawable.ic_list_icon))
-            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
-            var handler = Handler()
-            handler.postDelayed({
-                val gridLayoutManager = GridLayoutManager(tag_list_recycler_view?.context, 2)
-                /**
-                 * Added this to differentiate display child item with 2 grid
-                 */
-                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return 1
-                    }
+//            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
+            val gridLayoutManager = GridLayoutManager(tag_list_recycler_view?.context, 2)
+            /**
+             * Added this to differentiate display child item with 2 grid
+             */
+            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return 1
                 }
-                tag_list_recycler_view.layoutManager = gridLayoutManager
-                isGrid = false
-            }, 500)
+            }
+            tag_list_recycler_view.layoutManager = gridLayoutManager
+            isGrid = false
         } else if (!isGrid) {
             custom_tool_bar_iv_share_image.setImageDrawable(resources.getDrawable(R.drawable.ic_grid_icon))
-            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
+//            observeViewModel(storiesListViewModel, mTagName as String, 0, false, isGrid)
 
-            var handler = Handler()
-            handler.postDelayed({
-                val linearLayoutManager = LinearLayoutManager(activity)
-                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-                tag_list_recycler_view.layoutManager = linearLayoutManager
-                isGrid = true
-            }, 500)
+            val linearLayoutManager = LinearLayoutManager(activity)
+            linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+            tag_list_recycler_view.layoutManager = linearLayoutManager
+            isGrid = true
         }
 
     }
@@ -136,13 +129,13 @@ class TagListFragment : BaseFragment() {
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
-                observeViewModel(storiesListViewModel, mTagName as String, currentPage, false, isGrid)
+                observeViewModel(storiesListViewModel, mTagName as String, currentPage, false)
             }
         }
     }
 
     @SuppressLint("CheckResult")
-    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, grid: Boolean) {
+    private fun observeViewModel(viewModel: StoriesListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean) {
         if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
             viewModel.getStoriesListResponse(searchTerm, mPageNumber).subscribeOn(Schedulers.io())
                     .subscribeOn(Schedulers.io())
@@ -154,7 +147,7 @@ class TagListFragment : BaseFragment() {
 
                             if (mStoriesList?.size as Int > 0) {
                                 if (searchListAdapter == null) {
-                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks, grid)
+                                    searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
                                     tag_list_recycler_view?.adapter = searchListAdapter
                                     tag_list_recycler_view.addOnScrollListener(getEndlessScrollListener())
                                 } else {
@@ -202,7 +195,7 @@ class TagListFragment : BaseFragment() {
         retry_container.visibility = View.VISIBLE
         error_message.text = errorMessage
         retry_button.setOnClickListener { v ->
-            observeViewModel(viewModel, searchTerm, mPageNumber, refreshList, isGrid)
+            observeViewModel(viewModel, searchTerm, mPageNumber, refreshList)
         }
     }
 
