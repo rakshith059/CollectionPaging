@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_tag_list.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.InnerCollectionAdapter
 import quintype.com.templatecollectionwithrx.models.*
@@ -17,6 +18,8 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerItemDecorator
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
@@ -24,6 +27,7 @@ import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var rvInnerCollection: RecyclerView? = null
+    var isGridFirstTime = true
 
     fun bind(collectionItem: BulkTableModel) {
         val llCollectionName = itemView?.findViewById<LinearLayout>(R.id.default_collection_row_ll_collection_name)
@@ -106,11 +110,18 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                                 }
                             }
                         }
+
                         rvInnerCollection?.layoutManager = gridLayoutManager
                         if (index == 0)
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata, outerCollectionName))
-                        else
+                        else {
+//                            rvInnerCollection?.addItemDecoration(RecyclerItemDecorator(false, 4, 4, 4, 4))
+                            if (isGridFirstTime) {
+                                rvInnerCollection?.addItemDecoration(RecyclerviewGridItemDecorator(16))
+                                isGridFirstTime = false
+                            }
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID, mOuterCollectionAssociatedMetadata, outerCollectionName))
+                        }
                     }
                     Constants.FULL_SCREEN_LINEAR_GALLERY_SLIDER -> {
                         layoutManager.orientation = LinearLayout.VERTICAL

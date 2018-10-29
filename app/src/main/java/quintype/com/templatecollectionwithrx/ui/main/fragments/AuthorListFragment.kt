@@ -27,7 +27,10 @@ import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
 import kotlinx.android.synthetic.main.custom_tool_bar.*
+import kotlinx.android.synthetic.main.fragment_tag_list.*
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerItemDecorator
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 
 
 /**
@@ -68,7 +71,9 @@ class AuthorListFragment : BaseFragment() {
 
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
+        fragment_author_list_rv_recycler_view.addItemDecoration(RecyclerItemDecorator(false, 8, 8, 8, 8))
         fragment_author_list_rv_recycler_view.layoutManager = layoutManager
+
 
         mAuthorName = arguments?.getString(AUTHOR_NAME)
         mAuthorImage = arguments?.getString(AUTHOR_IMAGE)

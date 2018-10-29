@@ -19,12 +19,14 @@ import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
+import kotlinx.android.synthetic.main.author_list_fragment.*
 import kotlinx.android.synthetic.main.search_list_fragment.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.search.SearchStoryList
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerItemDecorator
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
 import java.util.*
 
@@ -98,6 +100,7 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
 
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
+        search_list_fragment_rv_recycler_view.addItemDecoration(RecyclerItemDecorator(false, 8, 8, 8, 8))
         search_list_fragment_rv_recycler_view.layoutManager = layoutManager
 
         search_list_fragment_fl_main_container?.visibility = View.GONE

@@ -10,10 +10,11 @@ class RecyclerviewGridItemDecorator(val padding: Int) : RecyclerView.ItemDecorat
 
         outRect.top = padding / 2
         outRect.bottom = padding / 2
-        if (parent.getChildLayoutPosition(view) % 2 == 1) {
-            outRect.right = padding / 2
-        } else {
-            outRect.left = padding / 2
+        if (parent.getChildLayoutPosition(view) % 2 == 0) {
+            outRect.right = padding
         }
+//        else {
+        outRect.left = padding / 2
+//        }
     }
 }
