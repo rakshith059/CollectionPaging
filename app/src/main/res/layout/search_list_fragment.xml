@@ -23,6 +23,9 @@
                 android:id="@+id/search_list_fragment_iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:padding="@dimen/size_8dp"
                 android:rotation="180"
                 app:srcCompat="@drawable/ic_arrow" />
@@ -41,6 +44,9 @@
                 android:id="@+id/search_list_fragment_iv_voice_search"
                 android:layout_width="@dimen/size_50dp"
                 android:layout_height="@dimen/size_50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:padding="@dimen/size_8dp"
                 app:srcCompat="@drawable/ic_voice_search" />
         </LinearLayout>
@@ -69,6 +75,9 @@
         <ImageView
             android:layout_width="@dimen/size_30dp"
             android:layout_height="@dimen/size_30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:padding="@dimen/size_5dp"
             app:srcCompat="@drawable/ic_delete" />
 

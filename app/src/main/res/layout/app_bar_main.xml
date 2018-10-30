@@ -38,6 +38,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_margin="@dimen/size_4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         android:visibility="gone"
                         app:srcCompat="@mipmap/ic_launcher" />
 
@@ -50,7 +53,7 @@
                         android:layout_marginBottom="@dimen/size_14dp"
                         android:layout_toLeftOf="@+id/search_icon"
                         android:ellipsize="end"
-                        android:fontFamily="sans-serif"
+                        android:fontFamily="@font/merriweather_regular"
                         android:lineSpacingMultiplier="1.2"
                         android:maxLines="1"
                         android:textColor="@color/white"
@@ -63,6 +66,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         android:paddingTop="@dimen/size_10dp"
                         android:paddingBottom="@dimen/size_10dp"
                         app:srcCompat="@drawable/ic_search_layer_list" />
