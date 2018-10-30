@@ -15,8 +15,11 @@
             android:id="@+id/default_collection_row_tv_collection_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/size_8dp"
-            android:fontFamily="cursive"
+            android:layout_marginLeft="@dimen/size_8dp"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:layout_marginRight="@dimen/size_8dp"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:fontFamily="@font/merriweather_bold"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_24sp"
@@ -30,13 +33,30 @@
             android:background="@color/colorPrimary" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/default_collection_row_rv_inner_collection"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_8dp"
-        android:background="@color/grey"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/default_collection_row_ll_collection_name" />
+        app:layout_constraintTop_toBottomOf="@+id/default_collection_row_ll_collection_name">
 
+        <ProgressBar
+            android:id="@+id/default_collection_row_pb_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/default_collection_row_rv_inner_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+
+            android:background="@color/grey"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

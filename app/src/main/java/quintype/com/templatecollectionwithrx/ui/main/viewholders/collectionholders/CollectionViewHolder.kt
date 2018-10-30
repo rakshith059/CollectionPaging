@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_tag_list.*
 import quintype.com.templatecollectionwithrx.R
@@ -27,6 +28,7 @@ import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemD
 class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var rvInnerCollection: RecyclerView? = null
+    var progressBar: ProgressBar? = null
     var isGridFirstTime = true
 
     fun bind(collectionItem: BulkTableModel) {
@@ -45,11 +47,13 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } else
             llCollectionName?.visibility = View.GONE
 
-        llCollectionName?.setOnClickListener({
-            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem?.slug, collectionItem?.outerCollectionName), TAG)
-        })
+        llCollectionName?.setOnClickListener {
+            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem.slug, collectionItem.outerCollectionName), TAG)
+        }
 
-        rvInnerCollection = itemView?.findViewById<RecyclerView>(R.id.default_collection_row_rv_inner_collection)
+        rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)
+        progressBar = itemView?.findViewById(R.id.default_collection_row_pb_progress_bar)
+        progressBar?.visibility = View.VISIBLE
 
         val collectionList = ArrayList<CollectionInnerListModel>()
         val collectionInnerList = collectionItem.innerCollectionResponse?.items

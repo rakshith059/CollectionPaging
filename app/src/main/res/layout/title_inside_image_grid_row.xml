@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/size_8dp"
                     android:ellipsize="end"
-                    android:fontFamily="serif-monospace"
+                    android:fontFamily="@font/merriweather_regular"
                     android:maxLines="3"
                     android:text="@string/app_name"
                     android:textColor="@color/white"
