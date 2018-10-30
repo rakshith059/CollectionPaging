@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:shimmer="http://schemas.android.com/tools"
+    android:id="@+id/shimmer_view_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:repeat_mode="restart"
+    shimmer:duration="5000">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_view_container"
+    <!-- Adding 2 rows of placeholders -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:background="@color/grey"
-        app:auto_start="true"
-        app:repeat_mode="reverse"
-        shimmer:duration="500">
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <!-- Adding 2 rows of placeholders -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <include layout="@layout/placeholder_parent_item" />
 
-            <include layout="@layout/placeholder_parent_item" />
+        <include layout="@layout/placeholder_child_item" />
 
-            <include layout="@layout/placeholder_child_item" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-
-</android.support.constraint.ConstraintLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>
