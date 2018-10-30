@@ -5,7 +5,10 @@
     android:id="@+id/title_inside_image_slider_cl_slideshow_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/size_8dp">
+    android:layout_marginLeft="@dimen/size_8dp"
+    android:layout_marginTop="@dimen/size_4dp"
+    android:layout_marginRight="@dimen/size_8dp"
+    android:layout_marginBottom="@dimen/size_4dp">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/title_inside_image_slider_vp_pager"

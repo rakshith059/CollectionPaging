@@ -7,20 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import com.facebook.shimmer.ShimmerFrameLayout
-import kotlinx.android.synthetic.main.fragment_tag_list.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.InnerCollectionAdapter
-import quintype.com.templatecollectionwithrx.models.*
+import quintype.com.templatecollectionwithrx.models.BulkTableModel
+import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
-import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerItemDecorator
 import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 
 /**
@@ -29,8 +27,7 @@ import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemD
 class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var rvInnerCollection: RecyclerView? = null
-    var progressBar: ProgressBar? = null
-    var shimmerView: ShimmerFrameLayout? = null
+    private var shimmerView: ShimmerFrameLayout? = null
     var isGridFirstTime = true
 
     fun bind(collectionItem: BulkTableModel) {
@@ -54,24 +51,21 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)
-        progressBar = itemView?.findViewById(R.id.default_collection_row_pb_progress_bar)
-        progressBar?.visibility = View.GONE
 
         shimmerView = itemView?.findViewById(R.id.shimmer_view_container)
         shimmerView?.startShimmerAnimation()
 
-
-        /**
-         * stop animation and hide the shimmer once we get the data
-         */
-        //todo stop animation and hide the shimmer once we get the data
-//        shimmerView?.stopShimmerAnimation()
-//        shimmerView?.visibility = View.GONE
-
         val collectionList = ArrayList<CollectionInnerListModel>()
         val collectionInnerList = collectionItem.innerCollectionResponse?.items
-        if (collectionInnerList?.size != null)
+        if (collectionInnerList?.size != null) {
+            /**
+             * stop animation and hide the shimmer once we get the data
+             */
+            shimmerView?.stopShimmerAnimation()
+            shimmerView?.visibility = View.GONE
+
             prepareLayoutEngine(collectionInnerList, collectionItem.mOuterCollectionAssociatedMetadata, collectionList, collectionItem.outerCollectionName)
+        }
 
         val innerCollectionAdapter = InnerCollectionAdapter(collectionList, mFragmentCallbacks)
 
