@@ -132,7 +132,8 @@ class StoryDetailFragment : BaseFragment() {
     }
 
     fun setStoryDetail(mStory: Story) {
-        app_bar_layout.visibility = View.VISIBLE
+        if (app_bar_layout != null)
+            app_bar_layout.visibility = View.VISIBLE
         fragment_story_detail_pb_progress.visibility = View.GONE
 //            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
 

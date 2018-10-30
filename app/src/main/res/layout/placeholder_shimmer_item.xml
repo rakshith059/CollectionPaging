@@ -5,6 +5,7 @@
     android:id="@+id/shimmer_view_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:visibility="gone"
     app:repeat_mode="restart"
     shimmer:duration="5000">
 

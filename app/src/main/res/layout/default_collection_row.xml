@@ -20,10 +20,10 @@
             android:layout_marginTop="@dimen/size_8dp"
             android:layout_marginRight="@dimen/size_8dp"
             android:layout_marginBottom="@dimen/size_4dp"
-            android:fontFamily="@font/merriweather_bold"
+            android:fontFamily="@font/roboto_regular"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_24sp"
+            android:textSize="@dimen/size_22sp"
             android:textStyle="bold" />
 
         <View

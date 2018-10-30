@@ -53,23 +53,30 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)
 
         shimmerView = itemView?.findViewById(R.id.shimmer_view_container)
+        shimmerView?.visibility = View.VISIBLE
         shimmerView?.startShimmerAnimation()
 
         val collectionList = ArrayList<CollectionInnerListModel>()
         val collectionInnerList = collectionItem.innerCollectionResponse?.items
         if (collectionInnerList?.size != null) {
-            /**
-             * stop animation and hide the shimmer once we get the data
-             */
-            shimmerView?.stopShimmerAnimation()
-            shimmerView?.visibility = View.GONE
-
+            stopAndHideShimmer()
             prepareLayoutEngine(collectionInnerList, collectionItem.mOuterCollectionAssociatedMetadata, collectionList, collectionItem.outerCollectionName)
+        } else {
+            stopAndHideShimmer()
+            llCollectionName?.visibility = View.GONE
         }
 
         val innerCollectionAdapter = InnerCollectionAdapter(collectionList, mFragmentCallbacks)
 
         rvInnerCollection?.adapter = innerCollectionAdapter
+    }
+
+    /**
+     * stop animation and hide the shimmer once we get the data
+     */
+    private fun stopAndHideShimmer() {
+        shimmerView?.stopShimmerAnimation()
+        shimmerView?.visibility = View.GONE
     }
 
     private fun prepareLayoutEngine(collectionInnerList: List<CollectionItem>, mOuterCollectionAssociatedMetadata: AssociatedMetadata?, collectionList: ArrayList<CollectionInnerListModel>, outerCollectionName: String?) {
