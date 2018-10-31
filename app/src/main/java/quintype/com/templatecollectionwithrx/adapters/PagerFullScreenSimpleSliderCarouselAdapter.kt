@@ -29,8 +29,8 @@ class PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata: A
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        var view = LayoutInflater.from(container.context).inflate(R.layout.pager_carousel_full_screen_simple_slider_row, container, false)
-        var slideShowViewHolder = PagerCarouselFullScreenSimpleSliderViewHolder(view)
+        val view = LayoutInflater.from(container.context).inflate(R.layout.pager_carousel_full_screen_simple_slider_row, container, false)
+        val slideShowViewHolder = PagerCarouselFullScreenSimpleSliderViewHolder(view)
         val story = storyList?.get(position)?.story as Story
 
         slideShowViewHolder.bind(story, mCollectionAssociatedMetadata, mCollectionName, mListner)

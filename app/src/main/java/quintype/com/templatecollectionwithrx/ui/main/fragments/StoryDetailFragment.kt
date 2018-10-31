@@ -134,7 +134,7 @@ class StoryDetailFragment : BaseFragment() {
     fun setStoryDetail(mStory: Story) {
         if (app_bar_layout != null)
             app_bar_layout.visibility = View.VISIBLE
-        fragment_story_detail_pb_progress.visibility = View.GONE
+        fragment_story_detail_pb_progress?.visibility = View.GONE
 //            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
 
         val heroImageURL = Utilities.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory.heroImageS3Key
