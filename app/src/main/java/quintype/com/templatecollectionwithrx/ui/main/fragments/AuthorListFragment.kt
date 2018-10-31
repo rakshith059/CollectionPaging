@@ -187,20 +187,20 @@ class AuthorListFragment : BaseFragment() {
     }
 
     private fun showRetryLayout(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, errorMessage: CharSequence?) {
-        author_list_progress_bar.visibility = View.GONE
-        author_list_swipeContainer.visibility = View.GONE
+        author_list_progress_bar?.visibility = View.GONE
+        author_list_swipeContainer?.visibility = View.GONE
 
-        retry_container.visibility = View.VISIBLE
-        error_message.text = errorMessage
+        retry_container?.visibility = View.VISIBLE
+        error_message?.text = errorMessage
         retry_button.setOnClickListener { v ->
             observeViewModel(viewModel, searchTerm, mPageNumber, refreshList)
         }
     }
 
     private fun hideRetryLayout() {
-        retry_container.visibility = View.GONE
-        author_list_progress_bar.visibility = View.VISIBLE
-        author_list_swipeContainer.visibility = View.VISIBLE
+        retry_container?.visibility = View.GONE
+        author_list_progress_bar?.visibility = View.VISIBLE
+        author_list_swipeContainer?.visibility = View.VISIBLE
     }
 
     private fun showNoDataMessage() {

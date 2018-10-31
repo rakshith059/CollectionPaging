@@ -33,6 +33,8 @@ abstract class BaseActivity : AppCompatActivity(), FragmentCallbacks, FragmentMa
         val fragmentManager = supportFragmentManager
         fragmentManager.addOnBackStackChangedListener(this)
         val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim, R.anim.pop_enter_anim, R.anim.pop_exit_anim)
+
         fragmentTransaction?.add(R.id.home_container, fragment)
 
         if (mBackStack != null) {
@@ -50,6 +52,8 @@ abstract class BaseActivity : AppCompatActivity(), FragmentCallbacks, FragmentMa
         val fragmentManager = supportFragmentManager
         fragmentManager.addOnBackStackChangedListener(this)
         val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim, R.anim.pop_enter_anim, R.anim.pop_exit_anim)
+
         fragmentTransaction?.replace(R.id.home_container, fragment)
 
         if (mBackStack != null) {
