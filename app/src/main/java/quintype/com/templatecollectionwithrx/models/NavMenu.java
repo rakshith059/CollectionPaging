@@ -161,11 +161,11 @@ public class NavMenu implements Parcelable {
     public Section section() {
         if (HOME.id.equalsIgnoreCase(id)) {
             return new Section(homeType);
-        } else
-
-        {
-            Section section = new Section(sectionName);
-            return section;
+        } else {
+            if (!TextUtils.isEmpty(sectionName))
+                return new Section(sectionName);
+            else
+                return null;
         }
 
     }
@@ -174,8 +174,9 @@ public class NavMenu implements Parcelable {
      * @return an instance of tag
      */
     public Tag tag() {
-        Tag tag = new Tag(tagName);
-        return tag;
+        if (!TextUtils.isEmpty(tagName))
+            return new Tag(tagName);
+        else return null;
     }
 
     /**

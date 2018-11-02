@@ -22,9 +22,7 @@ class CollectionService {
         var collectionService: CollectionService? = null
         var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
         var mCompositeDisposable: CompositeDisposable? = null
-
         var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
-
         var collectionModelList = ArrayList<BulkTableModel>()
 
         @Synchronized
@@ -32,27 +30,36 @@ class CollectionService {
             if (collectionService == null)
                 collectionService = CollectionService()
 
-            if (compositeDisposable != null)
-                mCompositeDisposable = compositeDisposable
-
+            mCompositeDisposable = compositeDisposable
             return collectionService as CollectionService
         }
+
+        var TAG = CollectionService::class.java.simpleName
     }
 
     fun getCollectionResponse(collectionSlug: String, pageNumber: Int, errorHandler: ErrorHandler?): LiveData<BulkTableModel> {
-        Log.d("Rakshith", "api call started for first iteration.. ")
 
+        /*If pageNumber is '0' i.e it has been called for the first time or its being called when Pull to refresh is triggered.
+        Reset the variables in this case, since the variables are declared global it will hold the old values.*/
+        if (pageNumber == 0) {
+            collectionData = MutableLiveData()
+            collectionModelList.clear()
+        }
+
+        Log.d(TAG, "First Iteration Collection Slug - " + collectionSlug + " Limit - " + Constants.COLLECTION_LIMIT + " Offset - " + pageNumber * Constants.COLLECTION_LIMIT)
+        Log.d(TAG, "CollectionModelList Size before API call - " + collectionModelList.size)
         mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, Constants.COLLECTION_LIMIT, pageNumber * Constants.COLLECTION_LIMIT, Constants.STORY_FIELDS)
-                .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
+                .doOnError { error -> Log.d(TAG, "error is " + error.message) }
                 .retry(3)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { mCollectionResponse ->
+                    Log.d(TAG, "OnSuccess the total collectionItems is - " + mCollectionResponse.items?.size)
                     for (index in 0 until mCollectionResponse.items?.size as Int) {
                         val mCollectionItem = mCollectionResponse.items?.get(index)
 
                         if (mCollectionItem?.type == Constants.TYPE_COLLECTION) {
-
+                            Log.d(TAG, "The " + index + "th collection Item is COLLECTION type, the slug is " + mCollectionItem.slug)
                             val bulkTableModel = BulkTableModel(mCollectionItem.slug,
                                     null,
                                     mCollectionItem.name,
@@ -67,6 +74,7 @@ class CollectionService {
                             collectionData.value = bulkTableModel
 
                         } else if (mCollectionItem?.type == Constants.TYPE_STORY) {
+                            Log.d(TAG, "The " + index + "th collection Item is STORY type, the headline is " + mCollectionItem.story?.headline)
                             val bulkTableModel = BulkTableModel(mCollectionItem.story?.slug,
                                     mCollectionItem.story,
                                     null,
@@ -97,15 +105,16 @@ class CollectionService {
                      * Using getCollectionOnlyStoriesApiService for getting only stories
                      */
                     return@concatMapEager collectionApiService.getCollectionOnlyStoriesApiService(mCollectionItem.slug as String, PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
-                            .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
+                            .doOnError { error -> Log.d(TAG, "error is " + error.message) }
                             .retry(3)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                 }
                 .subscribeWith(object : ResourceSubscriber<CollectionResponse>() {
                     override fun onComplete() {
-                        Log.d("Rakshith", "api call completed for first iteration.. ")
+                        Log.d(TAG, "onComplete of First iteration")
 //                        collectionData.value = collectionModelList
+                        Log.d(TAG, "CollectionModelList Size onComplete - " + collectionModelList.size)
                         errorHandler?.onAPISuccess()
                     }
 
@@ -114,7 +123,7 @@ class CollectionService {
                         val mCollectionItems = mCollectionsModel.items
                         val mCollectionSize = mCollectionItems?.size as Int
 
-                        Log.d("Rakshith", "collectionItem slug is ${mCollectionsModel.slug}")
+                        Log.d(TAG, " onNext of collectionItem slug - ${mCollectionsModel.slug}")
 
 //                        if (mCollectionSize > 4)
 //                            mCollectionSize = 4
@@ -137,8 +146,7 @@ class CollectionService {
 
                             if (index == 0 && mCollectionItem.type?.equals(Constants.TYPE_COLLECTION) as Boolean) {
                                 if (mCollectionItem.template?.equals(Constants.WIDGET_TEMPLATE) == false) {
-
-                                    getChildRxResponse(mCollectionItem.slug as String, Constants.PAGE_LIMIT_CHILD, 0)
+                                    getChildRxResponse(mCollectionItem.slug as String)
                                     //todo call child collection for 1st position if 0th position is widget
                                 }
                             } else if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
@@ -149,7 +157,7 @@ class CollectionService {
 
                                         collectionData.value = bulkModel
                                     }
-                                    Log.d("Rakshith", "api call success and onNext collectionSlug == $mCollectionSlug &&  collectionStory headline is ${mCollectionItem.story?.headline}")
+                                    //Log.d(TAG, "api call success and onNext collectionSlug == $mCollectionSlug &&  collectionStory headline is ${mCollectionItem.story?.headline}")
                                 }
                             }
                         }
@@ -157,23 +165,23 @@ class CollectionService {
 
                     override fun onError(e: Throwable) {
                         errorHandler?.onAPIFailure()
-                        Log.d("Rakshith", "api call failed .. " + e.message)
+                        Log.d(TAG, "First iteration API failed for collection SLUG " + collectionSlug + ", getting " + e.message)
                     }
                 })
         )
         return collectionData
     }
 
-    fun getChildRxResponse(collectionSlug: String, limit: Int, offset: Int) {
+    fun getChildRxResponse(collectionSlug: String) {
         val collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
-
-        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, limit, offset, Constants.TYPE_STORY, Constants.STORY_FIELDS)
+        Log.d(TAG, "Second Iteration Collection Slug - " + collectionSlug)
+        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, Constants.PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .flatMap({ mCollectionResponse -> Flowable.fromIterable(mCollectionResponse.items) })
                 .subscribeWith(object : ResourceSubscriber<CollectionResponse>() {
                     override fun onComplete() {
-                        Log.d("Rakshith", " second iteration api call completed for second iteration.. ")
+                        Log.d(TAG, " Second iteration api call completed")
                     }
 
                     override fun onNext(mCollectionsModel: CollectionResponse) {
@@ -189,23 +197,23 @@ class CollectionService {
                                 collectionData.value = bulkModel
                             }
                         }
-                        Log.d("Rakshith", " second iteration collectionItem slug is ${mCollectionsModel.slug}")
+                        Log.d(TAG, "onNext of second iteration collectionItem slug - ${mCollectionsModel.slug}")
 
                         for (index in 0 until mCollectionSize) {
                             val mCollectionItem = mCollectionItems[index]
 
                             if (index == 0 && mCollectionItem.type?.equals(Constants.TYPE_COLLECTION) as Boolean) {
                                 if (mCollectionItem.template?.equals(Constants.WIDGET_TEMPLATE) == false) {
-                                    getChildRxResponse(mCollectionItem.slug as String, Constants.PAGE_LIMIT_CHILD, 0)
+                                    getChildRxResponse(mCollectionItem.slug as String)
                                 }
                             } else if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
-                                Log.d("Rakshith", " second iteration api call success and onNext collectionSlug == $mCollectionSlug &&  collectionStory headline is ${mCollectionItem.story?.headline}")
+                                //Log.d(TAG, " second iteration api call success and onNext collectionSlug == $mCollectionSlug &&  collectionStory headline is ${mCollectionItem.story?.headline}")
                             }
                         }
                     }
 
                     override fun onError(e: Throwable) {
-                        Log.d("Rakshith", " second iteration api call failed .. " + e.message)
+                        Log.d(TAG, "Second iteration API failed for collection SLUG " + collectionSlug + ", getting " + e.message)
                     }
                 }))
     }

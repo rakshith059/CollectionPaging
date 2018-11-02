@@ -22,6 +22,7 @@ import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 
 class SectionFragment : BaseFragment(), ErrorHandler {
+    override var TAG = SectionFragment::class.java.simpleName
     lateinit var errorHandler: ErrorHandler
 
     companion object {
@@ -56,9 +57,11 @@ class SectionFragment : BaseFragment(), ErrorHandler {
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         if (!TextUtils.isEmpty(mCollectionSlug)) {
+            Log.d(TAG, "onActivityCreated - Slug " + mCollectionSlug)
             viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0, errorHandler)
 
             collection_fragment_swipeContainer.setOnRefreshListener {
+                Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
                 collectionAdapter = null
                 linkedHashMap.clear()
                 viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0, errorHandler)
@@ -76,6 +79,7 @@ class SectionFragment : BaseFragment(), ErrorHandler {
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
+                Log.d(TAG, "onLoadMore - Slug " + mCollectionSlug)
                 viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, currentPage, errorHandler)
             }
         }
@@ -85,8 +89,8 @@ class SectionFragment : BaseFragment(), ErrorHandler {
         viewModel.getCollectionListObservable()?.observe(this, Observer<BulkTableModel>() {
             it?.let { it1 -> linkedHashMap?.put(it?.slug.toString(), it1) }
 
-            Log.d("Rakshith", "summary is ${it?.slug}")
-            if (linkedHashMap.size < Constants.COLLECTION_LIMIT) {
+            Log.d(TAG, "summary is ${it?.slug}")
+            if (collectionAdapter == null) {
                 collectionAdapter = HomeCollectionAdapter(linkedHashMap?.values?.toList(), fragmentCallbacks)
                 collection_fragment_recycler_view?.adapter = collectionAdapter
                 collection_fragment_recycler_view.addOnScrollListener(getEndlessScrollListener())

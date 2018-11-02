@@ -82,8 +82,7 @@ class MainFragment : BaseFragment(), ErrorHandler {
             it?.let { it1 -> linkedHashMap.put(it?.slug.toString(), it1) }
             val linkedCollectionList = linkedHashMap.values.toList()
 
-            //Log.d("Rakshith", "summary is ${it?.slug}")
-            if (linkedHashMap.size < Constants.COLLECTION_LIMIT) {
+            if (collectionAdapter == null) {
                 collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
                 collection_fragment_recycler_view?.adapter = collectionAdapter
                 collection_fragment_recycler_view.addOnScrollListener(getEndlessScrollListener())
