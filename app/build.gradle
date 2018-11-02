@@ -83,4 +83,7 @@ dependencies {
 
     //for youtube library
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    //for shimmer progress
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }

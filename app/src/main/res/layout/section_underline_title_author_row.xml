@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/merriweather_bold"
             android:paddingLeft="@dimen/size_8dp"
             android:paddingTop="@dimen/size_8dp"
             android:paddingRight="@dimen/size_8dp"
@@ -26,7 +26,6 @@
             android:text="@string/section"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/size_16sp"
-            android:textStyle="bold"
             android:visibility="visible" />
 
         <View
@@ -34,6 +33,7 @@
             android:layout_height="@dimen/size_4dp"
             android:layout_marginLeft="@dimen/size_8dp"
             android:layout_marginRight="@dimen/size_8dp"
+            android:layout_marginBottom="@dimen/size_8dp"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintTop_toBottomOf="@+id/section_underline_title_author_row_tv_section_name" />
     </LinearLayout>
@@ -42,15 +42,13 @@
         android:id="@+id/section_underline_title_author_row_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_8dp"
         android:ellipsize="end"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/merriweather_regular"
         android:maxLines="3"
         android:paddingLeft="@dimen/size_8dp"
         android:text="@string/title"
         android:textColor="@color/theme_secondary_color"
         android:textSize="@dimen/size_16sp"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/section_underline_title_author_row_ll_section" />
 
     <quintype.com.templatecollectionwithrx.utils.widgets.CustomRatingBar

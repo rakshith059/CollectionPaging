@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.facebook.shimmer.ShimmerFrameLayout
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.InnerCollectionAdapter
-import quintype.com.templatecollectionwithrx.models.*
+import quintype.com.templatecollectionwithrx.models.BulkTableModel
+import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
@@ -24,6 +27,8 @@ import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var rvInnerCollection: RecyclerView? = null
+    private var shimmerView: ShimmerFrameLayout? = null
+    var isGridFirstTime = true
 
     fun bind(collectionItem: BulkTableModel) {
         val llCollectionName = itemView?.findViewById<LinearLayout>(R.id.default_collection_row_ll_collection_name)
@@ -41,20 +46,37 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         } else
             llCollectionName?.visibility = View.GONE
 
-        llCollectionName?.setOnClickListener({
-            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem?.slug, collectionItem?.outerCollectionName), TAG)
-        })
+        llCollectionName?.setOnClickListener {
+            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem.slug, collectionItem.outerCollectionName), TAG)
+        }
 
-        rvInnerCollection = itemView?.findViewById<RecyclerView>(R.id.default_collection_row_rv_inner_collection)
+        rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)
+
+        shimmerView = itemView?.findViewById(R.id.shimmer_view_container)
+        shimmerView?.visibility = View.VISIBLE
+        shimmerView?.startShimmerAnimation()
 
         val collectionList = ArrayList<CollectionInnerListModel>()
         val collectionInnerList = collectionItem.innerCollectionResponse?.items
-        if (collectionInnerList?.size != null)
+        if (collectionInnerList?.size != null) {
+            stopAndHideShimmer()
             prepareLayoutEngine(collectionInnerList, collectionItem.mOuterCollectionAssociatedMetadata, collectionList, collectionItem.outerCollectionName)
+        } else {
+            stopAndHideShimmer()
+            llCollectionName?.visibility = View.GONE
+        }
 
         val innerCollectionAdapter = InnerCollectionAdapter(collectionList, mFragmentCallbacks)
 
         rvInnerCollection?.adapter = innerCollectionAdapter
+    }
+
+    /**
+     * stop animation and hide the shimmer once we get the data
+     */
+    private fun stopAndHideShimmer() {
+        shimmerView?.stopShimmerAnimation()
+        shimmerView?.visibility = View.GONE
     }
 
     private fun prepareLayoutEngine(collectionInnerList: List<CollectionItem>, mOuterCollectionAssociatedMetadata: AssociatedMetadata?, collectionList: ArrayList<CollectionInnerListModel>, outerCollectionName: String?) {
@@ -106,11 +128,18 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                                 }
                             }
                         }
+
                         rvInnerCollection?.layoutManager = gridLayoutManager
                         if (index == 0)
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION, mOuterCollectionAssociatedMetadata, outerCollectionName))
-                        else
+                        else {
+//                            rvInnerCollection?.addItemDecoration(RecyclerItemDecorator(false, 4, 4, 4, 4))
+                            if (isGridFirstTime) {
+                                rvInnerCollection?.addItemDecoration(RecyclerviewGridItemDecorator(16))
+                                isGridFirstTime = false
+                            }
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID, mOuterCollectionAssociatedMetadata, outerCollectionName))
+                        }
                     }
                     Constants.FULL_SCREEN_LINEAR_GALLERY_SLIDER -> {
                         layoutManager.orientation = LinearLayout.VERTICAL

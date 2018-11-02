@@ -25,5 +25,6 @@
     <color name="concrete">#F2F2F2</color>
     <color name="red">#CA4242</color>
     <color name="aluminum">#999999</color>
+    <color name="placeholder_bg">#dddddd</color>
 
 </resources>
