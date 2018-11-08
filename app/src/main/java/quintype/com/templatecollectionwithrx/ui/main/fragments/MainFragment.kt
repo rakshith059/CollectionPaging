@@ -51,14 +51,15 @@ class MainFragment : BaseFragment(), ErrorHandler {
         /*To avoid taking screenshot*/
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0, errorHandler)
+        val factory = MainViewModel.Factory(activity?.application!!, Constants.COLLECTION_HOME)
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+        viewModel.getCollectionLoadMoreResponse(0, errorHandler)
 
 
         collection_fragment_swipeContainer.setOnRefreshListener {
             collectionAdapter = null
             linkedHashMap.clear()
-            viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0, errorHandler)
+            viewModel.getCollectionLoadMoreResponse(0, errorHandler)
         }
 
         if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
@@ -72,7 +73,7 @@ class MainFragment : BaseFragment(), ErrorHandler {
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
-                viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, currentPage, errorHandler)
+                viewModel.getCollectionLoadMoreResponse(currentPage, errorHandler)
             }
         }
     }
@@ -123,6 +124,5 @@ class MainFragment : BaseFragment(), ErrorHandler {
     override fun onDestroy() {
         super.onDestroy()
         linkedHashMap?.clear()
-        viewModel.compositeDisposable.dispose()
     }
 }

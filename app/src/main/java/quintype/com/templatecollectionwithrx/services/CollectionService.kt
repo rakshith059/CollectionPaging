@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
@@ -21,16 +20,14 @@ class CollectionService {
     companion object {
         var collectionService: CollectionService? = null
         var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
-        var mCompositeDisposable: CompositeDisposable? = null
         var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
         var collectionModelList = ArrayList<BulkTableModel>()
 
         @Synchronized
-        fun getInstance(compositeDisposable: CompositeDisposable): CollectionService {
+        fun getInstance(): CollectionService {
             if (collectionService == null)
                 collectionService = CollectionService()
 
-            mCompositeDisposable = compositeDisposable
             return collectionService as CollectionService
         }
 
@@ -48,7 +45,7 @@ class CollectionService {
 
         Log.d(TAG, "First Iteration Collection Slug - " + collectionSlug + " Limit - " + Constants.COLLECTION_LIMIT + " Offset - " + pageNumber * Constants.COLLECTION_LIMIT)
         Log.d(TAG, "CollectionModelList Size before API call - " + collectionModelList.size)
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, Constants.COLLECTION_LIMIT, pageNumber * Constants.COLLECTION_LIMIT, Constants.STORY_FIELDS)
+        val subscribeWith = collectionApiService.getCollectionApiService(collectionSlug, Constants.COLLECTION_LIMIT, pageNumber * Constants.COLLECTION_LIMIT, Constants.STORY_FIELDS)
                 .doOnError { error -> Log.d(TAG, "error is " + error.message) }
                 .retry(3)
                 .subscribeOn(Schedulers.io())
@@ -149,15 +146,18 @@ class CollectionService {
                                     getChildRxResponse(mCollectionItem.slug as String)
                                     //todo call child collection for 1st position if 0th position is widget
                                 }
-                            } else if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
-                                for (collectionListIndex in 0 until collectionModelList.size) {
-                                    if (collectionModelList.get(collectionListIndex).slug?.equals(mCollectionSlug) == true) {
-                                        val bulkModel: BulkTableModel = collectionModelList.get(collectionListIndex)
-                                        bulkModel.innerCollectionResponse = mCollectionsModel
+                            } else //todo call child collection for 1st position if 0th position is widget
+                            {
+                                if (mCollectionItem.type?.equals(Constants.TYPE_STORY) as Boolean) {
+                                    for (collectionListIndex in 0 until collectionModelList.size) {
+                                        if (collectionModelList.get(collectionListIndex).slug?.equals(mCollectionSlug) == true) {
+                                            val bulkModel: BulkTableModel = collectionModelList.get(collectionListIndex)
+                                            bulkModel.innerCollectionResponse = mCollectionsModel
 
-                                        collectionData.value = bulkModel
+                                            collectionData.value = bulkModel
+                                        }
+                                        //Log.d(TAG, "api call success and onNext collectionSlug == $mCollectionSlug &&  collectionStory headline is ${mCollectionItem.story?.headline}")
                                     }
-                                    //Log.d(TAG, "api call success and onNext collectionSlug == $mCollectionSlug &&  collectionStory headline is ${mCollectionItem.story?.headline}")
                                 }
                             }
                         }
@@ -168,14 +168,13 @@ class CollectionService {
                         Log.d(TAG, "First iteration API failed for collection SLUG " + collectionSlug + ", getting " + e.message)
                     }
                 })
-        )
         return collectionData
     }
 
     fun getChildRxResponse(collectionSlug: String) {
         val collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
         Log.d(TAG, "Second Iteration Collection Slug - " + collectionSlug)
-        mCompositeDisposable?.add(collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, Constants.PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
+        val subscribeWith = collectionApiService.getCollectionOnlyStoriesApiService(collectionSlug, Constants.PAGE_LIMIT_CHILD, 0, Constants.TYPE_STORY, Constants.STORY_FIELDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .flatMap({ mCollectionResponse -> Flowable.fromIterable(mCollectionResponse.items) })
@@ -215,6 +214,6 @@ class CollectionService {
                     override fun onError(e: Throwable) {
                         Log.d(TAG, "Second iteration API failed for collection SLUG " + collectionSlug + ", getting " + e.message)
                     }
-                }))
+                })
     }
 }

@@ -48,6 +48,11 @@ class SectionFragment : BaseFragment(), ErrorHandler {
         return inflater.inflate(R.layout.collection_fragment_layout, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume - Slug " + mCollectionSlug)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         errorHandler = this
@@ -55,16 +60,19 @@ class SectionFragment : BaseFragment(), ErrorHandler {
 
         /*To avoid taking screenshot*/
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        val factory = MainViewModel.Factory(activity?.application!!, mCollectionSlug!!)
+
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         if (!TextUtils.isEmpty(mCollectionSlug)) {
             Log.d(TAG, "onActivityCreated - Slug " + mCollectionSlug)
-            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0, errorHandler)
+            viewModel.getCollectionLoadMoreResponse(0, errorHandler)
 
             collection_fragment_swipeContainer.setOnRefreshListener {
                 Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
                 collectionAdapter = null
                 linkedHashMap.clear()
-                viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0, errorHandler)
+                viewModel.getCollectionLoadMoreResponse(0, errorHandler)
             }
 
             if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
@@ -80,13 +88,14 @@ class SectionFragment : BaseFragment(), ErrorHandler {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
                 Log.d(TAG, "onLoadMore - Slug " + mCollectionSlug)
-                viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, currentPage, errorHandler)
+                viewModel.getCollectionLoadMoreResponse(currentPage, errorHandler)
             }
         }
     }
 
     private fun observeViewModel(viewModel: MainViewModel) {
         viewModel.getCollectionListObservable()?.observe(this, Observer<BulkTableModel>() {
+
             it?.let { it1 -> linkedHashMap?.put(it?.slug.toString(), it1) }
 
             Log.d(TAG, "summary is ${it?.slug}")
@@ -130,7 +139,6 @@ class SectionFragment : BaseFragment(), ErrorHandler {
 
     override fun onDestroy() {
         super.onDestroy()
-        linkedHashMap?.clear()
-        viewModel.compositeDisposable.dispose()
+        linkedHashMap.clear()
     }
 }
