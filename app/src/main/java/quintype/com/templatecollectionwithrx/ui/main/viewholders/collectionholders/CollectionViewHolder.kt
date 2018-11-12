@@ -47,7 +47,7 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             llCollectionName?.visibility = View.GONE
 
         llCollectionName?.setOnClickListener {
-            mFragmentCallbacks?.addFragment(SectionFragment.newInstance(collectionItem.slug, collectionItem.outerCollectionName), TAG)
+            mFragmentCallbacks?.addFragment(SectionFragment().newInstance(collectionItem.slug, collectionItem.outerCollectionName), TAG)
         }
 
         rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)

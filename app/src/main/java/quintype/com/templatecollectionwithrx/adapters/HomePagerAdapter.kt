@@ -12,7 +12,7 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 class HomePagerAdapter(fm: FragmentManager?, private val menuItemModelList: List<MenuItemModel>, private val isMenuGroupNull: Boolean) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return if (!isMenuGroupNull)
-            SectionFragment.newInstance(menuItemModelList.get(position).sectionSlug, menuItemModelList.get(position).mTitle)
+            SectionFragment().newInstance(menuItemModelList.get(position).sectionSlug, menuItemModelList.get(position).mTitle)
         else
             MainFragment.newInstance()
     }

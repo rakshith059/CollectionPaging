@@ -17,32 +17,14 @@ import quintype.com.templatecollectionwithrx.utils.ErrorHandler
  */
 
 class CollectionService {
-    companion object {
-        var collectionService: CollectionService? = null
-        var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
-        var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
-        var collectionModelList = ArrayList<BulkTableModel>()
+    var TAG = CollectionService::class.java.simpleName
+    var collectionApiService: CollectionApiService = RetrofitApiClient.getRetrofitApiClient().create(CollectionApiService::class.java)
+    var collectionData: MutableLiveData<BulkTableModel> = MutableLiveData()
+    var collectionModelList = ArrayList<BulkTableModel>()
 
-        @Synchronized
-        fun getInstance(): CollectionService {
-            if (collectionService == null)
-                collectionService = CollectionService()
-
-            return collectionService as CollectionService
-        }
-
-        var TAG = CollectionService::class.java.simpleName
-    }
+    /*Avoid using companion object to create new instances.*/
 
     fun getCollectionResponse(collectionSlug: String, pageNumber: Int, errorHandler: ErrorHandler?): LiveData<BulkTableModel> {
-
-        /*If pageNumber is '0' i.e it has been called for the first time or its being called when Pull to refresh is triggered.
-        Reset the variables in this case, since the variables are declared global it will hold the old values.*/
-        if (pageNumber == 0) {
-            collectionData = MutableLiveData()
-            collectionModelList.clear()
-        }
-
         Log.d(TAG, "First Iteration Collection Slug - " + collectionSlug + " Limit - " + Constants.COLLECTION_LIMIT + " Offset - " + pageNumber * Constants.COLLECTION_LIMIT)
         Log.d(TAG, "CollectionModelList Size before API call - " + collectionModelList.size)
         val subscribeWith = collectionApiService.getCollectionApiService(collectionSlug, Constants.COLLECTION_LIMIT, pageNumber * Constants.COLLECTION_LIMIT, Constants.STORY_FIELDS)

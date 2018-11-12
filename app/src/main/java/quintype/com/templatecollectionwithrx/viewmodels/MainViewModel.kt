@@ -12,6 +12,7 @@ import quintype.com.templatecollectionwithrx.utils.ErrorHandler
 class MainViewModel(collectionSlug: String, application: Application) : AndroidViewModel(application) {
     private val mCollectionSlug = collectionSlug
     private var collectionListObservable: LiveData<BulkTableModel>? = null
+    private var collectionService: CollectionService? = null
 
     /**
      * Expose the LiveData Projects query so the UI can observe it.
@@ -21,7 +22,12 @@ class MainViewModel(collectionSlug: String, application: Application) : AndroidV
     }
 
     fun getCollectionLoadMoreResponse(currentPage: Int, errorHandler: ErrorHandler?) {
-        collectionListObservable = CollectionService.getInstance().getCollectionResponse(mCollectionSlug, currentPage, errorHandler)
+        /*Create new Instanse of collectionService if it is not available or if the page number is '0'.
+         Avoid using companion object to create new instances.*/
+        if (collectionService == null || currentPage == 0)
+            collectionService = CollectionService()
+
+        collectionListObservable = collectionService!!.getCollectionResponse(mCollectionSlug, currentPage, errorHandler)
     }
 
 
