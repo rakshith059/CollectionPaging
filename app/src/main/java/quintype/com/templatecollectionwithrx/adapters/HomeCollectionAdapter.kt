@@ -7,6 +7,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.NativeAdsViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
@@ -22,6 +23,8 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     var mFragmentCallbacks = fragmentCallbacks
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
+            Constants.TYPE_NATIVE_ADS ->
+                return NativeAdsViewHolder.create(parent)
             Constants.TYPE_OUTER_COLLECTION ->
                 return CollectionViewHolder.create(parent, mFragmentCallbacks)
             Constants.TYPE_OUTER_STORY ->
@@ -51,15 +54,21 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
             holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
         } else if (holder is TitleBelowImageBlockSectionViewHolder) {
             holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
+        } else if (holder is NativeAdsViewHolder) {
+            holder.bind(this)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         var itemStory = collectionList.get(position).story
-        if (itemStory == null)
-            return Constants.TYPE_OUTER_COLLECTION
+
+        if (position % 4 == 1)
+            return Constants.TYPE_NATIVE_ADS
         else
-            return Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION
+            if (itemStory == null)
+                return Constants.TYPE_OUTER_COLLECTION
+            else
+                return Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION
 //        else {
 //            if (position % 2 == 0)
 //                return Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD

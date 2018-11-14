@@ -93,6 +93,7 @@ class Constants {
         const val VIEWHOLDER_TYPE_FULL_SCREEN_SIMPLE_SLIDER = 1011
         const val TYPE_OUTER_COLLECTION = 1012
         const val TYPE_OUTER_STORY = 1013
+        const val TYPE_NATIVE_ADS = 2000
 
         const val ASSOISATED_THEME_DARK: String = "dark"
         const val ASSOISATED_THEME_LIGHT: String = "light"

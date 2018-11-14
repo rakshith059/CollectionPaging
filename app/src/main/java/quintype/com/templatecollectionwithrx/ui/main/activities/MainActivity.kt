@@ -10,9 +10,18 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.formats.NativeAdOptions
+import com.google.android.gms.ads.formats.NativeAppInstallAd
+import com.google.android.gms.ads.formats.NativeContentAd
+import com.google.android.gms.ads.formats.NativeContentAdView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R
@@ -53,6 +62,8 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
         navMenuRecyclerview = findViewById(R.id.nav_menu_recyclerview)
         toolBar = findViewById(R.id.toolbar)
         ivSearchIcon = findViewById(R.id.search_icon)
+
+        MobileAds.initialize(this, resources.getString(R.string.admob_app_id))
 
         setSupportActionBar(toolBar)
 
