@@ -27,6 +27,7 @@ import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 
 class SectionFragment : BaseFragment(), ErrorHandler {
     override var TAG = SectionFragment::class.java.simpleName
+
     lateinit var errorHandler: ErrorHandler
     var mCollectionSlug: String? = null
     private lateinit var recyclerView: RecyclerView

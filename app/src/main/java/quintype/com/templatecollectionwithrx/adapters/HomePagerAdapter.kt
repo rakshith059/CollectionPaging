@@ -14,7 +14,7 @@ class HomePagerAdapter(fm: FragmentManager?, private val menuItemModelList: List
         return if (!isMenuGroupNull)
             SectionFragment().newInstance(menuItemModelList.get(position).sectionSlug, menuItemModelList.get(position).mTitle)
         else
-            MainFragment.newInstance()
+            MainFragment()
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

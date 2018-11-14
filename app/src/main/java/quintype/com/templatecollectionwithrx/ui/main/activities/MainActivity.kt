@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -17,15 +16,11 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
-import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
-import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.ui.main.fragments.SearchFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.TagListFragment
+import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
+import quintype.com.templatecollectionwithrx.ui.main.fragments.*
+import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
