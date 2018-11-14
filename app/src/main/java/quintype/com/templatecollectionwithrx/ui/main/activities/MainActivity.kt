@@ -21,6 +21,7 @@ import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
 import quintype.com.templatecollectionwithrx.ui.main.fragments.*
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.Constants.Companion.NAV_MENU_GROUP
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
@@ -130,13 +131,9 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
     private fun setupHomeScreen() {
         //if the backstack is empty/the app has just been launched
         if (getmFragment() == null) {
-//            val fragmentManager = supportFragmentManager
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.add(R.id.home_container, HomePagerFragment.newInstance())
-//            fragmentTransaction.commit()
-            addFragment(HomePagerFragment.newInstance(null), null)
+            val homePagerFragment = initHomePagerFragment(null)
+            addFragment(homePagerFragment, null)
         }
-//        displayDetailScreen()
     }
 
     override fun onDrawerItemSelected(menuGroup: NavMenuGroup?) {
@@ -154,7 +151,8 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
                     fragment.setCurrentItem(submenuPosition + 1)
                 } else {
                     currentSection = menuGroup.menuItem
-                    addFragment(HomePagerFragment.newInstance(menuGroup), TAG)
+                    val homePagerFragment = initHomePagerFragment(menuGroup)
+                    addFragment(homePagerFragment, TAG)
                 }
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
                 Toast.makeText(this, "Menu type LINK not yet handled", LENGTH_SHORT).show()
@@ -165,6 +163,14 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
             }
         }
         mDrawerLayout?.closeDrawer(GravityCompat.START)
+    }
+
+    private fun initHomePagerFragment(menuGroup: NavMenuGroup?): HomePagerFragment {
+        val homePagerFragment = HomePagerFragment()
+        val homePagerFragmentArgs = Bundle()
+        homePagerFragmentArgs.putParcelable(NAV_MENU_GROUP, menuGroup)
+        homePagerFragment.arguments = homePagerFragmentArgs
+        return homePagerFragment
     }
 
     /**

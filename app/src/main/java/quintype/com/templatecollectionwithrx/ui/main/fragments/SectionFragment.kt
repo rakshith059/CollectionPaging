@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomeCollectionAdapter
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Constants.Companion.COLLECTION_SLUG
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
 import quintype.com.templatecollectionwithrx.utils.ErrorHandler
@@ -35,15 +34,7 @@ class SectionFragment : BaseFragment(), ErrorHandler {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
 
-    /*Avoid using 'companion object', which will create issues when we create new instances*/
-    fun newInstance(collectionSlug: String?, title: String?): SectionFragment {
-        val sectionFragmentArgs = Bundle()
-        sectionFragmentArgs.putString(COLLECTION_SLUG, collectionSlug)
-        sectionFragmentArgs.putString(Constants.PAGE_TITLE, title)
-        val sectionFragment = SectionFragment()
-        sectionFragment.arguments = sectionFragmentArgs
-        return sectionFragment
-    }
+    /*Avoid using 'companion object' for creating new instances, which will create issues when we create new instances*/
 
     private var mainViewModel: MainViewModel? = null
     private var homeCollectionAdapter: HomeCollectionAdapter? = null

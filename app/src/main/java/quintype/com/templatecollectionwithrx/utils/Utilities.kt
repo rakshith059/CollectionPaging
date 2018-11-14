@@ -5,26 +5,27 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.Point
 import android.os.Build
+import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.annotation.DimenRes
 import android.support.constraint.ConstraintLayout
 import android.text.Html
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import android.support.annotation.DimenRes
-import android.util.TypedValue
-import android.view.WindowManager
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import quintype.com.templatecollectionwithrx.models.sections.SectionMeta
-import java.lang.reflect.Type
 import com.facebook.drawee.generic.GenericDraweeHierarchy
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder
 import com.facebook.drawee.generic.RoundingParams
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import quintype.com.templatecollectionwithrx.R
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryDetailFragment
+import quintype.com.templatecollectionwithrx.models.sections.SectionMeta
+import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
+import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -178,5 +179,16 @@ class Utilities {
         fun getStoryLink(storySlug: String?): String {
             return Constants.BASE_URL + "/" + storySlug
         }
+    }
+
+    fun initSectionFragment(slug: String, title: String): SectionFragment {
+        val sectionFragmentArgs = Bundle()
+        sectionFragmentArgs.putString(Constants.COLLECTION_SLUG, slug)
+        sectionFragmentArgs.putString(Constants.PAGE_TITLE, title)
+
+        val sectionFragment = SectionFragment()
+        sectionFragment.arguments = sectionFragmentArgs
+
+        return sectionFragment
     }
 }

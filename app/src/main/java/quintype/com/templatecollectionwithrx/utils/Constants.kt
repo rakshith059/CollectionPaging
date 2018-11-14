@@ -1,15 +1,8 @@
 package quintype.com.templatecollectionwithrx.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Point
-import android.os.Build
-import android.preference.PreferenceManager
-import android.support.annotation.RequiresApi
-import android.text.Html
 import android.view.WindowManager
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
@@ -65,6 +58,8 @@ class Constants {
         const val QUERY_PARAM_KEY_STORY_SLUG = "slug"
         const val QUERY_PARAM_KEY_TAG_NAME = "tag"
         const val QUERY_PARAM_KEY_SEARCH_TERM = "q"
+
+        const val NAV_MENU_GROUP = "navMenuGroup"
 
         var ACCEPT_APPLICATION_JSON_CHARSET_UTF_8 = "Accept: application/json; charset=utf-8"
         const val HALF_IMAGE_SLIDER = "HalfImageSlider"
@@ -140,5 +135,7 @@ class Constants {
         val CIRCLE_IMAGE_BORDER_WIDTH_3F: Float = 3f
         val CIRCLE_IMAGE_BORDER_WIDTH_10F: Float = 10f
         val CIRCLE_IMAGE_BORDER_WIDTH_15F: Float = 15f
+
+
     }
 }

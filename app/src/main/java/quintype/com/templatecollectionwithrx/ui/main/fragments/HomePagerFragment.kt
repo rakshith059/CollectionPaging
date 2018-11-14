@@ -10,6 +10,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
 import quintype.com.templatecollectionwithrx.models.MenuItemModel
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.utils.Constants.Companion.NAV_MENU_GROUP
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class HomePagerFragment : BaseFragment() {
@@ -20,20 +21,8 @@ class HomePagerFragment : BaseFragment() {
     private lateinit var homeViewPager: ViewPager
     private lateinit var homeTabLayout: TabLayout
 
-    companion object {
-        private val NAV_MENU_GROUP = "navMenuGroup"
-
-        fun newInstance(menuGroup: NavMenuGroup?): HomePagerFragment {
-            val fragment = HomePagerFragment()
-            val args = Bundle()
-            args.putParcelable(NAV_MENU_GROUP, menuGroup)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_home_pager, container, false)
+        val view = inflater.inflate(R.layout.fragment_home_pager, container, false)
         homeViewPager = view.findViewById(R.id.home_view_pager)
         homeTabLayout = view.findViewById(R.id.home_tab_layout)
 

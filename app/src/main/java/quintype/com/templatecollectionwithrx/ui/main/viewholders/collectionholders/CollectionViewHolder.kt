@@ -16,9 +16,9 @@ import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.collection.CollectionItem
 import quintype.com.templatecollectionwithrx.models.story.Story
-import quintype.com.templatecollectionwithrx.ui.main.fragments.SectionFragment
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
+import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 
 /**
@@ -47,7 +47,8 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             llCollectionName?.visibility = View.GONE
 
         llCollectionName?.setOnClickListener {
-            mFragmentCallbacks?.addFragment(SectionFragment().newInstance(collectionItem.slug, collectionItem.outerCollectionName), TAG)
+            val sectionFragment = Utilities().initSectionFragment(collectionItem.slug!!, collectionItem.outerCollectionName!!)
+            mFragmentCallbacks?.addFragment(sectionFragment, TAG)
         }
 
         rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)
