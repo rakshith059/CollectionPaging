@@ -5,7 +5,6 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -95,30 +94,30 @@ class MainFragment : BaseFragment(), ErrorHandler {
 
     override fun onAPISuccess() {
         hideRetryLayout()
-        collection_fragment_swipeContainer.setRefreshing(false)
-        collection_fragment_progress_bar.visibility = View.GONE
+        collection_fragment_swipeContainer?.setRefreshing(false)
+        collection_fragment_progress_bar?.visibility = View.GONE
     }
 
     override fun onAPIFailure() {
-        collection_fragment_progress_bar.visibility = View.GONE
+        collection_fragment_progress_bar?.visibility = View.GONE
         if (linkedHashMap.size == 0)
             showRetryLayout(viewModel, this.resources.getString(R.string.oops))
     }
 
     private fun showRetryLayout(viewModel: MainViewModel, errorMessage: CharSequence?) {
-        collection_fragment_progress_bar.visibility = View.GONE
-        collection_fragment_swipeContainer.visibility = View.GONE
+        collection_fragment_progress_bar?.visibility = View.GONE
+        collection_fragment_swipeContainer?.visibility = View.GONE
 
-        retry_container.visibility = View.VISIBLE
-        error_message.text = errorMessage
-        retry_button.setOnClickListener { v ->
+        retry_container?.visibility = View.VISIBLE
+        error_message?.text = errorMessage
+        retry_button?.setOnClickListener { v ->
             observeViewModel(viewModel)
         }
     }
 
     private fun hideRetryLayout() {
-        retry_container.visibility = View.GONE
-        collection_fragment_swipeContainer.visibility = View.VISIBLE
+        retry_container?.visibility = View.GONE
+        collection_fragment_swipeContainer?.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

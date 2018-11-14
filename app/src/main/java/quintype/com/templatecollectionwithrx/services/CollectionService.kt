@@ -25,6 +25,11 @@ class CollectionService {
     /*Avoid using companion object to create new instances.*/
 
     fun getCollectionResponse(collectionSlug: String, pageNumber: Int, errorHandler: ErrorHandler?): LiveData<BulkTableModel> {
+
+        /*We are clearing the list when ever the page count is '0'. On swipe to refresh this will get executed. */
+        if (pageNumber == 0 && collectionModelList.size > 0)
+            collectionModelList.clear()
+
         Log.d(TAG, "First Iteration Collection Slug - " + collectionSlug + " Limit - " + Constants.COLLECTION_LIMIT + " Offset - " + pageNumber * Constants.COLLECTION_LIMIT)
         Log.d(TAG, "CollectionModelList Size before API call - " + collectionModelList.size)
         val subscribeWith = collectionApiService.getCollectionApiService(collectionSlug, Constants.COLLECTION_LIMIT, pageNumber * Constants.COLLECTION_LIMIT, Constants.STORY_FIELDS)

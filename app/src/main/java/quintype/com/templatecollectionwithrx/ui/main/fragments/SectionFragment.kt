@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -50,22 +51,32 @@ class SectionFragment : BaseFragment(), ErrorHandler {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.collection_fragment_layout, container, false)
+        /*The reason why we are creating variables for view is we can't manipulate the view directly by its 'id' inside onCreateView.*/
         recyclerView = view.findViewById(R.id.collection_fragment_recycler_view)
         progressBar = view.findViewById(R.id.collection_fragment_progress_bar)
         swipeRefreshLayout = view.findViewById(R.id.collection_fragment_swipeContainer)
 
-        if (homeCollectionAdapter != null) {/*If the user revisit the already created fragment this will get executed. Just binding the views again.*/
-            recyclerView.adapter = homeCollectionAdapter
-            recyclerView.addOnScrollListener(getEndlessScrollListener())
-            homeCollectionAdapter?.notifyAdapter(linkedHashMap.values.toList())
+        swipeRefreshLayout.setOnRefreshListener {
+            Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
+            homeCollectionAdapter = null
+            linkedHashMap.clear()
+            mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
+        }
 
-            swipeRefreshLayout.setOnRefreshListener {
-                Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
-                /*TODO Having issues, need to fix.*/
-                homeCollectionAdapter = null
-                linkedHashMap.clear()
-                mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
+        /*If the user revisit the already created fragment this will get executed. Just binding the views again.*/
+        if (homeCollectionAdapter != null) {
+            progressBar.visibility = GONE/*Setting it to gone by default*/
+
+            if (linkedHashMap.size != 0) {
+                /*We have some data to show so set the adapter*/
+                recyclerView.adapter = homeCollectionAdapter
+                recyclerView.addOnScrollListener(getEndlessScrollListener())
+                homeCollectionAdapter?.notifyAdapter(linkedHashMap.values.toList())
+            } else {
+                /*We don't have any data to show*/
+                showRetryLayout(this.resources.getString(R.string.oops))
             }
+
         }
         return view
     }
@@ -89,14 +100,6 @@ class SectionFragment : BaseFragment(), ErrorHandler {
                 Log.d(TAG, "onActivityCreated - Slug " + mCollectionSlug)
                 val factory = MainViewModel.Factory(activity?.application!!, mCollectionSlug!!)
                 mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
-
-                swipeRefreshLayout.setOnRefreshListener {
-                    Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
-                    homeCollectionAdapter = null
-                    linkedHashMap.clear()
-                    mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
-                }
-
                 mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
                 observeViewModel()
             }
@@ -152,7 +155,7 @@ class SectionFragment : BaseFragment(), ErrorHandler {
         retry_container?.visibility = VISIBLE
         error_message?.text = errorMessage
         retry_button?.setOnClickListener { v ->
-            observeViewModel()
+            mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
         }
     }
 
