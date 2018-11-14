@@ -9,6 +9,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
 import quintype.com.templatecollectionwithrx.models.MenuItemModel
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class HomePagerFragment : BaseFragment() {
     private var navMenuGroup: NavMenuGroup? = null
@@ -47,7 +48,7 @@ class HomePagerFragment : BaseFragment() {
 
 
             // fragment for that first and add it to the list of fragments
-            /*val collectionSlug = Utilities.getCollectionSlug(this.requireContext(), navMenuGroup?.getMenuItem()?.section()?.name!!)
+            val collectionSlug = Utilities.getCollectionSlug(this.requireContext(), navMenuGroup?.getMenuItem()?.section()?.name!!)
             if (collectionSlug != null)
                 childSectionList.add(MenuItemModel(collectionSlug, navMenuGroup?.menuItem?.title()))
 
@@ -57,13 +58,13 @@ class HomePagerFragment : BaseFragment() {
                     if (childSectionCollectionSlug != null)
                         childSectionList.add(MenuItemModel(menuItem.sectionSlug(), menuItem.title()))
                 }
-            }*/
+            }
 
-            /*TODO Hardcoded the tabs for testing.*/
+            /*TODO Hardcoded the tabs for testing.*//*
             childSectionList.add(MenuItemModel("news", "News"))
             childSectionList.add(MenuItemModel("politics", "Politics"))
             childSectionList.add(MenuItemModel("sports", "Sports"))
-            childSectionList.add(MenuItemModel("business1", "Business"))
+            childSectionList.add(MenuItemModel("business1", "Business"))*/
 
             val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionList, false)
             home_pager_vp_pager.adapter = pagerAdapter
