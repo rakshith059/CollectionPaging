@@ -22,9 +22,9 @@ class MainViewModel(collectionSlug: String, application: Application) : AndroidV
     }
 
     fun getCollectionLoadMoreResponse(currentPage: Int, errorHandler: ErrorHandler?) {
-        /*Create new Instanse of collectionService if it is not available or if the page number is '0'.
+        /*Create new Instanse of collectionService if it is not available.
          Avoid using companion object to create new instances.*/
-        if (collectionService == null || currentPage == 0)
+        if (collectionService == null)
             collectionService = CollectionService()
 
         collectionListObservable = collectionService!!.getCollectionResponse(mCollectionSlug, currentPage, errorHandler)

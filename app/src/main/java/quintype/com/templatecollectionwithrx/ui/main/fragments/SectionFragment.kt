@@ -3,6 +3,7 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
@@ -11,7 +12,7 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.WindowManager
-import kotlinx.android.synthetic.main.collection_fragment_layout.*
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomeCollectionAdapter
@@ -27,7 +28,10 @@ class SectionFragment : BaseFragment(), ErrorHandler {
     override var TAG = SectionFragment::class.java.simpleName
     lateinit var errorHandler: ErrorHandler
     var mCollectionSlug: String? = null
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
 
     /*Avoid using 'companion object', which will create issues when we create new instances*/
     fun newInstance(collectionSlug: String?, title: String?): SectionFragment {
@@ -45,7 +49,25 @@ class SectionFragment : BaseFragment(), ErrorHandler {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.collection_fragment_layout, container, false)
+        val view = inflater.inflate(R.layout.collection_fragment_layout, container, false)
+        recyclerView = view.findViewById(R.id.collection_fragment_recycler_view)
+        progressBar = view.findViewById(R.id.collection_fragment_progress_bar)
+        swipeRefreshLayout = view.findViewById(R.id.collection_fragment_swipeContainer)
+
+        if (homeCollectionAdapter != null) {/*If the user revisit the already created fragment this will get executed. Just binding the views again.*/
+            recyclerView.adapter = homeCollectionAdapter
+            recyclerView.addOnScrollListener(getEndlessScrollListener())
+            homeCollectionAdapter?.notifyAdapter(linkedHashMap.values.toList())
+
+            swipeRefreshLayout.setOnRefreshListener {
+                Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
+                /*TODO Having issues, need to fix.*/
+                homeCollectionAdapter = null
+                linkedHashMap.clear()
+                mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
+            }
+        }
+        return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +78,6 @@ class SectionFragment : BaseFragment(), ErrorHandler {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        recyclerView = collection_fragment_recycler_view
         /*To avoid taking screenshot*/
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
@@ -70,7 +90,7 @@ class SectionFragment : BaseFragment(), ErrorHandler {
                 val factory = MainViewModel.Factory(activity?.application!!, mCollectionSlug!!)
                 mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
 
-                collection_fragment_swipeContainer.setOnRefreshListener {
+                swipeRefreshLayout.setOnRefreshListener {
                     Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
                     homeCollectionAdapter = null
                     linkedHashMap.clear()
@@ -78,19 +98,6 @@ class SectionFragment : BaseFragment(), ErrorHandler {
                 }
 
                 mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
-                observeViewModel()
-            } else if (homeCollectionAdapter != null) {/*If the user revisit the already created fragment this will get executed. Just binding the views again.*/
-                recyclerView.adapter = homeCollectionAdapter
-                recyclerView.addOnScrollListener(getEndlessScrollListener())
-                homeCollectionAdapter?.notifyAdapter(linkedHashMap?.values?.toList())
-
-                collection_fragment_swipeContainer.setOnRefreshListener {
-                    Log.d(TAG, "On Pull to refresh - Slug " + mCollectionSlug)
-                    /*TODO Having issues, need to fix.*/
-                    /* homeCollectionAdapter = null
-                     linkedHashMap.clear()
-                     mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)*/
-                }
             }
         } else {
             /* Not connected to Network, show retry layout and hide the rest*/
@@ -127,19 +134,19 @@ class SectionFragment : BaseFragment(), ErrorHandler {
 
     override fun onAPISuccess() {
         hideRetryLayout()
-        collection_fragment_swipeContainer?.setRefreshing(false)
-        collection_fragment_progress_bar?.visibility = View.GONE
+        swipeRefreshLayout?.setRefreshing(false)
+        progressBar?.visibility = View.GONE
     }
 
     override fun onAPIFailure() {
-        collection_fragment_progress_bar?.visibility = View.GONE
+        progressBar?.visibility = View.GONE
         if (linkedHashMap.size == 0)
             showRetryLayout(this.resources.getString(R.string.oops))
     }
 
     private fun showRetryLayout(errorMessage: CharSequence?) {
-        collection_fragment_progress_bar?.visibility = View.GONE
-        collection_fragment_swipeContainer?.visibility = View.GONE
+        progressBar?.visibility = View.GONE
+        swipeRefreshLayout?.visibility = View.GONE
 
         retry_container?.visibility = VISIBLE
         error_message?.text = errorMessage
@@ -150,7 +157,7 @@ class SectionFragment : BaseFragment(), ErrorHandler {
 
     private fun hideRetryLayout() {
         retry_container?.visibility = View.GONE
-        collection_fragment_swipeContainer?.visibility = VISIBLE
+        swipeRefreshLayout?.visibility = VISIBLE
     }
 
     override fun onDestroy() {
