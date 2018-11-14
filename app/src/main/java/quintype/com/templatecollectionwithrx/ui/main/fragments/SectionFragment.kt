@@ -98,6 +98,7 @@ class SectionFragment : BaseFragment(), ErrorHandler {
                 }
 
                 mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
+                observeViewModel()
             }
         } else {
             /* Not connected to Network, show retry layout and hide the rest*/
