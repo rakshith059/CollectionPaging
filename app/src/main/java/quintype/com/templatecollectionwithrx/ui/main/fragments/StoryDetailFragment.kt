@@ -137,9 +137,10 @@ class StoryDetailFragment : BaseFragment() {
         fragment_story_detail_pb_progress?.visibility = View.GONE
 //            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
 
-        val heroImageURL = Utilities.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory.heroImageS3Key
-        fragment_story_detail_iv_hero_image.setImageURI(heroImageURL)
-
+        if (activity?.applicationContext != null) {
+            val heroImageURL = Utilities.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory.heroImageS3Key
+            fragment_story_detail_iv_hero_image?.setImageURI(heroImageURL)
+        }
 
 //        Glide.with(activity?.applicationContext as Context)
 //                .load(heroImageURL)
