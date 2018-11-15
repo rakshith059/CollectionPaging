@@ -141,8 +141,8 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                 if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
-                        && totalItemCount >= Constants.PAGE_LIMIT) {
-                    val currentPage = totalItemCount / Constants.PAGE_LIMIT
+                        && totalItemCount >= Constants.STORY_LIMIT) {
+                    val currentPage = totalItemCount / Constants.STORY_LIMIT
 
                     if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
                         Log.d("Rakshith", "current page is ===  $currentPage")

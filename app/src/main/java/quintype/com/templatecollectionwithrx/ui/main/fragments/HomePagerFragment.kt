@@ -13,7 +13,7 @@ import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class HomePagerFragment : BaseFragment() {
     private var navMenuGroup: NavMenuGroup? = null
-    val childSectionFragments = ArrayList<MenuItemModel>()
+    val childSectionList = ArrayList<MenuItemModel>()
 
     companion object {
         private val NAV_MENU_GROUP = "navMenuGroup"
@@ -50,17 +50,17 @@ class HomePagerFragment : BaseFragment() {
             // fragment for that first and add it to the list of fragments
             val collectionSlug = Utilities.getCollectionSlug(this.requireContext(), navMenuGroup?.getMenuItem()?.section()?.name!!)
             if (collectionSlug != null)
-                childSectionFragments.add(MenuItemModel(collectionSlug, navMenuGroup?.menuItem?.title()))
+                childSectionList.add(MenuItemModel(collectionSlug, navMenuGroup?.menuItem?.title()))
 
             for (menuItem in navMenuGroup?.childItemList!!) {
                 if (menuItem.sectionName() != null) {
                     val childSectionCollectionSlug = Utilities.getCollectionSlug(this.requireContext(), menuItem.sectionName())
                     if (childSectionCollectionSlug != null)
-                        childSectionFragments.add(MenuItemModel(menuItem.sectionSlug(), menuItem.title()))
+                        childSectionList.add(MenuItemModel(menuItem.sectionSlug(), menuItem.title()))
                 }
             }
 
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionFragments, false)
+            val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionList, false)
             home_pager_vp_pager.adapter = pagerAdapter
         } else {
             var homeFragment = ArrayList<MenuItemModel>()
@@ -75,7 +75,7 @@ class HomePagerFragment : BaseFragment() {
     }
 
     fun setCurrentItem(pos: Int) {
-        if (home_pager_vp_pager != null && childSectionFragments.size > pos) {
+        if (home_pager_vp_pager != null && childSectionList.size > pos) {
             home_pager_vp_pager.currentItem = pos
         }
     }

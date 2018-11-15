@@ -52,7 +52,7 @@ class SectionFragment : BaseFragment() {
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         if (!TextUtils.isEmpty(mCollectionSlug)) {
-            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0)
+            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, 0, null)
             observeViewModel(viewModel)
 
             var layoutManager = LinearLayoutManager(getActivity())
@@ -72,12 +72,12 @@ class SectionFragment : BaseFragment() {
                     var firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                     if (firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >= 0
-                            && totalItemCount >= Constants.PAGE_LIMIT) {
-                        var currentPage = totalItemCount / Constants.PAGE_LIMIT
+                            && totalItemCount >= Constants.STORY_LIMIT) {
+                        var currentPage = totalItemCount / Constants.STORY_LIMIT
 
                         if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
                             Log.d("Rakshith", "current page is ===  $currentPage")
-                            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, currentPage)
+                            viewModel.getCollectionLoadMoreResponse(mCollectionSlug as String, currentPage, null)
                         }
                     }
                 }
@@ -93,7 +93,7 @@ class SectionFragment : BaseFragment() {
             Log.d("Rakshith", "summary is ${it?.slug}")
             if (linkedCollectionList != null) {
                 val hashMapSize = linkedHashMap?.size as Int
-                if (hashMapSize < Constants.PAGE_LIMIT) {
+                if (hashMapSize < Constants.STORY_LIMIT) {
                     collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
                     main_fragment_rv_collection_list?.adapter = collectionAdapter
                 } else {

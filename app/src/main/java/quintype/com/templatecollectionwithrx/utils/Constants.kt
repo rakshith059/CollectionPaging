@@ -42,7 +42,8 @@ class Constants {
         //        const val BASE_URL = "https://www.knocksense.com/"
         //const val BASE_URL = "https://www.samachara.com"
         const val COLLECTION_HOME: String = "home"
-        const val PAGE_LIMIT: Int = 20
+        const val STORY_LIMIT: Int = 20
+        const val COLLECTION_LIMIT: Int = 5
         const val TYPE_COLLECTION: String = "collection"
         const val PAGE_LIMIT_CHILD: Int = 5
         const val PRE_FETCH_ITEM: Int = 5

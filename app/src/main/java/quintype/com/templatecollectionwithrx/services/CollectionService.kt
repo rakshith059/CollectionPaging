@@ -11,6 +11,7 @@ import io.reactivex.subscribers.ResourceSubscriber
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.collection.CollectionResponse
 import quintype.com.templatecollectionwithrx.utils.Constants
+import quintype.com.templatecollectionwithrx.utils.ErrorHandler
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
@@ -38,10 +39,10 @@ class CollectionService {
         }
     }
 
-    fun getCollectionResponse(collectionSlug: String, pageNumber: Int): LiveData<BulkTableModel> {
+    fun getCollectionResponse(collectionSlug: String, pageNumber: Int, errorHandler: ErrorHandler?): LiveData<BulkTableModel> {
         Log.d("Rakshith", "api call started for first iteration.. ")
 
-        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, Constants.PAGE_LIMIT, pageNumber * Constants.PAGE_LIMIT, Constants.STORY_FIELDS)
+        mCompositeDisposable?.add(collectionApiService.getCollectionApiService(collectionSlug, Constants.COLLECTION_LIMIT, pageNumber * Constants.COLLECTION_LIMIT, Constants.STORY_FIELDS)
                 .doOnError { error -> Log.d("Rakshith", "error is " + error.message) }
                 .retry(3)
                 .subscribeOn(Schedulers.io())
@@ -105,6 +106,7 @@ class CollectionService {
                     override fun onComplete() {
                         Log.d("Rakshith", "api call completed for first iteration.. ")
 //                        collectionData.value = collectionModelList
+                        errorHandler?.onAPISuccess()
                     }
 
                     override fun onNext(mCollectionsModel: CollectionResponse) {
@@ -154,6 +156,7 @@ class CollectionService {
                     }
 
                     override fun onError(e: Throwable) {
+                        errorHandler?.onAPIFailure()
                         Log.d("Rakshith", "api call failed .. " + e.message)
                     }
                 })
