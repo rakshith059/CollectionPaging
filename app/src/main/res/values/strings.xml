@@ -47,4 +47,8 @@
     <string name="empty_search_term">Search something!!</string>
     <string name="coming_soon">Coming soon</string>
 
+
+    <string name="native_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!--<string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>-->
+    <string name="admob_app_id">ca-app-pub-1138107191663281~8718926729</string>
 </resources>

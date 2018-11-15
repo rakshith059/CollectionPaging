@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
+import com.google.android.gms.ads.MobileAds
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R

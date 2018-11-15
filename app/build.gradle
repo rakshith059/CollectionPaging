@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 27
@@ -15,6 +16,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -86,4 +89,9 @@ dependencies {
 
     //for shimmer progress
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    //for native custom ads
+    implementation 'com.google.firebase:firebase-ads:17.1.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
