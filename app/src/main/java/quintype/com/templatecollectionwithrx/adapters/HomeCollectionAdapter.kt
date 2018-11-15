@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.adapters
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
@@ -38,18 +39,28 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     var mFragmentCallbacks = fragmentCallbacks
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            Constants.TYPE_NATIVE_ADS ->
-                return NativeAdsViewHolder.create(parent)
-            Constants.TYPE_OUTER_COLLECTION ->
-                return CollectionViewHolder.create(parent, mFragmentCallbacks)
+            Constants.TYPE_NATIVE_ADS -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.native_ad_view_holder, parent, false)
+                return NativeAdsViewHolder(view)
+            }
+            Constants.TYPE_OUTER_COLLECTION -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.default_collection_row, parent, false)
+                return CollectionViewHolder(view, mFragmentCallbacks)
+            }
             Constants.TYPE_OUTER_STORY ->
                 return StoryViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD ->
-                return LeftImageChildViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD ->
-                return RightImageChildViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION ->
-                return TitleBelowImageBlockSectionViewHolder.create(parent, mFragmentCallbacks)
+            Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.left_image_child_row, parent, false)
+                return LeftImageChildViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.right_image_child_row, parent, false)
+                return RightImageChildViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_block_section_header_row, parent, false)
+                return TitleBelowImageBlockSectionViewHolder(view, mFragmentCallbacks)
+            }
         }
         return StoryViewHolder.create(parent)
     }

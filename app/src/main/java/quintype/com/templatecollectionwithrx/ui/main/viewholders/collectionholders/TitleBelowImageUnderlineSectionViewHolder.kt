@@ -2,29 +2,23 @@ package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionhold
 
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.facebook.drawee.view.SimpleDraweeView
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.collection.AssociatedMetadata
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.activities.WebActivity
 
-class TitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseTitleBelowImageUnderlineSectionViewHolder(itemView) {
+class TitleBelowImageUnderlineSectionViewHolder(val view: View?) : BaseTitleBelowImageUnderlineSectionViewHolder(view) {
     override fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
         super.bind(collectionItem, collectionAssociatedMetadata, listner)
 
-        var ivHeroImage = itemView?.findViewById<SimpleDraweeView>(R.id.title_below_image_underline_section_header_row_iv_hero_icon)
+        var ivHeroImage = view?.findViewById<SimpleDraweeView>(R.id.title_below_image_underline_section_header_row_iv_hero_icon)
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
-        var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_below_image_underline_section_header_row_cl_main_container)
+        var clMainContainer = view?.findViewById<ConstraintLayout>(R.id.title_below_image_underline_section_header_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
         clMainContainer?.tag = adapterPosition
-
-//        Glide.with(ivHeroImage?.context as Context)
-//                .load(heroImageURL)
-//                .into(ivHeroImage)
 
         ivHeroImage?.setImageURI(heroImageURL)
 
@@ -34,13 +28,5 @@ class TitleBelowImageUnderlineSectionViewHolder(itemView: View?) : BaseTitleBelo
                 ivHeroImage.context.startActivity(intent)
             }
         })
-    }
-
-    companion object {
-        fun create(parent: ViewGroup): TitleBelowImageUnderlineSectionViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_underline_section_header_row, parent, false)
-
-            return TitleBelowImageUnderlineSectionViewHolder(view)
-        }
     }
 }

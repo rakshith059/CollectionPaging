@@ -13,12 +13,12 @@ import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
-open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+open class TitleInsideImageGridViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     open fun bind(collectionItem: Story, collectionAssociatedMetadata: AssociatedMetadata?, listner: View.OnClickListener) {
-        var ivHeroImage = itemView?.findViewById<SimpleDraweeView>(R.id.title_inside_image_grid_row_iv_hero_icon)
-        var tvStoryTitle = itemView?.findViewById<TextView>(R.id.title_inside_image_grid_row_tv_title)
+        val ivHeroImage = view.findViewById<SimpleDraweeView>(R.id.title_inside_image_grid_row_iv_hero_icon)
+        val tvStoryTitle = view.findViewById<TextView>(R.id.title_inside_image_grid_row_tv_title)
 
-        var clMainContainer = itemView?.findViewById<ConstraintLayout>(R.id.title_inside_image_grid_row_cl_main_container)
+        val clMainContainer = view.findViewById<ConstraintLayout>(R.id.title_inside_image_grid_row_cl_main_container)
         clMainContainer?.setOnClickListener(listner)
         clMainContainer?.tag = adapterPosition
 
@@ -26,18 +26,6 @@ open class TitleInsideImageGridViewHolder(itemView: View?) : RecyclerView.ViewHo
         val heroImageURL = cdnHostName + collectionItem.heroImageS3Key
 
         ivHeroImage?.setImageURI(heroImageURL)
-//        Glide.with(itemView?.context as Context)
-//                .load(heroImageURL)
-//                .into(ivHeroImage as ImageView)
-
-        tvStoryTitle?.text = collectionItem?.headline
-    }
-
-    companion object {
-        fun create(parent: ViewGroup): TitleInsideImageGridViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_grid_row, parent, false)
-            return TitleInsideImageGridViewHolder(view)
-        }
+        tvStoryTitle?.text = collectionItem.headline
     }
 }
-
