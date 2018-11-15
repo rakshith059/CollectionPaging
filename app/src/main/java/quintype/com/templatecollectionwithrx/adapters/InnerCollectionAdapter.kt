@@ -2,6 +2,7 @@ package quintype.com.templatecollectionwithrx.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,7 +11,6 @@ import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
-import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.TitleBelowImageBlockSectionViewHolder.Companion.mFragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
@@ -21,18 +21,49 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION -> return TitleBelowImageBlockSectionViewHolder.create(parent, mFragmentCallbacks)
-            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_UNDERLINE_SECTION -> return TitleBelowImageUnderlineSectionViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD -> return LeftImageChildViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_FULL_IMAGE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_HALF_IMAGE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_FULL_SCREEN_SIMPLE_SLIDER -> return TitleImageSliderViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER -> return TitleInsideImageViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> return RightImageChildViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID -> return TitleInsideImageGridViewHolder.create(parent)
-            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL -> return TitleInsideImageHorizontalViewHolder.create(parent)
+            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_block_section_header_row, parent, false)
+                return TitleBelowImageBlockSectionViewHolder(view, fragmentCallbacks)
+            }
+            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_UNDERLINE_SECTION -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_underline_section_header_row, parent, false)
+                return TitleBelowImageUnderlineSectionViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.left_image_child_row, parent, false)
+                return LeftImageChildViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_FULL_IMAGE_SLIDER -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
+                return TitleImageSliderViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_HALF_IMAGE_SLIDER -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
+                return TitleImageSliderViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_FULL_SCREEN_SIMPLE_SLIDER -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
+                return TitleImageSliderViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_HEADER -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_header_row, parent, false)
+                return TitleInsideImageViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.right_image_child_row, parent, false)
+                return RightImageChildViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_grid_row, parent, false)
+                return TitleInsideImageGridViewHolder(view)
+            }
+            Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.title_below_image_block_section_horizontal_scroll_row, parent, false)
+                return TitleInsideImageHorizontalViewHolder(view)
+            }
         }
-        return LeftImageChildViewHolder.create(parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.left_image_child_row, parent, false)
+        return LeftImageChildViewHolder(view)
     }
 
     override fun getItemCount(): Int {

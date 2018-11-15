@@ -3,9 +3,7 @@ package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionhold
 import android.support.constraint.ConstraintLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import me.relex.circleindicator.CircleIndicator
 import quintype.com.templatecollectionwithrx.R
@@ -18,7 +16,46 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.widgets.PagerScheduleProxy
 
 
-class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class TitleImageSliderViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
+    private val INDICATOR_WIDTH = 36
+    private val INDICATOR_HEIGHT = 36
+    private val INDICATOR_MARGIN = 12
+
+    var mSlideShowPager: ViewPager? = null
+    var slideshowContainer: ConstraintLayout? = null
+    var circleIndicator: CircleIndicator? = null
+    var mImageWidth: Int = 0
+    var pagerScheduleProxy: PagerScheduleProxy? = null
+    var attachStateChangeListener: View.OnAttachStateChangeListener? = null
+
+    var ivLeftArrow: ImageView? = null
+    var ivRightArrow: ImageView? = null
+    var currentPosition = 0
+
+    init {
+        mSlideShowPager = view.findViewById(R.id.title_inside_image_slider_vp_pager)
+        slideshowContainer = view.findViewById(R.id.title_inside_image_slider_cl_slideshow_container)
+        mImageWidth = view.width
+        circleIndicator = view.findViewById(R.id.title_inside_image_slider_circle_indicator)
+
+        ivLeftArrow = view.findViewById(R.id.pager_carousel_title_row_iv_left_arrow)
+        ivRightArrow = view.findViewById(R.id.pager_carousel_title_row_iv_right_arrow)
+
+        attachStateChangeListener = object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) {
+            }
+
+            override fun onViewDetachedFromWindow(v: View) {
+                if (pagerScheduleProxy != null) {
+                    pagerScheduleProxy?.onStop()
+                    pagerScheduleProxy = null
+                }
+            }
+        }
+        slideshowContainer?.addOnAttachStateChangeListener(attachStateChangeListener)
+    }
+
     fun bind(collectionList: List<CollectionItem>?, collectionAssociatedMetadata: AssociatedMetadata?, collectionName: String?, listner: View.OnClickListener) {
         /**
          * Checking for indicator type
@@ -78,49 +115,49 @@ class TitleImageSliderViewHolder(itemView: View?) : RecyclerView.ViewHolder(item
         ivRightArrow?.setTag(R.string.collection_list_size, collectionListSize)
     }
 
-    companion object {
-        private val INDICATOR_WIDTH = 36
-        private val INDICATOR_HEIGHT = 36
-        private val INDICATOR_MARGIN = 12
-
-        var mSlideShowPager: ViewPager? = null
-        var slideshowContainer: ConstraintLayout? = null
-        var circleIndicator: CircleIndicator? = null
-        var mImageWidth: Int = 0
-        var pagerScheduleProxy: PagerScheduleProxy? = null
-        var attachStateChangeListener: View.OnAttachStateChangeListener? = null
-
-        var ivLeftArrow: ImageView? = null
-        var ivRightArrow: ImageView? = null
-
-        var currentPosition = 0
-        fun create(parent: ViewGroup): TitleImageSliderViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
-
-            mSlideShowPager = view.findViewById(R.id.title_inside_image_slider_vp_pager)
-            slideshowContainer = view.findViewById(R.id.title_inside_image_slider_cl_slideshow_container)
-            mImageWidth = view.width
-            circleIndicator = view.findViewById(R.id.title_inside_image_slider_circle_indicator)
-
-            ivLeftArrow = view?.findViewById(R.id.pager_carousel_title_row_iv_left_arrow)
-            ivRightArrow = view?.findViewById(R.id.pager_carousel_title_row_iv_right_arrow)
-
-            attachStateChangeListener = object : View.OnAttachStateChangeListener {
-                override fun onViewAttachedToWindow(v: View) {
-                }
-
-                override fun onViewDetachedFromWindow(v: View) {
-                    if (pagerScheduleProxy != null) {
-                        pagerScheduleProxy?.onStop()
-                        pagerScheduleProxy = null
-                    }
-                }
-            }
-            slideshowContainer?.addOnAttachStateChangeListener(attachStateChangeListener)
-
-            return TitleImageSliderViewHolder(view)
-        }
-    }
+//    companion object {
+//        private val INDICATOR_WIDTH = 36
+//        private val INDICATOR_HEIGHT = 36
+//        private val INDICATOR_MARGIN = 12
+//
+//        var mSlideShowPager: ViewPager? = null
+//        var slideshowContainer: ConstraintLayout? = null
+//        var circleIndicator: CircleIndicator? = null
+//        var mImageWidth: Int = 0
+//        var pagerScheduleProxy: PagerScheduleProxy? = null
+//        var attachStateChangeListener: View.OnAttachStateChangeListener? = null
+//
+//        var ivLeftArrow: ImageView? = null
+//        var ivRightArrow: ImageView? = null
+//
+//        var currentPosition = 0
+//        fun create(parent: ViewGroup): TitleImageSliderViewHolder {
+//            var view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_slider_row, parent, false)
+//
+//            mSlideShowPager = view.findViewById(R.id.title_inside_image_slider_vp_pager)
+//            slideshowContainer = view.findViewById(R.id.title_inside_image_slider_cl_slideshow_container)
+//            mImageWidth = view.width
+//            circleIndicator = view.findViewById(R.id.title_inside_image_slider_circle_indicator)
+//
+//            ivLeftArrow = view?.findViewById(R.id.pager_carousel_title_row_iv_left_arrow)
+//            ivRightArrow = view?.findViewById(R.id.pager_carousel_title_row_iv_right_arrow)
+//
+//            attachStateChangeListener = object : View.OnAttachStateChangeListener {
+//                override fun onViewAttachedToWindow(v: View) {
+//                }
+//
+//                override fun onViewDetachedFromWindow(v: View) {
+//                    if (pagerScheduleProxy != null) {
+//                        pagerScheduleProxy?.onStop()
+//                        pagerScheduleProxy = null
+//                    }
+//                }
+//            }
+//            slideshowContainer?.addOnAttachStateChangeListener(attachStateChangeListener)
+//
+//            return TitleImageSliderViewHolder(view)
+//        }
+//    }
 
     override fun onClick(v: View?) {
         var collectionListSize = v?.getTag(R.string.collection_list_size) as Int

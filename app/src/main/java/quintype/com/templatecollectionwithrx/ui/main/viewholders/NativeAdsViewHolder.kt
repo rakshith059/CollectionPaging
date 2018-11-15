@@ -4,11 +4,9 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -16,21 +14,12 @@ import com.google.android.gms.ads.formats.NativeContentAd
 import com.google.android.gms.ads.formats.NativeContentAdView
 import quintype.com.templatecollectionwithrx.R
 
-class NativeAdsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-
-    companion object {
-        var mContext: Context? = null
-        var adFrameLayout: FrameLayout? = null
-
-        fun create(parent: ViewGroup): NativeAdsViewHolder {
-            mContext = parent.context
-            val view = LayoutInflater.from(mContext).inflate(R.layout.native_ad_view_holder, parent, false)
-            adFrameLayout = view.findViewById(R.id.native_ad_view_holder_container)
-            return NativeAdsViewHolder(view)
-        }
-    }
+class NativeAdsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    var mContext: Context? = view.context
 
     private fun loadNativeAds() {
+        val adFrameLayout = view.findViewById<FrameLayout>(R.id.native_ad_view_holder_container)
+
 //        val adLoader = AdLoader.Builder(mContext, mContext?.resources?.getString(R.string.admob_app_id))
 //        val adLoader = AdLoader.Builder(mContext, "ca-app-pub-1138107191663281/4355766617")
 //        val adLoader = AdLoader.Builder(mContext, "ca-app-pub-1138107191663281/2021402846")
@@ -41,7 +30,7 @@ class NativeAdsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
                     // This method sets the text, images and the native ad, etc into the ad
                     // view.
 
-                    Toast.makeText(mContext, "ads loading successful == ${ad.headline}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(mContext, "ads loading successful == ${ad.headline}", Toast.LENGTH_SHORT).show()
 
                     populateNativeContentAdView(ad, adView)
                     // Assumes you have a placeholder FrameLayout in your View layout
@@ -51,7 +40,7 @@ class NativeAdsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
                 }
                 .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(errorCode: Int) {
-                        Toast.makeText(mContext, "ads loading failed with error code == $errorCode", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(mContext, "ads loading failed with error code == $errorCode", Toast.LENGTH_SHORT).show()
                     }
                 })
                 .build()

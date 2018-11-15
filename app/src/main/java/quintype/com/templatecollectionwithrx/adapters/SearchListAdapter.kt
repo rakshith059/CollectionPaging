@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.adapters
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import quintype.com.templatecollectionwithrx.R
@@ -14,7 +15,9 @@ class SearchListAdapter(var mStoriesList: ArrayList<Story>, val mFragmentCallbac
 //        if (!isGrid)
 //            return LeftImageChildViewHolder.create(parent)
 //        else
-        return TitleInsideImageGridViewHolder.create(parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.title_inside_image_grid_row, parent, false)
+
+        return TitleInsideImageGridViewHolder(view)
 
 //        when (viewType) {
 //            Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD -> return LeftImageChildViewHolder.create(parent)

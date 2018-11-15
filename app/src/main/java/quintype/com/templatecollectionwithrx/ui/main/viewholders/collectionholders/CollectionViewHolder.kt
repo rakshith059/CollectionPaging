@@ -3,9 +3,7 @@ package quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionhold
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -24,15 +22,19 @@ import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemD
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/31/18.
  */
-class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class CollectionViewHolder(var view: View, val mFragmentCallbacks: FragmentCallbacks?) : RecyclerView.ViewHolder(view) {
 
     var rvInnerCollection: RecyclerView? = null
     private var shimmerView: ShimmerFrameLayout? = null
     var isGridFirstTime = true
 
+    val TAG = view.javaClass.simpleName
+//    val TAG = "CollectionViewHolder"
+
     fun bind(collectionItem: BulkTableModel) {
-        val llCollectionName = itemView?.findViewById<LinearLayout>(R.id.default_collection_row_ll_collection_name)
-        val tvCollectionName = itemView?.findViewById<TextView>(R.id.default_collection_row_tv_collection_name)
+
+        val llCollectionName = view.findViewById<LinearLayout>(R.id.default_collection_row_ll_collection_name)
+        val tvCollectionName = view.findViewById<TextView>(R.id.default_collection_row_tv_collection_name)
 
         var showCollectionName: Boolean
         var associatedMetadataShowCollectionName = collectionItem.mOuterCollectionAssociatedMetadata?.associatedMetadataShowCollectionName
@@ -51,9 +53,9 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             mFragmentCallbacks?.addFragment(sectionFragment, TAG)
         }
 
-        rvInnerCollection = itemView?.findViewById(R.id.default_collection_row_rv_inner_collection)
+        rvInnerCollection = view.findViewById(R.id.default_collection_row_rv_inner_collection)
 
-        shimmerView = itemView?.findViewById(R.id.shimmer_view_container)
+        shimmerView = view.findViewById(R.id.shimmer_view_container)
         shimmerView?.visibility = View.VISIBLE
         shimmerView?.startShimmerAnimation()
 
@@ -220,16 +222,6 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 else
                     collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_LEFT_IMAGE_CHILD, null, outerCollectionName))
             }
-        }
-    }
-
-    companion object {
-        var mFragmentCallbacks: FragmentCallbacks? = null
-        val TAG = CollectionViewHolder.javaClass.simpleName
-        fun create(parent: ViewGroup, mFragmentCallbacks: FragmentCallbacks?): CollectionViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.default_collection_row, parent, false)
-            this.mFragmentCallbacks = mFragmentCallbacks
-            return CollectionViewHolder(view)
         }
     }
 }
