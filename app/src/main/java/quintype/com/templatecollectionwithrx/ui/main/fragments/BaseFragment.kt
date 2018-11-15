@@ -18,7 +18,7 @@ import quintype.com.templatecollectionwithrx.utils.Utilities
 open class BaseFragment : Fragment() {
 
     var fragmentCallbacks: FragmentCallbacks? = null
-    internal var TAG = BaseFragment::class.java.simpleName
+    internal open var TAG = BaseFragment::class.java.simpleName
     //    private var mTracker: Tracker? = null
 
     /*

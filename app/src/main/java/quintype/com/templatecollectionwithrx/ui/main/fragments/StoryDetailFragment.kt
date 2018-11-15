@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -26,9 +25,6 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.StoryViewModel
-import android.content.Intent
-import android.net.Uri
-import android.text.TextUtils
 
 
 /**
@@ -133,12 +129,12 @@ class StoryDetailFragment : BaseFragment() {
 
     fun setStoryDetail(mStory: Story) {
         if (app_bar_layout != null)
-            app_bar_layout.visibility = View.VISIBLE
+            app_bar_layout?.visibility = View.VISIBLE
         fragment_story_detail_pb_progress?.visibility = View.GONE
 //            fragment_story_detail_swipe_refresh_layout.visibility = View.GONE
 
         val heroImageURL = Utilities.getSharedPreferences(activity?.applicationContext as Context, Constants.SP_CDN_IMAGE_NAME) + mStory.heroImageS3Key
-        fragment_story_detail_iv_hero_image.setImageURI(heroImageURL)
+        fragment_story_detail_iv_hero_image?.setImageURI(heroImageURL)
 
 
 //        Glide.with(activity?.applicationContext as Context)

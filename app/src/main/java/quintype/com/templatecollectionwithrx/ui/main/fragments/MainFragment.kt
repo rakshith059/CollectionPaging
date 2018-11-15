@@ -5,14 +5,13 @@ package quintype.com.templatecollectionwithrx.ui.main.fragments
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import kotlinx.android.synthetic.main.main_fragment.*
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomeCollectionAdapter
@@ -25,104 +24,138 @@ import quintype.com.templatecollectionwithrx.viewmodels.MainViewModel
 
 class MainFragment : BaseFragment(), ErrorHandler {
     lateinit var errorHandler: ErrorHandler
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    companion object {
-        fun newInstance(): MainFragment {
-            val fragment = MainFragment()
-            val args = Bundle()
-            args.putString(Constants.PAGE_TITLE, "HOME")
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
-    private lateinit var viewModel: MainViewModel
-    var collectionAdapter: HomeCollectionAdapter? = null
-    var linkedHashMap = LinkedHashMap<String, BulkTableModel>()
+    /*Avoid using 'companion object', which will create issues when we create new instances*/
+    /*fun newInstance(collectionSlug: String?, title: String?): SectionFragment {
+        val sectionFragmentArgs = Bundle()
+        sectionFragmentArgs.putString(Constants.COLLECTION_SLUG, collectionSlug)
+        sectionFragmentArgs.putString(Constants.PAGE_TITLE, title)
+        val sectionFragment = SectionFragment()
+        sectionFragment.arguments = sectionFragmentArgs
+        return sectionFragment
+    }*/
+
+    private var mainViewModel: MainViewModel? = null
+    private var homeCollectionAdapter: HomeCollectionAdapter? = null
+    private var linkedHashMap = LinkedHashMap<String, BulkTableModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        val view = inflater.inflate(R.layout.collection_fragment_layout, container, false)
+        /*The reason why we are creating variables for view is we can't manipulate the view directly by its 'id' inside onCreateView.*/
+        recyclerView = view.findViewById(R.id.collection_fragment_recycler_view)
+        progressBar = view.findViewById(R.id.collection_fragment_progress_bar)
+        swipeRefreshLayout = view.findViewById(R.id.collection_fragment_swipeContainer)
+
+        swipeRefreshLayout.setOnRefreshListener {
+            homeCollectionAdapter = null
+            linkedHashMap.clear()
+            mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
+        }
+
+        /*If the user revisit the already created fragment this will get executed. Just binding the views again.*/
+        if (homeCollectionAdapter != null) {
+            progressBar.visibility = View.GONE/*Setting it to gone by default*/
+
+            if (linkedHashMap.size != 0) {
+                /*We have some data to show so set the adapter*/
+                recyclerView.adapter = homeCollectionAdapter
+                recyclerView.addOnScrollListener(getEndlessScrollListener())
+                homeCollectionAdapter?.notifyAdapter(linkedHashMap.values.toList())
+            } else {
+                /*We don't have any data to show*/
+                showRetryLayout(this.resources.getString(R.string.oops))
+            }
+
+        }
+        return view
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        errorHandler = this
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        errorHandler = this
+        /*To avoid taking screenshot*/
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0, errorHandler)
-
-
-        home_fragment_swipeContainer.setOnRefreshListener {
-            collectionAdapter = null
-            linkedHashMap.clear()
-            viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, 0, errorHandler)
-        }
-
-        main_fragment_rv_collection_list.layoutManager = LinearLayoutManager(getActivity())
-
+        /*Check for the internet connectivity before doing any operation.*/
         if (NetworkUtils.isConnected(activity?.applicationContext!!)) {
-            observeViewModel(viewModel)
+            /*Create viewModel and observe to it only when it is null.
+             There is a possibility where only the view gets recreated, in those scenarios we need to make use of the data we have and bind to the newly created view.*/
+            if (mainViewModel == null) {
+                val factory = MainViewModel.Factory(activity?.application!!, Constants.COLLECTION_HOME)
+                mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+                mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
+                observeViewModel()
+            }
         } else {
             /* Not connected to Network, show retry layout and hide the rest*/
-            showRetryLayout(viewModel, activity?.getText(R.string.no_internet))
+            showRetryLayout(activity?.getText(R.string.no_internet))
         }
     }
 
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
-                viewModel.getCollectionLoadMoreResponse(Constants.COLLECTION_HOME, currentPage, errorHandler)
+                mainViewModel?.getCollectionLoadMoreResponse(currentPage, errorHandler)
             }
         }
     }
 
-    private fun observeViewModel(viewModel: MainViewModel) {
-        viewModel.getCollectionListObservable()?.observe(this, Observer<BulkTableModel>() {
-            it?.let { it1 -> linkedHashMap.put(it?.slug.toString(), it1) }
-            val linkedCollectionList = linkedHashMap.values.toList()
 
-            //Log.d("Rakshith", "summary is ${it?.slug}")
-            if (linkedHashMap.size < Constants.COLLECTION_LIMIT) {
-                collectionAdapter = HomeCollectionAdapter(linkedCollectionList, fragmentCallbacks)
-                main_fragment_rv_collection_list?.adapter = collectionAdapter
-                main_fragment_rv_collection_list.addOnScrollListener(getEndlessScrollListener())
+    private fun observeViewModel() {
+        val observer = Observer<BulkTableModel> {
+            it?.let { it1 -> linkedHashMap?.put(it?.slug.toString(), it1) }
+            if (homeCollectionAdapter == null) {
+                homeCollectionAdapter = HomeCollectionAdapter(linkedHashMap?.values?.toList(), fragmentCallbacks)
+                recyclerView?.adapter = homeCollectionAdapter
+                recyclerView?.addOnScrollListener(getEndlessScrollListener())
             } else {
-                collectionAdapter?.notifyAdapter(linkedCollectionList)
+                homeCollectionAdapter?.notifyAdapter(linkedHashMap?.values?.toList())
             }
-        })
+        }
+
+        /*Be careful while adding observer to the LiveData.*/
+        mainViewModel?.getCollectionListObservable()?.observe(this, observer)
     }
 
     override fun onAPISuccess() {
         hideRetryLayout()
-        home_fragment_swipeContainer.setRefreshing(false)
-        home_fragment_progress_bar.visibility = View.GONE
+        swipeRefreshLayout?.setRefreshing(false)
+        progressBar?.visibility = View.GONE
     }
 
     override fun onAPIFailure() {
+        progressBar?.visibility = View.GONE
         if (linkedHashMap.size == 0)
-            showRetryLayout(viewModel, this.resources.getString(R.string.oops))
+            showRetryLayout(this.resources.getString(R.string.oops))
     }
 
-    private fun showRetryLayout(viewModel: MainViewModel, errorMessage: CharSequence?) {
-        home_fragment_progress_bar.visibility = View.GONE
-        home_fragment_swipeContainer.visibility = View.GONE
+    private fun showRetryLayout(errorMessage: CharSequence?) {
+        progressBar?.visibility = View.GONE
+        swipeRefreshLayout?.visibility = View.GONE
 
-        retry_container.visibility = View.VISIBLE
-        error_message.text = errorMessage
-        retry_button.setOnClickListener { v ->
-            observeViewModel(viewModel)
+        retry_container?.visibility = View.VISIBLE
+        error_message?.text = errorMessage
+        retry_button?.setOnClickListener { v ->
+            mainViewModel?.getCollectionLoadMoreResponse(0, errorHandler)
         }
     }
 
     private fun hideRetryLayout() {
-        retry_container.visibility = View.GONE
-        home_fragment_swipeContainer.visibility = View.VISIBLE
+        retry_container?.visibility = View.GONE
+        swipeRefreshLayout?.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.compositeDisposable.dispose()
+        linkedHashMap.clear()
     }
 }
