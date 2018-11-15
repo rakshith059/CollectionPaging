@@ -1,6 +1,7 @@
 package quintype.com.templatecollectionwithrx.adapters
 
 import android.content.Context
+import android.net.Uri
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -8,15 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
 import quintype.com.templatecollectionwithrx.R
+import quintype.com.templatecollectionwithrx.models.NavMenu
+import quintype.com.templatecollectionwithrx.models.NavMenuGroup
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionChildViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.SectionParentViewHolder
 import quintype.com.templatecollectionwithrx.utils.Constants
-import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.models.NavMenu
+import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<ParentListItem>) : ExpandableRecyclerAdapter<SectionParentViewHolder, SectionChildViewHolder>(parentItemList) {
 
@@ -134,7 +137,7 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
             }
 
             //clickListener for the parent item name
-            parentViewHolder?.mSectionName?.setOnClickListener(View.OnClickListener {
+            parentViewHolder?.mSectionName?.setOnClickListener {
                 if (Constants.NAVMENU_GROUP_NOTIFICATIONS_POSITION.equals(section.dummyValue)) {
                     Log.d("DrawerSectionsAdapter", "Notifications menu clicked, ")
                     mListener?.onDrawerItemSelected(null)
@@ -154,7 +157,7 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
                     section.position = Constants.NAVMENU_GROUP_PARENT_POSITION
                     mListener?.onDrawerItemSelected(section)
                 }
-            })
+            }
         }
     }
 
@@ -184,7 +187,14 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
 
 
     private inner class HeaderViewHolder(v: View) : SectionParentViewHolder(v, mListener, SectionParentViewHolder.HEADER_VIEW) {
+        var navHeaderLayout: RelativeLayout? = null
 
+        init {
+            navHeaderLayout = v.findViewById<View>(R.id.nav_drawer_header_container) as RelativeLayout?
+            navHeaderLayout?.setOnClickListener {
+                mListener?.onDrawerItemSelected(null)
+            }
+        }
     }
 
     private inner class FooterViewHolder(v: View) : SectionParentViewHolder(v, mListener, SectionParentViewHolder.FOOTER_VIEW) {
@@ -194,12 +204,15 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
 
         init {
             navFooterLayout = v as LinearLayout
-            quintTypeLink = navFooterLayout?.findViewById<View>(R.id.quintype_link_tv) as TextView;
-            disclaimerLink = navFooterLayout?.findViewById<View>(R.id.disclaimer_tv) as TextView;
+            quintTypeLink = navFooterLayout?.findViewById<View>(R.id.quintype_link_tv) as TextView
+            disclaimerLink = navFooterLayout?.findViewById<View>(R.id.disclaimer_tv) as TextView
 
-            /*TODO Add HTML Tag handler to handle the URL*/
-            quintTypeLink?.text = "Quintype Website Link"
-            disclaimerLink?.text = "Disclaimer Link"
+            quintTypeLink?.setOnClickListener {
+                Utilities().loadURL(v.context, Uri.parse(v.context.resources.getString(R.string.quintype_link_text)))
+            }
+            disclaimerLink?.setOnClickListener {
+                Utilities().loadURL(v.context, Uri.parse(v.context.resources.getString(R.string.disclaimer_link_text)))
+            }
 
         }
     }

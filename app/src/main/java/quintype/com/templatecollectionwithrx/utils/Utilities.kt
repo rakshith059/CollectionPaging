@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.Point
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.annotation.DimenRes
 import android.support.constraint.ConstraintLayout
+import android.support.customtabs.CustomTabsIntent
 import android.text.Html
 import android.util.TypedValue
 import android.view.View
@@ -190,5 +192,12 @@ class Utilities {
         sectionFragment.arguments = sectionFragmentArgs
 
         return sectionFragment
+    }
+
+    fun loadURL(context: Context, uri: Uri) {
+        val customTabBuilder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
+        customTabBuilder.setToolbarColor(context.resources.getColor(R.color.colorPrimary))
+        val customTabsIntent: CustomTabsIntent = customTabBuilder.build()
+        customTabsIntent.launchUrl(context, uri)
     }
 }

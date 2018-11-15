@@ -4,9 +4,9 @@ import android.app.Application
 import android.util.Log
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.android.gms.ads.MobileAds
+import com.twitter.sdk.android.core.DefaultLogger
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
-import com.twitter.sdk.android.core.DefaultLogger
 import com.twitter.sdk.android.core.TwitterConfig
 
 /**

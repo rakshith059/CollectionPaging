@@ -3,19 +3,18 @@ package quintype.com.templatecollectionwithrx.ui.main.activities
 import android.app.FragmentManager
 import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.CustomTabsIntent
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem
-import com.google.android.gms.ads.MobileAds
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R
@@ -23,9 +22,6 @@ import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
 import quintype.com.templatecollectionwithrx.models.NavMenu
 import quintype.com.templatecollectionwithrx.models.NavMenuData
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
-import quintype.com.templatecollectionwithrx.ui.main.fragments.*
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
 import quintype.com.templatecollectionwithrx.ui.main.fragments.*
 import quintype.com.templatecollectionwithrx.utils.Constants
@@ -145,6 +141,7 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
     }
 
     override fun onDrawerItemSelected(menuGroup: NavMenuGroup?) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.home_container)
         if (menuGroup != null) {
             val menuData: NavMenuData = menuGroup.menuItem.data()
             if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_SECTION, true)) {
@@ -154,7 +151,7 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
 
                 //if the parent section is currently open, but at a different subsection
                 //right now, simply move the viewPager to the correct position
-                val fragment = supportFragmentManager.findFragmentById(R.id.home_container)
+
 
                 if (parentMenuId.equals(currentSection?.id(), true) && fragment is HomePagerFragment) {
                     fragment.setCurrentItem(submenuPosition + 1)
@@ -165,10 +162,7 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
                 }
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
                 if (menuData.url().contains("http")) {
-                    val customTabBuilder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
-                    customTabBuilder.setToolbarColor(resources.getColor(R.color.colorPrimary))
-                    val customTabsIntent: CustomTabsIntent = customTabBuilder.build()
-                    customTabsIntent.launchUrl(navMenuRecyclerview?.context, Uri.parse(menuData.url()))//Getting context from view to avoid AndroidRuntimeException("Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?")
+                    Utilities().loadURL(navMenuRecyclerview?.context!!, Uri.parse(menuData.url()))//Getting context from view to avoid AndroidRuntimeException("Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?")
                     Toast.makeText(this, "Menu type LINK", LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Menu type LINK - Invalid Link", LENGTH_SHORT).show()
@@ -182,6 +176,15 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
                 }
             } else {
                 Toast.makeText(this, "Unknown menu type", LENGTH_SHORT).show()
+            }
+        } else {
+            if (supportFragmentManager.backStackEntryCount == 0)//Checking for backStack count instead of fragment because, we are adding the same HomePagerFragment.
+                Log.d(TAG, "Already on Home screen, Don't do any thing")
+            else {
+                initHomePagerFragment(null)
+                for (i in 0 until supportFragmentManager.backStackEntryCount) {
+                    supportFragmentManager.popBackStack()
+                }
             }
         }
         mDrawerLayout?.closeDrawer(GravityCompat.START)

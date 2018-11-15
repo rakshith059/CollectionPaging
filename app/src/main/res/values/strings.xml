@@ -51,4 +51,10 @@
     <string name="native_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <!--<string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>-->
     <string name="admob_app_id">ca-app-pub-1138107191663281~8718926729</string>
+
+    <string name="quintype_link_placeholder">Powered by Quintype</string>
+    <string name="disclaimer_link_placeholder">Privacy Policy</string>
+
+    <string name="disclaimer_link_text"><![CDATA[https://www.quintype.com/privacy-policy]]></string>
+    <string name="quintype_link_text"><![CDATA[http://www.quintype.com]]></string>
 </resources>

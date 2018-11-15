@@ -17,7 +17,6 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_tag_list.*
-import kotlinx.android.synthetic.main.collection_fragment_layout.*
 import kotlinx.android.synthetic.main.retry_layout.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
