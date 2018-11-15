@@ -199,8 +199,6 @@ class CollectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         rvInnerCollection?.layoutManager = layoutManager
                         if (index == 0)
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL, mOuterCollectionAssociatedMetadata, outerCollectionName))
-                        else if (index == 1)
-                            collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.TYPE_NATIVE_ADS, mOuterCollectionAssociatedMetadata, outerCollectionName))
                         else
                             collectionList.add(CollectionInnerListModel(collectionInnerList.get(index).story, Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL, mOuterCollectionAssociatedMetadata, outerCollectionName))
                     }
