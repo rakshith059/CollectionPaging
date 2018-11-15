@@ -125,7 +125,6 @@ class Constants {
         const val SP_LAYOUT: String = "SP_LAYOUT"
         const val SP_SECTIONS: String = "SP_SECTIONS"
 
-        const val NATIVE_AD: String = "NATIVE_AD"
 
         const val TERMS_AND_CONDITION: String = "terms-and-conditions"
         const val ABOUT_US: String = "about-us"
