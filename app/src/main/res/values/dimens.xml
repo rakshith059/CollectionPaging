@@ -38,4 +38,7 @@
     <dimen name="size_20sp">20sp</dimen>
     <dimen name="size_40dp">40dp</dimen>
     <dimen name="size_8sp">8sp</dimen>
+    <dimen name="size_175dp">175dp</dimen>
+    <dimen name="size_400dp">400dp</dimen>
+    <dimen name="size_22sp">22sp</dimen>
 </resources>

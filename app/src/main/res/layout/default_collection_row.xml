@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/size_8dp">
@@ -15,11 +16,14 @@
             android:id="@+id/default_collection_row_tv_collection_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/size_8dp"
-            android:fontFamily="cursive"
+            android:layout_marginLeft="@dimen/size_8dp"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:layout_marginRight="@dimen/size_8dp"
+            android:layout_marginBottom="@dimen/size_4dp"
+            android:fontFamily="@font/roboto_regular"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_24sp"
+            android:textSize="@dimen/size_22sp"
             android:textStyle="bold" />
 
         <View
@@ -30,13 +34,20 @@
             android:background="@color/colorPrimary" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/default_collection_row_rv_inner_collection"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_8dp"
-        android:background="@color/grey"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/default_collection_row_ll_collection_name" />
+        app:layout_constraintTop_toBottomOf="@+id/default_collection_row_ll_collection_name">
 
+        <include layout="@layout/placeholder_shimmer_item" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/default_collection_row_rv_inner_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:background="@color/grey"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

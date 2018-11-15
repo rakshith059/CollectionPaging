@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -25,8 +26,11 @@ import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import quintype.com.templatecollectionwithrx.utils.widgets.NetworkUtils
 import quintype.com.templatecollectionwithrx.viewmodels.SearchListViewModel
-import com.google.android.youtube.player.internal.i
+import kotlinx.android.synthetic.main.custom_tool_bar.*
+import kotlinx.android.synthetic.main.fragment_tag_list.*
 import quintype.com.templatecollectionwithrx.utils.EndlessRecyclerOnScrollListener
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerItemDecorator
+import quintype.com.templatecollectionwithrx.utils.widgets.RecyclerviewGridItemDecorator
 
 
 /**
@@ -67,7 +71,9 @@ class AuthorListFragment : BaseFragment() {
 
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
+        fragment_author_list_rv_recycler_view.addItemDecoration(RecyclerItemDecorator(false, 8, 8, 8, 8))
         fragment_author_list_rv_recycler_view.layoutManager = layoutManager
+
 
         mAuthorName = arguments?.getString(AUTHOR_NAME)
         mAuthorImage = arguments?.getString(AUTHOR_IMAGE)
@@ -87,6 +93,30 @@ class AuthorListFragment : BaseFragment() {
                 observeViewModel(searchListViewModel, mAuthorName as String, 0, true)
             }
             observeViewModel(searchListViewModel, mAuthorName as String, 0, false)
+
+            (activity as AppCompatActivity).setSupportActionBar(fragment_author_list_toolbar)
+//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            fragment_author_list_collapsing_toolbar_layout?.setContentScrimColor(resources.getColor(R.color.colorPrimary))
+
+            custom_tool_bar_iv_back_image.visibility = View.VISIBLE
+            custom_tool_bar_iv_share_image.visibility = View.INVISIBLE
+
+            custom_tool_bar_tv_title.text = mAuthorName
+            custom_tool_bar_iv_back_image.setOnClickListener {
+                OnBackPressed()
+            }
+
+            /**
+             * checking whether a toolbar is collapsed or not
+             */
+            fragment_author_list_app_bar_layout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                // toolbar is collapsed
+                if (Math.abs(verticalOffset) == appBarLayout.totalScrollRange)
+                    custom_tool_bar_tv_title.visibility = View.VISIBLE
+                // toolbar is expanded
+                else
+                    custom_tool_bar_tv_title.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -122,6 +152,7 @@ class AuthorListFragment : BaseFragment() {
                                 showNoDataMessage()
                             }
                         }
+
                         override fun onNext(storiesSearchListResponse: SearchStoryList?) {
                             hideRetryLayout()
 
@@ -156,19 +187,20 @@ class AuthorListFragment : BaseFragment() {
     }
 
     private fun showRetryLayout(viewModel: SearchListViewModel, searchTerm: String, mPageNumber: Int, refreshList: Boolean, errorMessage: CharSequence?) {
-        author_list_progress_bar.visibility = View.GONE
-        author_list_swipeContainer.visibility = View.GONE
+        author_list_progress_bar?.visibility = View.GONE
+        author_list_swipeContainer?.visibility = View.GONE
 
-        retry_container.visibility = View.VISIBLE
-        error_message.text = errorMessage
+        retry_container?.visibility = View.VISIBLE
+        error_message?.text = errorMessage
         retry_button.setOnClickListener { v ->
             observeViewModel(viewModel, searchTerm, mPageNumber, refreshList)
         }
     }
 
     private fun hideRetryLayout() {
-        retry_container.visibility = View.GONE
-        author_list_swipeContainer.visibility = View.VISIBLE
+        retry_container?.visibility = View.GONE
+        author_list_progress_bar?.visibility = View.VISIBLE
+        author_list_swipeContainer?.visibility = View.VISIBLE
     }
 
     private fun showNoDataMessage() {

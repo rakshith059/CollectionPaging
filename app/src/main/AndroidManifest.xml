@@ -40,9 +40,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.activities.ImagePreviewActivity" />
-        <activity
-            android:name=".ui.main.activities.StoryDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -4,7 +4,13 @@
     android:id="@+id/title_below_image_underline_section_header_row_cl_main_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/size_8dp">
+    android:layout_marginLeft="@dimen/size_8dp"
+    android:layout_marginTop="@dimen/size_4dp"
+    android:layout_marginRight="@dimen/size_8dp"
+    android:layout_marginBottom="@dimen/size_4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

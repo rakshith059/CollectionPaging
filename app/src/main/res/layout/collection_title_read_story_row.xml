@@ -18,7 +18,7 @@
             android:id="@+id/collection_item_read_story_row_tv_collection_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/merriweather_bold"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/theme_primary_color"
@@ -31,12 +31,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_24dp"
             android:layout_marginBottom="@dimen/size_24dp"
-            android:fontFamily="cursive"
+            android:fontFamily="@font/merriweather_regular"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/theme_primary_color"
             android:textSize="@dimen/size_24sp"
-            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/collection_item_read_story_row_tv_collection_name" />
 
         <TextView
@@ -44,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/read_story_background"
-            android:fontFamily="serif"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:padding="@dimen/size_16dp"
             android:text="@string/read_story"

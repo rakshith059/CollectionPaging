@@ -12,21 +12,19 @@
         android:layout_height="wrap_content"
         android:background="@color/theme_secondary_color"
         android:ellipsize="end"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/merriweather_bold"
         android:padding="@dimen/size_8dp"
         android:text="@string/section"
         android:textColor="@color/white"
         android:textSize="@dimen/size_16sp"
-        android:textStyle="bold"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/section_block_title_author_row_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_8dp"
         android:ellipsize="end"
-        android:fontFamily="serif-monospace"
+        android:fontFamily="@font/merriweather_regular"
         android:maxLines="3"
         android:textColor="@color/theme_secondary_color"
         android:textSize="@dimen/size_16sp"
