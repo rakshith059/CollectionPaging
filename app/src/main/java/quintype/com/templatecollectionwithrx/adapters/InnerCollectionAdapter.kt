@@ -9,6 +9,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.CollectionInnerListModel
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.NativeAdsViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.TitleBelowImageBlockSectionViewHolder.Companion.mFragmentCallbacks
 import quintype.com.templatecollectionwithrx.utils.Constants
@@ -31,6 +32,7 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             Constants.VIEWHOLDER_TYPE_RIGHT_IMAGE_CHILD -> return RightImageChildViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_INSIDE_IMAGE_GRID -> return TitleInsideImageGridViewHolder.create(parent)
             Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HORIZONTAL -> return TitleInsideImageHorizontalViewHolder.create(parent)
+            Constants.TYPE_NATIVE_ADS -> return NativeAdsViewHolder.create(parent)
         }
         return LeftImageChildViewHolder.create(parent)
     }
@@ -62,6 +64,8 @@ class InnerCollectionAdapter(collectionItem: ArrayList<CollectionInnerListModel>
             holder.bind(collectionItemStory, collectionAssociatedMetadata, this)
         } else if (holder is TitleInsideImageHorizontalViewHolder) {
             holder.bind(collectionItemStory, collectionAssociatedMetadata, this)
+        } else if (holder is NativeAdsViewHolder) {
+            holder.bind(this)
         }
     }
 

@@ -7,6 +7,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.NativeAdsViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
@@ -37,6 +38,8 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     var mFragmentCallbacks = fragmentCallbacks
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
+            Constants.TYPE_NATIVE_ADS ->
+                return NativeAdsViewHolder.create(parent)
             Constants.TYPE_OUTER_COLLECTION ->
                 return CollectionViewHolder.create(parent, mFragmentCallbacks)
             Constants.TYPE_OUTER_STORY ->
