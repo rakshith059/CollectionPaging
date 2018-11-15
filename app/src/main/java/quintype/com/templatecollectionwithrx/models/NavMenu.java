@@ -161,12 +161,9 @@ public class NavMenu implements Parcelable {
     public Section section() {
         if (HOME.id.equalsIgnoreCase(id)) {
             return new Section(homeType);
-        } else
-
-        {
-            Section section = new Section(sectionName);
-            return section;
-        }
+        } else if (!TextUtils.isEmpty(sectionName)) {
+            return new Section(sectionName);
+        } else return null;
 
     }
 
