@@ -1,13 +1,14 @@
 package quintype.com.templatecollectionwithrx.ui.main.activities
 
 import android.app.FragmentManager
+import android.net.Uri
 import android.os.Bundle
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -17,15 +18,12 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.app_bar_main.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.DrawerSectionsAdapter
-import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
-import quintype.com.templatecollectionwithrx.ui.main.fragments.HomePagerFragment
-import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.models.NavMenu
+import quintype.com.templatecollectionwithrx.models.NavMenuData
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
-import quintype.com.templatecollectionwithrx.ui.main.fragments.SearchFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.AuthorListFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
-import quintype.com.templatecollectionwithrx.ui.main.fragments.TagListFragment
+import quintype.com.templatecollectionwithrx.models.config.ConfigLayout
+import quintype.com.templatecollectionwithrx.ui.main.fragments.*
+import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.Utilities
 import java.util.*
 
@@ -162,12 +160,39 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
                     addFragment(HomePagerFragment.newInstance(menuGroup), TAG)
                 }
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_LINK, true)) {
-                Toast.makeText(this, "Menu type LINK not yet handled", LENGTH_SHORT).show()
+                Toast.makeText(this, "Menu type LINK", LENGTH_SHORT).show()
+                val menuData: NavMenuData = menuGroup.menuItem.data()
+                if (menuData.url().contains("http")) {
+                    val customTabBuilder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
+                    customTabBuilder.setToolbarColor(resources.getColor(R.color.colorPrimary))
+
+                    val customTabsIntent: CustomTabsIntent = customTabBuilder.build()
+                    customTabsIntent.launchUrl(this.applicationContext, Uri.parse(menuData.url()))
+                }
             } else if (menuGroup.menuItem?.type().equals(NavMenu.TYPE_TAG, true)) {
                 Toast.makeText(this, "Menu type TAG not yet handled", LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Unknown menu type", LENGTH_SHORT).show()
             }
+
+
+            /*else if (menuGroup.getMenuItem().isTypeLink()) {
+                /*If the menu is of type link, get the url and open in a new tab*/
+                NavMenuData menuData = menuGroup.getMenuItem().data();
+                if (menuData != null && !StringUtils.isEmpty(menuData.url()) && menuData.url().contains("http")) {
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(HomeActivity.this, Uri.parse(menuData.url()));
+                }
+            } else if (menuGroup.getMenuItem().isTypeTag()) {
+                /*If the menu is of type tag, get the tag name and call the TagListFragment*/
+                if (!StringUtils.isEmpty(menuGroup.getMenuItem().tagName())) {
+                    Tag menuTag = new Tag(menuGroup.getMenuItem().tagName());
+                    replaceFragment(TagListFragment.newInstance(menuTag),
+                            TagListFragment.class.getName() + " : " + menuTag.name());
+                }
+            }*/
         }
         mDrawerLayout?.closeDrawer(GravityCompat.START)
     }
