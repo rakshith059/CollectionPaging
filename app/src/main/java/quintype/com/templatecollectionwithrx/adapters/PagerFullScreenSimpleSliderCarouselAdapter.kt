@@ -30,11 +30,15 @@ class PagerFullScreenSimpleSliderCarouselAdapter(collectionAssociatedMetadata: A
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = LayoutInflater.from(container.context).inflate(R.layout.pager_carousel_full_screen_simple_slider_row, container, false)
-        val slideShowViewHolder = PagerCarouselFullScreenSimpleSliderViewHolder(view)
-        val story = storyList?.get(position)?.story as Story
+        try {
+            val slideShowViewHolder = PagerCarouselFullScreenSimpleSliderViewHolder(view)
+            val story = storyList?.get(position)?.story as Story
 
-        slideShowViewHolder.bind(story, mCollectionAssociatedMetadata, mCollectionName, mListner)
-        container.addView(view)
+            slideShowViewHolder.bind(story, mCollectionAssociatedMetadata, mCollectionName, mListner)
+            container.addView(view)
+        } catch (indexOutOfBoundException: IndexOutOfBoundsException) {
+            indexOutOfBoundException.printStackTrace()
+        }
         return view
     }
 
