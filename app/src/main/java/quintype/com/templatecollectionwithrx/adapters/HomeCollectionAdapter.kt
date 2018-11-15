@@ -7,6 +7,7 @@ import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.models.story.Story
 import quintype.com.templatecollectionwithrx.ui.main.fragments.StoryPagerFragment
+import quintype.com.templatecollectionwithrx.ui.main.viewholders.NativeAdsViewHolder
 import quintype.com.templatecollectionwithrx.ui.main.viewholders.collectionholders.*
 import quintype.com.templatecollectionwithrx.utils.Constants
 import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
@@ -18,10 +19,27 @@ import quintype.com.templatecollectionwithrx.utils.FragmentCallbacks
 
 class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragmentCallbacks: FragmentCallbacks?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
     var collectionList = linkedCollectionList
+    var duplicateCollectionList = ArrayList<BulkTableModel>(collectionList)
+
+    init {
+        createDuplicateListWithAds()
+    }
+
+    private fun createDuplicateListWithAds() {
+        for (index in 0 until collectionList.size) {
+            if (index % 6 == 1)
+                duplicateCollectionList.add(index, BulkTableModel(Constants.NATIVE_AD, null,
+                        null, null,
+                        null, null,
+                        null, null))
+        }
+    }
 
     var mFragmentCallbacks = fragmentCallbacks
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
+            Constants.TYPE_NATIVE_ADS ->
+                return NativeAdsViewHolder.create(parent)
             Constants.TYPE_OUTER_COLLECTION ->
                 return CollectionViewHolder.create(parent, mFragmentCallbacks)
             Constants.TYPE_OUTER_STORY ->
@@ -37,26 +55,34 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
     }
 
     override fun getItemCount(): Int {
-        return collectionList?.size
+        return duplicateCollectionList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CollectionViewHolder) {
-            holder.bind(collectionList.get(position))
+            holder.bind(duplicateCollectionList.get(position))
         } else if (holder is StoryViewHolder) {
-            holder.bind(collectionList.get(position), this)
+            holder.bind(duplicateCollectionList.get(position), this)
         } else if (holder is LeftImageChildViewHolder) {
-            holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
+            holder.bind(duplicateCollectionList.get(position).story as Story, duplicateCollectionList.get(position).mOuterCollectionAssociatedMetadata, this)
         } else if (holder is RightImageChildViewHolder) {
-            holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
+            holder.bind(duplicateCollectionList.get(position).story as Story, duplicateCollectionList.get(position).mOuterCollectionAssociatedMetadata, this)
         } else if (holder is TitleBelowImageBlockSectionViewHolder) {
-            holder.bind(collectionList.get(position).story as Story, collectionList.get(position).mOuterCollectionAssociatedMetadata, this)
+            holder.bind(duplicateCollectionList.get(position).story as Story, duplicateCollectionList.get(position).mOuterCollectionAssociatedMetadata, this)
+        } else if (holder is NativeAdsViewHolder) {
+            holder.bind(this)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        var itemStory = collectionList.get(position).story
-        if (itemStory == null)
+        var itemStory = duplicateCollectionList.get(position).story
+
+//        if (itemSlug?.equals(Constants.NATIVE_AD) as Boolean)
+//            return Constants.TYPE_NATIVE_ADS
+//        else
+        if (position % 6 == 1) {
+            return Constants.TYPE_NATIVE_ADS
+        } else if (itemStory == null)
             return Constants.TYPE_OUTER_COLLECTION
         else
             return Constants.VIEWHOLDER_TYPE_TITLE_BELOW_IMAGE_HEADER_BLOCK_SECTION
@@ -71,15 +97,16 @@ class HomeCollectionAdapter(linkedCollectionList: List<BulkTableModel>, fragment
 
     fun notifyAdapter(linkedCollectionList: List<BulkTableModel>) {
         collectionList = linkedCollectionList
+        duplicateCollectionList = ArrayList(collectionList)
         notifyDataSetChanged()
     }
 
     override fun onClick(v: View?) {
         val storyList: ArrayList<Story> = ArrayList()
         val itemPosition: Int = v?.tag as Int
-        for (index in 0 until collectionList.size) {
-            if (collectionList[index].story != null)
-                storyList.add(collectionList.get(index).story as Story)
+        for (index in 0 until duplicateCollectionList.size) {
+            if (duplicateCollectionList[index].story != null)
+                storyList.add(duplicateCollectionList.get(index).story as Story)
         }
         when (v.id) {
             R.id.title_below_image_block_section_header_row_cl_main_container,

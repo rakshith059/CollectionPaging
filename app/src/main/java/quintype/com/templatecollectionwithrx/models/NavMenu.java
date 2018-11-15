@@ -171,8 +171,9 @@ public class NavMenu implements Parcelable {
      * @return an instance of tag
      */
     public Tag tag() {
-        Tag tag = new Tag(tagName);
-        return tag;
+        if (!TextUtils.isEmpty(tagName))
+            return new Tag(tagName);
+        else return null;
     }
 
     /**

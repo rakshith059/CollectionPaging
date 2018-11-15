@@ -1,15 +1,8 @@
 package quintype.com.templatecollectionwithrx.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Point
-import android.os.Build
-import android.preference.PreferenceManager
-import android.support.annotation.RequiresApi
-import android.text.Html
 import android.view.WindowManager
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created TemplateCollectionWithRx by rakshith on 7/23/18.
@@ -66,6 +59,8 @@ class Constants {
         const val QUERY_PARAM_KEY_TAG_NAME = "tag"
         const val QUERY_PARAM_KEY_SEARCH_TERM = "q"
 
+        const val NAV_MENU_GROUP = "navMenuGroup"
+
         var ACCEPT_APPLICATION_JSON_CHARSET_UTF_8 = "Accept: application/json; charset=utf-8"
         const val HALF_IMAGE_SLIDER = "HalfImageSlider"
         const val FOUR_COLUMN_GRID = "FourColGrid"
@@ -94,6 +89,7 @@ class Constants {
         const val VIEWHOLDER_TYPE_FULL_SCREEN_SIMPLE_SLIDER = 1011
         const val TYPE_OUTER_COLLECTION = 1012
         const val TYPE_OUTER_STORY = 1013
+        const val TYPE_NATIVE_ADS = 2000
 
         const val ASSOISATED_THEME_DARK: String = "dark"
         const val ASSOISATED_THEME_LIGHT: String = "light"
@@ -125,6 +121,7 @@ class Constants {
         const val SP_LAYOUT: String = "SP_LAYOUT"
         const val SP_SECTIONS: String = "SP_SECTIONS"
 
+        const val NATIVE_AD: String = "NATIVE_AD"
 
         const val TERMS_AND_CONDITION: String = "terms-and-conditions"
         const val ABOUT_US: String = "about-us"
@@ -140,5 +137,7 @@ class Constants {
         val CIRCLE_IMAGE_BORDER_WIDTH_3F: Float = 3f
         val CIRCLE_IMAGE_BORDER_WIDTH_10F: Float = 10f
         val CIRCLE_IMAGE_BORDER_WIDTH_15F: Float = 15f
+
+
     }
 }

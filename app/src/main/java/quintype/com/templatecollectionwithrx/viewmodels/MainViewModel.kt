@@ -1,15 +1,18 @@
 package quintype.com.templatecollectionwithrx.viewmodels
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
+import android.arch.lifecycle.ViewModelProvider
 import quintype.com.templatecollectionwithrx.models.BulkTableModel
 import quintype.com.templatecollectionwithrx.services.CollectionService
 import quintype.com.templatecollectionwithrx.utils.ErrorHandler
 
-class MainViewModel : ViewModel() {
-    val compositeDisposable = CompositeDisposable()
+class MainViewModel(collectionSlug: String, application: Application) : AndroidViewModel(application) {
+    private val mCollectionSlug = collectionSlug
     private var collectionListObservable: LiveData<BulkTableModel>? = null
+    private var collectionService: CollectionService? = null
 
     /**
      * Expose the LiveData Projects query so the UI can observe it.
@@ -18,12 +21,22 @@ class MainViewModel : ViewModel() {
         return collectionListObservable
     }
 
-    fun getCollectionResponse(collectionSlug: String, errorHandler: ErrorHandler?) {
-        collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(collectionSlug, 0, errorHandler)
-//        CollectionService.getInstance(compositeDisposable).getChildRxResponse("home", Constants.STORY_LIMIT, 0)
+    fun getCollectionLoadMoreResponse(currentPage: Int, errorHandler: ErrorHandler?) {
+        /*Create new Instanse of collectionService if it is not available.
+         Avoid using companion object to create new instances.*/
+        if (collectionService == null)
+            collectionService = CollectionService()
+
+        collectionListObservable = collectionService!!.getCollectionResponse(mCollectionSlug, currentPage, errorHandler)
     }
 
-    fun getCollectionLoadMoreResponse(collectionSlug: String, currentPage: Int, errorHandler: ErrorHandler?) {
-        collectionListObservable = CollectionService.getInstance(compositeDisposable).getCollectionResponse(collectionSlug, currentPage, errorHandler)
+
+    class Factory(application: Application, collectionSlug: String) : ViewModelProvider.NewInstanceFactory() {
+        private val mCollectionSlug = collectionSlug
+        private val mApplication = application
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return MainViewModel(mCollectionSlug, mApplication) as T
+        }
     }
 }

@@ -1,86 +1,89 @@
 package quintype.com.templatecollectionwithrx.ui.main.fragments
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_home_pager.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.HomePagerAdapter
 import quintype.com.templatecollectionwithrx.models.MenuItemModel
 import quintype.com.templatecollectionwithrx.models.NavMenuGroup
+import quintype.com.templatecollectionwithrx.utils.Constants.Companion.NAV_MENU_GROUP
 import quintype.com.templatecollectionwithrx.utils.Utilities
 
 class HomePagerFragment : BaseFragment() {
     private var navMenuGroup: NavMenuGroup? = null
-    val childSectionList = ArrayList<MenuItemModel>()
+    private var childSectionList = ArrayList<MenuItemModel>()
+    private var homePagerAdapter: HomePagerAdapter? = null
 
-    companion object {
-        private val NAV_MENU_GROUP = "navMenuGroup"
-
-        fun newInstance(menuGroup: NavMenuGroup?): HomePagerFragment {
-            val fragment = HomePagerFragment()
-            val args = Bundle()
-            args.putParcelable(NAV_MENU_GROUP, menuGroup)
-            fragment.arguments = args
-            return fragment
-        }
-    }
+    private lateinit var homeViewPager: ViewPager
+    private lateinit var homeTabLayout: TabLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home_pager, container, false)
+        val view = inflater.inflate(R.layout.fragment_home_pager, container, false)
+        homeViewPager = view.findViewById(R.id.home_view_pager)
+        homeTabLayout = view.findViewById(R.id.home_tab_layout)
+
+        if (homePagerAdapter != null) {
+            /*Set adapter again for recreated view*/
+            homeViewPager.adapter = homePagerAdapter
+            homeTabLayout.setupWithViewPager(homeViewPager)
+        }
+        return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navMenuGroup = arguments?.getParcelable(NAV_MENU_GROUP)
-
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (navMenuGroup != null) {
-            if (navMenuGroup?.getMenuItem()?.section()?.name != null) {
-                //Let's create the list of fragments that this viewPager should display
-                // since the parent menu item is the first element in the viewPager, create a
-                //next, add fragments for all the child items in the navMenuGroup
+        if (homePagerAdapter == null) {
+            if (navMenuGroup != null) {
+                if (navMenuGroup != null && navMenuGroup?.getMenuItem()?.section()?.name != null) {
+                    //Let's create the list of fragments that this viewPager should display
+                    // since the parent menu item is the first element in the viewPager, create a
+                    //next, add fragments for all the child items in the navMenuGroup
 
+                    /*Add parent menu item first*/
+                    val collectionSlug = Utilities.getCollectionSlug(this.requireContext(), navMenuGroup?.getMenuItem()?.section()?.name!!)
+                    if (collectionSlug != null)
+                        childSectionList.add(MenuItemModel(collectionSlug, navMenuGroup?.menuItem?.title()))
 
-                // fragment for that first and add it to the list of fragments
-                val collectionSlug = Utilities.getCollectionSlug(this.requireContext(), navMenuGroup?.getMenuItem()?.section()?.name!!)
-                if (collectionSlug != null)
-                    childSectionList.add(MenuItemModel(collectionSlug, navMenuGroup?.menuItem?.title()))
-
-                for (menuItem in navMenuGroup?.childItemList!!) {
-                    if (menuItem.sectionName() != null) {
-                        val childSectionCollectionSlug = Utilities.getCollectionSlug(this.requireContext(), menuItem.sectionName())
-                        if (childSectionCollectionSlug != null)
-                            childSectionList.add(MenuItemModel(menuItem.sectionSlug(), menuItem.title()))
+                    /*Add child menu items now*/
+                    for (menuItem in navMenuGroup?.childItemList!!) {
+                        if (menuItem.sectionName() != null) {
+                            val childSectionCollectionSlug = Utilities.getCollectionSlug(this.requireContext(), menuItem.sectionName())
+                            if (childSectionCollectionSlug != null)
+                                childSectionList.add(MenuItemModel(childSectionCollectionSlug, menuItem.title()))
+                        }
                     }
+
+                    homePagerAdapter = HomePagerAdapter(childFragmentManager, childSectionList, false)
+                    homeViewPager.adapter = homePagerAdapter
+                } else {
+                    Toast.makeText(this.context, "Couldn't find Section", Toast.LENGTH_SHORT).show()
                 }
-
-                val pagerAdapter = HomePagerAdapter(childFragmentManager, childSectionList, false)
-                home_pager_vp_pager.adapter = pagerAdapter
             } else {
-                Toast.makeText(this.context, "Couldn't find Section", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            val homeFragment = ArrayList<MenuItemModel>()
-            homeFragment.add(MenuItemModel("", ""))
+                var homeFragment = ArrayList<MenuItemModel>()
+                homeFragment.add(MenuItemModel("", ""))
 
-            val pagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment, true)
-            home_pager_vp_pager.adapter = pagerAdapter
+                homePagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment, true)
+                homeViewPager.adapter = homePagerAdapter
+            }
         }
 
         //link the tab layout and viewpager
-        fragment_home_pager_tab_layout.setupWithViewPager(home_pager_vp_pager)
+        homeTabLayout.setupWithViewPager(homeViewPager)
     }
 
     fun setCurrentItem(pos: Int) {
-        if (home_pager_vp_pager != null && childSectionList.size > pos) {
-            home_pager_vp_pager.currentItem = pos
+        if (childSectionList.size > pos) {
+            homeViewPager?.currentItem = pos
         }
     }
 }
