@@ -10,8 +10,7 @@ import android.widget.TextView
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.formats.NativeContentAd
-import com.google.android.gms.ads.formats.NativeContentAdView
+import com.google.android.gms.ads.formats.*
 import quintype.com.templatecollectionwithrx.R
 
 class NativeAdsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -24,9 +23,9 @@ class NativeAdsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 //        val adLoader = AdLoader.Builder(mContext, "ca-app-pub-1138107191663281/4355766617")
 //        val adLoader = AdLoader.Builder(mContext, "ca-app-pub-1138107191663281/2021402846")
         val adLoader = AdLoader.Builder(mContext, "ca-app-pub-3940256099942544/2247696110")
-                .forContentAd { ad: NativeContentAd ->
+                .forUnifiedNativeAd { ad: UnifiedNativeAd ->
                     val adView = LayoutInflater.from(mContext)
-                            .inflate(R.layout.native_ad_view, null) as NativeContentAdView
+                            .inflate(R.layout.native_ad_view, null) as UnifiedNativeAdView
                     // This method sets the text, images and the native ad, etc into the ad
                     // view.
 
@@ -42,21 +41,29 @@ class NativeAdsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
                     override fun onAdFailedToLoad(errorCode: Int) {
 //                        Toast.makeText(mContext, "ads loading failed with error code == $errorCode", Toast.LENGTH_SHORT).show()
                     }
+
+                    override fun onAdClicked() {
+//                        super.onAdClicked()
+                    }
                 })
                 .build()
 
         adLoader.loadAd(AdRequest.Builder()/*.addTestDevice("5EC1416AA84BB5D83F58117FDD19D166")*/.build())
     }
 
-    private fun populateNativeContentAdView(ad: NativeContentAd, adView: NativeContentAdView) {
-        adView.imageView = adView.findViewById(R.id.native_ad_view_iv_icon)
+    private fun populateNativeContentAdView(ad: UnifiedNativeAd, adView: UnifiedNativeAdView) {
+        adView.mediaView = adView.findViewById(R.id.native_ad_view_iv_icon)
         adView.headlineView = adView.findViewById(R.id.native_ad_view_tv_title)
         adView.advertiserView = adView.findViewById(R.id.native_ad_view_tv_advertiser)
 
         (adView.headlineView as TextView).text = ad.headline
         (adView.advertiserView as TextView).text = ad.advertiser
 
-        (adView.imageView as ImageView).setImageDrawable(ad.images.get(0).drawable)
+//        adView.mediaView.
+//        (adView.mediaView as MediaView).setImageDrawable(ad.images.get(0).drawable)
+
+        ad.recordCustomClickGesture()
+        adView.setNativeAd(ad)
     }
 
     fun bind(listener: View.OnClickListener) {

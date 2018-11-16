@@ -17,8 +17,8 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_tag_list.*
-import kotlinx.android.synthetic.main.collection_fragment_layout.*
 import kotlinx.android.synthetic.main.retry_layout.*
+import kotlinx.android.synthetic.main.search_list_fragment.*
 import quintype.com.templatecollectionwithrx.R
 import quintype.com.templatecollectionwithrx.adapters.SearchListAdapter
 import quintype.com.templatecollectionwithrx.models.TagListResponse
@@ -142,6 +142,8 @@ class TagListFragment : BaseFragment() {
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
+                tag_list_pb_end_progress.visibility = View.VISIBLE
+
                 observeViewModel(storiesListViewModel, mTagName as String, currentPage, false)
             }
         }
@@ -157,6 +159,7 @@ class TagListFragment : BaseFragment() {
                         override fun onComplete() {
                             Log.d("Rakshith", " tag list api call completed..")
                             tag_list_progress_bar.visibility = View.GONE
+                            tag_list_pb_end_progress.visibility = View.GONE
 
                             if (mStoriesList?.size as Int > 0) {
                                 if (searchListAdapter == null) {
@@ -188,6 +191,7 @@ class TagListFragment : BaseFragment() {
 
                         override fun onError(t: Throwable?) {
                             tag_list_swipeContainer.setRefreshing(false)
+                            tag_list_pb_end_progress.visibility = View.GONE
 
                             showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.oops))
                             Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
