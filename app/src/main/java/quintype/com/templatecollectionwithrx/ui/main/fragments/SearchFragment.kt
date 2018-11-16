@@ -147,6 +147,8 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
                     if (totalItemCount - 1 == layoutManager.findLastVisibleItemPosition()) {
                         Log.d("Rakshith", "current page is ===  $currentPage")
 //                            storiesListViewModel.getStoriesListResponse(mTagName as String, currentPage)
+                        search_list_fragment_pb_end_progress.visibility = View.VISIBLE
+
                         observeViewModel(searchListViewModel, "modi", currentPage)
                     }
                 }
@@ -167,6 +169,7 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
                             search_list_fragment_fl_main_container?.visibility = View.VISIBLE
                             search_list_fragment_ll_recent_search?.visibility = View.GONE
                             search_list_fragment_tv_no_recent_history?.visibility = View.GONE
+                            search_list_fragment_pb_end_progress.visibility = View.GONE
 
                             if (searchListAdapter == null) {
                                 searchListAdapter = SearchListAdapter(mStoriesList as ArrayList<Story>, fragmentCallbacks)
@@ -193,6 +196,7 @@ class SearchFragment : BaseFragment(), View.OnClickListener {
 
                         override fun onError(t: Throwable?) {
                             Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
+                            search_list_fragment_pb_end_progress.visibility = View.GONE
                         }
                     })
         else

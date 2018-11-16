@@ -26,6 +26,7 @@ class MainFragment : BaseFragment(), ErrorHandler {
     lateinit var errorHandler: ErrorHandler
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
+    private lateinit var scrollEndProgressBar: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
 
@@ -48,6 +49,7 @@ class MainFragment : BaseFragment(), ErrorHandler {
         val view = inflater.inflate(R.layout.collection_fragment_layout, container, false)
         /*The reason why we are creating variables for view is we can't manipulate the view directly by its 'id' inside onCreateView.*/
         recyclerView = view.findViewById(R.id.collection_fragment_recycler_view)
+        scrollEndProgressBar = view.findViewById(R.id.collection_fragment_pb_end_progress)
         progressBar = view.findViewById(R.id.collection_fragment_progress_bar)
         swipeRefreshLayout = view.findViewById(R.id.collection_fragment_swipeContainer)
 
@@ -104,6 +106,8 @@ class MainFragment : BaseFragment(), ErrorHandler {
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
+                scrollEndProgressBar?.visibility = View.VISIBLE
+
                 mainViewModel?.getCollectionLoadMoreResponse(currentPage, errorHandler)
             }
         }
@@ -130,10 +134,13 @@ class MainFragment : BaseFragment(), ErrorHandler {
         hideRetryLayout()
         swipeRefreshLayout?.setRefreshing(false)
         progressBar?.visibility = View.GONE
+
+        scrollEndProgressBar.visibility = View.GONE
     }
 
     override fun onAPIFailure() {
         progressBar?.visibility = View.GONE
+        scrollEndProgressBar.visibility = View.GONE
         if (linkedHashMap.size == 0)
             showRetryLayout(this.resources.getString(R.string.oops))
     }

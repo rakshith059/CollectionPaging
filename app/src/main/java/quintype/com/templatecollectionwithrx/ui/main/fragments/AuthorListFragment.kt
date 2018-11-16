@@ -123,6 +123,8 @@ class AuthorListFragment : BaseFragment() {
     private fun getEndlessScrollListener(): RecyclerView.OnScrollListener {
         return object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore(currentPage: Int) {
+                fragment_author_list_pb_progress_bar.visibility = View.VISIBLE
+
                 observeViewModel(searchListViewModel, mAuthorName as String, currentPage, false)
 
             }
@@ -139,6 +141,7 @@ class AuthorListFragment : BaseFragment() {
                         override fun onComplete() {
                             Log.d("Rakshith", " tag list api call completed..")
                             author_list_progress_bar.visibility = View.GONE
+                            fragment_author_list_pb_progress_bar.visibility = View.GONE
 
                             if (mStoriesList?.size!! > 0) {
                                 if (searchListAdapter == null) {
@@ -166,15 +169,16 @@ class AuthorListFragment : BaseFragment() {
                             if (storiesByAuthor == 1)
                                 storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.story_by)} $mAuthorName"
                             else if (storiesByAuthor > 1)
-                                storiesByAuthorString = "$storiesByAuthor ${resources.getString(R.string.stories_by)} $mAuthorName"
+                                storiesByAuthorString = "$storiesByAuthor ${activity?.resources?.getString(R.string.stories_by)} $mAuthorName"
                             author_list_fragment_tv_total_stories?.text = storiesByAuthorString
 
-                            for (index in 0 until storiesSearchListResponse?.getResults()?.stories?.size as Int)
-                                mStoriesList?.add(storiesSearchListResponse?.getResults()?.stories?.get(index) as Story)
+                            for (index in 0 until storiesSearchListResponse.getResults()?.stories?.size as Int)
+                                mStoriesList?.add(storiesSearchListResponse.getResults()?.stories?.get(index) as Story)
                         }
 
                         override fun onError(t: Throwable?) {
                             author_list_progress_bar.visibility = View.GONE
+                            fragment_author_list_pb_progress_bar.visibility = View.GONE
 
                             showRetryLayout(viewModel, searchTerm, mPageNumber, refreshList, activity?.getText(R.string.oops))
                             Log.d("Rakshith", " tag list api call failed error is ${t?.message}")
