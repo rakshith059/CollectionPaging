@@ -151,8 +151,6 @@ open class MainActivity : BaseActivity(), DrawerSectionsAdapter.OnDrawerItemSele
 
                 //if the parent section is currently open, but at a different subsection
                 //right now, simply move the viewPager to the correct position
-
-
                 if (parentMenuId.equals(currentSection?.id(), true) && fragment is HomePagerFragment) {
                     fragment.setCurrentItem(submenuPosition + 1)
                 } else {

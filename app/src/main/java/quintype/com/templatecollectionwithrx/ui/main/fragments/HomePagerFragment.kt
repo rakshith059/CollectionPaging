@@ -25,7 +25,7 @@ class HomePagerFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home_pager, container, false)
         homeViewPager = view.findViewById(R.id.home_view_pager)
-        homeTabLayout = view.findViewById(R.id.home_tab_layout)
+        homeTabLayout = view.findViewById<TabLayout>(R.id.home_tab_layout)
 
         if (homePagerAdapter != null) {
             /*Set adapter again for recreated view*/
@@ -69,7 +69,7 @@ class HomePagerFragment : BaseFragment() {
                     Toast.makeText(this.context, "Couldn't find Section", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                var homeFragment = ArrayList<MenuItemModel>()
+                val homeFragment = ArrayList<MenuItemModel>()
                 homeFragment.add(MenuItemModel("", ""))
 
                 homePagerAdapter = HomePagerAdapter(childFragmentManager, homeFragment, true)

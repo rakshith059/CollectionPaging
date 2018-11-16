@@ -81,20 +81,19 @@ class DrawerSectionsAdapter(context: Context, parentItemList: MutableList<Parent
         //setting the click listener for the child sections
         childViewHolder?.mSubsectionTextView?.setOnClickListener {
             val parent: NavMenuGroup?
-            for (i in parentItemList.indices) {
+            for (i in 1 until parentItemList.size) {
                 val item = parentItemList[i]
                 //find out which parent this child belongs to
-                if (subsection.parentId().equals((item as NavMenuGroup).menuItem?.id())) {
+                if (subsection.parentId().toInt() == (item as NavMenuGroup).menuItem?.id()?.toInt()) {
                     parent = item
-                    val j: Int = 0
                     for (j in 0 until parent.childItemList.size) {
-                        if (parent.childItemList.get(j)?.id()?.equals(subsection.id(), true) as Boolean) {
+                        if (parent.childItemList.get(j)?.id()?.toInt() == subsection.id()?.toInt()) {
+                            //set that position to the NavMenuGroup object and open the viewPager accordingly
+                            parent.position = j
                             break
                         }
                     }
 
-                    //set that position to the NavMenuGroup object and open the viewPager accordingly
-                    parent.position = j
                     //setting the selected state for the parent of this child,
                     //same as that done in the ParentViewHolder
                     if (selectedNavMenuGroup != null) {
